@@ -1,0 +1,16 @@
+{
+  "sourceFile": "new hero.mp4",
+  "sourceSha256": "D68536097C48F4A32C721213778DB63E117C28A35813369A0DFDF65D10ABA4CC",
+  "sourcePreserved": true,
+  "scrollCopy": "new-hero-original-scroll.mp4",
+  "poster": "new-hero-original-poster.jpg",
+  "durationSeconds": 10,
+  "width": 1280,
+  "height": 720,
+  "frameRate": 24,
+  "frameCount": 240,
+  "cleanup": "None. Original picture, including the visible watermark, is restored after the user rejected the texture-blended cleanup.",
+  "encoding": "All-intra H.264, CRF 18, yuv420p, fast-start metadata, muted scroll playback",
+  "preparation": "FFmpeg H.264 re-encode without picture filters; original first frame extracted as the poster.",
+  "externalGeneration": false
+}

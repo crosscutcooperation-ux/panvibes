@@ -1,0 +1,73 @@
+{
+  "source": "https://www.panvibesexim.com/service.php",
+  "sourceCaptured": "2026-10-13",
+  "checked": "2026-10-15",
+  "note": "Read from the saved original HTML; the live site timed out during this update.",
+  "contacts": [
+    {
+      "service": "export",
+      "name": "Vikrant Mayekar",
+      "role": "Chief Export Director",
+      "phone": "919987587873",
+      "features": [
+        "Customs Clearance",
+        "Documentation Support",
+        "Logistics Coordination",
+        "Global Network",
+        "Quality Assurance"
+      ]
+    },
+    {
+      "service": "import",
+      "name": "Nitesh Kanse",
+      "role": "Chief Procurement Director",
+      "phone": "919967653143",
+      "features": [
+        "Import Documentation",
+        "Port Handling",
+        "Customs Compliance",
+        "Inland Transportation",
+        "Risk Management"
+      ]
+    },
+    {
+      "service": "transport",
+      "name": "Bhavesh Patil",
+      "role": "Chief Logistic Director",
+      "phone": "919987587872",
+      "features": [
+        "Road Transport",
+        "Rail Services",
+        "Multimodal Solutions",
+        "Real-time Tracking",
+        "Timely Delivery"
+      ]
+    },
+    {
+      "service": "document",
+      "name": "Omkar Marakwar",
+      "role": "Chief Operations Director",
+      "phone": "918655481884",
+      "features": [
+        "Bill of Lading",
+        "Certificates of Origin",
+        "Commercial Invoices",
+        "Customs Documentation",
+        "Legal Compliance"
+      ]
+    },
+    {
+      "service": "freight",
+      "name": "Omkar Marakwar",
+      "role": "Chief Operations Director",
+      "phone": "918655481884",
+      "features": [
+        "Air Freight",
+        "Sea Freight",
+        "Land Transport",
+        "Cargo Insurance",
+        "Supply Chain Management"
+      ]
+    }
+  ]
+}

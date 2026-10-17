@@ -1,0 +1,47 @@
+/* Scoped merge of the supplied design.css, brand.css and journey.css foundations. */
+@font-face { font-family: Steinhart; src: url('/images/fonts/BTSteinhart-Bold-subset.woff2') format('woff2'); font-weight: 700; font-display: swap; }
+@font-face { font-family: Steinhart; src: url('/images/fonts/BTSteinhart-Medium-subset.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: Helvetica; src: url('/images/fonts/HelveticaNeueRoman-subset.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+@font-face { font-family: Helvetica; src: url('/images/fonts/HelveticaNeueMedium-subset.woff2') format('woff2'); font-weight: 500; font-display: swap; }
+@font-face { font-family: SteinhartMono; src: url('/images/fonts/BTSteinhart-RegularMono-subset.woff2') format('woff2'); font-weight: 400; font-display: swap; }
+
+.theme {
+  --ink: #104e87;
+  --paper: #fff;
+  --blue: #104e87;
+  --deep-blue: #0a3866;
+  --red: #e5643d;
+  --orange: var(--red);
+  --muted: #45637d;
+  --line: #104e8733;
+  --soft: #f5f8fc;
+  --page-background: var(--soft);
+  --hero-background: var(--blue);
+  --hero-ink: var(--paper);
+  --gutter: clamp(12px, 2.315vw, 40px);
+  --body-font: Helvetica, Arial, sans-serif;
+  --heading-font: Steinhart, Arial, sans-serif;
+  --label-font: SteinhartMono, monospace;
+  color: var(--ink);
+  background: var(--page-background);
+  font-family: var(--body-font);
+  font-weight: 400;
+  line-height: 1.3;
+  -webkit-font-smoothing: antialiased;
+}
+
+.theme :where(h1, h2, h3, h4) {
+  font-family: var(--heading-font);
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.theme ::selection { background: var(--blue); color: var(--paper); }
+
+@media (max-width: 760px) {
+  .theme { --gutter: 16px; }
+}
+
+@media (max-width: 480px) {
+  .theme { --gutter: 12px; }
+}

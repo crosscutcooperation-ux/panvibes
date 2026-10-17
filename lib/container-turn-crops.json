@@ -1,0 +1,302 @@
+{
+  "/images/journey/crane-turn/000.webp": {
+    "x": 0.8546875,
+    "y": 0.28055555555555556,
+    "width": 0.125,
+    "height": 0.24722222222222223
+  },
+  "/images/journey/crane-turn/002.webp": {
+    "x": 0.840625,
+    "y": 0.2777777777777778,
+    "width": 0.13203125,
+    "height": 0.2513888888888889
+  },
+  "/images/journey/crane-turn/004.webp": {
+    "x": 0.83125,
+    "y": 0.28055555555555556,
+    "width": 0.13515625,
+    "height": 0.24861111111111112
+  },
+  "/images/journey/crane-turn/006.webp": {
+    "x": 0.821875,
+    "y": 0.28055555555555556,
+    "width": 0.1359375,
+    "height": 0.24861111111111112
+  },
+  "/images/journey/crane-turn/008.webp": {
+    "x": 0.809375,
+    "y": 0.28055555555555556,
+    "width": 0.15,
+    "height": 0.24861111111111112
+  },
+  "/images/journey/crane-turn/010.webp": {
+    "x": 0.7921875,
+    "y": 0.28055555555555556,
+    "width": 0.16640625,
+    "height": 0.24861111111111112
+  },
+  "/images/journey/crane-turn/012.webp": {
+    "x": 0.77265625,
+    "y": 0.28055555555555556,
+    "width": 0.1828125,
+    "height": 0.24861111111111112
+  },
+  "/images/journey/crane-turn/014.webp": {
+    "x": 0.75859375,
+    "y": 0.2791666666666667,
+    "width": 0.1953125,
+    "height": 0.2513888888888889
+  },
+  "/images/journey/crane-turn/016.webp": {
+    "x": 0.74296875,
+    "y": 0.2777777777777778,
+    "width": 0.21015625,
+    "height": 0.25416666666666665
+  },
+  "/images/journey/crane-turn/018.webp": {
+    "x": 0.71640625,
+    "y": 0.28194444444444444,
+    "width": 0.234375,
+    "height": 0.25833333333333336
+  },
+  "/images/journey/crane-turn/020.webp": {
+    "x": 0.6984375,
+    "y": 0.28194444444444444,
+    "width": 0.24921875,
+    "height": 0.25833333333333336
+  },
+  "/images/journey/crane-turn/022.webp": {
+    "x": 0.68359375,
+    "y": 0.28194444444444444,
+    "width": 0.2609375,
+    "height": 0.25833333333333336
+  },
+  "/images/journey/crane-turn/024.webp": {
+    "x": 0.65859375,
+    "y": 0.2847222222222222,
+    "width": 0.28359375,
+    "height": 0.25416666666666665
+  },
+  "/images/journey/crane-turn/026.webp": {
+    "x": 0.6359375,
+    "y": 0.2847222222222222,
+    "width": 0.303125,
+    "height": 0.25555555555555554
+  },
+  "/images/journey/crane-turn/028.webp": {
+    "x": 0.61796875,
+    "y": 0.2875,
+    "width": 0.31796875,
+    "height": 0.2513888888888889
+  },
+  "/images/journey/crane-turn/030.webp": {
+    "x": 0.596875,
+    "y": 0.28888888888888886,
+    "width": 0.3359375,
+    "height": 0.2513888888888889
+  },
+  "/images/journey/crane-turn/032.webp": {
+    "x": 0.5734375,
+    "y": 0.2902777777777778,
+    "width": 0.35546875,
+    "height": 0.2513888888888889
+  },
+  "/images/journey/crane-turn/034.webp": {
+    "x": 0.54609375,
+    "y": 0.2902777777777778,
+    "width": 0.37890625,
+    "height": 0.25277777777777777
+  },
+  "/images/journey/crane-turn/036.webp": {
+    "x": 0.52734375,
+    "y": 0.29444444444444445,
+    "width": 0.39375,
+    "height": 0.25
+  },
+  "/images/journey/crane-turn/038.webp": {
+    "x": 0.50546875,
+    "y": 0.29444444444444445,
+    "width": 0.4109375,
+    "height": 0.2513888888888889
+  },
+  "/images/journey/crane-turn/040.webp": {
+    "x": 0.48203125,
+    "y": 0.2972222222222222,
+    "width": 0.4296875,
+    "height": 0.25
+  },
+  "/images/journey/crane-turn/042.webp": {
+    "x": 0.45859375,
+    "y": 0.2986111111111111,
+    "width": 0.44921875,
+    "height": 0.25
+  },
+  "/images/journey/crane-turn/044.webp": {
+    "x": 0.43984375,
+    "y": 0.3013888888888889,
+    "width": 0.46328125,
+    "height": 0.24722222222222223
+  },
+  "/images/journey/crane-turn/046.webp": {
+    "x": 0.41796875,
+    "y": 0.30416666666666664,
+    "width": 0.4796875,
+    "height": 0.24583333333333332
+  },
+  "/images/journey/crane-turn/048.webp": {
+    "x": 0.39921875,
+    "y": 0.3055555555555556,
+    "width": 0.49296875,
+    "height": 0.24583333333333332
+  },
+  "/images/journey/crane-turn/050.webp": {
+    "x": 0.37890625,
+    "y": 0.30833333333333335,
+    "width": 0.5125,
+    "height": 0.24444444444444444
+  },
+  "/images/journey/crane-turn/052.webp": {
+    "x": 0.36171875,
+    "y": 0.3111111111111111,
+    "width": 0.521875,
+    "height": 0.24166666666666667
+  },
+  "/images/journey/crane-turn/054.webp": {
+    "x": 0.3453125,
+    "y": 0.3138888888888889,
+    "width": 0.53046875,
+    "height": 0.24027777777777778
+  },
+  "/images/journey/crane-turn/056.webp": {
+    "x": 0.32734375,
+    "y": 0.31527777777777777,
+    "width": 0.54296875,
+    "height": 0.24027777777777778
+  },
+  "/images/journey/crane-turn/058.webp": {
+    "x": 0.3140625,
+    "y": 0.31805555555555554,
+    "width": 0.55078125,
+    "height": 0.2388888888888889
+  },
+  "/images/journey/crane-turn/060.webp": {
+    "x": 0.30078125,
+    "y": 0.32083333333333336,
+    "width": 0.5578125,
+    "height": 0.2375
+  },
+  "/images/journey/crane-turn/062.webp": {
+    "x": 0.28828125,
+    "y": 0.3236111111111111,
+    "width": 0.56484375,
+    "height": 0.2375
+  },
+  "/images/journey/crane-turn/064.webp": {
+    "x": 0.2796875,
+    "y": 0.3263888888888889,
+    "width": 0.56796875,
+    "height": 0.23333333333333334
+  },
+  "/images/journey/crane-turn/066.webp": {
+    "x": 0.2703125,
+    "y": 0.3277777777777778,
+    "width": 0.571875,
+    "height": 0.23333333333333334
+  },
+  "/images/journey/crane-turn/068.webp": {
+    "x": 0.26171875,
+    "y": 0.33055555555555555,
+    "width": 0.575,
+    "height": 0.23055555555555557
+  },
+  "/images/journey/crane-turn/070.webp": {
+    "x": 0.2546875,
+    "y": 0.33194444444444443,
+    "width": 0.5765625,
+    "height": 0.23055555555555557
+  },
+  "/images/journey/crane-turn/072.webp": {
+    "x": 0.24921875,
+    "y": 0.3375,
+    "width": 0.57734375,
+    "height": 0.2263888888888889
+  },
+  "/images/journey/crane-turn/074.webp": {
+    "x": 0.24375,
+    "y": 0.3388888888888889,
+    "width": 0.57734375,
+    "height": 0.225
+  },
+  "/images/journey/crane-turn/076.webp": {
+    "x": 0.2390625,
+    "y": 0.3416666666666667,
+    "width": 0.578125,
+    "height": 0.22361111111111112
+  },
+  "/images/journey/crane-turn/078.webp": {
+    "x": 0.23671875,
+    "y": 0.34444444444444444,
+    "width": 0.57578125,
+    "height": 0.2222222222222222
+  },
+  "/images/journey/crane-turn/080.webp": {
+    "x": 0.2359375,
+    "y": 0.3402777777777778,
+    "width": 0.571875,
+    "height": 0.2263888888888889
+  },
+  "/images/journey/crane-turn/082.webp": {
+    "x": 0.23203125,
+    "y": 0.3416666666666667,
+    "width": 0.571875,
+    "height": 0.2263888888888889
+  },
+  "/images/journey/crane-turn/084.webp": {
+    "x": 0.23125,
+    "y": 0.34305555555555556,
+    "width": 0.56875,
+    "height": 0.2263888888888889
+  },
+  "/images/journey/crane-turn/086.webp": {
+    "x": 0.22421875,
+    "y": 0.34444444444444444,
+    "width": 0.5703125,
+    "height": 0.225
+  },
+  "/images/journey/crane-turn/088.webp": {
+    "x": 0.221875,
+    "y": 0.3458333333333333,
+    "width": 0.5703125,
+    "height": 0.225
+  },
+  "/images/journey/crane-turn/090.webp": {
+    "x": 0.21953125,
+    "y": 0.3194444444444444,
+    "width": 0.571875,
+    "height": 0.2513888888888889
+  },
+  "/images/journey/crane-turn/092.webp": {
+    "x": 0.21796875,
+    "y": 0.3486111111111111,
+    "width": 0.5703125,
+    "height": 0.22361111111111112
+  },
+  "/images/journey/crane-turn/094.webp": {
+    "x": 0.22109375,
+    "y": 0.35,
+    "width": 0.5625,
+    "height": 0.22361111111111112
+  },
+  "/images/journey/crane-turn/096.webp": {
+    "x": 0.21796875,
+    "y": 0.35138888888888886,
+    "width": 0.5671875,
+    "height": 0.2222222222222222
+  },
+  "/images/journey/crane-lift/000.webp": {
+    "x": 0.8359375,
+    "y": 0.2875,
+    "width": 0.153125,
+    "height": 0.30277777777777776
+  }
+}

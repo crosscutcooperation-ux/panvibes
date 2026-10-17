@@ -1,0 +1,22 @@
+{
+  "sourceFile": "1016_1.mp4",
+  "sourceSha256": "8D18F6308516867845B1DCDB99AFE0383AA7900B4CE59330BF69E1738B1A2AA2",
+  "sourcePreserved": true,
+  "sourceWidth": 2560,
+  "sourceHeight": 1440,
+  "sourceFrameRate": 60,
+  "sourceFrameCount": 592,
+  "scrollCopy": "hero-1016-smooth.mp4",
+  "poster": "hero-1016-smooth-poster.jpg",
+  "durationSeconds": 9.866667,
+  "width": 1920,
+  "height": 1080,
+  "frameRate": 30,
+  "frameCount": 296,
+  "pictureEdits": "Lanczos downscale to 1080p and 30 fps for smooth seeking. No retouching, crop or sharpening. High-resolution source preserved.",
+  "encoding": "All-intra H.264 CRF 19, no B frames, yuv420p, fast-start metadata, muted scroll playback",
+  "fileBytes": 33782248,
+  "replacedHeavyCopyBytes": 61067917,
+  "copyTransition": "Hero copy stays white through the desert footage and blends into #104e87 during 68–80% of the decoded video timeline; reverses with seeking.",
+  "externalGeneration": false
+}

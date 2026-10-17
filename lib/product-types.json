@@ -1,0 +1,305 @@
+{
+  "source": "https://www.panvibesexim.com/product.php",
+  "verified": "2026-10-14",
+  "categories": [
+    {
+      "key": "makhana",
+      "title": "Makhana",
+      "types": [
+        {
+          "name": "Makhana 5+",
+          "grades": []
+        },
+        {
+          "name": "Makhana 6+",
+          "grades": []
+        },
+        {
+          "name": "Chataka Pataka Makhana",
+          "grades": []
+        },
+        {
+          "name": "Cream & Onion Makhana",
+          "grades": []
+        },
+        {
+          "name": "Himalayan Pink Salt Makhana",
+          "grades": []
+        },
+        {
+          "name": "Peri Peri Makhana",
+          "grades": []
+        }
+      ]
+    },
+    {
+      "key": "dairy",
+      "title": "Dairy Products",
+      "types": [
+        {
+          "name": "Cottage Cheese (Paneer)",
+          "grades": []
+        },
+        {
+          "name": "Ghee",
+          "grades": []
+        },
+        {
+          "name": "A2 Ghee",
+          "grades": []
+        },
+        {
+          "name": "Cow Ghee",
+          "grades": []
+        }
+      ]
+    },
+    {
+      "key": "agricultural",
+      "title": "Vegetables (Dehydrated)",
+      "types": [
+        {
+          "name": "Ginger",
+          "grades": []
+        },
+        {
+          "name": "Garlic",
+          "grades": []
+        },
+        {
+          "name": "Tomatoes",
+          "grades": []
+        },
+        {
+          "name": "Beetroot",
+          "grades": []
+        },
+        {
+          "name": "Carrot",
+          "grades": []
+        },
+        {
+          "name": "Onion",
+          "grades": []
+        }
+      ]
+    },
+    {
+      "key": "textiles",
+      "title": "Fruits (Dehydrated)",
+      "types": [
+        {
+          "name": "Banana",
+          "grades": []
+        },
+        {
+          "name": "Mango",
+          "grades": []
+        },
+        {
+          "name": "Pineapple",
+          "grades": []
+        },
+        {
+          "name": "Jackfruit",
+          "grades": []
+        },
+        {
+          "name": "Kiwi",
+          "grades": []
+        }
+      ]
+    },
+    {
+      "key": "electronics",
+      "title": "Sprouts (Dehydrated)",
+      "types": [
+        {
+          "name": "Sprouted Moth",
+          "grades": []
+        },
+        {
+          "name": "Sprouted Ragi",
+          "grades": []
+        },
+        {
+          "name": "Sprouted Green (Mung)",
+          "grades": []
+        },
+        {
+          "name": "Sprouted Grain",
+          "grades": []
+        },
+        {
+          "name": "Sprouted Beans",
+          "grades": []
+        }
+      ]
+    },
+    {
+      "key": "chemicals",
+      "title": "Cashew & Other Dry Fruits",
+      "types": [
+        {
+          "name": "Cashew",
+          "grades": [
+            "W180",
+            "W240",
+            "W320",
+            "W450"
+          ]
+        },
+        {
+          "name": "Raisins",
+          "grades": []
+        }
+      ]
+    },
+    {
+      "key": "machinery",
+      "title": "Spices",
+      "types": [
+        {
+          "name": "Vanilla Beans",
+          "grades": []
+        },
+        {
+          "name": "Saffron",
+          "grades": []
+        }
+      ]
+    },
+    {
+      "key": "food",
+      "title": "Chemicals",
+      "types": [
+        {
+          "name": "Ethanol (All Grades)",
+          "grades": []
+        }
+      ]
+    },
+    {
+      "key": "steel",
+      "title": "Nutraceuticals",
+      "types": [
+        {
+          "name": "Moringa Powder",
+          "grades": []
+        },
+        {
+          "name": "Curcumin",
+          "grades": []
+        },
+        {
+          "name": "Flaxseed",
+          "grades": []
+        },
+        {
+          "name": "Probiotics",
+          "grades": []
+        }
+      ]
+    },
+    {
+      "key": "automotive",
+      "title": "Indian Flavours Ready in Minutes",
+      "types": [
+        {
+          "name": "Poha",
+          "grades": []
+        },
+        {
+          "name": "Puran",
+          "grades": []
+        },
+        {
+          "name": "Malvani Gravy",
+          "grades": []
+        },
+        {
+          "name": "Black Gravy (Customizable Quantity)",
+          "grades": []
+        }
+      ]
+    },
+    {
+      "key": "millets",
+      "title": "Millets",
+      "types": [
+        {
+          "name": "Ragi",
+          "grades": []
+        },
+        {
+          "name": "Jowar",
+          "grades": []
+        },
+        {
+          "name": "Flour",
+          "grades": []
+        },
+        {
+          "name": "Millet Mix",
+          "grades": []
+        }
+      ]
+    },
+    {
+      "key": "stone",
+      "title": "Aggregate",
+      "types": [
+        {
+          "name": "10mm Crushed Sand",
+          "grades": []
+        },
+        {
+          "name": "20mm Crushed Sand",
+          "grades": []
+        },
+        {
+          "name": "40 mm crushed Stone",
+          "grades": []
+        },
+        {
+          "name": "Fly Ash",
+          "grades": []
+        }
+      ]
+    },
+    {
+      "key": "admixtures",
+      "title": "Construction Admixtures",
+      "types": [
+        {
+          "name": "Super Plasticizer Liquid",
+          "grades": []
+        },
+        {
+          "name": "Accelerator Admixture",
+          "grades": []
+        },
+        {
+          "name": "Retarder Admixture",
+          "grades": []
+        },
+        {
+          "name": "Waterproofing Liquid",
+          "grades": []
+        },
+        {
+          "name": "Air Entraining Agent (AEA)",
+          "grades": []
+        },
+        {
+          "name": "Dry Mix Mortar",
+          "grades": []
+        },
+        {
+          "name": "Repair Mortar",
+          "grades": []
+        }
+      ]
+    }
+  ]
+}

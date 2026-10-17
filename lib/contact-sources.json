@@ -1,0 +1,10 @@
+{
+  "verified": "2026-10-15",
+  "companyAndServices": "https://www.panvibesexim.com/service.php",
+  "companyContact": "https://www.panvibesexim.com/contact.php",
+  "layoutReference": "https://unitedcarriers.com/contact",
+  "officeMap": "Original PanVibes Google Maps embed for Akshar Business Park",
+  "officeMapCentre": { "latitude": 19.078838751885296, "longitude": 73.01078787425185 },
+  "serviceContacts": "See service-contacts.json, parsed from the original service.php HTML captured 13 October 2026. Omkar handles Document Verification and Freight Forwarding; the screenshot's Export contact is superseded by these source assignments.",
+  "formDelivery": "Validated local email draft, sent by the visitor in their own email client. No delivery backend is configured."
+}

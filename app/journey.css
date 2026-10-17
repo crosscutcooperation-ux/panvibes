@@ -1,0 +1,162 @@
+/* Continuous homepage journey. Vehicles and layout share one reversible scroll clock. */
+html { scroll-behavior:auto; }
+button:disabled { opacity:1; cursor:default; }
+.home-header .news-bar { min-height:3.8rem; padding:1.2rem var(--gutter); }
+.home-header .header-main { display:grid; grid-template-columns:27% 1fr; grid-template-rows:auto auto; row-gap:2.2rem; align-items:start; }
+.home-header .header-brand { grid-row:1 / 3; }
+.home-header .desktop-nav { position:static; display:flex; flex-direction:row; flex-wrap:wrap; align-items:center; gap:3rem; padding:.7rem 0; }
+.home-header .desktop-nav button { text-transform:uppercase; white-space:nowrap; font:inherit; }
+.header-documents { grid-column:2; justify-self:end; display:flex; gap:1.1rem; }
+.header-documents .pill { min-width:17.5rem; padding:1.55rem 2.3rem; }
+.hero-static.hero { height:100svh; min-height:70rem; background:#080808; }
+.hero-static .hero-stage { position:relative; height:100%; background:#080808; }
+.hero-static .hero-copy { width:67vw; padding:25rem 0 5rem; justify-content:flex-start; }
+.hero-static h1 { font-size:9.2rem; line-height:1.025; }
+.hero-static .hero-description { max-width:39rem; margin-bottom:4rem; }
+.hero-static .hero-stars { opacity:.16; }
+.hero-static .scroll-cue > span:last-child { animation:none; }
+.hero-static-arrow { position:absolute; right:5rem; top:32%; width:13rem; height:13rem; transform:rotate(90deg); color:#ffffff38; }
+.hero-static-arrow svg { width:100%; height:100%; }
+.trade-journey-v2 { position:relative; }
+.motion-stage { display:flex; flex-direction:column; position:relative; overflow:hidden; }
+.motion-paper,.motion-ocean,.motion-vehicles,.motion-cloud,.motion-progress { display:none; }
+.motion-stats { order:0; min-height:100svh; padding:8rem var(--gutter); background:#fff; }
+.static-tempo { width:50%; margin-bottom:4rem; }
+.motion-stat { padding:3rem 0; border-top:1px solid #ddd; display:flex; justify-content:space-between; align-items:center; }
+.motion-stat p { font:700 12rem/.95 Steinhart,Arial,sans-serif; letter-spacing:-.04em; }
+.motion-stat sup { font-size:.43em; vertical-align:super; margin-left:.08em; }
+.motion-stat > span { font-size:2rem; max-width:18rem; }
+.motion-service-track { order:1; background:#101010; color:white; padding:8rem var(--gutter); }
+.motion-service-intro h2 { font-size:6.4rem; line-height:1.02; }
+.motion-service-intro > p:not(.eyebrow) { max-width:36rem; margin:2.8rem 0; color:#999; font-size:1.7rem; }
+.motion-service-card { padding:4rem 0; border-top:1px solid #444; }
+.motion-service-top { display:flex; justify-content:space-between; align-items:flex-start; height:9rem; color:#888; }
+.motion-service-top img { width:9rem; height:7rem; object-fit:contain; }
+.motion-service-card h3 { font-size:4.7rem; margin:1rem 0 2.8rem; }
+.motion-service-card > p { max-width:38rem; color:#aaa; font-size:1.8rem; line-height:1.4; }
+.motion-features { display:block; margin-top:2.8rem; color:#666; max-width:40rem; }
+.motion-service-card .text-link { display:flex; justify-content:space-between; width:100%; margin-top:3rem; padding-bottom:1rem; border-bottom:1px solid #444; }
+.motion-service-card .text-link svg { width:2rem; }
+.motion-industries { order:2; padding:8rem var(--gutter); background:#fff; }
+.motion-industry-title h2 { font-size:5.2rem; }
+.motion-industry-track { display:grid; grid-template-columns:1fr 1fr; gap:3rem; margin-top:5rem; }
+.motion-industry-card { position:relative; aspect-ratio:1.55; overflow:hidden; color:white; }
+.motion-industry-card:after { content:"";position:absolute;inset:0;background:linear-gradient(transparent 35%,#0009); }
+.motion-industry-card img { object-fit:cover; }
+.motion-industry-card > span { position:absolute;top:1.6rem;left:1.6rem;z-index:1; }
+.motion-industry-card h3 { position:absolute;left:1.6rem;bottom:1.6rem;z-index:1;font-size:3.5rem; }
+.motion-orbit { order:3; position:relative; min-height:100svh; background:#05070a; color:white; overflow:hidden; }
+.motion-stars { position:absolute;inset:0;background:url('/images/stars.avif') center/cover;opacity:.3; }
+.motion-globe { position:absolute;left:-5vw;top:calc(50% - 32.5vw);width:65vw;height:65vw; }
+.motion-world-copy { position:absolute;left:60%;top:18%;width:36%; }
+.motion-world-copy h2 { font-size:6rem; line-height:1.04; }
+.transit-description { max-width:36rem;color:#a2a7ac;font-size:1.65rem;line-height:1.45;margin-bottom:3rem; }
+.transit-destinations { display:flex;flex-wrap:wrap;gap:1.2rem 2rem;max-width:42rem;margin-top:4rem;color:#bcc1c7; }
+.transit-count { display:flex;align-items:center;gap:2rem;margin-top:4rem; }
+.transit-count strong { font:700 7rem/1 Steinhart,Arial,sans-serif; }
+.transit-count sup {font-size:.5em;vertical-align:super; }
+.transit-count span {color:#a2a7ac;font-size:1.6rem; }
+/* Animation surface: all scenes occupy the same physical viewport. */
+.continuous-motion .motion-stage { display:block; height:100svh; }
+.continuous-motion .motion-orbit { position:absolute;inset:0;z-index:0;min-height:0; }
+.continuous-motion .motion-paper { display:block;position:absolute;inset:0;background:#fff;z-index:2;will-change:transform;overflow:hidden; }
+.continuous-motion .arrival-lane { position:absolute;left:0;top:0;bottom:-20%;width:46%;background:#fff; }
+.arrival-lane > div { height:100%;width:38%;margin:auto;border-left:1px solid #ffffff0a;border-right:1px solid #ffffff0a; }
+.continuous-motion .motion-stats { position:absolute;inset:0;min-height:0;padding:0;background:transparent;z-index:3;pointer-events:none; }
+.continuous-motion .static-tempo { display:none; }
+.continuous-motion .motion-stat { position:absolute;top:0;left:58%;width:34%;display:block;padding:3rem 0;border-top:1px solid #ccc;will-change:transform; }
+.continuous-motion .motion-stat p { font-size:17rem; }
+.continuous-motion .motion-stat > span { display:block;margin-top:2rem;font-size:2.2rem; }
+.continuous-motion .motion-service-floor { position:absolute;left:0;right:0;top:100%;height:68%;background:#101010; }
+.motion-service-floor > div { display:none; }
+.continuous-motion .motion-road { position:absolute;inset:0;visibility:hidden; }
+.continuous-motion .motion-service-track { display:flex;position:absolute;left:0;top:44%;height:50%;width:max-content;padding:0 5vw;gap:0;background:transparent;z-index:3;visibility:hidden;will-change:transform; }
+.continuous-motion .motion-service-intro { flex:0 0 48vw;width:48vw;padding-right:9vw; }
+.continuous-motion .motion-service-card { width:34vw;flex:0 0 34vw;padding:0 4vw;border-top:0;border-left:1px solid #444; }
+.continuous-motion .motion-service-card:last-child { margin-right:5vw; }
+.continuous-motion .motion-service-top { height:6rem; }
+.continuous-motion .motion-service-top img { width:8rem;height:6rem; }
+.continuous-motion .motion-service-card h3 { font-size:4.6rem;margin:1.7rem 0 2.4rem; }
+.continuous-motion .motion-service-card > p { font-size:1.7rem; }
+.continuous-motion .motion-service-card .text-link { margin-top:2.5rem; }
+.continuous-motion .motion-service-intro h2 {font-size:5.6rem; }
+.continuous-motion .motion-service-intro > p:not(.eyebrow) {margin:2.4rem 0; }
+.continuous-motion .motion-industries { position:absolute;inset:0;padding:0;background:transparent;z-index:3;visibility:hidden; }
+.continuous-motion .motion-industry-title {position:absolute;left:3%;top:15%;width:31%; }
+.continuous-motion .motion-industry-title h2 {font-size:5.4rem; }
+.continuous-motion .motion-industry-track {position:absolute;left:66%;top:12%;width:31%;display:flex;flex-direction:column;gap:3rem;margin:0; }
+.continuous-motion .motion-industry-card {width:100%;flex-shrink:0; }
+.continuous-motion .motion-industry-card h3 {font-size:3.2rem; }
+.continuous-motion .motion-vehicles {display:block;position:absolute;inset:0;z-index:5;pointer-events:none; }
+.motion-vehicles canvas {display:block;width:100%;height:100%; }
+.continuous-motion .motion-ocean {display:block;position:absolute;inset:0;z-index:1;overflow:hidden;background:transparent; }
+.motion-ocean-texture {position:absolute;inset:0;background:url('/images/ocean.jpg') center/cover; }
+.motion-ship {position:absolute;left:50%;top:50%;width:100vw;transform:translate(-50%,-50%);max-width:none; }
+.motion-ship img {width:100%;max-width:none;height:auto; }
+.continuous-motion .motion-cloud {display:block;position:absolute;inset:0;z-index:6;pointer-events:none;visibility:hidden; }
+.motion-cloud img {width:100%;height:100%;object-fit:cover; }
+.continuous-motion .motion-progress {display:flex;position:absolute;left:var(--gutter);right:var(--gutter);bottom:2rem;align-items:center;gap:3rem;z-index:7;color:#888;font-size:1rem;pointer-events:none; }
+.motion-progress > div {flex:1;height:1px;background:#8885; }
+.motion-progress i {display:block;width:100%;height:1px;background:currentColor;transform-origin:left;transform:scaleX(0); }
+@media (max-width:991px) {
+  .home-header .header-main {grid-template-columns:1fr;row-gap:2rem; }
+  .home-header .header-brand {grid-row:auto; }
+  .home-header .desktop-nav {grid-row:2;gap:2.8rem; }
+  .header-documents {grid-column:1;grid-row:1; }
+  .hero-static .hero-copy {padding-top:24rem;left:7%;width:86%; }
+  .hero-static h1 {font-size:9rem; }
+  .hero-static-arrow {right:4%;width:10rem;top:38%; }
+  .continuous-motion .motion-service-card > p {font-size:1.65rem; }
+  .continuous-motion .motion-service-intro h2 {font-size:4.9rem; }
+}
+@media (max-width:767px) {
+  .home-header .news-bar {font-size:.88rem;padding:.9rem 2rem;min-height:0;white-space:normal; }
+  .home-header .header-main {padding:2rem;row-gap:2rem; }
+  .home-header .brand {font-size:2rem; }
+  .home-header .desktop-nav {gap:0;justify-content:space-between;grid-row:2;font-size:1.05rem;width:100%;padding:0; }
+  .header-documents {grid-row:3;justify-self:start;gap:1rem; }
+  .header-documents .pill {min-width:0;padding:1.2rem 1.7rem;font-size:.98rem; }
+  .hero-static.hero {height:100svh;min-height:76rem; }
+  .hero-static .hero-copy {left:2rem;top:0;padding-top:29rem;width:calc(100% - 4rem); }
+  .hero-static h1 {font-size:5rem;line-height:1.07;letter-spacing:-.02em; }
+  .hero-static .hero-copy:before {display:none; }
+  .hero-static .hero-eyebrow {font-size:1.5rem;margin-bottom:2rem; }
+  .hero-static .hero-description {font-size:1.6rem;max-width:31rem;margin:2.5rem 0 3rem; }
+  .hero-static .hero-actions {display:flex; }
+  .hero-static-arrow {display:none; }
+  .hero-static .scroll-cue {left:2rem;bottom:2.5rem; }
+  .motion-stat p {font-size:10rem; }
+  .continuous-motion .motion-stat {left:54%;width:41%;padding:2rem 0; }
+  .continuous-motion .motion-stat p {font-size:10rem; }
+  .continuous-motion .motion-stat > span {font-size:1.65rem;max-width:15rem; }
+  .continuous-motion .motion-service-track {top:43%;height:52%;padding:0 6vw; }
+  .continuous-motion .motion-service-intro {flex-basis:88vw;width:88vw;padding-right:10vw; }
+  .continuous-motion .motion-service-intro h2 {font-size:4.5rem; }
+  .continuous-motion .motion-service-card {flex-basis:88vw;width:88vw;padding:0 6vw; }
+  .continuous-motion .motion-service-card h3 {font-size:4rem; }
+  .continuous-motion .motion-service-card > p {font-size:1.65rem; }
+  .motion-features {font-size:1.05rem;margin-top:2rem; }
+  .continuous-motion .motion-industry-title {left:3%;width:31%;top:12%; }
+  .continuous-motion .motion-industry-title h2 {font-size:2.55rem; }
+  .continuous-motion .motion-industry-title .eyebrow {font-size:.8rem; }
+  .continuous-motion .motion-industry-track {left:61%;width:36%;top:30%;gap:2rem; }
+  .continuous-motion .motion-industry-card {aspect-ratio:.85; }
+  .continuous-motion .motion-industry-card h3 {font-size:2rem;left:1rem;bottom:1rem;overflow-wrap:anywhere; }
+  .motion-industry-card > span {left:1rem;top:1rem;font-size:.8rem; }
+  .motion-progress > span:last-child {display:none; }
+  .continuous-motion .motion-progress {left:2rem;right:2rem;bottom:2rem;font-size:.8rem; }
+  .motion-world-copy {top:7%;left:6%;width:88%; }
+  .motion-world-copy .eyebrow {margin-bottom:1.5rem; }
+  .transit-description {font-size:1.3rem;max-width:32rem;margin-bottom:2rem; }
+  .motion-world-copy h2 {font-size:4.5rem; }
+  .transit-destinations {margin-top:2.3rem;font-size:.95rem;gap:1rem 1.4rem;max-width:34rem; }
+  .transit-count {position:absolute;top:65svh;left:0;margin:0; }
+  .transit-count strong {font-size:5rem; }
+  .transit-count span {font-size:1.2rem; }
+  .motion-globe {width:110vw;height:110vw;left:-5vw;top:39%; }
+  .motion-industry-track {grid-template-columns:1fr; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .motion-stage {display:flex; }
+  .motion-world-copy,.motion-globe {transform:none; }
+}

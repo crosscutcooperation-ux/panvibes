@@ -575,3 +575,8 @@ logistics-about { --about-nav-space:120px; }
 .panvibes-content #apart-title .apart-title-what { background:none;color:white;-webkit-text-fill-color:white; }
 .panvibes-content #apart-title .apart-title-accent { color:var(--red);-webkit-text-fill-color:var(--red); }
 .panvibes-content #apart-title .apart-title-line:last-child>span:last-child { color:white;-webkit-text-fill-color:white; }
+@media(max-width:767px) {
+ .panvibes-content .company-introduction,.panvibes-content .founders-section,.panvibes-content .team-section { padding-block:48px; }
+ .panvibes-content .founder-img-wrapper { max-width:320px; }
+ .panvibes-content .company-copy p { margin-bottom:20px;line-height:1.7; }
+}

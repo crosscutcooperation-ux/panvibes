@@ -175,7 +175,7 @@ export default function ProductHero() {
       buildLetterTargets();draw();
     }
     const sizing=new ResizeObserver(resize);sizing.observe(stage);resize();
-    sprites.forEach((asset,index)=>{asset.onload=()=>{stage.dataset.assetsReady=String(sprites.every(image=>image.complete&&image.naturalWidth>0));draw();};asset.src=index===0?'/images/products/ingredient-sprites.png':'/images/products/catalogue-sprites.png';});
+    sprites.forEach((asset,index)=>{asset.onload=()=>{stage.dataset.assetsReady=String(sprites.every(image=>image.complete&&image.naturalWidth>0));draw();};asset.src=index===0?'/images/products/ingredient-sprites.webp':'/images/products/catalogue-sprites.webp';});
     let trigger: ScrollTrigger | undefined;
     function configureMotion() {
       trigger?.kill(true);trigger=undefined;progress=0;
@@ -204,7 +204,7 @@ export default function ProductHero() {
   return <section ref={sectionRef} className="product-hero" aria-labelledby="products-title">
     <div ref={stageRef} className="product-stage">
       <div className="product-table-scene">
-        <Image className="product-table" src="/images/products/table-bowls-transparent.png" width={1672} height={941} sizes="(max-width: 767px) 100vw, 80vw" alt="Six bowls of makhana, paneer, ginger, cashews, dehydrated fruits and millets; the same ingredients rise out to form PRODUCTS" priority/>
+        <Image className="product-table" src="/images/products/table-bowls-transparent.webp" width={1672} height={941} sizes="(max-width: 767px) 100vw, 80vw" alt="Six bowls of makhana, paneer, ginger, cashews, dehydrated fruits and millets; the same ingredients rise out to form PRODUCTS" priority/>
         <div className="product-names mono" aria-label="Featured products">{bowls.map(bowl=><span key={bowl.label} style={{left:`${bowl.x*100}%`,top:bowl.row?'94%':'60%'}}>{bowl.label}</span>)}</div>
       </div>
       <div className="product-vignette" aria-hidden="true"/>

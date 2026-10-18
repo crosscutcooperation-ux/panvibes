@@ -130,7 +130,7 @@
 }
 @media(max-width:600px) {
  .cards { grid-template-columns:1fr;gap:18px; }
- .card,.card:last-child { height:350px;border-radius:8px;grid-column:auto; }
+ .card,.card:last-child { height:clamp(286px,78vw,330px);border-radius:8px;grid-column:auto; }
  .cardTitle { font-size:30px;line-height:1.12; }
  .cardContent { left:24px;right:24px;bottom:92px; }
  .cardNumber { left:24px;top:24px; }

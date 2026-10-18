@@ -173,3 +173,17 @@
  .range-photo { height:auto;min-height:260px; }
  .range-row-compact .range-photo { min-height:0; }
 }
+
+/* Compact catalogue cards; expanded panels still grow to fit every type. */
+@media(max-width:767px) {
+ .products-page .range-photo,.products-page .range-row-compact .range-photo { aspect-ratio:2.1; }
+ .products-page .range-overview { min-height:190px;padding:20px 20px 82px;gap:12px; }
+ .products-page .range-overview h3 { font-size:clamp(25px,7vw,32px); }
+ .products-page .range-enquiry { left:20px;bottom:16px; }
+ .products-page .range-toggle { bottom:16px; }
+ .products-page .range-types { padding:22px 20px 84px; }
+ .products-page .range-compact-content { padding:20px; }
+ .products-page .range-row-compact .range-types { padding:0; }
+ .products-page .range-row-compact .range-enquiry { margin-top:14px; }
+ .products-page .range-heading-note { margin-top:18px; }
+}

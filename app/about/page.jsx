@@ -49,7 +49,7 @@ export default function AboutPage() {
                   <div className="col-lg-5 wow animate fadeInLeft" data-wow-delay="200ms" data-wow-duration="1500ms">
                       <div className="founder-img-wrapper ">
                           <div className="founder-img-area">
-                              <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/pm.jpeg" alt="Prakash Mewada, founder of PanVibes Exim" />
+                              <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/pm.webp" alt="Prakash Mewada, founder of PanVibes Exim" />
                           </div>
                       </div>
                   </div>
@@ -95,7 +95,7 @@ export default function AboutPage() {
                       <div className="team-card">
                           <div className="team-img-wrapper">
                               <div className="team-img">
-                                  <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/gm.jpeg" alt="Gautam Mewada" />
+                                  <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/gm.webp" alt="Gautam Mewada" />
                                   <div className="social-overlay">
                                       <ul className="social-links">
                                           <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i className="bx bxl-facebook"></i></a></li>
@@ -116,7 +116,7 @@ export default function AboutPage() {
                       <div className="team-card">
                           <div className="team-img-wrapper">
                               <div className="team-img">
-                                  <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/pp.jpeg" alt="Prathamesh Patil" />
+                                  <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/pp.webp" alt="Prathamesh Patil" />
                                   <div className="social-overlay">
                                       <ul className="social-links">
                                           <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i className="bx bxl-facebook"></i></a></li>
@@ -137,7 +137,7 @@ export default function AboutPage() {
                       <div className="team-card">
                           <div className="team-img-wrapper">
                               <div className="team-img">
-                                  <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/nk.jpeg" alt="Nitesh Kanse" />
+                                  <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/nk.webp" alt="Nitesh Kanse" />
                                   <div className="social-overlay">
                                       <ul className="social-links">
                                           <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i className="bx bxl-facebook"></i></a></li>
@@ -158,7 +158,7 @@ export default function AboutPage() {
                       <div className="team-card">
                           <div className="team-img-wrapper">
                               <div className="team-img">
-                                  <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/om.jpeg" alt="Omkar Marakwar" />
+                                  <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/om.webp" alt="Omkar Marakwar" />
                                   <div className="social-overlay">
                                       <ul className="social-links">
                                           <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i className="bx bxl-facebook"></i></a></li>
@@ -179,7 +179,7 @@ export default function AboutPage() {
                       <div className="team-card">
                           <div className="team-img-wrapper">
                               <div className="team-img">
-                                  <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/bp.jpeg" alt="Bhavesh Patil" />
+                                  <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/bp.webp" alt="Bhavesh Patil" />
                                   <div className="social-overlay">
                                       <ul className="social-links">
                                           <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i className="bx bxl-facebook"></i></a></li>
@@ -209,7 +209,7 @@ export default function AboutPage() {
             <div className="apart-viewport" aria-label="What sets us apart cards">
               <div className="apart-track">
                 <article className="apart-card is-active" tabIndex="0">
-                  <img className="apart-image" src="/assets/apart/freight.jpg" alt="Stacked shipping containers at a freight terminal" loading="lazy" decoding="async" />
+                  <img className="apart-image" src="/assets/apart/freight.webp" alt="Stacked shipping containers at a freight terminal" loading="lazy" decoding="async" />
                   <div className="apart-card-content">
                     <svg className="apart-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M5 12.5 20 5l15 7.5v16L20 36 5 28.5v-16Zm0 0L20 20l15-7.5M20 20v16"/></svg>
                     <h3>End-to-End Supply and Logistics Support</h3>
@@ -217,7 +217,7 @@ export default function AboutPage() {
                   </div>
                 </article>
                 <article className="apart-card" tabIndex="0">
-                  <img className="apart-image" src="/assets/apart/transport.jpg" alt="Cargo vessel and port cranes in the global supply network" loading="lazy" decoding="async" />
+                  <img className="apart-image" src="/assets/apart/transport.webp" alt="Cargo vessel and port cranes in the global supply network" loading="lazy" decoding="async" />
                   <div className="apart-card-content">
                     <svg className="apart-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="8" r="4"/><circle cx="7" cy="30" r="4"/><circle cx="33" cy="30" r="4"/><path d="M18 12 9 26m13-14 9 14M11 30h18"/></svg>
                     <h3>Verified Supplier &amp; Manufacturer Ecosystem</h3>
@@ -225,7 +225,7 @@ export default function AboutPage() {
                   </div>
                 </article>
                 <article className="apart-card" tabIndex="0">
-                  <img className="apart-image" src="/assets/apart/quality.jpg" alt="Quality testing in a laboratory" loading="lazy" decoding="async" />
+                  <img className="apart-image" src="/assets/apart/quality.webp" alt="Quality testing in a laboratory" loading="lazy" decoding="async" />
                   <div className="apart-card-content">
                     <svg className="apart-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M20 4 34 9v10c0 9-6 14-14 17C12 33 6 28 6 19V9L20 4Z"/><path d="m13 20 5 5 9-10"/></svg>
                     <h3>High Consistency in Product Quality</h3>
@@ -233,7 +233,7 @@ export default function AboutPage() {
                   </div>
                 </article>
                 <article className="apart-card" tabIndex="0">
-                  <img className="apart-image" src="/assets/apart/trade.jpg" alt="International trade documents and route maps" loading="lazy" decoding="async" />
+                  <img className="apart-image" src="/assets/apart/trade.webp" alt="International trade documents and route maps" loading="lazy" decoding="async" />
                   <div className="apart-card-content">
                     <svg className="apart-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M20 4v31M7 12h26M10 12 5 24h10l-5-12Zm20 0-5 12h10l-5-12ZM13 35h14"/></svg>
                     <h3>Transparent and Ethical Trade Practices</h3>
@@ -241,7 +241,7 @@ export default function AboutPage() {
                   </div>
                 </article>
                 <article className="apart-card" tabIndex="0">
-                  <img className="apart-image" src="/assets/apart/growth.jpg" alt="Port cranes and ships moving global trade forward" loading="lazy" decoding="async" />
+                  <img className="apart-image" src="/assets/apart/growth.webp" alt="Port cranes and ships moving global trade forward" loading="lazy" decoding="async" />
                   <div className="apart-card-content">
                     <svg className="apart-icon" viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="m5 31 10-10 7 5L35 10M25 10h10v10"/></svg>
                     <h3>Focus on Long-Term Partnerships &amp; Business Growth</h3>

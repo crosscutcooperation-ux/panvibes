@@ -6,7 +6,7 @@ import { officeLocation } from '@/lib/office-location';
 export default function InteractiveGlobe({active=true,variant='home',focusOffice=false}:{active?:boolean;variant?:'home'|'contact';focusOffice?:boolean}) {
   const container=useRef<HTMLDivElement>(null),activeRef=useRef(active);
   const focusRef=useRef(focusOffice);
-  useEffect(()=>{activeRef.current=active;},[active]);
+  useEffect(()=>{activeRef.current=active;container.current?.dispatchEvent(new Event('globe-activity'));},[active]);
   useEffect(()=>{focusRef.current=focusOffice;container.current?.dispatchEvent(new Event(focusOffice?'globe-office-focus':'globe-reset'));},[focusOffice]);
   useEffect(()=>{
     const host=container.current!;
@@ -65,7 +65,27 @@ export default function InteractiveGlobe({active=true,variant='home',focusOffice
         fragmentShader:'varying vec3 n;varying vec3 p;void main(){float rim=pow(1.-max(0.,dot(normalize(n),normalize(-p))),3.5);gl_FragColor=vec4(.25,.64,1.,rim*.85);}'})));
       const locations:readonly (readonly [string,number,number])[]=variant==='contact'?[['Navi Mumbai',officeLocation.latitude,officeLocation.longitude]]:destinations;
       const labels=locations.map(([name,lat,lon])=>{const point=position(lat,lon,1.025);const marker=new THREE.Mesh(new THREE.SphereGeometry(.012,16,12),new THREE.MeshBasicMaterial({color:'#ff874c',transparent:true}));marker.position.copy(point);group.add(marker);const label=document.createElement('span');label.className='globe-label';label.textContent=name;host.appendChild(label);return {point,label,marker};});
-      if(variant==='home')for(let i=0;i<destinations.length-1;i++){const a=position(destinations[i][1],destinations[i][2]),b=position(destinations[(i+3)%destinations.length][1],destinations[(i+3)%destinations.length][2]);const points=Array.from({length:70},(_,n)=>a.clone().lerp(b,n/69).normalize().multiplyScalar(1.025+Math.sin(n/69*Math.PI)*.16));group.add(new THREE.Line(new THREE.BufferGeometry().setFromPoints(points),new THREE.LineBasicMaterial({color:'#ff874c',transparent:true,opacity:.64})));}
+      if(variant==='home'){
+        // Join consecutive stops so the route passes through every country.
+        // Equal angular steps keep long, nearly antipodal legs smooth.
+        const routes=destinations.slice(1).map((destination,i)=>{
+          const origin=destinations[i];
+          const a=position(origin[1],origin[2]),b=position(destination[1],destination[2]);
+          const angle=a.angleTo(b),sine=Math.sin(angle);
+          const points=Array.from({length:128},(_,n)=>{
+            const t=n/127;
+            const direction=angle<.0001?a.clone():a.clone().multiplyScalar(Math.sin((1-t)*angle)/sine).addScaledVector(b,Math.sin(t*angle)/sine);
+            return direction.normalize().multiplyScalar(1.025+Math.sin(t*Math.PI)*.16);
+          });
+          const line=new THREE.Line(new THREE.BufferGeometry().setFromPoints(points),new THREE.LineBasicMaterial({color:'#ff874c',transparent:true,opacity:.72}));
+          line.name=`${origin[0]} → ${destination[0]}`;
+          group.add(line);
+          return line.name;
+        });
+        host.dataset.route=destinations.map(([name])=>name).join(' → ');
+        host.dataset.routeCount=String(routes.length);
+        canvas.setAttribute('aria-description',`Connected trade route: ${host.dataset.route}.`);
+      }
       let width=1,height=1,inView=true,frame=0,last=0,lastInteraction=0,dirty=true;
       const reduced=matchMedia('(prefers-reduced-motion: reduce)');
       const initialX=variant==='contact'?19.0788*Math.PI/180:.12,initialY=variant==='contact'?-73.0108*Math.PI/180:-.9;
@@ -90,8 +110,12 @@ export default function InteractiveGlobe({active=true,variant='home',focusOffice
       host.addEventListener('globe-reset',reset);host.addEventListener('globe-zoom-in',zoomIn);host.addEventListener('globe-zoom-out',zoomOut);
       host.addEventListener('globe-office-focus',officeFocus);if(focusRef.current)officeFocus();
       const resize=new ResizeObserver(()=>{dirty=true;width=host.clientWidth;height=host.clientHeight;renderer.setSize(width,height);camera.aspect=width/Math.max(height,1);camera.updateProjectionMatrix();});resize.observe(host);
-      const visibility=new IntersectionObserver(([entry])=>{inView=entry.isIntersecting;});visibility.observe(host);
-      const animate=(time:number)=>{frame=requestAnimationFrame(animate);if(!activeRef.current||!inView||document.hidden||time-last<30)return;const dt=Math.min((time-last)/1000,.05);last=time;clock.value=reduced.matches?0:time/1000;
+      const syncActivity=()=>{
+        if(activeRef.current&&inView&&!document.hidden){if(!frame){last=0;frame=requestAnimationFrame(animate);}}
+        else {cancelAnimationFrame(frame);frame=0;}
+      };
+      const visibility=new IntersectionObserver(([entry])=>{inView=entry.isIntersecting;syncActivity();});visibility.observe(host);
+      const animate=(time:number)=>{frame=0;if(!activeRef.current||!inView||document.hidden)return;frame=requestAnimationFrame(animate);if(time-last<30)return;const dt=Math.min((time-last)/1000,.05);last=time;clock.value=reduced.matches?0:time/1000;
         // Orient toward the office first, then descend almost to the surface.
         // A narrower lens continues the dive without crossing the sphere mesh.
         const flight=officeFocused?(reduced.matches?1:Math.min(1,(time-officeStarted)/officeLocation.diveDurationMs)):0;
@@ -103,17 +127,21 @@ export default function InteractiveGlobe({active=true,variant='home',focusOffice
         ripple.position.copy(touch.value).multiplyScalar(1.025);ripple.quaternion.setFromUnitVectors(outward,touch.value);ripple.scale.setScalar(1+(1-strength.value)*4);rippleMaterial.opacity=strength.value*.9;
         group.updateMatrixWorld();labels.forEach(({point,label,marker})=>{const world=point.clone().applyMatrix4(group.matrixWorld),visible=world.z>.25&&(!officeFocused||flight<.22);const projected=world.project(camera);label.style.opacity=visible?'1':'0';marker.material.opacity=officeFocused?Math.max(0,1-flight*2):1;label.style.transform=`translate(${(projected.x*.5+.5)*width}px,${(-projected.y*.5+.5)*height-12}px) translate(-50%,-100%)`;});
         host.dataset.rotation=`${group.rotation.x.toFixed(3)},${group.rotation.y.toFixed(3)}`;host.dataset.zoom=camera.position.z.toFixed(2);host.dataset.touch=strength.value.toFixed(2);renderer.render(scene,camera);dirty=false;
-      };frame=requestAnimationFrame(animate);host.classList.add('globe-ready');
-      dispose=()=>{cancelAnimationFrame(frame);resize.disconnect();visibility.disconnect();canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('pointercancel',up);canvas.removeEventListener('pointerleave',leave);canvas.removeEventListener('dblclick',reset);canvas.removeEventListener('keydown',keydown);host.removeEventListener('globe-reset',reset);host.removeEventListener('globe-zoom-in',zoomIn);host.removeEventListener('globe-zoom-out',zoomOut);host.removeEventListener('globe-office-focus',officeFocus);scene.traverse(object=>{if(object instanceof THREE.Mesh||object instanceof THREE.Points||object instanceof THREE.Line){object.geometry.dispose();(Array.isArray(object.material)?object.material:[object.material]).forEach(material=>material.dispose());}});map.dispose();bump.dispose();renderer.dispose();host.replaceChildren();host.classList.remove('globe-ready');};
+      };syncActivity();host.classList.add('globe-ready');
+      document.addEventListener('visibilitychange',syncActivity);host.addEventListener('globe-activity',syncActivity);
+      dispose=()=>{cancelAnimationFrame(frame);resize.disconnect();visibility.disconnect();document.removeEventListener('visibilitychange',syncActivity);host.removeEventListener('globe-activity',syncActivity);canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('pointercancel',up);canvas.removeEventListener('pointerleave',leave);canvas.removeEventListener('dblclick',reset);canvas.removeEventListener('keydown',keydown);host.removeEventListener('globe-reset',reset);host.removeEventListener('globe-zoom-in',zoomIn);host.removeEventListener('globe-zoom-out',zoomOut);host.removeEventListener('globe-office-focus',officeFocus);scene.traverse(object=>{if(object instanceof THREE.Mesh||object instanceof THREE.Points||object instanceof THREE.Line){object.geometry.dispose();(Array.isArray(object.material)?object.material:[object.material]).forEach(material=>material.dispose());}});map.dispose();bump.dispose();renderer.dispose();host.replaceChildren();host.classList.remove('globe-ready');};
     }
     // Defer the WebGL module, textures and geometry until the globe is nearby.
-    const preload=new IntersectionObserver(([entry])=>{
-      if(!entry.isIntersecting)return;
-      preload.disconnect();
+    let nearby=false,started=false;
+    const start=()=>{
+      if(started||!nearby||!activeRef.current)return;
+      started=true;preload.disconnect();
       setup().catch(error=>{if(!cancelled)console.warn('Globe unavailable; displaying the static fallback.',error);});
-    },{rootMargin:'300px'});
+    };
+    const preload=new IntersectionObserver(([entry])=>{nearby=entry.isIntersecting;start();},{rootMargin:'300px'});
     preload.observe(host);
-    return()=>{cancelled=true;preload.disconnect();abort.abort();dispose();};
+    host.addEventListener('globe-activity',start);
+    return()=>{cancelled=true;preload.disconnect();host.removeEventListener('globe-activity',start);abort.abort();dispose();};
   },[variant]);
   return <div className={`globe-shell globe-${variant}`}><div ref={container} className="globe-renderer"/>
     <div className="globe-tools"><span className="mono">Drag to explore · + / − to zoom</span><div><button type="button" aria-label="Zoom globe out" onClick={()=>container.current?.dispatchEvent(new Event('globe-zoom-out'))}>−</button><button type="button" aria-label="Reset globe view" onClick={()=>container.current?.dispatchEvent(new Event('globe-reset'))}>↺</button><button type="button" aria-label="Zoom globe in" onClick={()=>container.current?.dispatchEvent(new Event('globe-zoom-in'))}>+</button></div></div>

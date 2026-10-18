@@ -9,8 +9,9 @@ import "./globe.css";
 import "./navigation.css";
 import "./mobile.css";
 import "./mobile-motion.css";
+import "./cursor.css";
 import Navbar from '@/components/Navbar';
-import RouteLoader from '@/components/RouteLoader';
+import ShipCursor from '@/components/ShipCursor';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -27,7 +28,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
-      <body><Navbar/><RouteLoader/>{children}</body>
+      <body><Navbar/>{children}<ShipCursor/></body>
     </html>
   );
 }

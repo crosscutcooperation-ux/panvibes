@@ -1,0 +1,17 @@
+{
+  "source": "Floating Ship Animated Cursor by Sweezy Cursors",
+  "credit": "https://sweezy-cursors.com/",
+  "frames": 2,
+  "frameSize": 128,
+  "displaySize": 56,
+  "hotspot": [
+    10,
+    2
+  ],
+  "pointerHotspot": [
+    14,
+    18
+  ],
+  "jiffiesPerFrame": 14,
+  "cycleMs": 466.6666666666667
+}

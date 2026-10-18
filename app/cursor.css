@@ -1,0 +1,17 @@
+/* Supplied floating-ship artwork by Sweezy Cursors. Scoped to this app only. */
+.ship-cursor {position:fixed;inset:0 auto auto 0;width:56px;height:56px;z-index:2147483646;pointer-events:none;user-select:none;contain:layout style;will-change:transform;}
+.ship-cursor[hidden] {display:none;}
+.ship-cursor-art {display:block;width:56px;height:56px;background:url('/cursors/ship-sprite.webp') 0 0 / 112px 56px no-repeat;animation:ship-cursor-float .466666667s steps(2,end) infinite;transform-origin:6px 7px;transition:transform .12s ease;}
+.ship-cursor[data-variant='pointer'] .ship-cursor-art {background-image:url('/cursors/ship-pointer.png');background-size:56px 56px;animation:none;}
+.ship-cursor[data-pressed='true'] .ship-cursor-art {transform:scale(.88);}
+@keyframes ship-cursor-float {to{background-position:-112px 0;}}
+@media(any-hover:hover) and (any-pointer:fine) {
+ html[data-ship-cursor='active'],html[data-ship-cursor='active'] * {cursor:none!important;}
+ html[data-ship-cursor='dialog'] dialog[open],html[data-ship-cursor='dialog'] dialog[open] * {cursor:url('/cursors/ship-idle.png') 4 1,auto!important;}
+ html[data-ship-cursor='dialog'] dialog[open] :is(a,button,[role='button'],summary,select) {cursor:url('/cursors/ship-pointer.png') 6 8,pointer!important;}
+ html[data-ship-cursor='dialog'] dialog[open] :is(input,textarea,[contenteditable='true']) {cursor:text!important;}
+}
+@media(prefers-reduced-motion:reduce) {
+ .ship-cursor-art {animation:none;transition:none;}
+}
+@media(any-hover:none) {.ship-cursor {display:none!important;}}

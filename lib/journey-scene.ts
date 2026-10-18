@@ -84,7 +84,7 @@ export function createJourneyScene(host: HTMLElement) {
     time = t;
     if (w !== width || h !== height) {
       width = w; height = h;
-      const ratio = Math.min(window.devicePixelRatio, 1.5);
+      const ratio = Math.min(window.devicePixelRatio, compact ? 1.25 : 1.5);
       canvas.width = Math.round(w * ratio); canvas.height = Math.round(h * ratio);
       ctx.setTransform(ratio, 0, 0, ratio, 0, 0);
     }

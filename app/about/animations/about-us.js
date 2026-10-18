@@ -31,6 +31,10 @@ class LogisticsAbout extends HTMLElement {
     this.pointer={x:0,y:0};this.start=performance.now();
     this.tilt=0;this.tiltTarget=0;this.lastFrameTime=null;
     this.events=new AbortController();
+    document.addEventListener('visibilitychange',()=>{
+      if(document.hidden){cancelAnimationFrame(this.frame);this.frame=0;this.lastFrameTime=null;}
+      else this.requestFrame();
+    },{signal:this.events.signal});
     this.onPointer=e=>{const r=this.section.getBoundingClientRect();this.pointer.x=((e.clientX-r.left)/r.width-.5)*2;this.pointer.y=((e.clientY-r.top)/r.height-.5)*2;this.tiltTarget=Math.max(-.2,Math.min(.2,this.pointer.x*.6));};
     this.onLeave=()=>{this.pointer.x=0;this.pointer.y=0;this.tiltTarget=0;};
     this.section.addEventListener('pointermove',this.onPointer,{signal:this.events.signal});this.section.addEventListener('pointerleave',this.onLeave,{signal:this.events.signal});
@@ -85,14 +89,17 @@ class LogisticsAbout extends HTMLElement {
         this.dataset.enterCount=String((Number(this.dataset.enterCount)||0)+1);
       }
       this.visible=entering;
+      if(entering)this.requestFrame();
+      else {cancelAnimationFrame(this.frame);this.frame=0;this.lastFrameTime=null;}
     },{threshold:.08});
     this.observer.observe(this.section);
-    this.animate();
+    this.requestFrame();
   }
   resize(){const r=this.section.getBoundingClientRect();this.renderer.setSize(r.width,r.height,false);this.camera.aspect=r.width/r.height;this.container.scale.setScalar(r.width<700?.9:1);this.camera.position.z=r.width<700?13:10.8;this.camera.updateProjectionMatrix();}
   replay(){this.start=performance.now();this.pointer={x:0,y:0};this.tilt=0;this.tiltTarget=0;this.lastFrameTime=null;this.dispatchEvent(new CustomEvent('about-replay',{bubbles:true,composed:true}));}
+  requestFrame(){if(!this.frame&&this.mounted&&this.visible&&!document.hidden)this.frame=requestAnimationFrame(()=>this.animate());}
   animate(){
-    this.frame=requestAnimationFrame(()=>this.animate());if(!this.visible||document.hidden){this.lastFrameTime=null;return;}
+    this.frame=0;if(!this.visible||document.hidden){this.lastFrameTime=null;return;}this.requestFrame();
     const now=performance.now();
     if(innerWidth<=991&&this.lastFrameTime!==null&&now-this.lastFrameTime<32)return;
     const dt=this.lastFrameTime===null?0:Math.min(.05,Math.max(0,(now-this.lastFrameTime)/1000));

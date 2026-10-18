@@ -15,7 +15,7 @@
 .unified-header .header-documents { grid-column:3;grid-row:1;justify-self:end;display:flex;gap:9px; }
 .unified-header .header-documents .pill { min-width:0;gap:15px;padding:13px 17px;font-size:clamp(8px,.7vw,12px);color:var(--blue);background:white;border:1px solid #104e8724; }
 .unified-header .header-documents .pill-arrow { width:12px; }
-.site-menu-toggle,.site-mobile-menu,.mobile-quick-links { display:none; }
+.site-menu-toggle,.site-mobile-menu { display:none; }
 .inner-page { padding-top:0; }
 .about-page logistics-about { --about-nav-space:0px; }
 .site-mobile-menu[hidden] { display:none!important; }
@@ -27,14 +27,6 @@
 .inner-page:has(main>article) { padding-top:var(--site-header-space);background:var(--paper); }
 .product-title { top:calc(var(--site-header-space) + 55px); }
 .pan-footer-grid { padding-top:2rem; }
-.route-loader { position:fixed;inset:0;z-index:200;background:#f5f8fc;display:flex;flex-direction:column;align-items:center;justify-content:center;color:var(--blue); }
-.loader-mark { font:700 70px/1 Steinhart,Arial,sans-serif; }
-.loader-mark span { color:var(--red);font-size:45px; }
-.route-loader p { margin-top:22px;font:12px SteinhartMono,monospace;text-transform:uppercase;letter-spacing:.12em; }
-.route-loader>span { margin-top:16px;font:11px Helvetica,Arial,sans-serif;color:#6a8399; }
-.loader-line { width:130px;height:2px;overflow:hidden;background:#104e8718;margin-top:22px; }
-.loader-line i { display:block;width:45%;height:100%;background:var(--red);animation:loading-travel 1s ease-in-out infinite; }
-@keyframes loading-travel { from{transform:translateX(-110%)}to{transform:translateX(330%)} }
 @media(max-width:1100px) {
  :root { --site-header-space:106px; }
  .home-header.unified-header .header-main { grid-template-columns:1fr auto;align-items:center;gap:16px;padding:12px 20px; }
@@ -50,4 +42,4 @@
  .mobile-documents { display:flex;gap:20px;flex-wrap:wrap;padding-top:22px;font:10px SteinhartMono,monospace; }
  .contact-main { padding-top:calc(var(--site-header-space) + 40px); }
 }
-@media(prefers-reduced-motion:reduce) { .loader-line i { animation:none;width:100%; } .site-header.unified-header { transition:none; } }
+@media(prefers-reduced-motion:reduce) { .site-header.unified-header { transition:none; } }

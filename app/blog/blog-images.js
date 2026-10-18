@@ -1,15 +1,15 @@
 const photos = {
-  vegetables: { src: '/assets/blog/photography/vegetables.jpg', alt: 'Dehydrated vegetables stored in glass jars' },
-  fruits: { src: '/assets/blog/photography/fruits.jpg', alt: 'An assortment of dried fruit slices' },
-  spices: { src: '/assets/blog/photography/spices.jpg', alt: 'Chilli, pepper and whole spices' },
-  nuts: { src: '/assets/blog/photography/nuts.jpg', alt: 'Mixed nuts and dry fruits in a bowl' },
-  makhana: { src: '/assets/blog/photography/makhana.jpg', alt: 'Fox nuts, also known as makhana' },
-  seeds: { src: '/assets/blog/photography/seeds.jpg', alt: 'Flaxseeds used as a food ingredient' },
-  trade: { src: '/assets/apart/transport.jpg', alt: 'A container ship and cranes at an international port' },
-  export: { src: '/assets/services/export.jpg', alt: 'Cargo prepared for international export' },
-  freight: { src: '/assets/services/freight.jpg', alt: 'Cargo transport and freight operations' },
-  documents: { src: '/assets/services/documents.jpg', alt: 'International trade documentation' },
-  sourcing: { src: '/assets/services/import.jpg', alt: 'Goods stored in a distribution warehouse' },
+  vegetables: { src: '/assets/blog/photography/vegetables.webp', alt: 'Dehydrated vegetables stored in glass jars' },
+  fruits: { src: '/assets/blog/photography/fruits.webp', alt: 'An assortment of dried fruit slices' },
+  spices: { src: '/assets/blog/photography/spices.webp', alt: 'Chilli, pepper and whole spices' },
+  nuts: { src: '/assets/blog/photography/nuts.webp', alt: 'Mixed nuts and dry fruits in a bowl' },
+  makhana: { src: '/assets/blog/photography/makhana.webp', alt: 'Fox nuts, also known as makhana' },
+  seeds: { src: '/assets/blog/photography/seeds.webp', alt: 'Flaxseeds used as a food ingredient' },
+  trade: { src: '/assets/apart/transport.webp', alt: 'A container ship and cranes at an international port' },
+  export: { src: '/assets/services/export.webp', alt: 'Cargo prepared for international export' },
+  freight: { src: '/assets/services/freight.webp', alt: 'Cargo transport and freight operations' },
+  documents: { src: '/assets/services/documents.webp', alt: 'International trade documentation' },
+  sourcing: { src: '/assets/services/import.webp', alt: 'Goods stored in a distribution warehouse' },
 };
 
 const subjects = {

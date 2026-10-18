@@ -40,9 +40,6 @@
 ::selection {background:#f47d42;color:#082f52;text-shadow:none;}
 ::-moz-selection {background:#f47d42;color:#082f52;text-shadow:none;}
 input,textarea,[contenteditable='true'] {caret-color:#f47d42;}
-@media(pointer:fine) and (hover:hover) {
- html,body,body * {cursor:url('/images/cursor-dot.svg') 16 16,auto!important;}
-}
 @media(max-width:767px) {
  .persistent-header .news-bar {font-size:8px;padding:7px 16px;}
  .persistent-header .header-main {grid-template-columns:1fr;gap:12px;padding:12px 18px;}

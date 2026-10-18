@@ -16,8 +16,10 @@ export function Pill({
   children,
   className = "",
   href,
+  newTab = false,
 }: {
   href?: string;
+  newTab?: boolean;
   children: ReactNode;
   className?: string;
 }) {
@@ -27,7 +29,7 @@ export function Pill({
       </span>
       <span className="pill-arrow"><Arrow diagonal/></span>
     </>;
-  return href?<a href={href} className={`pill ${className}`}>{content}</a>:<button type="button" disabled className={`pill ${className}`}>{content}</button>;
+  return href?<a href={href} className={`pill ${className}`} target={newTab?'_blank':undefined} rel={newTab?'noopener noreferrer':undefined}>{content}</a>:<button type="button" disabled className={`pill ${className}`}>{content}</button>;
 }
 export function Brand({ large = false }: { large?: boolean }) {
   return (

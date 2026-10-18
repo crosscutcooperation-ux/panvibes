@@ -38,7 +38,7 @@ export default function Navbar() {
     const close=(event:KeyboardEvent)=>{
       if(event.key==='Escape'){setMenuOpen(false);menuButton.current?.focus();}
       if(event.key==='Tab'){
-        const controls=[...headerRef.current!.querySelectorAll<HTMLElement>('.header-brand,.mobile-quick-links a,.site-menu-toggle,.site-mobile-menu a')];
+        const controls=[...headerRef.current!.querySelectorAll<HTMLElement>('.header-brand,.site-menu-toggle,.site-mobile-menu a')];
         const first=controls[0],last=controls.at(-1);
         if(event.shiftKey&&document.activeElement===first){event.preventDefault();last?.focus();}
         else if(!event.shiftKey&&document.activeElement===last){event.preventDefault();first?.focus();}
@@ -61,7 +61,11 @@ export default function Navbar() {
       const hero=document.querySelector<HTMLElement>('.home-video-stage');
       const journey=document.querySelector<HTMLElement>('.trade-journey-v2');
       if(pathname==='/'&&hero&&hero.getBoundingClientRect().bottom>y){setLight(hero.style.getPropertyValue('--hero-nav-text')!=='#104e87');}
-      else if(pathname==='/'&&journey&&journey.getBoundingClientRect().top<=y&&journey.getBoundingClientRect().bottom>y){setLight(Number(journey.dataset.phase??0)>=16);}
+      else if(pathname==='/'&&journey&&journey.getBoundingClientRect().top<=y&&journey.getBoundingClientRect().bottom>y){
+        // Service cards sit on blue below the header, while the upper surface
+        // stays white until the ship/ocean reveal reaches the navigation.
+        setLight(Number(journey.dataset.phase??0)>=(matchMedia('(max-width:991px)').matches?33.3:33.85));
+      }
       else setLight(overDark);
     };
     const schedule=()=>{if(!frame)frame=requestAnimationFrame(update);};
@@ -77,20 +81,15 @@ export default function Navbar() {
         <nav className="desktop-nav" aria-label="Main navigation">
           {navigation.map(item=><Link href={item.href} key={item.href} aria-current={isActive(item.href)?'page':undefined}>{item.label}</Link>)}
         </nav>
-        <nav className="mobile-quick-links" aria-label="Mobile quick links">
-          <Link href="/products" aria-current={isActive('/products')?'page':undefined} onClick={()=>setMenuOpen(false)}>Products</Link>
-          <Link href="/blog" aria-current={isActive('/blog')?'page':undefined} onClick={()=>setMenuOpen(false)}>Blog</Link>
-          <a className="header-whatsapp" href={`https://wa.me/${enquiryContact.phone}`} target="_blank" rel="noopener noreferrer" aria-label="Chat with PanVibes on WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 11.6a8 8 0 0 1-11.9 7L4 20l1.4-4.1A8 8 0 1 1 20 11.6Z" stroke="currentColor" strokeWidth="1.6"/><path d="M9 7.7c-.6-.3-1.4.6-1.2 1.5.4 2.2 3.5 5.4 5.8 5.9.9.2 1.9-.7 1.6-1.3l-1.5-1c-.4-.2-.8.6-1.2.5-.8-.2-2.5-1.9-2.7-2.8-.1-.4.7-.8.5-1.2L9 7.7Z" fill="currentColor"/></svg></a>
-        </nav>
         <button ref={menuButton} className="site-menu-toggle" type="button" aria-expanded={menuOpen} aria-controls="site-mobile-menu" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?'Close':'Menu'} <span aria-hidden="true">{menuOpen?'−':'+'}</span></button>
         <div className="header-documents">
-          <Pill className="pill-white" href={company.brochure}>Download E-brochure</Pill>
-          <Pill className="pill-white" href={company.profile}>Company profile</Pill>
+          <Pill className="pill-white" href={company.brochure} newTab>Download E-brochure</Pill>
+          <Pill className="pill-white" href={company.profile} newTab>Company profile</Pill>
         </div>
       </div>
       <nav id="site-mobile-menu" className="site-mobile-menu" aria-label="Mobile navigation" hidden={!menuOpen}>
         {navigation.map(item=><Link href={item.href} key={item.href} aria-current={isActive(item.href)?'page':undefined} onClick={()=>setMenuOpen(false)}>{item.label}<span aria-hidden="true">↗</span></Link>)}
-        <div className="mobile-documents"><a href={company.brochure}>Download E-brochure ↗</a><a href={company.profile}>Company profile ↗</a></div>
+        <div className="mobile-documents"><a href={company.brochure} target="_blank" rel="noopener noreferrer">Download E-brochure ↗</a><a href={company.profile} target="_blank" rel="noopener noreferrer">Company profile ↗</a><a className="mobile-whatsapp" href={`https://wa.me/${enquiryContact.phone}`} target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div>
       </nav>
     </header>
   );

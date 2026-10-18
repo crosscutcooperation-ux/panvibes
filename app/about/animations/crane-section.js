@@ -86,6 +86,7 @@ class LogisticsCrane extends HTMLElement {
     this.updateFromScroll = () => {
       if (!this.scrollMode || this.reduced) return;
       const r=this.shadowRoot.querySelector('.scene').getBoundingClientRect();
+      if(document.hidden||r.bottom<=0||r.top>=innerHeight)return;
       const progress=Math.max(0,Math.min(1,(innerHeight*.85-r.top)/(innerHeight*.85+r.height*.55)));
       this.elapsed=progress*SETTLE_SECONDS;
       this.rotationAngle=TAU*Math.max(0,Math.min(1,(progress-.30)/.70));

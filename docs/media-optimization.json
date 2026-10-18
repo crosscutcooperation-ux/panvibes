@@ -1,0 +1,350 @@
+[
+  {
+    "source": "/images/air-freight.png",
+    "destination": "/images/air-freight.webp",
+    "before": 1248,
+    "after": 718
+  },
+  {
+    "source": "/images/warehouse.png",
+    "destination": "/images/warehouse.webp",
+    "before": 1057,
+    "after": 478
+  },
+  {
+    "source": "/images/transport.png",
+    "destination": "/images/transport.webp",
+    "before": 1103,
+    "after": 612
+  },
+  {
+    "source": "/images/customs.png",
+    "destination": "/images/customs.webp",
+    "before": 917,
+    "after": 492
+  },
+  {
+    "source": "/images/ocean-freight.png",
+    "destination": "/images/ocean-freight.webp",
+    "before": 793,
+    "after": 368
+  },
+  {
+    "source": "/images/industry-agriculture.jpg",
+    "destination": "/images/industry-agriculture.webp",
+    "before": 16796941,
+    "after": 112900
+  },
+  {
+    "source": "/images/industry-chemicals.jpg",
+    "destination": "/images/industry-chemicals.webp",
+    "before": 940125,
+    "after": 75734
+  },
+  {
+    "source": "/images/industry-spices.jpg",
+    "destination": "/images/industry-spices.webp",
+    "before": 31913,
+    "after": 30322
+  },
+  {
+    "source": "/images/industry-nutraceutical.jpg",
+    "destination": "/images/industry-nutraceutical.webp",
+    "before": 61774,
+    "after": 40376
+  },
+  {
+    "source": "/images/product-makhana.jpg",
+    "destination": "/images/product-makhana.webp",
+    "before": 95687,
+    "after": 93322
+  },
+  {
+    "source": "/images/product-dairy.jpg",
+    "destination": "/images/product-dairy.webp",
+    "before": 26741,
+    "after": 20596
+  },
+  {
+    "source": "/images/product-vegetables.jpg",
+    "destination": "/images/product-vegetables.webp",
+    "before": 14098,
+    "after": 21212
+  },
+  {
+    "source": "/images/product-fruits.jpg",
+    "destination": "/images/product-fruits.webp",
+    "before": 115721,
+    "after": 127136
+  },
+  {
+    "source": "/images/product-sprouts.jpg",
+    "destination": "/images/product-sprouts.webp",
+    "before": 851838,
+    "after": 178438
+  },
+  {
+    "source": "/images/product-cashew.jpg",
+    "destination": "/images/product-cashew.webp",
+    "before": 1189915,
+    "after": 144638
+  },
+  {
+    "source": "/images/product-spices.jpg",
+    "destination": "/images/product-spices.webp",
+    "before": 1449730,
+    "after": 156362
+  },
+  {
+    "source": "/images/product-chemicals.jpg",
+    "destination": "/images/product-chemicals.webp",
+    "before": 1425062,
+    "after": 145180
+  },
+  {
+    "source": "/images/product-nutraceuticals.jpg",
+    "destination": "/images/product-nutraceuticals.webp",
+    "before": 797260,
+    "after": 131980
+  },
+  {
+    "source": "/images/product-ready-meals.jpg",
+    "destination": "/images/product-ready-meals.webp",
+    "before": 1291165,
+    "after": 307942
+  },
+  {
+    "source": "/images/product-millets.jpg",
+    "destination": "/images/product-millets.webp",
+    "before": 105297,
+    "after": 114932
+  },
+  {
+    "source": "/images/product-aggregate.jpg",
+    "destination": "/images/product-aggregate.webp",
+    "before": 102328,
+    "after": 123060
+  },
+  {
+    "source": "/images/product-admixtures.jpg",
+    "destination": "/images/product-admixtures.webp",
+    "before": 38192,
+    "after": 38308
+  },
+  {
+    "source": "/assets/apart/freight.jpg",
+    "destination": "/assets/apart/freight.webp",
+    "before": 1085942,
+    "after": 124044
+  },
+  {
+    "source": "/assets/apart/growth.jpg",
+    "destination": "/assets/apart/growth.webp",
+    "before": 911409,
+    "after": 93614
+  },
+  {
+    "source": "/assets/apart/quality.jpg",
+    "destination": "/assets/apart/quality.webp",
+    "before": 940125,
+    "after": 53138
+  },
+  {
+    "source": "/assets/apart/trade.jpg",
+    "destination": "/assets/apart/trade.webp",
+    "before": 2092989,
+    "after": 96236
+  },
+  {
+    "source": "/assets/apart/transport.jpg",
+    "destination": "/assets/apart/transport.webp",
+    "before": 1320896,
+    "after": 130064
+  },
+  {
+    "source": "/assets/services/documents.jpg",
+    "destination": "/assets/services/documents.webp",
+    "before": 140477,
+    "after": 58998
+  },
+  {
+    "source": "/assets/services/export.jpg",
+    "destination": "/assets/services/export.webp",
+    "before": 376464,
+    "after": 289874
+  },
+  {
+    "source": "/assets/services/freight.jpg",
+    "destination": "/assets/services/freight.webp",
+    "before": 1085942,
+    "after": 124044
+  },
+  {
+    "source": "/assets/services/import.jpg",
+    "destination": "/assets/services/import.webp",
+    "before": 323620,
+    "after": 240432
+  },
+  {
+    "source": "/assets/services/transport.jpg",
+    "destination": "/assets/services/transport.webp",
+    "before": 153124,
+    "after": 89578
+  },
+  {
+    "source": "/assets/blog/photography/fruits.jpg",
+    "destination": "/assets/blog/photography/fruits.webp",
+    "before": 115721,
+    "after": 127136
+  },
+  {
+    "source": "/assets/blog/photography/makhana.jpg",
+    "destination": "/assets/blog/photography/makhana.webp",
+    "before": 95687,
+    "after": 93322
+  },
+  {
+    "source": "/assets/blog/photography/nuts.jpg",
+    "destination": "/assets/blog/photography/nuts.webp",
+    "before": 1189915,
+    "after": 108708
+  },
+  {
+    "source": "/assets/blog/photography/seeds.jpg",
+    "destination": "/assets/blog/photography/seeds.webp",
+    "before": 797260,
+    "after": 98524
+  },
+  {
+    "source": "/assets/blog/photography/spices.jpg",
+    "destination": "/assets/blog/photography/spices.webp",
+    "before": 1449730,
+    "after": 116378
+  },
+  {
+    "source": "/assets/blog/photography/vegetables.jpg",
+    "destination": "/assets/blog/photography/vegetables.webp",
+    "before": 14098,
+    "after": 21212
+  },
+  {
+    "source": "/assets/panvibes/images/founder/bp.jpeg",
+    "destination": "/assets/panvibes/images/founder/bp.webp",
+    "before": 37239,
+    "after": 28158
+  },
+  {
+    "source": "/assets/panvibes/images/founder/gm.jpeg",
+    "destination": "/assets/panvibes/images/founder/gm.webp",
+    "before": 147717,
+    "after": 21290
+  },
+  {
+    "source": "/assets/panvibes/images/founder/nk.jpeg",
+    "destination": "/assets/panvibes/images/founder/nk.webp",
+    "before": 55544,
+    "after": 21396
+  },
+  {
+    "source": "/assets/panvibes/images/founder/om.jpeg",
+    "destination": "/assets/panvibes/images/founder/om.webp",
+    "before": 53801,
+    "after": 23972
+  },
+  {
+    "source": "/assets/panvibes/images/founder/pm.jpeg",
+    "destination": "/assets/panvibes/images/founder/pm.webp",
+    "before": 15253,
+    "after": 12014
+  },
+  {
+    "source": "/assets/panvibes/images/founder/pp.jpeg",
+    "destination": "/assets/panvibes/images/founder/pp.webp",
+    "before": 76673,
+    "after": 28580
+  },
+  {
+    "source": "/assets/blog/opportunities-challenges-how-to-get-started.jpg",
+    "destination": "/assets/blog/opportunities-challenges-how-to-get-started.webp",
+    "before": 85111,
+    "after": 90048
+  },
+  {
+    "source": "/assets/blog/agro-product-exporter-in-india-panvibes-exim-global-supplier.jpg",
+    "destination": "/assets/blog/agro-product-exporter-in-india-panvibes-exim-global-supplier.webp",
+    "before": 716442,
+    "after": 172838
+  },
+  {
+    "source": "/assets/blog/dehydrated-food-exporter-in-india.jpg",
+    "destination": "/assets/blog/dehydrated-food-exporter-in-india.webp",
+    "before": 2002896,
+    "after": 276728
+  },
+  {
+    "source": "/assets/blog/dehydrated-onion-flakes-exporter-in-india-premium-bulk-supplier.jpg",
+    "destination": "/assets/blog/dehydrated-onion-flakes-exporter-in-india-premium-bulk-supplier.webp",
+    "before": 693868,
+    "after": 132702
+  },
+  {
+    "source": "/assets/blog/dehydrated-food-supplier-navi-mumbai-premium-quality-ingredients.jpg",
+    "destination": "/assets/blog/dehydrated-food-supplier-navi-mumbai-premium-quality-ingredients.webp",
+    "before": 268298,
+    "after": 214424
+  },
+  {
+    "source": "/assets/blog/beetroot-powder-supplier-in-mumbai-panvibes-exim.jpg",
+    "destination": "/assets/blog/beetroot-powder-supplier-in-mumbai-panvibes-exim.webp",
+    "before": 887869,
+    "after": 171150
+  },
+  {
+    "source": "/assets/blog/dehydrated-garlic-powder-supplier-india.jpg",
+    "destination": "/assets/blog/dehydrated-garlic-powder-supplier-india.webp",
+    "before": 989828,
+    "after": 186420
+  },
+  {
+    "source": "/assets/blog/dehydrated-ginger-powder-supplier-in-navi-mumbai-panvibes-exim.jpg",
+    "destination": "/assets/blog/dehydrated-ginger-powder-supplier-in-navi-mumbai-panvibes-exim.webp",
+    "before": 558606,
+    "after": 280204
+  },
+  {
+    "source": "/assets/blog/fox-nuts-supplier-navi-mumbai-panvibes-exim.jpg",
+    "destination": "/assets/blog/fox-nuts-supplier-navi-mumbai-panvibes-exim.webp",
+    "before": 685719,
+    "after": 122724
+  },
+  {
+    "source": "/images/products/ingredient-sprites.png",
+    "destination": "/images/products/ingredient-sprites.webp",
+    "before": 1408971,
+    "after": 936364
+  },
+  {
+    "source": "/images/products/catalogue-sprites.png",
+    "destination": "/images/products/catalogue-sprites.webp",
+    "before": 1468983,
+    "after": 1054342
+  },
+  {
+    "source": "/images/products/table-bowls-transparent.png",
+    "destination": "/images/products/table-bowls-transparent.webp",
+    "before": 1039975,
+    "after": 616492
+  },
+  {
+    "source": "/media/home-hero/handoff-clean-plate.png",
+    "destination": "/media/home-hero/handoff-clean-plate.webp",
+    "before": 2481339,
+    "after": 379098
+  },
+  {
+    "source": "/media/home-hero/handoff-truck.png",
+    "destination": "/media/home-hero/handoff-truck.webp",
+    "before": 712361,
+    "after": 400928
+  }
+]

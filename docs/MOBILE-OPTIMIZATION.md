@@ -1,10 +1,10 @@
-# Mobile optimization — 17 October 2026
+# Mobile optimization — 18 October 2026
 
 Mobile preserves the desktop animation sequence: scroll-scrubbed home film, continuous truck journey, container loading, truck rotation, road bend, industries, ship and globe. It does not replace those scenes with static cards or autoplay video.
 
 ## Live review
 
-Run `npm run dev`, then open `http://127.0.0.1:3000/mobile-preview`. Select a screen and page, then **Fit preview**. Scroll inside the phone. **Back to controls** restores the page/size selectors and the scene shortcuts. The iframe uses an actual responsive viewport. This review route returns 404 in production and is excluded from indexing.
+Run `npm run dev`, then open `http://127.0.0.1:3000/`. Review the real page at phone, tablet, landscape and desktop widths. The old `/mobile-preview` URL now redirects to the real website: there are no review controls or simulated device frames in the visitor experience.
 
 ## Implementation
 
@@ -20,8 +20,8 @@ Run `npm run dev`, then open `http://127.0.0.1:3000/mobile-preview`. Select a sc
 
 ## Mobile layout refinements
 
-- A single 65 px header keeps the logo, Products, Blog, WhatsApp and Menu in one row. It stays visible on mobile. The two-column menu opens below those links, with keyboard focus and Escape handling retained.
-- The footer uses a compact two-column layout, a smaller interactive map and grouped contact details. At 390 px it is 660 px tall, down from 1,443 px; at 320 px it is 687 px. No company links or contact details were removed.
+- A single 65 px transparent header now shows only the logo and Menu button. Its white fill, border and backdrop blur are removed. The Menu label switches between white and blue for contrast, and opening the menu reveals its readable white dropdown. Products, Blog, WhatsApp and the document links are inside the dropdown. The mobile review controls and framed preview have been removed; `/mobile-preview` redirects to the real website. Keyboard focus, Escape handling and scroll locking while the menu is open are retained.
+- The footer uses a compact two-column layout, a smaller interactive map and grouped contact details. Its links now have 44 px touch targets. The measured 390 px layout is about 720 px tall, fitting inside a phone viewport with the header. No company links or contact details were removed in this optimization pass.
 - The mobile film-to-canvas handoff waits for the final decoded frame, then transfers visibility to one truck. It does not crossfade two different truck frames. Reverse scrolling restores video ownership.
 - The container-to-services transition now brings the blue surface and its text in together, finishing at phase 17.1 instead of leaving an empty blue interval. Duplicate foundation-container painting was removed.
 - On mobile the ship reveal blends the white surface into the ocean instead of raising white panels. The cloud passes are softened while preserving their scroll movement. Desktop choreography remains unchanged.
@@ -37,3 +37,14 @@ Run `npm run dev`, then open `http://127.0.0.1:3000/mobile-preview`. Select a sc
 - Responsive layout checks cover 360 × 800, 390 × 844, 430 × 932, 768 × 1024 and 844 × 390, plus desktop breakpoint restoration. Contact draft preparation, mobile navigation and product enquiry dialogs were also checked.
 
 These are browser viewport/interaction checks, not physical iPhone/Android or throttled-network benchmarks. Device performance has not been measured on the client's phone.
+
+## Latest performance and layout pass
+
+- 58 derived WebP assets total 8.5 MB versus 49.4 MB for their sources, an 83% reduction for this image batch. Originals are retained. Run `node scripts/optimize-site-media.mjs` to regenerate them. `docs/media-optimization.json` records every input/output size.
+- Product sprites, transparent bowls and the truck handoff use lossless WebP. Raw-pixel verification confirms identical dimensions, alpha and every visible pixel for all four animation assets.
+- The home globe defers the Three.js module, textures and geometry until its journey phase approaches. A fresh desktop home page was verified with no initialized globe. Globe and About render loops stop when off screen or the document is hidden. The crane also skips out-of-view scroll rendering.
+- The transparent mobile header follows the current scene contrast, and hero contrast avoids the unnecessary second pixel readback on mobile. Guards prevent zero-size canvas sampling during navigation.
+- The full-screen route loading overlay has been removed, with no replacement loading bar. Content and posters remain usable while heavier assets initialize.
+- Catalogue cards, service cards, About section spacing, the journal filters and Contact layout are more compact. Product panels still grow to show all types and grades. Globe controls are separated from the office caption.
+- Phone checks covered menu open/close, About container scrolling, Services flight and details dialog, product lettering and expandable types/enquiry dialog, journal search (three ginger stories), and Contact fields. No enquiry was submitted.
+- Reviewed 320 px, 390 px, 768 px and 1440 px viewports; observed document widths match their viewports. The old review URL returns a relative 307 redirect, preserving whichever host the visitor used, including a phone's LAN URL.

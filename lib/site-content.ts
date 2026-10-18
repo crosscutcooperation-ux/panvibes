@@ -9,7 +9,6 @@ export const company = {
     "Akshar Business Park, W-2106, Janta Market Road, Sector 25, Vashi, Navi Mumbai, Maharashtra 400703",
   phones: [
     "+91 2245686161",
-    "+91 9987587873",
     "+91 9967653143",
     "+91 8655481884",
   ],
@@ -23,8 +22,8 @@ export const company = {
     "From sourcing to shipment, our approach combines innovation and integrity with timely delivery, regulatory compliance and lasting business relationships.",
   ],
   industryIntroduction: "A partner in global maritime transport, supporting the industries and products in our portfolio.",
-  brochure: "https://www.panvibesexim.com/assets/E-Brochure.pdf",
-  profile: "https://www.panvibesexim.com/assets/images/catlogue/profile.pdf",
+  brochure: "/documents/PanVibes-Exim-Premium-Brochure-Short.pdf",
+  profile: "/documents/PanVibes-Exim-Premium-Company-Profile.pdf",
 };
 export const navigation = [
   { label: "Home", href: "/" },
@@ -38,7 +37,7 @@ export const navigation = [
 export const services = [
   {
     title: ["Export", "solutions"],
-    image: "air-freight.png",
+    image: "air-freight.webp",
     overview: "Global trade support combining sourcing, logistics and quality-focused distribution.",
     description:
       "Documentation, customs clearance, logistics coordination, and delivery support for international exports.",
@@ -46,7 +45,7 @@ export const services = [
   },
   {
     title: ["Import", "solutions"],
-    image: "warehouse.png",
+    image: "warehouse.webp",
     overview: "Warehousing facilities supported by inventory management and distribution capabilities.",
     description:
       "Import support covering port operations, customs requirements, and inland transport.",
@@ -54,7 +53,7 @@ export const services = [
   },
   {
     title: ["Transport", "solutions"],
-    image: "transport.png",
+    image: "transport.webp",
     overview: "Transportation services focused on timely, secure delivery across destinations.",
     description:
       "Road, rail, and multimodal transport with shipment tracking and delivery coordination.",
@@ -62,7 +61,7 @@ export const services = [
   },
   {
     title: ["Document", "verification"],
-    image: "customs.png",
+    image: "customs.webp",
     overview: "Container handling and consolidation support for import and export operations.",
     description:
       "Verification and processing of shipping documents, including bills of lading, origin certificates, and commercial invoices.",
@@ -70,7 +69,7 @@ export const services = [
   },
   {
     title: ["Freight", "forwarding"],
-    image: "ocean-freight.png",
+    image: "ocean-freight.webp",
     overview: "Specialized storage for temperature-sensitive goods and bulk liquid cargo.",
     description:
       "Air, sea, and land freight, with cargo insurance and supply chain management.",
@@ -84,10 +83,10 @@ export const stats = [
   { value: 5, suffix: "+", label: "Services provided", description: "Export, import, transport, document verification and freight forwarding support." },
 ];
 export const industries = [
-  { name: "Agriculture", image: "industry-agriculture.jpg", description: "Dehydrated fruits, vegetables and sprouts, millets, makhana and dry fruits." },
-  { name: "Chemicals", image: "industry-chemicals.jpg", description: "Specialty chemicals and construction admixtures from the PanVibes catalogue." },
-  { name: "Indian Spices", image: "industry-spices.jpg", description: "Indian spices supplied as part of our international product portfolio." },
-  { name: "Nutraceutical", image: "industry-nutraceutical.jpg", description: "Ingredients for nutrition and wellness, with a focus on purity and traceability." },
+  { name: "Agriculture", image: "industry-agriculture.webp", description: "Dehydrated fruits, vegetables and sprouts, millets, makhana and dry fruits." },
+  { name: "Chemicals", image: "industry-chemicals.webp", description: "Specialty chemicals and construction admixtures from the PanVibes catalogue." },
+  { name: "Indian Spices", image: "industry-spices.webp", description: "Indian spices supplied as part of our international product portfolio." },
+  { name: "Nutraceutical", image: "industry-nutraceutical.webp", description: "Ingredients for nutrition and wellness, with a focus on purity and traceability." },
 ];
 export const benefits = [
   {
@@ -110,32 +109,37 @@ export const benefits = [
   },
 ];
 export const products: {name:string;image:string;sector:'food'|'industrial'}[] = [
-  { name: "Makhana & Healthy Food Snacks", image: "product-makhana.jpg", sector:'food' },
-  { name: "Dairy Products", image: "product-dairy.jpg", sector:'food' },
-  { name: "Dehydrated Vegetables", image: "product-vegetables.jpg", sector:'food' },
-  { name: "Dehydrated Fruits", image: "product-fruits.jpg", sector:'food' },
-  { name: "Dehydrated Sprouts", image: "product-sprouts.jpg", sector:'food' },
-  { name: "Cashew & Other Dry Fruits", image: "product-cashew.jpg", sector:'food' },
-  { name: "Spices", image: "product-spices.jpg", sector:'food' },
-  { name: "Chemicals", image: "product-chemicals.jpg", sector:'industrial' },
-  { name: "Nutraceuticals", image: "product-nutraceuticals.jpg", sector:'food' },
+  { name: "Makhana & Healthy Food Snacks", image: "product-makhana.webp", sector:'food' },
+  { name: "Dairy Products", image: "product-dairy.webp", sector:'food' },
+  { name: "Dehydrated Vegetables", image: "product-vegetables.webp", sector:'food' },
+  { name: "Dehydrated Fruits", image: "product-fruits.webp", sector:'food' },
+  { name: "Dehydrated Sprouts", image: "product-sprouts.webp", sector:'food' },
+  { name: "Cashew & Other Dry Fruits", image: "product-cashew.webp", sector:'food' },
+  { name: "Spices", image: "product-spices.webp", sector:'food' },
+  { name: "Chemicals", image: "product-chemicals.webp", sector:'industrial' },
+  { name: "Nutraceuticals", image: "product-nutraceuticals.webp", sector:'food' },
   {
     name: "Indian Flavours Ready in Minutes",
-    image: "product-ready-meals.jpg",
+    image: "product-ready-meals.webp",
     sector:'food',
   },
-  { name: "Millets", image: "product-millets.jpg", sector:'food' },
-  { name: "Aggregate", image: "product-aggregate.jpg", sector:'industrial' },
-  { name: "Construction Admixtures", image: "product-admixtures.jpg", sector:'industrial' },
+  { name: "Millets", image: "product-millets.webp", sector:'food' },
+  { name: "Aggregate", image: "product-aggregate.webp", sector:'industrial' },
+  { name: "Construction Admixtures", image: "product-admixtures.webp", sector:'industrial' },
 ];
 export const destinations: [string, number, number][] = [
-  ["INDIA", 19, 73],
-  ["NEW ZEALAND", -41, 174],
   ["SPAIN", 40, -4],
-  ["FRANCE", 47, 2],
+  ["NEW ZEALAND", -41, 174],
   ["ITALY", 42, 13],
   ["AUSTRALIA", -27, 134],
   ["CANADA", 56, -106],
+  ["FRANCE", 47, 2],
+  ["INDIA", 19, 73],
+  ["USA", 39, -98],
+  ["UK", 54, -2],
+  ["UAE", 24.4, 54.4],
+  // Regional destination in addition to the individual European countries.
+  ["EUROPE", 52, 19],
 ];
 // The source site supplies no customer quotations or FAQ section.
 export const testimonials: {

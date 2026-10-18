@@ -64,6 +64,9 @@
 .contact-atlas[data-map-phase='map'] .atlas-bottom>div { display:none; }
 .contact-atlas[data-map-phase='zooming'] .globe-tools { opacity:0;pointer-events:none; }
 .contact-atlas[data-map-phase='zooming'] .atlas-top { display:flex; }
+/* Keep globe controls above the office caption at narrower card widths. */
+.contact-page .contact-atlas .globe-tools { left:auto;right:16px;top:10px;bottom:auto;transform:none; }
+.contact-atlas .globe-tools>span { display:none; }
 @media(prefers-reduced-motion:reduce) { .contact-atlas .atlas-map-layer { transition:none; } }
 
 @media(max-width:991px) {
@@ -73,7 +76,7 @@
  .contact-main { padding:calc(var(--site-header-space) + 40px + env(safe-area-inset-top)) var(--gutter) 0; }
  .contact-heading h1 { font-size:clamp(64px,18vw,100px); }
  .contact-intro-note { font-size:16px;line-height:1.65; }
- .contact-atlas { height:430px;border-radius:10px; }
+ .contact-atlas { height:clamp(300px,88vw,390px);border-radius:10px; }
  .contact-atlas .globe-tools { bottom:8px; }
  .contact-atlas .globe-tools>span { font-size:8px; }
  .contact-form { grid-template-columns:1fr;gap:26px; }
@@ -83,9 +86,11 @@
  .contact-form-action { display:grid;grid-template-columns:1fr;gap:18px; }
  .contact-form-action p { font-size:13px; }
  .contact-submit { width:100%;min-height:52px;display:flex;justify-content:space-between;align-items:center;font-size:11px; }
- .contact-phone-list { grid-template-columns:1fr;gap:2px;font-size:16px; }
+ .contact-phone-list { grid-template-columns:repeat(2,minmax(0,1fr));gap:2px 12px;font-size:14px; }
+ .contact-details { gap:32px;padding-bottom:44px; }
  .contact-phone-list a,.contact-office>a { display:inline-flex;align-items:center;min-height:44px; }
  .contact-label { font-size:11px; }
  .contact-draft a,.contact-draft button { display:inline-flex;align-items:center;min-height:44px;font-size:14px; }
  .atlas-bottom button { min-height:44px; }
 }
+@media(max-width:374px) { .contact-phone-list { grid-template-columns:1fr; } }

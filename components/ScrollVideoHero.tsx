@@ -24,10 +24,11 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
     const truckContext=layer.getContext('2d')!;
     const truck=new Image();truck.src=handoffTruck.src;
     const plate=stage.querySelector<HTMLElement>('.home-handoff-plate')!;
-    const plateImage=new Image();plateImage.src='/media/home-hero/handoff-clean-plate.png';
+    const plateImage=new Image();plateImage.src='/media/home-hero/handoff-clean-plate.webp';
     let trigger:ScrollTrigger|undefined,bridge:ScrollTrigger|undefined,frame=0,progress=0,disposed=false,lastContrastAt=-Infinity;
     function handoff(){
       const w=stage.clientWidth,h=stage.clientHeight;
+      if(disposed||!w||!h){layer.style.visibility='hidden';return;}
       const after=trigger?segment(window.scrollY,trigger.end,trigger.end+h):0;
       const ready=truck.complete&&truck.naturalWidth>0&&plateImage.complete&&plateImage.naturalWidth>0;
       // Phones may finish a seek after the scroll event. Transfer ownership
@@ -59,7 +60,7 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
       layer.dataset.truckX=x.toFixed(2);layer.dataset.truckY=y.toFixed(2);layer.dataset.truckLength=length.toFixed(2);
     }
     function contrast(force=false){
-      if(video.readyState<2||!video.videoWidth)return;
+      if(disposed||video.readyState<2||!video.videoWidth||!video.videoHeight||!Number.isFinite(video.duration)||video.duration<=0)return;
       // Keep the desert introduction white; blend into brand blue only as the
       // supplied film dissolves into the pale overhead scene. Use the decoded
       // frame's time so the copy follows the picture during reverse seeking.
@@ -76,6 +77,7 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
       const w=stage.clientWidth,h=stage.clientHeight;
       const cover=getComputedStyle(video).objectFit==='cover';
       const bounds=video.getBoundingClientRect(),stageBounds=stage.getBoundingClientRect();
+      if(!w||!h||!bounds.width||!bounds.height)return;
       const scale=cover?Math.max(bounds.width/video.videoWidth,bounds.height/video.videoHeight):Math.min(bounds.width/video.videoWidth,bounds.height/video.videoHeight);
       const dw=video.videoWidth*scale,dh=video.videoHeight*scale;
       ctx.drawImage(video,0,0,48,28);
@@ -83,6 +85,13 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
       const edge=ctx.getImageData(compact?visibleColumn:46,0,1,1).data;
       const background=`rgb(${edge[0]},${edge[1]},${edge[2]})`;
       stage.style.setProperty('--hero-background',background);
+      // The transparent mobile navigation follows the existing copy transition
+      // without a second canvas readback from the video decoder.
+      if(compact){
+        const tone=ink>.5?'#104e87':'#ffffff';
+        if(stage.style.getPropertyValue('--hero-nav-text')!==tone){stage.style.setProperty('--hero-nav-text',tone);window.dispatchEvent(new Event('panvibes:header-tone'));}
+        return;
+      }
       ctx.fillStyle=background;ctx.fillRect(0,0,48,28);
       ctx.drawImage(video,(bounds.left-stageBounds.left+(bounds.width-dw)/2)/w*48,(bounds.top-stageBounds.top+(bounds.height-dh)/2)/h*28,dw/w*48,dh/h*28);
       const pixels=ctx.getImageData(0,0,48,28).data;

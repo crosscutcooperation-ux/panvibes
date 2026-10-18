@@ -1,7 +1,7 @@
 // Alpha bounds were measured from the extracted truck, not guessed from a
 // browser viewport. Both renderers use the same image and visible dimensions.
 export const handoffTruck = {
-  src:'/media/home-hero/handoff-truck.png',
+  src:'/media/home-hero/handoff-truck.webp',
   imageWidth:948,imageHeight:1659,
   x:301,y:94,width:356,height:1494,
 };

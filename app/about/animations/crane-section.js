@@ -403,6 +403,12 @@ class LogisticsCrane extends HTMLElement {
       box(cargo, [.045, .03, .16], [1.94, -.15, z + .04], steel);
     }
     for (let z = -.69; z <= .7; z += .13) box(cargo, [.04, 1.31, .037], [-1.85, 0, z], cargoPaint);
+    new THREE.TextureLoader().load('/images/panvibes-logo-transparent.png',texture=>{
+      if(!this.isConnected){texture.dispose();return;}texture.colorSpace=THREE.SRGBColorSpace;this.textures.add(texture);
+      const plateMaterial=new THREE.MeshBasicMaterial({color:'#ffffff'}),logoMaterial=new THREE.MeshBasicMaterial({map:texture,transparent:true});this.materials.add(plateMaterial);this.materials.add(logoMaterial);
+      for(const sign of [-1,1]){const plate=new THREE.Mesh(geometry(new THREE.PlaneGeometry(1.9,.76)),plateMaterial);const logo=new THREE.Mesh(geometry(new THREE.PlaneGeometry(1.74,1.74*759/2071)),logoMaterial);plate.position.set(0,0,sign*.83);logo.position.set(0,0,sign*.835);if(sign<0){plate.rotation.y=Math.PI;logo.rotation.y=Math.PI;}cargo.add(plate,logo);}
+      this.dataset.branded='true';
+    });
 
     this.mainCables = [-1, 1].map(sign => ({
       mesh: rod(this.scene, [tip.x + sign * .13, tip.y, 0], [tip.x + sign * .13, 3.6, 0], .018, steel),

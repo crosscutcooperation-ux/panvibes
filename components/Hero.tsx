@@ -1,32 +1,20 @@
 import { Pill } from "./ui";
 import { company } from "@/lib/site-content";
 import ScrollVideoHero from './ScrollVideoHero';
+import EnquiryButton from './EnquiryButton';
 
 export default function Hero() {
-  const [vision, ...remainder] = company.heroTitle.split(", ");
-  const execution = remainder.join(", ");
-  const words = execution.split(" ");
   return (
     <ScrollVideoHero>
         <div className="hero-copy">
           <p className="hero-eyebrow">{company.name}</p>
-          <h1 id="hero-title">
-            {execution ? (
-              <>
-                {vision},<br />
-                <span>{words.slice(0, -1).join(" ")}</span>
-                <br />
-                {words.at(-1)}
-              </>
-            ) : (
-              company.heroTitle
-            )}
-          </h1>
+          <h1 id="hero-title">Your Vision,<br/><span>Our Expert</span><br/>Execution</h1>
           <p className="hero-description">{company.heroDescription}</p>
           <div className="hero-actions">
-            <Pill className="pill-white" href="/contact">
+            <EnquiryButton className="pill pill-white" purpose="Bulk quotation">
               Request a Quote
-            </Pill>
+            </EnquiryButton>
+            <Pill className="pill-white" href="/products#ingredient-pages-title">Get Product Catalogue</Pill>
           </div>
         </div>
         <div className="scroll-cue">

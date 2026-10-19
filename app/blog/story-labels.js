@@ -3,7 +3,7 @@ export const storyLabels = {
   'global-export-import-services': 'Export & import essentials',
   'opportunities-challenges-how-to-get-started': 'Your first move in global trade',
   'international-export-import-company': 'Choosing a global trade partner',
-  'b2b-food-exporter-international': 'Food exports, worldwide',
+  'b2b-food-exporter-international': 'Food exports, five markets',
   'global-commodity-exporter-in-india': 'The world of commodity trade',
   'agro-product-exporter-in-india-panvibes-exim-global-supplier': 'From Indian farms to the world',
   'dehydrated-food-exporter-in-india': 'Dehydrated food, beyond borders',

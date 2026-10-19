@@ -115,3 +115,4 @@
  .page .card h3 { font-size:16px; }
  .cardImage { max-width:190px; }
 }
+.page .shippingNote{margin:24px 0;padding:16px 20px;border-left:3px solid var(--orange);background:#edf4fa;color:#104e87;font:14px/1.7 Arial,sans-serif;}

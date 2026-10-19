@@ -1,0 +1,118 @@
+.buyer-page,.buyer-home { color:var(--blue,#104e87);background:#fff; }
+.buyer-main { padding:calc(var(--site-header-space,120px) + 55px) var(--gutter,5vw) 80px;max-width:1600px;margin:auto; }
+.buyer-breadcrumb { display:flex;flex-wrap:wrap;gap:10px;font-size:12px;margin-bottom:38px;line-height:1.8; }
+.buyer-breadcrumb a { text-decoration:underline;text-underline-offset:4px; }
+.buyer-page [id],.buyer-home [id] { scroll-margin-top:calc(var(--site-header-space,100px) + 24px); }
+.buyer-eyebrow { font:11px SteinhartMono,monospace;letter-spacing:.1em;text-transform:uppercase;margin:0 0 18px;line-height:1.7; }
+.buyer-hero { display:grid;grid-template-columns:1.15fr 1fr;gap:6vw;align-items:center;padding-bottom:55px;border-bottom:1px solid #d7e1eb; }
+.buyer-hero h1,.buyer-page-title { font:500 clamp(40px,5.5vw,82px)/1.06 Steinhart,sans-serif;letter-spacing:-.04em;margin-bottom:25px; }
+.buyer-hero h1 span { color:var(--red,#ff684e); }
+.buyer-intro { font-size:clamp(16px,1.5vw,20px);line-height:1.7;max-width:760px; }
+.buyer-hero-photo { position:relative;aspect-ratio:1.1;border-radius:14px;overflow:hidden;background:#eef3f7; }
+.buyer-hero-photo img,.buyer-product-image img { object-fit:cover; }
+.buyer-actions { display:flex;flex-wrap:wrap;gap:12px;margin-top:28px; }
+.buyer-button { display:inline-flex;align-items:center;justify-content:center;gap:18px;min-height:48px;padding:14px 22px;border:1px solid #104e87;border-radius:28px;font-size:13px;line-height:1.4;text-decoration:none; }
+.buyer-button-primary { color:#fff;background:#104e87; }
+.buyer-button:hover { background:#edf4fa;color:#104e87; }
+.buyer-page a:focus-visible,.buyer-home a:focus-visible,.buyer-page summary:focus-visible { outline:3px solid #e45b42;outline-offset:5px; }
+.buyer-section { padding:65px 0; }
+.buyer-home { padding:0 var(--gutter,5vw); }
+.buyer-section h2 { font:500 clamp(29px,3.3vw,48px)/1.15 Steinhart,sans-serif;letter-spacing:-.025em;margin-bottom:22px; }
+.buyer-section p,.buyer-section li { font-size:16px;line-height:1.8; }
+.buyer-section>p { max-width:850px; }
+.buyer-section .buyer-eyebrow { font-size:11px; }
+.buyer-section h3 { font-size:21px;margin-bottom:14px;line-height:1.4; }
+.buyer-section ul,.buyer-section ol { padding-left:20px; }
+.buyer-section-heading { display:flex;justify-content:space-between;gap:30px;align-items:end;margin-bottom:28px; }
+.buyer-section-heading>p { max-width:440px; }
+.buyer-product-grid { display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:18px; }
+.buyer-product-card { border:1px solid #d7e1eb;border-radius:12px;overflow:hidden;transition:background .15s;min-width:0; }
+.buyer-product-card:hover { background:#f1f6fa; }
+.buyer-product-image { position:relative;aspect-ratio:1.5; }
+.buyer-product-card>span { display:flex;justify-content:space-between;gap:12px;padding:20px 18px 10px;font-size:19px;line-height:1.3; }
+.buyer-product-card>span>span { color:#dc533c; }
+.buyer-product-card small { display:block;line-height:1.6;padding:0 18px 22px;color:#52677b;font-size:12px; }
+.buyer-resource-links { display:flex;gap:25px;flex-wrap:wrap;margin-top:28px; }
+.buyer-resource-links a { min-height:44px;display:inline-flex;align-items:center;text-decoration:underline;text-underline-offset:5px;font-size:14px; }
+.buyer-facts { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 36px;margin:0; }
+.buyer-facts>div { border-bottom:1px solid #d7e1eb;padding:20px 0; }
+.buyer-facts dt { font:11px SteinhartMono,monospace;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px; }
+.buyer-facts dd { font-size:16px;line-height:1.7;margin:0; }
+.buyer-columns { display:grid;grid-template-columns:1fr 1fr;gap:36px; }
+.buyer-panel { background:#f1f6fa;border:1px solid #e1e9f0;border-radius:12px;padding:30px; }
+.buyer-faqs { border-top:1px solid #d7e1eb; }
+.buyer-faqs details { border-bottom:1px solid #d7e1eb;padding:22px 0; }
+.buyer-faqs summary { font-size:19px;line-height:1.5;cursor:pointer; }
+.buyer-faqs p { max-width:850px;margin:16px 0 0; }
+.buyer-spec-table { border-collapse:collapse;width:100%;font-size:15px; }
+.buyer-spec-table th,.buyer-spec-table td { padding:16px;text-align:left;border-bottom:1px solid #d7e1eb;line-height:1.7;vertical-align:top; }
+.buyer-spec-table th { width:32%;font-weight:500; }
+.buyer-spec-table caption { text-align:left;font-size:14px;line-height:1.7;margin-bottom:22px; }
+.buyer-notice { font-size:14px;line-height:1.8;background:#f1f6fa;border-radius:10px;padding:20px 24px;margin:24px 0; }
+.chemical-tools { display:flex;gap:18px;align-items:end;flex-wrap:wrap;margin-bottom:30px; }
+.chemical-tools label { flex:1;min-width:220px;display:grid;gap:10px;font-size:14px; }
+.chemical-tools input,.chemical-tools select { width:100%;min-height:50px;border:1px solid #a8bccd;border-radius:8px;padding:12px;background:#fff;color:#104e87;font:16px Helvetica,sans-serif; }
+.chemical-tools input:focus-visible,.chemical-tools select:focus-visible { outline:3px solid #e45b42;outline-offset:3px; }
+.chemical-tools button { min-height:48px;background:#104e87;border:0;color:white;border-radius:24px;padding:12px 22px; }
+.chemical-count { font:12px SteinhartMono,monospace;margin-bottom:25px; }
+.chemical-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px; }
+.chemical-group { padding:26px;border:1px solid #d7e1eb;border-radius:12px; }
+.chemical-group h3 { font-size:22px;line-height:1.3; }
+.chemical-group ul { list-style:none;padding:0; }
+.chemical-group li { border-top:1px solid #e1e9f0; }
+.chemical-group a { display:flex;justify-content:space-between;gap:12px;font-size:15px;line-height:1.6;padding:13px 0;overflow-wrap:anywhere; }
+.chemical-group a span { color:#d94d36; }
+@media(max-width:991px) {
+ .buyer-hero { grid-template-columns:1fr;gap:30px; }.buyer-hero-photo { aspect-ratio:1.8; }
+ .buyer-product-grid,.chemical-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
+ .buyer-section-heading { align-items:start; }.buyer-section-heading>p { max-width:320px; }
+}
+@media(max-width:650px) {
+ .buyer-main { padding-top:calc(var(--site-header-space,110px) + 30px);padding-bottom:30px; }
+ .buyer-hero h1,.buyer-page-title { font-size:clamp(30px,9.4vw,46px);overflow-wrap:anywhere; }
+ .buyer-section { padding:40px 0; }.buyer-hero { padding-bottom:35px; }
+ .buyer-section-heading { display:block; }.buyer-section-heading>p { max-width:none; }
+ .buyer-product-grid,.chemical-grid,.buyer-columns,.buyer-facts { grid-template-columns:1fr; }
+ .buyer-product-grid-compact { grid-template-columns:repeat(2,minmax(0,1fr));gap:12px; }
+ .buyer-product-grid-compact .buyer-product-card>span { font-size:16px;padding:16px 12px 10px; }
+ .buyer-product-grid-compact .buyer-product-card small { padding:0 12px 18px; }
+ .buyer-panel { padding:22px; }.buyer-actions { flex-direction:column; }.buyer-button { width:100%; }
+ .buyer-spec-table th,.buyer-spec-table td { padding:12px 6px;font-size:14px; }.buyer-spec-table th { width:37%; }
+ .buyer-resource-links { flex-direction:column;gap:6px; }.buyer-faqs summary { font-size:17px; }
+}
+@media(prefers-reduced-motion:reduce) { .buyer-product-card { transition:none; } }
+
+/* A group list and adjacent name/formula sheet follow the owner's chemical sketch. */
+.chemical-explorer { display:grid;grid-template-columns:minmax(210px,.65fr) minmax(0,2fr);border:1px solid #c8d8e5;border-radius:14px;overflow:hidden;align-items:stretch; }
+.chemical-categories { background:#f1f6fa;padding:24px 0;border-right:1px solid #c8d8e5; }
+.chemical-categories>.buyer-eyebrow { padding:0 24px;font-size:10px; }
+.chemical-category { display:flex;align-items:center;justify-content:space-between;gap:15px;text-align:left;width:100%;padding:18px 24px;font:500 16px/1.5 Helvetica,sans-serif;color:#104e87;border-top:1px solid #d7e1eb; }
+.chemical-category>span:first-child { overflow-wrap:anywhere; }
+.chemical-category>span:last-child { color:#d9563b; }
+.chemical-category[aria-pressed='true'] { background:#104e87;color:#fff; }
+.chemical-category[aria-pressed='true']>span:last-child { color:#fff; }
+.chemical-category:focus-visible { outline:3px solid #e5643d;outline-offset:-4px; }
+.chemical-panels { min-width:0;background:#fff; }
+.chemical-panels .chemical-group { padding:30px;border:0;border-radius:0;scroll-margin-top:130px; }
+.chemical-panels .chemical-group[hidden] { display:none; }
+.chemical-panels .chemical-group h3 { font:500 clamp(23px,2.4vw,36px)/1.2 Steinhart,sans-serif;margin-bottom:20px; }
+.chemical-table { width:100%;table-layout:fixed;border-collapse:collapse; }
+.chemical-table caption { text-align:left;font:13px/1.7 Helvetica,sans-serif;color:#526d84;padding:0 0 22px; }
+.chemical-table th { background:#edf4fa;text-align:left;font:500 13px/1.5 Helvetica,sans-serif;letter-spacing:.06em;padding:15px; }
+.chemical-table th:first-child { width:65%; }
+.chemical-table td { border-bottom:1px solid #d7e1eb;text-align:left;vertical-align:middle;font:15px/1.7 Helvetica,sans-serif;padding:0 15px;overflow-wrap:anywhere; }
+.chemical-table td+td { border-left:1px solid #d7e1eb;padding-top:15px;padding-bottom:15px;color:#42667e; }
+.chemical-table td a,.chemical-table td button { display:flex;align-items:center;justify-content:space-between;gap:15px;width:100%;padding:17px 0;font:inherit;text-align:left;min-height:52px; }
+.chemical-table td a:hover,.chemical-table td button:hover { color:#c84d2c; }
+.chemical-table td span { color:#d9563b; }
+.chemical-formula-note { font:12px/1.8 Helvetica,sans-serif;color:#526d84;margin-top:20px;max-width:900px; }
+@media(max-width:650px) {
+ .chemical-explorer { grid-template-columns:1fr; }
+ .chemical-categories { display:grid;grid-template-columns:1fr 1fr;padding:0;border-right:0;border-bottom:1px solid #c8d8e5; }
+ .chemical-categories>.buyer-eyebrow { grid-column:1/-1;padding:18px 16px 0; }
+ .chemical-category { font-size:13px;padding:12px 16px;min-height:60px;border-right:1px solid #d7e1eb; }
+ .chemical-panels .chemical-group { padding:24px 16px; }
+ .chemical-table th { padding:12px 8px; }.chemical-table th:first-child { width:60%; }
+ .chemical-table td { padding-left:8px;padding-right:8px;font-size:13px; }
+ .chemical-table td a,.chemical-table td button { gap:7px;min-height:60px; }
+}

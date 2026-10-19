@@ -1,4 +1,5 @@
 .products-page { position:relative; }
+.range-directory-link { display:inline-flex;align-items:center;min-height:44px;font-size:13px;line-height:1.5;text-decoration:underline;text-underline-offset:4px;margin-bottom:15px; }
 .product-hero { position:relative;background:var(--blue); }
 .product-stage { position:relative;height:100svh;min-height:600px;overflow:hidden;background:#104e87;color:white; }
 .product-table-scene { position:absolute;bottom:0;left:0;width:100%;aspect-ratio:1672 / 941; }
@@ -187,3 +188,49 @@
  .products-page .range-row-compact .range-enquiry { margin-top:14px; }
  .products-page .range-heading-note { margin-top:18px; }
 }
+/* Expanded food panels participate in layout at every viewport size. */
+@media(min-width:992px) {
+ .range-row[data-sector='food'] .range-content { overflow:visible; }
+ .range-row[data-sector='food'] .range-overview { position:relative;inset:auto;min-height:400px; }
+ .range-row[data-sector='food'] .range-types { display:none;position:relative;inset:auto;transform:none;padding-bottom:110px; }
+ .range-row[data-sector='food'][data-open='true'] .range-overview { display:none; }
+ .range-row[data-sector='food'][data-open='true'] .range-types { display:block;visibility:visible;transform:none; }
+}
+
+.range-industrial-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+.range-row.range-chemical { display:flex;flex-direction:column;position:relative;overflow:visible;min-width:0;background:#f7f9fc;z-index:2; }
+.range-row.range-chemical[data-open='true'] { z-index:5; }
+.range-chemical .chemical-hover-photo { min-height:0;height:clamp(145px,13vw,210px);border-radius:7px 7px 0 0; }
+.chemical-hover-header { padding:22px 20px 18px; }
+.chemical-hover-header h3 { font-size:clamp(24px,2.25vw,36px);line-height:1.15;margin-top:12px; }
+.chemical-card-trigger { display:flex;align-items:center;justify-content:space-between;gap:15px;width:100%;text-align:left;font:inherit;min-height:44px; }
+.chemical-hover-hint { margin-top:12px;font:11px/1.7 Helvetica,sans-serif;color:#617c95; }
+.chemical-hover-reveal { display:grid;grid-template-rows:0fr;opacity:0;visibility:hidden;transition:grid-template-rows .35s ease,opacity .25s ease,visibility .35s; }
+.chemical-hover-clip { min-height:0;overflow:hidden; }
+.range-chemical[data-open='true'] .chemical-hover-reveal { grid-template-rows:1fr;opacity:1;visibility:visible; }
+.range-chemical[data-open='true'] .chemical-hover-clip { overflow:visible; }
+.chemical-hover-groups { padding:0; }
+.chemical-hover-group { position:relative;border-top:1px solid #c8d8e5; }
+.chemical-group-trigger { display:flex;align-items:center;justify-content:space-between;gap:15px;width:100%;min-height:60px;padding:17px 22px;text-align:left;font:500 16px/1.5 Helvetica,sans-serif; }
+.chemical-group-trigger>span:last-child { color:var(--red); }
+.chemical-hover-group[data-active='true']>.chemical-group-trigger { background:var(--blue);color:#fff; }
+.chemical-hover-group[data-active='true']>.chemical-group-trigger>span:last-child { color:#fff; }
+.chemical-flyout { position:absolute;left:calc(100% - 2px);top:0;width:min(700px,52vw);padding:26px;background:#fff;border:1px solid #b9cede;border-radius:0 12px 12px 12px;box-shadow:0 16px 45px #06254425;opacity:0;visibility:hidden;pointer-events:none;transform:translateX(-8px);transition:opacity .2s ease,transform .2s ease,visibility .2s;z-index:10; }
+.chemical-hover-group[data-active='true']>.chemical-flyout { opacity:1;visibility:visible;pointer-events:auto;transform:translateX(0); }
+.chemical-flyout h4 { font-size:26px;line-height:1.2;margin:12px 0 22px; }
+.chemical-flyout-note { font:11px/1.7 Helvetica,sans-serif;color:#617c95;margin-top:18px; }
+.chemical-hover-footer { padding:16px 20px 22px; }
+.chemical-hover-footer .range-directory-link { margin:0 0 12px;font-size:12px; }
+.chemical-hover-footer .range-enquiry { position:static;justify-content:space-between;width:100%;max-width:none;min-height:44px;padding:12px;font-size:10px;gap:10px; }
+.chemical-card-trigger:focus-visible,.chemical-group-trigger:focus-visible { outline:3px solid var(--red);outline-offset:-4px; }
+@media(max-width:991px) {
+ .chemical-flyout { position:static;width:auto;display:none;border-radius:0;padding:22px 16px;box-shadow:none;transform:none; }
+ .chemical-hover-group[data-active='true']>.chemical-flyout { display:block; }
+ .chemical-group-trigger { min-height:54px;padding:15px 20px;font-size:14px; }
+ .chemical-flyout h4 { font-size:22px; }
+}
+@media(max-width:767px) {
+ .range-industrial-grid { grid-template-columns:1fr; }
+ .range-chemical .chemical-hover-photo { height:170px; }
+}
+@media(prefers-reduced-motion:reduce) { .chemical-hover-reveal,.chemical-flyout { transition:none; } }

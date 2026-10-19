@@ -1,10 +1,8 @@
 import BlogExperience from './blog-experience';
 import posts from './posts.json';
+import { pageMetadata } from '@/lib/seo';
 
-export const metadata = {
-  title: 'Blog | PanVibes Exim',
-  description: 'Perspectives on global trade, dehydrated foods, ingredients and sourcing. Explore the PanVibes Exim journal.',
-};
+export const metadata = pageMetadata('Ingredient Sourcing & Global Trade Journal', 'Perspectives on global trade, dehydrated foods, ingredients and sourcing for international B2B buyers. Explore the PanVibes Exim journal.', '/blog');
 
 export default function BlogPage() {
   return <BlogExperience posts={posts.map(post => {

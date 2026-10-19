@@ -14,7 +14,7 @@ class LogisticsAbout extends HTMLElement {
         *{box-sizing:border-box}.nav-space{height:var(--about-nav-space);background:var(--about-bg)}section{position:relative;min-height:calc(700px - var(--about-nav-space));height:calc(100svh - var(--about-nav-space));overflow:hidden;touch-action:pan-y;user-select:none;-webkit-user-select:none;background:radial-gradient(ellipse at 50% 43%,#15558e 0%,var(--about-bg) 68%)}
         section:after{content:'';position:absolute;inset:0;pointer-events:none;opacity:.045;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.82' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Cpath fill='white' filter='url(%23n)' d='M0 0h160v160H0z'/%3E%3C/svg%3E")}
         .title{position:absolute;top:calc(50% - 85px);left:0;width:100%;display:flex;justify-content:center;margin:0;font-family:Steinhart,Arial,sans-serif;font-weight:700;font-size:clamp(68px,14.5vw,250px);line-height:1.06;letter-spacing:-.035em;white-space:nowrap;transform:translateY(60px);opacity:0;will-change:transform,opacity}
-        .title span{display:inline-block;will-change:transform;color:#fff}.title span:nth-child(5){margin-right:.12em}.scene{position:absolute;inset:0;z-index:2;pointer-events:none}.scene canvas{display:block;width:100%;height:100%}.fallback{position:absolute;left:50%;top:43%;transform:translateX(-50%);width:24%;height:30%;background:repeating-linear-gradient(90deg,#8d2c10 0px,#bf491b 9px,#6f210c 11px,#d75e29 15px);border:8px ridge #a9431c;box-shadow:0 30px 80px #0008;z-index:2}.fallback:before,.fallback:after{content:'';position:absolute;bottom:100%;width:2px;height:80vh;background:#8c8b88}.fallback:before{left:8%}.fallback:after{right:8%}
+        .title span{display:inline-block;will-change:transform;color:#fff}.title span:nth-child(5){margin-right:.12em}.scene{position:absolute;inset:0;z-index:2;pointer-events:none}.scene canvas{display:block;width:100%;height:100%}.fallback{position:absolute;left:50%;bottom:6%;transform:translateX(-50%);width:24%;height:30%;background:repeating-linear-gradient(90deg,#8d2c10 0px,#bf491b 9px,#6f210c 11px,#d75e29 15px);border:8px ridge #a9431c;box-shadow:0 30px 80px #0008;z-index:2}.fallback:before,.fallback:after{content:'';position:absolute;bottom:100%;width:2px;height:80vh;background:#8c8b88}.fallback:before{left:8%}.fallback:after{right:8%}
         @media(max-width:700px){:host{--about-nav-space:0px}section{height:100svh;min-height:640px}.title{top:45%;font-size:18vw;letter-spacing:-.045em}.fallback{width:36%;height:24%}}
         .scroll-cue{display:none}
         @media(max-width:991px){:host{height:180svh}section{position:sticky;top:0;height:100svh;min-height:0}.scroll-cue{display:block;position:absolute;left:24px;bottom:24px;font:10px SteinhartMono,monospace;color:#d4e5f3}}
@@ -55,6 +55,12 @@ class LogisticsAbout extends HTMLElement {
     const box=(w,h,d,mat,x,y,z,parent)=>{const geo=new THREE.BoxGeometry(w,h,d);this.geometries.push(geo);const mesh=new THREE.Mesh(geo,mat);mesh.position.set(x,y,z);parent.add(mesh);return mesh};
     const cylinder=(radius,length,mat,x,y,z,parent)=>{const geo=new THREE.CylinderGeometry(radius,radius,length,12);this.geometries.push(geo);const mesh=new THREE.Mesh(geo,mat);mesh.position.set(x,y,z);parent.add(mesh);return mesh};
     const group=new THREE.Group();this.container=group;scene.add(group);
+    new THREE.TextureLoader().load('/images/panvibes-logo-transparent.png',texture=>{
+      if(!this.mounted){texture.dispose();return;}this.brandTexture=texture;texture.colorSpace=THREE.SRGBColorSpace;
+      const backing=new THREE.MeshBasicMaterial({color:'#ffffff'}),brand=new THREE.MeshBasicMaterial({map:texture,transparent:true});this.materials.push(backing,brand);
+      const boardGeometry=new THREE.PlaneGeometry(1.4,.56),brandGeometry=new THREE.PlaneGeometry(1.28,1.28*759/2071);this.geometries.push(boardGeometry,brandGeometry);
+      const board=new THREE.Mesh(boardGeometry,backing),logo=new THREE.Mesh(brandGeometry,brand);board.position.set(0,.55,.9);logo.position.set(0,.55,.905);group.add(board,logo);this.dataset.branded='true';this.requestFrame();
+    });
     // A real end-on shipping container with corrugations, two doors and four locking bars.
     box(2.42,2.52,1.42,orange,0,0,0,group);
     for(let x=-1.12;x<=1.12;x+=.125){box(.038,2.35,.055,darkOrange,x,0,.728,group);box(.044,2.35,.033,lightOrange,x+.029,0,.754,group);}
@@ -118,14 +124,18 @@ class LogisticsAbout extends HTMLElement {
     const p=this.reduced?1:Math.max(0,Math.min(1,(t-.65)/2.35));
     const drop=1-Math.pow(1-p,3);
     const settle=this.reduced?0:(p===1?Math.sin((t-3)*2.7)*Math.exp(-(t-3)*1.15)*.07:Math.sin(p*Math.PI*3)*.09*p);
-    const g=this.container;g.position.set(this.reduced?0:Math.sin(motionTime*.64)*.035,.25+(1-drop)*7+settle,0);
+    // Land near the bottom of the viewport, including on tall phone screens.
+    const halfViewHeight=Math.tan(THREE.MathUtils.degToRad(this.camera.fov/2))*this.camera.position.z;
+    const landingY=-halfViewHeight*.94+1.3*this.container.scale.y;
+    const g=this.container;g.position.set(this.reduced?0:Math.sin(motionTime*.64)*.035,landingY+(1-drop)*9+settle,0);
+    this.dataset.containerY=g.position.y.toFixed(3);this.dataset.landingY=landingY.toFixed(3);
     g.rotation.set(-.045+this.pointer.y*.011,-.05+this.tilt,this.reduced?0:Math.sin(motionTime*.75)*.012+settle*.25);
     g.updateMatrixWorld();
     for(const c of this.cables){const lower=c.lower.clone().applyMatrix4(g.matrixWorld);const upper=c.upper;const direction=new THREE.Vector3().subVectors(lower,upper);c.mesh.position.copy(upper).add(lower).multiplyScalar(.5);c.mesh.scale.y=direction.length();c.mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),direction.normalize());}
     this.renderer.clear(true,true,true);
     this.renderer.render(this.scene,this.camera);
   }
-  disconnectedCallback(){this.mounted=false;cancelAnimationFrame(this.frame);this.events?.abort();this.resizeObserver?.disconnect();this.observer?.disconnect();this.geometries?.forEach(g=>g.dispose());this.materials?.forEach(m=>m.dispose());this.labelTexture?.dispose();this.renderer?.dispose();}
+  disconnectedCallback(){this.mounted=false;cancelAnimationFrame(this.frame);this.events?.abort();this.resizeObserver?.disconnect();this.observer?.disconnect();this.geometries?.forEach(g=>g.dispose());this.materials?.forEach(m=>m.dispose());this.labelTexture?.dispose();this.brandTexture?.dispose();this.renderer?.dispose();}
 }
 if(!customElements.get('logistics-about'))customElements.define('logistics-about',LogisticsAbout);
 

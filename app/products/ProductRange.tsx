@@ -2,9 +2,12 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { products } from '@/lib/site-content';
 import catalogue from '@/lib/product-types.json';
 import ProductEnquiry, { type ProductSelection } from './ProductEnquiry';
+import ChemicalHoverCard from './ChemicalHoverCard';
+import EnquiryButton from '@/components/EnquiryButton';
 
 type Enquire = (selection:ProductSelection)=>void;
 
@@ -41,6 +44,7 @@ function ProductRow({index,order,onEnquire}:{index:number;order:number;onEnquire
         <ProductTypes index={index} open={open} onEnquire={onEnquire}/>
       </div>
       <button className="range-enquiry" type="button" onClick={()=>enquire()}>Enquire about this product <span aria-hidden="true">↗</span></button>
+      <EnquiryButton className="range-quick-enquiry" product={product.name}>Enquiry form ↗</EnquiryButton>
       <button className="range-toggle" type="button" aria-expanded={open} aria-controls={panelId} aria-label={`${open?'Hide':'Show'} types for ${product.name}`} onClick={()=>{setSelected(!open);setHovered(false);}}><span aria-hidden="true">{open?'−':'+'}</span></button>
     </div>
   </article>;
@@ -48,21 +52,25 @@ function ProductRow({index,order,onEnquire}:{index:number;order:number;onEnquire
 
 function IndustrialProductCard({index,order,onEnquire}:{index:number;order:number;onEnquire:Enquire}) {
   const product=products[index],category=catalogue.categories[index];
-  const [open,setOpen]=useState(false);
+  const [selected,setSelected]=useState(false);
+  const [hovered,setHovered]=useState(false);
+  const open=selected||hovered;
   const toggleId=`product-toggle-${category.key}`,panelId=`product-types-${category.key}`;
   const enquire=()=>onEnquire({category:product.name,name:product.name});
-  return <article className="range-row range-row-compact" data-sector="industrial" data-open={open}>
+  return <article className="range-row range-row-compact" data-sector="industrial" data-open={open} onPointerEnter={event=>{if(event.pointerType==='mouse'&&matchMedia('(hover:hover)').matches)setHovered(true);}} onPointerLeave={()=>setHovered(false)}>
     <div className="range-photo">
       <button className="range-image-enquiry" type="button" aria-label={`Enquire about ${product.name}`} onClick={enquire}><Image src={`/images/${product.image}`} alt={product.name} fill sizes="(max-width:767px) 100vw, 32vw"/></button>
       <span className="range-index mono">{String(order).padStart(2,'0')} / {String(products.length).padStart(2,'0')}</span>
     </div>
     <div className="range-compact-content">
       <p className="range-kicker mono">{category.types.length} {category.types.length===1?'product type':'product types'}</p>
-      <h3><button className="range-compact-toggle" id={toggleId} type="button" aria-expanded={open} aria-controls={panelId} onClick={()=>setOpen(!open)}><span>{product.name}</span><span className="range-compact-icon" aria-hidden="true">{open?'−':'+'}</span></button></h3>
+      <h3><button className="range-compact-toggle" id={toggleId} type="button" aria-expanded={open} aria-controls={panelId} onClick={()=>{setSelected(!open);setHovered(false);}}><span>{product.name}</span><span className="range-compact-icon" aria-hidden="true">{open?'−':'+'}</span></button></h3>
+      {product.name==='Chemicals'&&<Link className="range-directory-link" href="/products/chemicals">Search the full chemical directory ↗</Link>}
       <div className="range-compact-reveal" id={panelId} role="region" aria-labelledby={toggleId} aria-hidden={!open} inert={!open}>
         <div className="range-compact-clip"><div className="range-types"><ProductTypes index={index} open={open} onEnquire={onEnquire}/></div></div>
       </div>
       <button className="range-enquiry" type="button" onClick={enquire}>Enquire about this product <span aria-hidden="true">↗</span></button>
+      <EnquiryButton className="range-quick-enquiry" product={product.name}>Enquiry form ↗</EnquiryButton>
     </div>
   </article>;
 }
@@ -83,7 +91,7 @@ export default function ProductRange() {
     </section>
     <section className="range-group range-group-industrial" aria-labelledby="industrial-products-title" data-product-group="industrial">
       <div className="range-group-heading"><div><p className="mono range-kicker">02 / {industrial.length} categories</p><h2 id="industrial-products-title">Chemicals &amp; non-food</h2></div><p>Select a category to explore its types and specifications.</p></div>
-      <div className="range-industrial-grid">{industrial.map(({product,index},order)=><IndustrialProductCard key={product.name} index={index} order={food.length+order+1} onEnquire={setSelection}/>)}</div>
+      <div className="range-industrial-grid">{industrial.map(({product,index},order)=>product.name==='Chemicals'?<ChemicalHoverCard key={product.name} onEnquire={setSelection}/>:<IndustrialProductCard key={product.name} index={index} order={food.length+order+1} onEnquire={setSelection}/>)}</div>
     </section>
   </section><ProductEnquiry selection={selection} onClose={()=>setSelection(null)}/></>;
 }

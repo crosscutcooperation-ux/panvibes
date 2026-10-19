@@ -1,0 +1,6 @@
+/* Shared tracking for the small SteinhartMono labels, including page overrides. */
+:root { --label-tracking:.075em;--label-word-spacing:.14em; }
+:is(.mono,.eyebrow,.buyer-eyebrow,.range-kicker,.chemical-count,.news-bar,.desktop-nav,.pill,.site-menu-toggle,.mobile-quick-links,.mobile-documents,.product-title>p,.route-loader p,.panvibes-content .founder-role,.panvibes-content .apart-eyebrow,.panvibes-content .apart-hint) {
+ letter-spacing:var(--label-tracking)!important;
+ word-spacing:var(--label-word-spacing);
+}

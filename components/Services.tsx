@@ -5,11 +5,12 @@ import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Globe from "./Globe";
 import { Tempo } from "./TransportVisuals";
-import { Pill, Arrow } from "./ui";
+import { Arrow } from "./ui";
 import { company, stats, services, industries, destinations } from "@/lib/site-content";
 import { JOURNEY_DURATION, JOURNEY_SCREENS, mix, segment, smooth, roadPresentation, shipHandoff } from "@/lib/journey-motion";
 import { brandTheme } from "@/lib/brand-theme";
 import { useServiceDetails } from './ServiceDetails';
+import EnquiryButton from './EnquiryButton';
 
 gsap.registerPlugin(ScrollTrigger);
 export default function Journey() {
@@ -57,7 +58,9 @@ export default function Journey() {
         const compact=w<=991;
         el.dataset.phase=t.toFixed(2);
         lane.style.transform=`translateY(${-h*1.7*smooth(segment(t,6,8))}px)`;
-        statRows.forEach((row,i)=>{row.style.transform=`translateY(${h*(.68+i*.92-t*.62)}px)`;});
+        const statHeight=statRows.reduce((total,row)=>total+row.offsetHeight+Math.min(40,h*.045),0);
+        let statY=h*.52-segment(t,0,6.3)*(statHeight+h*.52);
+        statRows.forEach(row=>{row.style.transform=`translateY(${statY}px)`;statY+=row.offsetHeight+Math.min(40,h*.045);});
         // A phone blends into the ocean as one surface, rather than lifting
         // two white side panels across the ship and its container.
         const paperExit=smooth(segment(t,compact?32.9:33.25,compact?33.6:33.95));
@@ -149,10 +152,10 @@ export default function Journey() {
           <div className="motion-globe"><Globe active={globeActive}/></div>
           <div className="motion-world-copy">
             <p className="eyebrow">PanVibes Exim</p>
-            <p className="transit-description">Explore the destinations listed in our transit guidelines, connecting Indian supply with international markets.</p>
+            <p className="transit-description">We ship only to India, the UK, the USA, Europe and the UAE.</p>
             <h2 id="transit-title">Total transit<br/>guidelines.</h2>
             <div className="transit-destinations mono">{destinations.map(([name])=><span key={name}>{name}</span>)}</div>
-            <div className="transit-count"><strong>{stats[2].value}<sup>+</sup></strong><span>{stats[2].label}</span></div>
+            <div className="transit-count"><strong>{stats[2].value}{stats[2].suffix && <sup>{stats[2].suffix}</sup>}</strong><span>{stats[2].label}</span></div>
           </div>
         </section>
         <div className="motion-ocean" aria-hidden="true">
@@ -171,7 +174,7 @@ export default function Journey() {
           {stats.map(stat=><div className="motion-stat" key={stat.label}><p>{stat.value}<sup>{stat.suffix}</sup></p><span>{stat.label}</span><div className="motion-stat-description">{stat.description}</div></div>)}
         </div>
         <div className="motion-service-track" aria-labelledby="services-title">
-          <div className="motion-service-intro"><p className="eyebrow">Our services / 01—05</p><h2 id="services-title">Your vision.<br/>Our expert<br/>execution.</h2><p>{company.heroDescription}</p><Pill className="pill-outline" href="/contact">Request a Quote</Pill></div>
+          <div className="motion-service-intro"><p className="eyebrow">Our services / 01—05</p><h2 id="services-title">Your vision.<br/>Our expert<br/>execution.</h2><p>{company.heroDescription}</p><EnquiryButton className="pill pill-outline" purpose="Bulk quotation">Request a Quote</EnquiryButton></div>
           {services.map((service,i)=><article className="motion-service-card" key={service.title.join(" ")}>
             <div className="motion-service-top"><span className="mono">0{i+1}</span><Image src={"/images/"+service.image} width={200} height={150} alt="" unoptimized/></div>
             <h3><button type="button" className="service-title-button" onClick={()=>openDetails(i)}>{service.title[0]}<br/>{service.title[1]}</button></h3><p className="motion-service-overview">{service.overview}</p><p>{service.description}</p><span className="mono motion-features">{service.features}</span><button type="button" onClick={()=>openDetails(i)} className="text-link mono">View details & enquire<Arrow diagonal/></button>

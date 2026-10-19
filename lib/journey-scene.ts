@@ -56,6 +56,7 @@ export function createJourneyScene(host: HTMLElement) {
     }
   }
   pinned.add(handoffTruck.src);
+  pinned.add('/images/panvibes-logo-transparent.png');
   pinned.forEach(path => request(path));
   request(sequences['crane-lift'][0]); request(sequences['crane-turn'][0]);
   function photo(asset: HTMLImageElement | undefined, x: number, y: number, w: number, h: number, angle = 0, crop?: [number, number, number, number]) {
@@ -64,6 +65,14 @@ export function createJourneyScene(host: HTMLElement) {
     if (crop) ctx.drawImage(asset, crop[0] * asset.naturalWidth, crop[1] * asset.naturalHeight, crop[2] * asset.naturalWidth, crop[3] * asset.naturalHeight, -w / 2, -h / 2, w, h);
     else ctx.drawImage(asset, -w / 2, -h / 2, w, h);
     ctx.restore();
+  }
+  function brand(x: number, y: number, logoWidth: number, angle = 0) {
+    const logo = image('/images/panvibes-logo-transparent.png');
+    if (!logo) return;
+    const logoHeight = logoWidth * logo.naturalHeight / logo.naturalWidth;
+    ctx.save(); ctx.translate(x, y); ctx.rotate(angle);
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(-logoWidth*.56,-logoHeight*.62,logoWidth*1.12,logoHeight*1.24);
+    ctx.drawImage(logo,-logoWidth/2,-logoHeight/2,logoWidth,logoHeight); ctx.restore();
   }
   function hydraulic(ax: number, ay: number, bx: number, by: number, diameter: number) {
     const dx = bx - ax, dy = by - ay, length = Math.hypot(dx, dy);
@@ -114,7 +123,10 @@ export function createJourneyScene(host: HTMLElement) {
     const smallTruck = tippingTruck(t, w, h), smallLength = smallTruck.length;
     const cameraTurn = smooth(segment(t, 6, 8));
     const smallX = smallTruck.x, smallY = smallTruck.y;
-    if (t < 6) photo(image(handoffTruck.src),smallX,smallY,smallLength*handoffTruck.width/handoffTruck.height,smallLength,0,handoffCrop);
+    if (t < 6) {
+      photo(image(handoffTruck.src),smallX,smallY,smallLength*handoffTruck.width/handoffTruck.height,smallLength,0,handoffCrop);
+      brand(smallX,smallY-smallLength*.19,smallLength*handoffTruck.width/handoffTruck.height*.5);
+    }
     if (t >= 6 && t < 8) photo(frame('truck-turn', 1 - cameraTurn), smallX, smallY, smallLength, smallLength * 809 / 2880, (1 - cameraTurn) * Math.PI / 2);
     if (t >= 8 && t < 13) {
       // The same photographic truck tips its own bed. It does not become a
@@ -129,31 +141,33 @@ export function createJourneyScene(host: HTMLElement) {
       }
       ctx.save(); ctx.translate(smallTruck.pivotX, smallTruck.pivotY); ctx.rotate(smallTruck.tip);
       photo(image('/images/truck-container.avif'), smallLength * .497, -sideHeight * .20, smallLength, sideHeight);
+      brand(smallLength*.47,-sideHeight*.38,smallLength*.16);
       ctx.restore();
     }
     const receiver = receivingContainer(w, h);
     const doorImage = image(sequences['crane-lift'][0]);
-    const door = (x: number, y: number, color?: 'blue' | 'orange', open = false) => {
+    const door = (x: number, y: number, color?: 'blue' | 'orange') => {
       const front = color ? image(`/images/container-${color}.avif`) : doorImage;
-      const roofDepth = receiver.height * .055 * (1-smooth(segment(t,10.5,11.3)));
+      const roofDepth = receiver.height * .018;
       const left = x-receiver.width/2, top = y-receiver.height/2;
       // A shared, shallow overhead viewpoint reveals the receiving opening and
       // gives the entire stack the same horizon. The front doors stay upright.
       ctx.save(); ctx.beginPath(); ctx.moveTo(left,top); ctx.lineTo(left+receiver.width,top); ctx.lineTo(left+receiver.width+roofDepth,top-roofDepth);ctx.lineTo(left+roofDepth,top-roofDepth);ctx.closePath();
-      ctx.fillStyle = open ? '#263e4d' : color==='blue' ? '#345679' : '#bc7041';ctx.fill();
-      ctx.strokeStyle=open?'#c6d0d6':color==='blue'?'#7c96b0':'#e6ab70';ctx.lineWidth=Math.max(1,receiver.width*.012);ctx.stroke();ctx.restore();
+      ctx.fillStyle = color==='blue' ? '#345679' : color==='orange' ? '#bc7041' : '#b6c1c6';ctx.fill();
+      ctx.strokeStyle=color==='blue'?'#7c96b0':color==='orange'?'#e6ab70':'#dce3e6';ctx.lineWidth=Math.max(1,receiver.width*.012);ctx.stroke();ctx.restore();
       ctx.save(); ctx.translate(x, y); ctx.scale(-1, 1);
       // Trim the transparent side padding so neighbouring steel corners meet.
       if (color) photo(front,0,0,receiver.width+1,receiver.height+1,0,[5/369,0,360/369,1]);
       else photo(front, 0, 0, receiver.width, receiver.height, 0, [.857, .344, .118, .24]);
       ctx.restore();
+      brand(x,y-receiver.height*.15,receiver.width*.62);
     };
     // Two foundation containers remain in the yard while the upper one is
     // filled and lifted. All three keep the supplied door-facing perspective.
     if (t >= 7.7 && t < 17) {
       const yardTravel = -w * 1.3 * smooth(segment(t, 16, 17.5));
       if(t<10.5)for (const side of [-1, 1]) door(receiver.x + yardTravel + side * receiver.width * .5, receiver.y + receiver.height - 4, side < 0 ? 'blue' : 'orange');
-      if (t < 11.3) door(receiver.x, receiver.y, undefined, true);
+      if (t < 11.3) door(receiver.x, receiver.y);
     }
     if (t >= 7.7 && t < 11.3) {
       // The front wall occludes boxes once they cross the container's top lip.
@@ -228,6 +242,7 @@ export function createJourneyScene(host: HTMLElement) {
     } else if (t >= 15.5 && t < 24) {
       const side = frame('truck-turn', 0);
       photo(side, pose.x, pose.y, length, frameHeight);
+      brand(pose.x-length*.08,pose.y-frameHeight*.12,length*.22);
       spinningWheels(side, pose.x, pose.y, length, truckWheelAngle(t));
     } else if (t >= 24 && t < 32.5) {
       photo(frame('truck-turn', smooth(segment(t, 24, 26))), pose.x, pose.y, length, frameHeight, -pose.heading);
@@ -238,6 +253,7 @@ export function createJourneyScene(host: HTMLElement) {
       if (t < 33.7) photo(image('/images/truck-top.avif'), pose.x, pose.y, length, length * 1618 / 5760, Math.PI / 2);
       ctx.globalAlpha = 1 - smooth(segment(t, 33.7, 33.95));
       photo(image('/images/container-top.avif'), w * .5, handoff.y, handoff.cargoLength, handoff.cargoWidth, Math.PI / 2, [143 / 5760, 281 / 1618, 4347 / 5760, 1056 / 1618]);
+      brand(w*.5,handoff.y,handoff.cargoWidth*.72);
       ctx.globalAlpha = 1;
     }
     // Keep a bounded decoded-image cache rather than retaining hundreds of

@@ -1,0 +1,14 @@
+{
+  "source": "List of Chemical Mfg and Supplier.pdf, supplied by the website owner",
+  "groups": [
+    {"name":"Acids","slug":"acids","products":["Hydrochloric Acid (HCl)","Sulphuric Acid (H₂SO₄)","Nitric Acid (HNO₃)","Acetic Acid"]},
+    {"name":"Alkalis & Bases","slug":"alkalis-bases","products":["Sodium Hydroxide (Caustic Soda)","Sodium Carbonate (Soda Ash)","Sodium Bicarbonate"]},
+    {"name":"Chlorides","slug":"chlorides","products":["Sodium Chloride","Calcium Chloride","Magnesium Chloride","Ferric Chloride","Ferrous Chloride","Aluminium Chloride","Zinc Chloride","Potassium Chloride","Ammonium Chloride","Copper Chloride"]},
+    {"name":"Sulphates","slug":"sulphates","products":["Ferrous Sulphate","Zinc Sulphate","Magnesium Sulphate","Copper Sulphate","Aluminium Sulphate","Sodium Sulphate","Ammonium Sulphate","Manganese Sulphate"]},
+    {"name":"Phosphates","slug":"phosphates","products":["Mono Sodium Phosphate (MSP)","Di Sodium Hydrogen Phosphate (DSP)","Tri Sodium Phosphate (TSP)","Mono Ammonium Phosphate (MAP)","Di Ammonium Phosphate (DAP)"]},
+    {"name":"Oxides","slug":"oxides","products":["Calcium Oxide (Quick Lime)","Magnesium Oxide","Zinc Oxide","Iron Oxide","Copper Oxide","Aluminium Oxide","Titanium Dioxide"]},
+    {"name":"Water Treatment Chemicals","slug":"water-treatment","products":["Poly Aluminium Chloride (PAC) Solution & Powder","Aluminium Sulphate (Alum)","Ferric Chloride","Ferrous Sulphate","Sodium Hypochlorite"]},
+    {"name":"Industrial Salts","slug":"industrial-salts","products":["Sodium Sulphide","Borax","Ammonium Sulphate","Ammonium Chloride","Ammonium Bicarbonate"]},
+    {"name":"Heavy Metal Salts","slug":"heavy-metal-salts","products":["Copper Sulphate","Zinc Sulphate","Nickel Sulphate","Cobalt Sulphate"]}
+  ]
+}

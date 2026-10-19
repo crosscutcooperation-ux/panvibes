@@ -1,0 +1,155 @@
+[
+  {
+    "document": "PanVibes-Exim-Premium-Brochure-Short.pdf",
+    "page": 0,
+    "image": 0,
+    "asset": "logistics",
+    "width": 1170,
+    "height": 1026,
+    "prepared": ".playwright-mcp/shipping-review/pdf-0.jpg"
+  },
+  {
+    "document": "PanVibes-Exim-Premium-Brochure-Short.pdf",
+    "page": 1,
+    "image": 0,
+    "asset": "sourcing",
+    "width": 1010,
+    "height": 717,
+    "prepared": ".playwright-mcp/shipping-review/pdf-1.jpg"
+  },
+  {
+    "document": "PanVibes-Exim-Premium-Brochure-Short.pdf",
+    "page": 3,
+    "image": 0,
+    "asset": "vegetables",
+    "width": 1080,
+    "height": 196,
+    "prepared": ".playwright-mcp/shipping-review/pdf-2.jpg"
+  },
+  {
+    "document": "PanVibes-Exim-Premium-Brochure-Short.pdf",
+    "page": 4,
+    "image": 0,
+    "asset": "banana",
+    "width": 1000,
+    "height": 154,
+    "prepared": ".playwright-mcp/shipping-review/pdf-3.jpg"
+  },
+  {
+    "document": "PanVibes-Exim-Premium-Brochure-Short.pdf",
+    "page": 5,
+    "image": 0,
+    "asset": "spices",
+    "width": 1080,
+    "height": 298,
+    "prepared": ".playwright-mcp/shipping-review/pdf-4.jpg"
+  },
+  {
+    "document": "PanVibes-Exim-Premium-Brochure-Short.pdf",
+    "page": 6,
+    "image": 0,
+    "asset": "nutraceuticals",
+    "width": 1442,
+    "height": 351,
+    "prepared": ".playwright-mcp/shipping-review/pdf-5.jpg"
+  },
+  {
+    "document": "PanVibes-Exim-Premium-Brochure-Short.pdf",
+    "page": 7,
+    "image": 8,
+    "asset": "transport",
+    "width": 1512,
+    "height": 559,
+    "prepared": ".playwright-mcp/shipping-review/pdf-6.jpg"
+  },
+  {
+    "document": "PanVibes-Exim-Premium-Company-Profile.pdf",
+    "page": 0,
+    "image": 0,
+    "asset": "logistics",
+    "width": 1168,
+    "height": 1024,
+    "prepared": ".playwright-mcp/shipping-review/pdf-7.jpg"
+  },
+  {
+    "document": "PanVibes-Exim-Premium-Company-Profile.pdf",
+    "page": 1,
+    "image": 0,
+    "asset": "warehouse",
+    "width": 628,
+    "height": 720,
+    "prepared": ".playwright-mcp/shipping-review/pdf-8.jpg"
+  },
+  {
+    "document": "PanVibes-Exim-Premium-Company-Profile.pdf",
+    "page": 1,
+    "image": 1,
+    "asset": "sourcing",
+    "width": 476,
+    "height": 668,
+    "prepared": ".playwright-mcp/shipping-review/pdf-9.jpg"
+  },
+  {
+    "document": "PanVibes-Exim-Premium-Company-Profile.pdf",
+    "page": 2,
+    "image": 0,
+    "asset": "vegetables",
+    "width": 1076,
+    "height": 585,
+    "prepared": ".playwright-mcp/shipping-review/pdf-10.jpg"
+  },
+  {
+    "document": "PanVibes-Exim-Premium-Company-Profile.pdf",
+    "page": 3,
+    "image": 0,
+    "asset": "chemicals",
+    "width": 1076,
+    "height": 407,
+    "prepared": ".playwright-mcp/shipping-review/pdf-11.jpg"
+  },
+  {
+    "document": "PanVibes-Exim-Premium-Company-Profile.pdf",
+    "page": 4,
+    "image": 0,
+    "asset": "nuts",
+    "width": 413,
+    "height": 313,
+    "prepared": ".playwright-mcp/shipping-review/pdf-12.jpg"
+  },
+  {
+    "document": "PanVibes-Exim-Premium-Company-Profile.pdf",
+    "page": 4,
+    "image": 1,
+    "asset": "banana",
+    "width": 423,
+    "height": 313,
+    "prepared": ".playwright-mcp/shipping-review/pdf-13.jpg"
+  },
+  {
+    "document": "PanVibes-Exim-Premium-Company-Profile.pdf",
+    "page": 4,
+    "image": 2,
+    "asset": "spices",
+    "width": 567,
+    "height": 314,
+    "prepared": ".playwright-mcp/shipping-review/pdf-14.jpg"
+  },
+  {
+    "document": "PanVibes-Exim-Premium-Company-Profile.pdf",
+    "page": 4,
+    "image": 4,
+    "asset": "dairy",
+    "width": 441,
+    "height": 314,
+    "prepared": ".playwright-mcp/shipping-review/pdf-15.jpg"
+  },
+  {
+    "document": "PanVibes-Exim-Premium-Company-Profile.pdf",
+    "page": 6,
+    "image": 6,
+    "asset": "transport",
+    "width": 1512,
+    "height": 559,
+    "prepared": ".playwright-mcp/shipping-review/pdf-16.jpg"
+  }
+]

@@ -12,6 +12,7 @@ html[data-truck-handoff='active'] .continuous-motion .motion-vehicles { opacity:
 .home-video-stage .hero-eyebrow { font-size:clamp(12px,1.3vw,20px); }
 .home-video-stage .hero-description { color:var(--hero-copy-color);margin-bottom:25px;max-width:360px;font-size:clamp(13px,1.4vw,20px); }
 .home-video-stage .hero-actions { text-shadow:none; }
+.home-video-stage .hero-actions { display:flex;gap:12px;flex-wrap:wrap; }
 .home-video-stage .scroll-cue { display:flex;z-index:4;color:var(--hero-copy-color);text-shadow:0 1px 4px rgb(6 27 49 / calc(.6 * var(--hero-shadow-opacity)));font-size:clamp(10px,1.1rem,14px); }
 .home-video-stage .scroll-cue > span:last-child { animation:none;color:var(--red); }
 @media(min-aspect-ratio:8/5) { .home-hero-video { object-fit:cover; } .home-handoff-plate { background-size:cover; } }

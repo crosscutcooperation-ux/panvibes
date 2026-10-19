@@ -3,34 +3,35 @@
 import { useEffect, useRef, useState } from 'react';
 import styles from './services.module.css';
 import { enquiryContact } from '@/lib/enquiry-contact';
+import EnquiryButton from '@/components/EnquiryButton';
 
 const services = [
   {
-    id: 'export', title: 'Export Solutions', image: 'export.webp', alt: 'Cargo and pallets prepared for international export',
-    summary: 'From India to the world.',
-    description: 'Streamline your international shipments with our comprehensive export solutions. We handle documentation, customs clearance and logistics coordination for delivery to your global partners.',
+    id: 'export', title: 'Export Solutions', image: '/images/photos/logistics.webp', alt: 'Cargo and pallets prepared for international export',
+    summary: 'India / UK / USA / Europe / UAE.',
+    description: 'Streamline your international shipments with our comprehensive export solutions. We handle documentation, customs clearance and logistics coordination for delivery to India, the UK, the USA, Europe and the UAE only.',
     features: ['Customs clearance', 'Documentation support', 'Logistics coordination', 'Global network', 'Quality assurance'],
   },
   {
-    id: 'import', title: 'Import Solutions', image: 'import.webp', alt: 'Warehouse shelves and goods ready for import distribution',
+    id: 'import', title: 'Import Solutions', image: '/images/photos/warehouse.webp', alt: 'Warehouse shelves and goods ready for import distribution',
     summary: 'Global sourcing. Local delivery.',
     description: 'Simplify your import process with our end-to-end import solutions. We manage customs clearance, port handling and inland transportation, with support for import compliance.',
     features: ['Import documentation', 'Port handling', 'Customs compliance', 'Inland transportation', 'Risk management'],
   },
   {
-    id: 'transport', title: 'Transport Solutions', image: 'transport.webp', alt: 'Road transport for inland logistics',
+    id: 'transport', title: 'Transport Solutions', image: '/images/photos/transport.webp', alt: 'Road transport for inland logistics',
     summary: 'Every mile, connected.',
     description: 'Efficient transportation solutions for your logistics needs. We coordinate road, rail and multimodal transport services to keep your cargo moving from origin to destination.',
     features: ['Road transport', 'Rail services', 'Multimodal solutions', 'Real-time tracking', 'Timely delivery'],
   },
   {
-    id: 'document', title: 'Document Verification', image: 'documents.webp', alt: 'Trade paperwork and shipping documents',
+    id: 'document', title: 'Document Verification', image: '/images/photos/documents.webp', alt: 'Trade paperwork and shipping documents',
     summary: 'The details that move trade.',
     description: 'Comprehensive document verification and processing, including bills of lading, certificates of origin, commercial invoices and the documentation needed for export and import.',
     features: ['Bill of lading', 'Certificates of origin', 'Commercial invoices', 'Customs documentation', 'Legal compliance'],
   },
   {
-    id: 'freight', title: 'Freight Forwarding', image: 'freight.webp', alt: 'International freight and cargo transportation',
+    id: 'freight', title: 'Freight Forwarding', image: '/images/photos/logistics.webp', alt: 'International freight and cargo transportation',
     summary: 'By air. By sea. Beyond borders.',
     description: 'Global freight forwarding across air, sea and land. We coordinate your shipment with competitive rates, cargo insurance and complete supply chain management.',
     features: ['Air freight', 'Sea freight', 'Land transport', 'Cargo insurance', 'Supply chain management'],
@@ -117,7 +118,7 @@ export default function ServicesExperience() {
           <div className={styles.sectionIntro}><div><span className={styles.label}>WHAT WE DO</span><h2 id="solutions-title">One partner.<br /><span>Every possibility.</span></h2></div><p>From the first document to the final delivery, our services bring your global trade journey together.</p></div>
           <div className={styles.cards}>
             {services.map((item, index) => <button key={item.id} type="button" className={`${styles.card} ${selected === index ? styles.cardActive : ''}`} aria-label={`${item.title} — view details`} aria-haspopup="dialog" aria-controls="service-details" onClick={() => setSelected(index)}>
-              <img src={`/assets/services/${item.image}`} alt={item.alt} width="600" height="800" loading="lazy" />
+              <img src={item.image} alt={item.alt} width="600" height="800" loading="lazy" />
               <span className={styles.cardShade} />
               <span className={styles.cardNumber}>0{index + 1}</span>
               <span className={styles.cardContent}><span className={styles.cardTitle}>{item.title}</span><span className={styles.cardSummary}>{item.summary}</span></span>
@@ -141,7 +142,7 @@ export default function ServicesExperience() {
       >
         {service && <div className={styles.modalWindow}>
           <div className={styles.modalPhoto}>
-            <img src={`/assets/services/${service.image}`} alt={service.alt} width="600" height="800" />
+            <img src={service.image} alt={service.alt} width="600" height="800" />
             <div className={styles.modalPhotoCaption}><span className={styles.label}>0{selected + 1} / OUR SERVICE</span><p>{service.summary}</p></div>
           </div>
           <div className={styles.modalContent}>
@@ -156,6 +157,7 @@ export default function ServicesExperience() {
               <div className={styles.contactIdentity}><span className={styles.contactInitials} aria-hidden="true">OM</span><div><h4>{contact.name}</h4><p>{contact.role}</p></div></div>
               <a href={`tel:+91${contact.phone}`}>+91 {contact.phone.slice(0, 5)} {contact.phone.slice(5)} <Arrow diagonal /></a>
               <a className={styles.emailLink} href={`mailto:info@panvibesexim.com?subject=${encodeURIComponent(`Enquiry: ${service.title}`)}`}>Enquire about this service <Arrow /></a>
+              <EnquiryButton className="service-inline-enquiry" service={service.title}>Fill enquiry form ↗</EnquiryButton>
             </div>
           </div>
         </div>}

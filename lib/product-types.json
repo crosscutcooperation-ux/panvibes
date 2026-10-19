@@ -7,12 +7,46 @@
       "title": "Makhana",
       "types": [
         {
+          "name": "Makhana 4",
+          "grades": [
+            "Hand-picked",
+            "Non-hand-picked"
+          ]
+        },
+        {
+          "name": "Makhana 4+",
+          "grades": [
+            "Hand-picked",
+            "Non-hand-picked"
+          ]
+        },
+        {
+          "name": "Makhana 5",
+          "grades": [
+            "Hand-picked",
+            "Non-hand-picked"
+          ]
+        },
+        {
           "name": "Makhana 5+",
-          "grades": []
+          "grades": [
+            "Hand-picked",
+            "Non-hand-picked"
+          ]
+        },
+        {
+          "name": "Makhana 6",
+          "grades": [
+            "Hand-picked",
+            "Non-hand-picked"
+          ]
         },
         {
           "name": "Makhana 6+",
-          "grades": []
+          "grades": [
+            "Hand-picked",
+            "Non-hand-picked"
+          ]
         },
         {
           "name": "Chataka Pataka Makhana",
@@ -60,7 +94,11 @@
       "types": [
         {
           "name": "Ginger",
-          "grades": []
+          "grades": [
+            "Whole",
+            "Flakes",
+            "Powder"
+          ]
         },
         {
           "name": "Garlic",
@@ -89,49 +127,7 @@
       "title": "Fruits (Dehydrated)",
       "types": [
         {
-          "name": "Banana",
-          "grades": []
-        },
-        {
-          "name": "Mango",
-          "grades": []
-        },
-        {
-          "name": "Pineapple",
-          "grades": []
-        },
-        {
-          "name": "Jackfruit",
-          "grades": []
-        },
-        {
-          "name": "Kiwi",
-          "grades": []
-        }
-      ]
-    },
-    {
-      "key": "electronics",
-      "title": "Sprouts (Dehydrated)",
-      "types": [
-        {
-          "name": "Sprouted Moth",
-          "grades": []
-        },
-        {
-          "name": "Sprouted Ragi",
-          "grades": []
-        },
-        {
-          "name": "Sprouted Green (Mung)",
-          "grades": []
-        },
-        {
-          "name": "Sprouted Grain",
-          "grades": []
-        },
-        {
-          "name": "Sprouted Beans",
+          "name": "Banana Powder",
           "grades": []
         }
       ]
@@ -166,16 +162,118 @@
         {
           "name": "Saffron",
           "grades": []
+        },
+        {
+          "name": "Turmeric Powder",
+          "grades": [
+            "1% Curcumin",
+            "2% Curcumin",
+            "3% Curcumin",
+            "4% Curcumin",
+            "5% Curcumin"
+          ]
         }
       ]
     },
     {
-      "key": "food",
+      "key": "industrial-chemicals",
       "title": "Chemicals",
       "types": [
         {
-          "name": "Ethanol (All Grades)",
-          "grades": []
+          "name": "Acids",
+          "grades": [
+            "Hydrochloric Acid (HCl)",
+            "Sulphuric Acid (H₂SO₄)",
+            "Nitric Acid (HNO₃)",
+            "Acetic Acid"
+          ]
+        },
+        {
+          "name": "Alkalis & Bases",
+          "grades": [
+            "Sodium Hydroxide (Caustic Soda)",
+            "Sodium Carbonate (Soda Ash)",
+            "Sodium Bicarbonate"
+          ]
+        },
+        {
+          "name": "Chlorides",
+          "grades": [
+            "Sodium Chloride",
+            "Calcium Chloride",
+            "Magnesium Chloride",
+            "Ferric Chloride",
+            "Ferrous Chloride",
+            "Aluminium Chloride",
+            "Zinc Chloride",
+            "Potassium Chloride",
+            "Ammonium Chloride",
+            "Copper Chloride"
+          ]
+        },
+        {
+          "name": "Sulphates",
+          "grades": [
+            "Ferrous Sulphate",
+            "Zinc Sulphate",
+            "Magnesium Sulphate",
+            "Copper Sulphate",
+            "Aluminium Sulphate",
+            "Sodium Sulphate",
+            "Ammonium Sulphate",
+            "Manganese Sulphate"
+          ]
+        },
+        {
+          "name": "Phosphates",
+          "grades": [
+            "Mono Sodium Phosphate (MSP)",
+            "Di Sodium Hydrogen Phosphate (DSP)",
+            "Tri Sodium Phosphate (TSP)",
+            "Mono Ammonium Phosphate (MAP)",
+            "Di Ammonium Phosphate (DAP)"
+          ]
+        },
+        {
+          "name": "Oxides",
+          "grades": [
+            "Calcium Oxide (Quick Lime)",
+            "Magnesium Oxide",
+            "Zinc Oxide",
+            "Iron Oxide",
+            "Copper Oxide",
+            "Aluminium Oxide",
+            "Titanium Dioxide"
+          ]
+        },
+        {
+          "name": "Water Treatment Chemicals",
+          "grades": [
+            "Poly Aluminium Chloride (PAC) Solution & Powder",
+            "Aluminium Sulphate (Alum)",
+            "Ferric Chloride",
+            "Ferrous Sulphate",
+            "Sodium Hypochlorite"
+          ]
+        },
+        {
+          "name": "Industrial Salts",
+          "grades": [
+            "Sodium Sulphide",
+            "Borax",
+            "Ammonium Sulphate",
+            "Ammonium Chloride",
+            "Ammonium Bicarbonate"
+          ]
+        },
+        {
+          "name": "Heavy Metal Salts",
+          "grades": [
+            "Copper Sulphate",
+            "Zinc Sulphate",
+            "Nickel Sulphate",
+            "Cobalt Sulphate"
+          ]
         }
       ]
     },
@@ -185,40 +283,13 @@
       "types": [
         {
           "name": "Moringa Powder",
-          "grades": []
+          "grades": [
+            "Conventional",
+            "Organic"
+          ]
         },
         {
-          "name": "Curcumin",
-          "grades": []
-        },
-        {
-          "name": "Flaxseed",
-          "grades": []
-        },
-        {
-          "name": "Probiotics",
-          "grades": []
-        }
-      ]
-    },
-    {
-      "key": "automotive",
-      "title": "Indian Flavours Ready in Minutes",
-      "types": [
-        {
-          "name": "Poha",
-          "grades": []
-        },
-        {
-          "name": "Puran",
-          "grades": []
-        },
-        {
-          "name": "Malvani Gravy",
-          "grades": []
-        },
-        {
-          "name": "Black Gravy (Customizable Quantity)",
+          "name": "Ashwagandha",
           "grades": []
         }
       ]
@@ -301,5 +372,13 @@
         }
       ]
     }
-  ]
+  ],
+  "ownerUpdates": {
+    "date": "2026-10-17",
+    "sources": [
+      "List of Chemical Mfg and Supplier.pdf",
+      "Panvibes_Exim_Marketing_SEO_Sales_Master_Data.docx"
+    ],
+    "latestRequest": "2026-10-18: remove ready-made foods and dehydrated sprouts; fruits only Banana Powder; nutraceuticals only Moringa Powder and Ashwagandha; retain Spices."
+  }
 }

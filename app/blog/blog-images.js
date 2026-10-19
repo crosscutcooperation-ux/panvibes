@@ -1,15 +1,15 @@
 const photos = {
-  vegetables: { src: '/assets/blog/photography/vegetables.webp', alt: 'Dehydrated vegetables stored in glass jars' },
-  fruits: { src: '/assets/blog/photography/fruits.webp', alt: 'An assortment of dried fruit slices' },
-  spices: { src: '/assets/blog/photography/spices.webp', alt: 'Chilli, pepper and whole spices' },
-  nuts: { src: '/assets/blog/photography/nuts.webp', alt: 'Mixed nuts and dry fruits in a bowl' },
-  makhana: { src: '/assets/blog/photography/makhana.webp', alt: 'Fox nuts, also known as makhana' },
-  seeds: { src: '/assets/blog/photography/seeds.webp', alt: 'Flaxseeds used as a food ingredient' },
-  trade: { src: '/assets/apart/transport.webp', alt: 'A container ship and cranes at an international port' },
-  export: { src: '/assets/services/export.webp', alt: 'Cargo prepared for international export' },
-  freight: { src: '/assets/services/freight.webp', alt: 'Cargo transport and freight operations' },
-  documents: { src: '/assets/services/documents.webp', alt: 'International trade documentation' },
-  sourcing: { src: '/assets/services/import.webp', alt: 'Goods stored in a distribution warehouse' },
+  vegetables: { src: '/images/photos/vegetables.webp', alt: 'Bowls of dehydrated vegetable flakes and granules' },
+  fruits: { src: '/images/photos/banana.webp', alt: 'Banana powder with ripe bananas' },
+  spices: { src: '/images/photos/spices.webp', alt: 'Chilli, pepper and whole spices' },
+  nuts: { src: '/images/photos/nuts.webp', alt: 'Mixed nuts and dry fruits in a bowl' },
+  makhana: { src: '/images/photos/makhana.webp', alt: 'Fox nuts, also known as makhana' },
+  seeds: { src: '/images/photos/millets.webp', alt: 'Raw millets in ceramic bowls' },
+  trade: { src: '/images/photos/transport.webp', alt: 'A container ship and cranes at an international port' },
+  export: { src: '/images/photos/logistics.webp', alt: 'Cargo prepared for international export' },
+  freight: { src: '/images/photos/logistics.webp', alt: 'Cargo transport and freight operations' },
+  documents: { src: '/images/photos/documents.webp', alt: 'International trade documentation' },
+  sourcing: { src: '/images/photos/warehouse.webp', alt: 'Goods stored in a distribution warehouse' },
 };
 
 const subjects = {
@@ -40,6 +40,6 @@ const subjects = {
 
 export function getBlogImage(post) {
   if (subjects[post.slug]) return photos[subjects[post.slug]];
-  if (post.image) return { src: post.image, alt: post.title };
+  if (/ginger|turmeric|chilli|spice/.test(post.slug)) return photos.spices;
   return photos.vegetables;
 }

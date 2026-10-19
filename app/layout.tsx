@@ -9,9 +9,17 @@ import "./globe.css";
 import "./navigation.css";
 import "./mobile.css";
 import "./mobile-motion.css";
-import "./cursor.css";
 import Navbar from '@/components/Navbar';
-import ShipCursor from '@/components/ShipCursor';
+import SupportWidget from '@/components/SupportWidget';
+import StructuredData from '@/components/StructuredData';
+import { organizationSchema, siteUrl, pageMetadata } from '@/lib/seo';
+import './buyer.css';
+import './support.css';
+import './typography.css';
+import './header-contrast.css';
+import './enquiry.css';
+import EnquiryProvider from '@/components/EnquiryProvider';
+import EnquiryButton from '@/components/EnquiryButton';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -21,14 +29,15 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  title: "PanVibes Exim | Global Export Import Organization",
-  description:
-    "PanVibes Exim — international export-import, transport, document verification, and freight forwarding. Your Vision, Our Expert Execution.",
+  ...pageMetadata('B2B Food Ingredient Supplier & Exporter India', 'Source dehydrated vegetables, ginger, turmeric, moringa, makhana and fruit powders from India. B2B ingredient and chemical sourcing with export support.', '/'),
+  metadataBase: new URL(siteUrl),
+  applicationName: 'PanVibes Exim',
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 } },
 };
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
-      <body><Navbar/>{children}<ShipCursor/></body>
+      <body><EnquiryProvider><StructuredData data={organizationSchema}/><Navbar/>{children}<EnquiryButton className="enquiry-global-button">Enquiry ↗</EnquiryButton><SupportWidget/></EnquiryProvider></body>
     </html>
   );
 }

@@ -3,10 +3,12 @@
 import { useEffect, useRef } from 'react';
 import { enquiryContact as contact } from '@/lib/enquiry-contact';
 import { Arrow } from '@/components/ui';
+import { useEnquiry } from '@/components/EnquiryProvider';
 
 export type ProductSelection={category:string;name:string};
 
 export default function ProductEnquiry({selection,onClose}:{selection:ProductSelection|null;onClose:()=>void}){
+  const openEnquiry=useEnquiry();
   const dialog=useRef<HTMLDialogElement>(null);
   useEffect(()=>{
     if(!selection)return;
@@ -26,7 +28,7 @@ export default function ProductEnquiry({selection,onClose}:{selection:ProductSel
         <div className="service-person"><span>OM</span><div><strong>{contact.name}</strong><p>{contact.role}</p></div></div>
         <a href={`tel:+${contact.phone}`}>{contact.displayPhone}<Arrow diagonal/></a>
         <a className="service-contact-cta" href={`https://wa.me/${contact.phone}?text=${encodeURIComponent(`Hello Omkar, I am interested in ${enquiry}. Please share specifications, availability and a quotation.`)}`} target="_blank" rel="noreferrer">Enquire on WhatsApp<Arrow/></a>
-        <a className="service-website-enquiry" href={`/contact?product=${encodeURIComponent(product)}`}>Send a website enquiry<Arrow diagonal/></a>
+        <button className="service-website-enquiry" type="button" onClick={()=>openEnquiry({product,purpose:'Bulk quotation'})}>Fill enquiry form<Arrow diagonal/></button>
       </div>
     </div>}
   </dialog>;

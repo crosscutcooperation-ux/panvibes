@@ -4,7 +4,6 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { products } from '@/lib/site-content';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -14,8 +13,8 @@ const bowls = [
   {label:'Paneer',x:.502,y:.433,row:0,count:40,size:.037},
   {label:'Ginger',x:.773,y:.433,row:0,count:26,size:.048},
   {label:'Cashews',x:.192,y:.718,row:1,count:95,size:.024},
-  {label:products[3].name,x:.502,y:.718,row:1,count:24,size:.052},
-  {label:products[10].name,x:.809,y:.718,row:1,count:120,size:.016},
+  {label:'Banana Powder',x:.502,y:.718,row:1,count:24,size:.052},
+  {label:'Millets',x:.809,y:.718,row:1,count:120,size:.016},
 ];
 const ingredients = bowls.flatMap((bowl,family)=>Array.from({length:bowl.count},(_,index)=>({
   family,index,

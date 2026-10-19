@@ -1,4 +1,6 @@
-// Verified against panvibesexim.com on 14 October 2026. See content-sources.json.
+import { shippingMarkets } from './shipping';
+
+// Company content with shipping coverage updated by the owner on 18 October 2026.
 export const company = {
   name: "PanVibes Exim",
   legalName: "PanVibes Exim Pvt Ltd",
@@ -14,10 +16,10 @@ export const company = {
   ],
   heroTitle: "Your Vision, Our Expert Execution",
   heroDescription:
-    "Comprehensive logistics solutions tailored to meet your business needs",
+    "Dehydrated vegetables, spices, moringa, makhana and fruit powders for international B2B buyers.",
   tagline: "Faster. Reliable. Global.",
   overview: [
-    "PanVibes Exim connects Indian suppliers with international markets, supporting food, nutrition, wellness and sustainable agriculture businesses.",
+    "PanVibes Exim connects Indian suppliers with buyers in India, the UK, the USA, Europe and the UAE, supporting food, nutrition, wellness and sustainable agriculture businesses.",
     "Our portfolio spans dehydrated agro products, nutraceutical ingredients, organic commodities, specialty chemicals and spices. We work with certified farms, manufacturing partners and formulation facilities, with a focus on purity, traceability and consistent quality.",
     "From sourcing to shipment, our approach combines innovation and integrity with timely delivery, regulatory compliance and lasting business relationships.",
   ],
@@ -37,7 +39,7 @@ export const navigation = [
 export const services = [
   {
     title: ["Export", "solutions"],
-    image: "air-freight.webp",
+    image: "photos/logistics.webp",
     overview: "Global trade support combining sourcing, logistics and quality-focused distribution.",
     description:
       "Documentation, customs clearance, logistics coordination, and delivery support for international exports.",
@@ -45,7 +47,7 @@ export const services = [
   },
   {
     title: ["Import", "solutions"],
-    image: "warehouse.webp",
+    image: "photos/warehouse.webp",
     overview: "Warehousing facilities supported by inventory management and distribution capabilities.",
     description:
       "Import support covering port operations, customs requirements, and inland transport.",
@@ -53,7 +55,7 @@ export const services = [
   },
   {
     title: ["Transport", "solutions"],
-    image: "transport.webp",
+    image: "photos/transport.webp",
     overview: "Transportation services focused on timely, secure delivery across destinations.",
     description:
       "Road, rail, and multimodal transport with shipment tracking and delivery coordination.",
@@ -61,7 +63,7 @@ export const services = [
   },
   {
     title: ["Document", "verification"],
-    image: "customs.webp",
+    image: "photos/documents.webp",
     overview: "Container handling and consolidation support for import and export operations.",
     description:
       "Verification and processing of shipping documents, including bills of lading, origin certificates, and commercial invoices.",
@@ -69,7 +71,7 @@ export const services = [
   },
   {
     title: ["Freight", "forwarding"],
-    image: "ocean-freight.webp",
+    image: "photos/logistics.webp",
     overview: "Specialized storage for temperature-sensitive goods and bulk liquid cargo.",
     description:
       "Air, sea, and land freight, with cargo insurance and supply chain management.",
@@ -79,14 +81,14 @@ export const services = [
 export const stats = [
   { value: 10, suffix: "+", label: "Product categories", description: "A portfolio of agro products, food, nutraceutical ingredients and specialty chemicals." },
   { value: 25, suffix: "+", label: "Subproduct categories", description: "Explore dehydrated produce, spices, dry fruits, snacks and more in our catalogue." },
-  { value: 10, suffix: "+", label: "Countries served", description: "Connecting Indian supply with international markets through quality, traceability and reliable delivery." },
+  { value: shippingMarkets.length, suffix: "", label: "Shipping markets", description: "Shipping only to India, the UK, the USA, Europe and the UAE." },
   { value: 5, suffix: "+", label: "Services provided", description: "Export, import, transport, document verification and freight forwarding support." },
 ];
 export const industries = [
-  { name: "Agriculture", image: "industry-agriculture.webp", description: "Dehydrated fruits, vegetables and sprouts, millets, makhana and dry fruits." },
-  { name: "Chemicals", image: "industry-chemicals.webp", description: "Specialty chemicals and construction admixtures from the PanVibes catalogue." },
-  { name: "Indian Spices", image: "industry-spices.webp", description: "Indian spices supplied as part of our international product portfolio." },
-  { name: "Nutraceutical", image: "industry-nutraceutical.webp", description: "Ingredients for nutrition and wellness, with a focus on purity and traceability." },
+  { name: "Agriculture", image: "photos/vegetables.webp", description: "Banana powder, dehydrated vegetables, millets, makhana and dry fruits." },
+  { name: "Chemicals", image: "photos/chemicals.webp", description: "Specialty chemicals and construction admixtures from the PanVibes catalogue." },
+  { name: "Indian Spices", image: "photos/spices.webp", description: "Indian spices supplied as part of our international product portfolio." },
+  { name: "Nutraceutical", image: "photos/nutraceuticals.webp", description: "Moringa powder and ashwagandha for B2B ingredient sourcing enquiries." },
 ];
 export const benefits = [
   {
@@ -109,38 +111,19 @@ export const benefits = [
   },
 ];
 export const products: {name:string;image:string;sector:'food'|'industrial'}[] = [
-  { name: "Makhana & Healthy Food Snacks", image: "product-makhana.webp", sector:'food' },
-  { name: "Dairy Products", image: "product-dairy.webp", sector:'food' },
-  { name: "Dehydrated Vegetables", image: "product-vegetables.webp", sector:'food' },
-  { name: "Dehydrated Fruits", image: "product-fruits.webp", sector:'food' },
-  { name: "Dehydrated Sprouts", image: "product-sprouts.webp", sector:'food' },
-  { name: "Cashew & Other Dry Fruits", image: "product-cashew.webp", sector:'food' },
-  { name: "Spices", image: "product-spices.webp", sector:'food' },
-  { name: "Chemicals", image: "product-chemicals.webp", sector:'industrial' },
-  { name: "Nutraceuticals", image: "product-nutraceuticals.webp", sector:'food' },
-  {
-    name: "Indian Flavours Ready in Minutes",
-    image: "product-ready-meals.webp",
-    sector:'food',
-  },
-  { name: "Millets", image: "product-millets.webp", sector:'food' },
-  { name: "Aggregate", image: "product-aggregate.webp", sector:'industrial' },
-  { name: "Construction Admixtures", image: "product-admixtures.webp", sector:'industrial' },
+  { name: "Makhana & Healthy Food Snacks", image: "photos/makhana.webp", sector:'food' },
+  { name: "Dairy Products", image: "photos/dairy-v2.webp", sector:'food' },
+  { name: "Dehydrated Vegetables", image: "photos/vegetables.webp", sector:'food' },
+  { name: "Dehydrated Fruits", image: "photos/banana.webp", sector:'food' },
+  { name: "Cashew & Other Dry Fruits", image: "photos/nuts.webp", sector:'food' },
+  { name: "Spices", image: "photos/spices.webp", sector:'food' },
+  { name: "Chemicals", image: "photos/chemicals.webp", sector:'industrial' },
+  { name: "Nutraceuticals", image: "photos/nutraceuticals.webp", sector:'food' },
+  { name: "Millets", image: "photos/millets.webp", sector:'food' },
+  { name: "Aggregate", image: "photos/aggregate.webp", sector:'industrial' },
+  { name: "Construction Admixtures", image: "photos/admixtures.webp", sector:'industrial' },
 ];
-export const destinations: [string, number, number][] = [
-  ["SPAIN", 40, -4],
-  ["NEW ZEALAND", -41, 174],
-  ["ITALY", 42, 13],
-  ["AUSTRALIA", -27, 134],
-  ["CANADA", 56, -106],
-  ["FRANCE", 47, 2],
-  ["INDIA", 19, 73],
-  ["USA", 39, -98],
-  ["UK", 54, -2],
-  ["UAE", 24.4, 54.4],
-  // Regional destination in addition to the individual European countries.
-  ["EUROPE", 52, 19],
-];
+export const destinations: [string, number, number][] = shippingMarkets.map(market => [market.name.toUpperCase(), market.latitude, market.longitude]);
 // The source site supplies no customer quotations or FAQ section.
 export const testimonials: {
   quote: string;

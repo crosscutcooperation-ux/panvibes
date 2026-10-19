@@ -6,8 +6,8 @@ import { company, navigation } from "@/lib/site-content";
 import { Brand, Pill } from "./ui";
 import { initialHeaderScroll, nextHeaderScroll } from '@/lib/header-scroll';
 import { enquiryContact } from '@/lib/enquiry-contact';
+import { startHeaderContrast } from '@/lib/header-contrast';
 export default function Navbar() {
-  const [light,setLight]=useState(false);
   const [menuOpen,setMenuOpen]=useState(false);
   const menuButton=useRef<HTMLButtonElement>(null);
   const headerRef=useRef<HTMLElement>(null);
@@ -51,30 +51,9 @@ export default function Navbar() {
     document.addEventListener('pointerdown',outside);wide.addEventListener('change',resize);
     return()=>{cancelAnimationFrame(focusFrame);document.documentElement.style.overflow=previousOverflow;window.removeEventListener('keydown',close);document.removeEventListener('pointerdown',outside);wide.removeEventListener('change',resize);};
   },[menuOpen]);
-  useEffect(()=>{
-    let frame=0;
-    const update=()=>{
-      frame=0;
-      const x=innerWidth/2,y=Math.min(85,innerHeight/4);
-      const sections=[...document.querySelectorAll<HTMLElement>('[data-header-theme="light"],logistics-about,logistics-crane,.apart-section,.product-stage,.motion-orbit,.motion-service-track')];
-      const overDark=sections.some(section=>{const box=section.getBoundingClientRect();return getComputedStyle(section).visibility!=='hidden'&&box.height>0&&box.top<=y&&box.bottom>y&&box.left<=x&&box.right>=x;});
-      const hero=document.querySelector<HTMLElement>('.home-video-stage');
-      const journey=document.querySelector<HTMLElement>('.trade-journey-v2');
-      if(pathname==='/'&&hero&&hero.getBoundingClientRect().bottom>y){setLight(hero.style.getPropertyValue('--hero-nav-text')!=='#104e87');}
-      else if(pathname==='/'&&journey&&journey.getBoundingClientRect().top<=y&&journey.getBoundingClientRect().bottom>y){
-        // Service cards sit on blue below the header, while the upper surface
-        // stays white until the ship/ocean reveal reaches the navigation.
-        setLight(Number(journey.dataset.phase??0)>=(matchMedia('(max-width:991px)').matches?33.3:33.85));
-      }
-      else setLight(overDark);
-    };
-    const schedule=()=>{if(!frame)frame=requestAnimationFrame(update);};
-    schedule();window.addEventListener('scroll',schedule,{passive:true});window.addEventListener('resize',schedule);window.addEventListener('panvibes:header-tone',schedule);
-    const observer=new MutationObserver(schedule);observer.observe(document.body,{childList:true,subtree:true});
-    return()=>{cancelAnimationFrame(frame);observer.disconnect();window.removeEventListener('scroll',schedule);window.removeEventListener('resize',schedule);window.removeEventListener('panvibes:header-tone',schedule);};
-  },[pathname]);
+  useEffect(()=>startHeaderContrast(headerRef.current!,menuOpen),[pathname,menuOpen]);
   return (
-    <header ref={headerRef} className="site-header home-header unified-header" data-tone={light?'light':'blue'} data-route={pathname} data-menu-open={menuOpen}>
+    <header ref={headerRef} className="site-header home-header unified-header" data-tone="blue" data-route={pathname} data-menu-open={menuOpen}>
       <div className="news-bar"><span>PanVibes: International export-import organization</span></div>
       <div className="header-main">
         <Link href="/" className="header-brand" aria-label="PanVibes home" onClick={()=>setMenuOpen(false)}><Brand /></Link>

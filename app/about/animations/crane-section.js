@@ -344,6 +344,7 @@ class LogisticsCrane extends HTMLElement {
     cargo.position.y = -2.72;
     this.rotor.add(cargo);
     box(cargo, [3.65, 1.45, 1.53], [0, 0, 0], cargoPaint);
+    const brandedWalls = [];
     const corrugatedWall = sign => {
       const profile = [];
       const period = 3.4 / 25;
@@ -367,7 +368,7 @@ class LogisticsCrane extends HTMLElement {
         for (const index of indices) {
           const point = corners[index];
           positions.push(...point);
-          uvs.push((point[0] + 1.7) / 3.4, (point[1] + .65) / 1.3);
+          uvs.push(sign > 0 ? (point[0] + 1.7) / 3.4 : 1 - (point[0] + 1.7) / 3.4, (point[1] + .65) / 1.3);
         }
       }
       const wallGeometry = geometry(new THREE.BufferGeometry());
@@ -376,7 +377,7 @@ class LogisticsCrane extends HTMLElement {
       wallGeometry.computeVertexNormals();
       const wall = new THREE.Mesh(wallGeometry, cargoPaint);
       wall.castShadow = wall.receiveShadow = true;
-      cargo.add(wall);
+      cargo.add(wall);brandedWalls.push(wall);
     };
     for (const sign of [-1, 1]) {
       corrugatedWall(sign);
@@ -403,12 +404,22 @@ class LogisticsCrane extends HTMLElement {
       box(cargo, [.045, .03, .16], [1.94, -.15, z + .04], steel);
     }
     for (let z = -.69; z <= .7; z += .13) box(cargo, [.04, 1.31, .037], [-1.85, 0, z], cargoPaint);
-    new THREE.TextureLoader().load('/images/panvibes-logo-transparent.png',texture=>{
-      if(!this.isConnected){texture.dispose();return;}texture.colorSpace=THREE.SRGBColorSpace;this.textures.add(texture);
-      const plateMaterial=new THREE.MeshBasicMaterial({color:'#ffffff'}),logoMaterial=new THREE.MeshBasicMaterial({map:texture,transparent:true});this.materials.add(plateMaterial);this.materials.add(logoMaterial);
-      for(const sign of [-1,1]){const plate=new THREE.Mesh(geometry(new THREE.PlaneGeometry(1.9,.76)),plateMaterial);const logo=new THREE.Mesh(geometry(new THREE.PlaneGeometry(1.74,1.74*759/2071)),logoMaterial);plate.position.set(0,0,sign*.83);logo.position.set(0,0,sign*.835);if(sign<0){plate.rotation.y=Math.PI;logo.rotation.y=Math.PI;}cargo.add(plate,logo);}
-      this.dataset.branded='true';
-    });
+    const brandImage = new Image();
+    brandImage.onload = () => {
+      if(!this.isConnected)return;
+      // Paint into each corrugated wall's material map, including the steel
+      // grain. The mesh itself supplies lighting and surface relief.
+      const surface=document.createElement('canvas');surface.width=1024;surface.height=392;
+      const paint=surface.getContext('2d');paint.fillStyle='#d45f3f';paint.fillRect(0,0,1024,392);
+      paint.globalAlpha=.15;paint.drawImage(cargoGrain.image,0,0,1024,392);paint.globalAlpha=.94;
+      const width=570,height=width*759/2071;
+      paint.filter='brightness(0) invert(1)';paint.drawImage(brandImage,(1024-width)/2,(392-height)/2,width,height);
+      const texture=new THREE.CanvasTexture(surface);texture.colorSpace=THREE.SRGBColorSpace;this.textures.add(texture);
+      const wallPaint=cargoPaint.clone();wallPaint.color.set('#ffffff');wallPaint.map=texture;this.materials.add(wallPaint);
+      brandedWalls.forEach(wall=>{wall.material=wallPaint;});
+      this.dataset.branded='true';this.dataset.brandStyle='baked-wall-texture';this.render();
+    };
+    brandImage.src='/images/panvibes-logo-transparent.png';
 
     this.mainCables = [-1, 1].map(sign => ({
       mesh: rod(this.scene, [tip.x + sign * .13, tip.y, 0], [tip.x + sign * .13, 3.6, 0], .018, steel),

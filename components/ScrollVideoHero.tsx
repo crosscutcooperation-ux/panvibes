@@ -3,6 +3,7 @@ import { useEffect, useRef, type ReactNode } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { mix, segment, smooth, tippingTruck } from '@/lib/journey-motion';
+import brandedAssets from '@/lib/container-branding-assets.json';
 import { handoffTruck, heroFilm, videoTruckBounds } from '@/lib/hero-handoff';
 gsap.registerPlugin(ScrollTrigger);
 
@@ -22,7 +23,7 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
     const ctx=sample.getContext('2d',{willReadFrequently:true})!;
     const layer=document.createElement('canvas');layer.className='home-handoff-truck';layer.setAttribute('aria-hidden','true');document.body.appendChild(layer);
     const truckContext=layer.getContext('2d')!;
-    const truck=new Image();truck.src=handoffTruck.src;
+    const truck=new Image();truck.src=(brandedAssets as Record<string,string>)[handoffTruck.src]||handoffTruck.src;
     const plate=stage.querySelector<HTMLElement>('.home-handoff-plate')!;
     const plateImage=new Image();plateImage.src='/media/home-hero/handoff-clean-plate.webp';
     let trigger:ScrollTrigger|undefined,bridge:ScrollTrigger|undefined,frame=0,progress=0,disposed=false,lastContrastAt=-Infinity;

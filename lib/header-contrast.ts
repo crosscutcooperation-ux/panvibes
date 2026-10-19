@@ -105,7 +105,7 @@ export function startHeaderContrast(header: HTMLElement, menuOpen: boolean) {
     const headerBox = header.getBoundingClientRect();
     if (headerBox.bottom <= 0 || header.dataset.hidden === 'true') return;
     styles = new Map(); framePixels = new Map();
-    const items = header.querySelectorAll<HTMLElement>('.desktop-nav a,.mobile-quick-links a,.site-menu-toggle,.news-bar span');
+    const items = header.querySelectorAll<HTMLElement>('.desktop-nav a,.mobile-quick-links a,.site-menu-toggle,.news-bar span,.header-brand');
     let whites = 0, count = 0;
     for (const item of items) {
       const box = item.getBoundingClientRect();
@@ -114,6 +114,7 @@ export function startHeaderContrast(header: HTMLElement, menuOpen: boolean) {
       const backgrounds = menuOpen ? [WHITE] : [.2, .5, .8].map(ratio => underlay(Math.max(0, Math.min(innerWidth - 1, box.left + box.width * ratio)), y));
       const ink = contrastingNavInk(backgrounds);
       if (item.style.getPropertyValue('--nav-item-ink') !== ink) item.style.setProperty('--nav-item-ink', ink);
+      item.dataset.ink = ink === '#ffffff' ? 'white' : 'blue';
       if (ink === '#ffffff') whites++; count++;
     }
     header.dataset.tone = !menuOpen && whites > count / 2 ? 'light' : 'blue';

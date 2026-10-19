@@ -1,11 +1,14 @@
 import { answerEnquiry } from '@/lib/chat-assistant';
 import { exportProducts } from '@/lib/export-products';
-import { company, products } from '@/lib/site-content';
+import knowledge from '@/lib/assistant-knowledge.json';
+import catalogue from '@/lib/product-types.json';
+import posts from '@/app/blog/posts.json';
+import { company, products, services } from '@/lib/site-content';
 import { shippingCoverage } from '@/lib/shipping';
 import chemicals from '@/lib/chemicals.json';
 import { guardRequest } from '@/lib/request-guard';
 
-const facts = JSON.stringify({ company: { name: company.name, email: company.email, address: company.address }, shipping: shippingCoverage, categories: products.map(product => product.name), ingredients: exportProducts.map(product => ({ name: product.name, forms: product.forms, grades: product.grades, intro: product.intro })), chemicals: chemicals.groups.map(group => ({ name: group.name, products: group.products })) });
+const facts = JSON.stringify({ ...knowledge, company, shipping: shippingCoverage, services, categories: products, catalogue, ingredients: exportProducts, chemicals: chemicals.groups, journal: posts.map(post => ({title:post.title, excerpt:post.excerpt, path:'/blog/'+post.slug})) });
 
 export async function POST(request: Request) {
   const rejected = guardRequest(request, 'chat', 20);

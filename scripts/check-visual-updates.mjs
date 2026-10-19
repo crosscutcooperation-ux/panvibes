@@ -19,13 +19,12 @@ try {
  await page.keyboard.press('Escape');
  await page.goto(base+'/contact',{waitUntil:'networkidle'});
  await page.locator('.contact-atlas').getByRole('button',{name:'Click here for directions'}).click();
- await page.waitForFunction(()=>document.querySelector('.contact-atlas').dataset.mapPhase==='satellite');
- assert.match(await page.getByTitle('Satellite imagery around the PanVibes office').getAttribute('src'),/t=k/);
+ assert.equal(await page.locator('.atlas-satellite-layer').count(),0);
  await page.waitForFunction(()=>document.querySelector('.contact-atlas').dataset.mapPhase==='map');
  const directions=page.locator('.atlas-actions a');assert.equal(await directions.isVisible(),true);assert.match(await directions.getAttribute('href'),/google.com\/maps\/dir/);
  await page.locator('.atlas-map-loading').waitFor({state:'hidden',timeout:25000});
  await page.locator('.contact-atlas').screenshot({path:'.next/buyer-review/contact-map-transition.png'});
- console.log('PASS: five shipping markets, structured coverage, prefilled destination selector and satellite-to-map directions flow.');
+ console.log('PASS: five shipping markets, structured coverage, prefilled destination selector and original globe-to-map directions flow.');
  await page.goto(base+'/products',{waitUntil:'networkidle'});
  const construction=page.locator('.range-row-compact').filter({hasText:'Construction Admixtures'});
  await construction.hover();assert.equal(await construction.getAttribute('data-open'),'true');
@@ -40,7 +39,7 @@ try {
  const gaps=await page.locator('.motion-stat').evaluateAll(rows=>rows.slice(1).map((row,i)=>row.getBoundingClientRect().top-rows[i].getBoundingClientRect().bottom));assert.ok(gaps.every(gap=>gap>=0&&gap<=42));
  await page.screenshot({path:'.next/buyer-review/stat-spacing.png'});
  await movePhase(8.5);await page.waitForTimeout(1500);await page.screenshot({path:'.next/buyer-review/branded-container-stack.png'});
- await page.goto(base+'/about',{waitUntil:'networkidle'});await page.waitForFunction(()=>document.querySelector('logistics-about')?.dataset.branded==='true');
+ await page.goto(base+'/about',{waitUntil:'networkidle'});await page.waitForFunction(()=>document.querySelector('logistics-about')?.dataset.brandStyle==='unbranded');
  assert.deepEqual(errors,[]);
- console.log('PASS: construction hover, refreshed catalog photos, tighter statistics spacing, branded containers and no runtime errors.');
+ console.log('PASS: construction hover, refreshed catalog photos, tighter statistics spacing, baked side branding and unbranded door containers and no runtime errors.');
 } finally {await browser.close();}

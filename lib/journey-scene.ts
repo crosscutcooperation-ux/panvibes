@@ -1,3 +1,4 @@
+import brandedAssets from './container-branding-assets.json';
 import sequences from './reference-sequences.json';
 import mobileAssets from './mobile-journey-assets.json';
 import { handoffTruck, handoffCrop } from './hero-handoff';
@@ -27,7 +28,8 @@ export function createJourneyScene(host: HTMLElement) {
         if (!disposed) { images.set(path, image); redraw(); pump(); }
       };
       image.onerror = () => { loading--; waiting.delete(path); pump(); };
-      image.src = compact ? (mobileAssets as Record<string,string>)[path] || path : path;
+      const resolved = compact ? (mobileAssets as Record<string,string>)[path] || path : path;
+      image.src = (brandedAssets as Record<string,string>)[resolved] || resolved;
     }
   }
   function request(path: string, urgent = false) {
@@ -65,14 +67,6 @@ export function createJourneyScene(host: HTMLElement) {
     if (crop) ctx.drawImage(asset, crop[0] * asset.naturalWidth, crop[1] * asset.naturalHeight, crop[2] * asset.naturalWidth, crop[3] * asset.naturalHeight, -w / 2, -h / 2, w, h);
     else ctx.drawImage(asset, -w / 2, -h / 2, w, h);
     ctx.restore();
-  }
-  function brand(x: number, y: number, logoWidth: number, angle = 0) {
-    const logo = image('/images/panvibes-logo-transparent.png');
-    if (!logo) return;
-    const logoHeight = logoWidth * logo.naturalHeight / logo.naturalWidth;
-    ctx.save(); ctx.translate(x, y); ctx.rotate(angle);
-    ctx.fillStyle = '#ffffff'; ctx.fillRect(-logoWidth*.56,-logoHeight*.62,logoWidth*1.12,logoHeight*1.24);
-    ctx.drawImage(logo,-logoWidth/2,-logoHeight/2,logoWidth,logoHeight); ctx.restore();
   }
   function hydraulic(ax: number, ay: number, bx: number, by: number, diameter: number) {
     const dx = bx - ax, dy = by - ay, length = Math.hypot(dx, dy);
@@ -125,7 +119,6 @@ export function createJourneyScene(host: HTMLElement) {
     const smallX = smallTruck.x, smallY = smallTruck.y;
     if (t < 6) {
       photo(image(handoffTruck.src),smallX,smallY,smallLength*handoffTruck.width/handoffTruck.height,smallLength,0,handoffCrop);
-      brand(smallX,smallY-smallLength*.19,smallLength*handoffTruck.width/handoffTruck.height*.5);
     }
     if (t >= 6 && t < 8) photo(frame('truck-turn', 1 - cameraTurn), smallX, smallY, smallLength, smallLength * 809 / 2880, (1 - cameraTurn) * Math.PI / 2);
     if (t >= 8 && t < 13) {
@@ -141,7 +134,6 @@ export function createJourneyScene(host: HTMLElement) {
       }
       ctx.save(); ctx.translate(smallTruck.pivotX, smallTruck.pivotY); ctx.rotate(smallTruck.tip);
       photo(image('/images/truck-container.avif'), smallLength * .497, -sideHeight * .20, smallLength, sideHeight);
-      brand(smallLength*.47,-sideHeight*.38,smallLength*.16);
       ctx.restore();
     }
     const receiver = receivingContainer(w, h);
@@ -160,7 +152,6 @@ export function createJourneyScene(host: HTMLElement) {
       if (color) photo(front,0,0,receiver.width+1,receiver.height+1,0,[5/369,0,360/369,1]);
       else photo(front, 0, 0, receiver.width, receiver.height, 0, [.857, .344, .118, .24]);
       ctx.restore();
-      brand(x,y-receiver.height*.15,receiver.width*.62);
     };
     // Two foundation containers remain in the yard while the upper one is
     // filled and lifted. All three keep the supplied door-facing perspective.
@@ -242,7 +233,6 @@ export function createJourneyScene(host: HTMLElement) {
     } else if (t >= 15.5 && t < 24) {
       const side = frame('truck-turn', 0);
       photo(side, pose.x, pose.y, length, frameHeight);
-      brand(pose.x-length*.08,pose.y-frameHeight*.12,length*.22);
       spinningWheels(side, pose.x, pose.y, length, truckWheelAngle(t));
     } else if (t >= 24 && t < 32.5) {
       photo(frame('truck-turn', smooth(segment(t, 24, 26))), pose.x, pose.y, length, frameHeight, -pose.heading);
@@ -253,7 +243,6 @@ export function createJourneyScene(host: HTMLElement) {
       if (t < 33.7) photo(image('/images/truck-top.avif'), pose.x, pose.y, length, length * 1618 / 5760, Math.PI / 2);
       ctx.globalAlpha = 1 - smooth(segment(t, 33.7, 33.95));
       photo(image('/images/container-top.avif'), w * .5, handoff.y, handoff.cargoLength, handoff.cargoWidth, Math.PI / 2, [143 / 5760, 281 / 1618, 4347 / 5760, 1056 / 1618]);
-      brand(w*.5,handoff.y,handoff.cargoWidth*.72);
       ctx.globalAlpha = 1;
     }
     // Keep a bounded decoded-image cache rather than retaining hundreds of

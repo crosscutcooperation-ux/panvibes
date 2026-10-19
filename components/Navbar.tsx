@@ -54,6 +54,7 @@ export default function Navbar() {
   useEffect(()=>startHeaderContrast(headerRef.current!,menuOpen),[pathname,menuOpen]);
   return (
     <header ref={headerRef} className="site-header home-header unified-header" data-tone="blue" data-route={pathname} data-menu-open={menuOpen}>
+      <svg width="0" height="0" aria-hidden="true" style={{position:'absolute'}}><defs><filter id="panvibes-light-logo" colorInterpolationFilters="sRGB"><feColorMatrix type="matrix" values="0 0 0 0 1  -0.62 0 0 0 1  -0.80 0 0 0 1  0 0 0 1 0"/></filter></defs></svg>
       <div className="news-bar"><span>PanVibes: International export-import organization</span></div>
       <div className="header-main">
         <Link href="/" className="header-brand" aria-label="PanVibes home" onClick={()=>setMenuOpen(false)}><Brand /></Link>

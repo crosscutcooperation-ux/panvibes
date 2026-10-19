@@ -1,0 +1,99 @@
+{
+  "updated": "2026-10-19",
+  "source": "Verified public About, Contact, Services, Products, Quality and Export pages. Shared catalogue data is added at runtime.",
+  "founder": {
+    "name": "Prakash Mewada",
+    "role": "Founder",
+    "biography": "Founder of PanVibes Exim Pvt Ltd and Gaamup Infra. Experience in construction, manufacturing and supply-chain operations. His work at PanVibes focuses on ethical sourcing, transparency, quality and long-term trade partnerships."
+  },
+  "leadership": [
+    {
+      "name": "Gautam Mewada",
+      "role": "Director"
+    },
+    {
+      "name": "Prathamesh Patil",
+      "role": "Director"
+    },
+    {
+      "name": "Nitesh Kanse",
+      "role": "Chief Procurement Director (CPD)"
+    },
+    {
+      "name": "Omkar Marakwar",
+      "role": "Chief Operations Director (COD)"
+    },
+    {
+      "name": "Bhavesh Patil",
+      "role": "Chief Logistics Director (CLD)"
+    }
+  ],
+  "business": "B2B sourcing and export-import support based in Navi Mumbai, India, connecting Indian suppliers with business buyers. Food ingredients, nutrition ingredients and a separate industrial chemicals portfolio.",
+  "values": [
+    "Ethical sourcing",
+    "Traceability",
+    "Quality and transparency",
+    "Reliable trade partnerships"
+  ],
+  "enquiries": {
+    "process": "Use an Enquiry button to open the form on the current page. Successful submissions are stored in a private SQLite database and return a PV reference. An optional email summary can be opened in the visitor’s email app; the visitor reviews and sends it.",
+    "requiredInformation": [
+      "Contact name and business email",
+      "Company",
+      "Product and grade/form",
+      "Quantity and packaging",
+      "Delivery market",
+      "Delivery country and city for Europe",
+      "Specifications or message"
+    ],
+    "confirmation": "Prices, MOQ, stock, lead time, sample charges and delivery eligibility require the team’s confirmation. The chatbot cannot submit enquiries or access private customer records."
+  },
+  "quality": {
+    "guidance": "Request product specifications, COA, laboratory reports or SDS/MSDS as applicable. Availability and exact product/lot scope are confirmed by the team. Organic certificates must be verified for the product and lot; listing a grade does not establish certification."
+  },
+  "shippingPolicy": "Only India, the UK, the USA, Europe and the UAE. For Europe request the specific country and city. No worldwide delivery promise.",
+  "currentCatalogueRestrictions": [
+    "Nutraceuticals: only Moringa Powder and Ashwagandha",
+    "Dehydrated fruits: only Banana Powder",
+    "Dehydrated Sprouts and Indian Ready-made Meals are removed",
+    "Spices remains in the catalogue"
+  ],
+  "pages": [
+    {
+      "path": "/",
+      "purpose": "Company overview, services, industries and ingredient sourcing"
+    },
+    {
+      "path": "/about",
+      "purpose": "Founder, leadership, company background and values"
+    },
+    {
+      "path": "/services",
+      "purpose": "Export, import, transport, document verification and freight forwarding"
+    },
+    {
+      "path": "/products",
+      "purpose": "Current food, nutrition and industrial product catalogue"
+    },
+    {
+      "path": "/products/chemicals",
+      "purpose": "Searchable chemical groups, names and formulae"
+    },
+    {
+      "path": "/quality",
+      "purpose": "Quality documentation and specification guidance"
+    },
+    {
+      "path": "/export-from-india",
+      "purpose": "Shipping destinations, packaging and export enquiry guidance"
+    },
+    {
+      "path": "/blog",
+      "purpose": "Trade and product journal; articles are informational, not confirmation of current stock or shipping coverage"
+    },
+    {
+      "path": "/contact",
+      "purpose": "Office contact details, directions and enquiry form"
+    }
+  ]
+}

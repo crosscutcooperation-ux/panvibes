@@ -55,12 +55,7 @@ class LogisticsAbout extends HTMLElement {
     const box=(w,h,d,mat,x,y,z,parent)=>{const geo=new THREE.BoxGeometry(w,h,d);this.geometries.push(geo);const mesh=new THREE.Mesh(geo,mat);mesh.position.set(x,y,z);parent.add(mesh);return mesh};
     const cylinder=(radius,length,mat,x,y,z,parent)=>{const geo=new THREE.CylinderGeometry(radius,radius,length,12);this.geometries.push(geo);const mesh=new THREE.Mesh(geo,mat);mesh.position.set(x,y,z);parent.add(mesh);return mesh};
     const group=new THREE.Group();this.container=group;scene.add(group);
-    new THREE.TextureLoader().load('/images/panvibes-logo-transparent.png',texture=>{
-      if(!this.mounted){texture.dispose();return;}this.brandTexture=texture;texture.colorSpace=THREE.SRGBColorSpace;
-      const backing=new THREE.MeshBasicMaterial({color:'#ffffff'}),brand=new THREE.MeshBasicMaterial({map:texture,transparent:true});this.materials.push(backing,brand);
-      const boardGeometry=new THREE.PlaneGeometry(1.4,.56),brandGeometry=new THREE.PlaneGeometry(1.28,1.28*759/2071);this.geometries.push(boardGeometry,brandGeometry);
-      const board=new THREE.Mesh(boardGeometry,backing),logo=new THREE.Mesh(brandGeometry,brand);board.position.set(0,.55,.9);logo.position.set(0,.55,.905);group.add(board,logo);this.dataset.branded='true';this.requestFrame();
-    });
+    this.dataset.branded='false';this.dataset.brandStyle='unbranded';
     // A real end-on shipping container with corrugations, two doors and four locking bars.
     box(2.42,2.52,1.42,orange,0,0,0,group);
     for(let x=-1.12;x<=1.12;x+=.125){box(.038,2.35,.055,darkOrange,x,0,.728,group);box(.044,2.35,.033,lightOrange,x+.029,0,.754,group);}

@@ -160,7 +160,7 @@ export default function Journey() {
         </section>
         <div className="motion-ocean" aria-hidden="true">
           <div className="motion-ocean-texture"/>
-          <div className="motion-ship"><Image src="/images/ship.avif" width={731} height={3579} alt="" unoptimized/></div>
+          <div className="motion-ship"><Image src="/images/branded/ship.webp" width={731} height={3579} alt="" unoptimized/></div>
         </div>
         <div className="motion-paper" aria-hidden="true">
           <div className="arrival-lane"><div/></div>

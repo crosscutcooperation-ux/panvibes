@@ -1,45 +1,23 @@
-const photos = {
-  vegetables: { src: '/images/photos/vegetables.webp', alt: 'Bowls of dehydrated vegetable flakes and granules' },
-  fruits: { src: '/images/photos/banana.webp', alt: 'Banana powder with ripe bananas' },
-  spices: { src: '/images/photos/spices.webp', alt: 'Chilli, pepper and whole spices' },
-  nuts: { src: '/images/photos/nuts.webp', alt: 'Mixed nuts and dry fruits in a bowl' },
-  makhana: { src: '/images/photos/makhana.webp', alt: 'Fox nuts, also known as makhana' },
-  seeds: { src: '/images/photos/millets.webp', alt: 'Raw millets in ceramic bowls' },
-  trade: { src: '/images/photos/transport.webp', alt: 'A container ship and cranes at an international port' },
-  export: { src: '/images/photos/logistics.webp', alt: 'Cargo prepared for international export' },
-  freight: { src: '/images/photos/logistics.webp', alt: 'Cargo transport and freight operations' },
-  documents: { src: '/images/photos/documents.webp', alt: 'International trade documentation' },
-  sourcing: { src: '/images/photos/warehouse.webp', alt: 'Goods stored in a distribution warehouse' },
-};
-
-const subjects = {
-  'global-export-import-services': 'trade',
-  'opportunities-challenges-how-to-get-started': 'documents',
-  'international-export-import-company': 'freight',
-  'b2b-food-exporter-international': 'sourcing',
-  'global-commodity-exporter-in-india': 'export',
-  'agro-product-exporter-in-india-panvibes-exim-global-supplier': 'vegetables',
-  'dehydrated-food-exporter-in-india': 'vegetables',
-  'premium-dehydrated-food-manufacturer-in-india': 'fruits',
-  'bulk-dehydrated-food-supplier-in-india': 'sourcing',
-  'dehydrated-vegetable-flakes-exporter': 'vegetables',
-  'dehydrated-vegetables-exporter-in-navi-mumbai': 'vegetables',
-  'dehydrated-food-supplier-navi-mumbai-premium-quality-ingredients': 'fruits',
-  'fruit-powder-exporter-in-india': 'fruits',
-  'organic-dehydrated-powder-exporter': 'vegetables',
-  'bulk-food-ingredients-supplier': 'seeds',
-  'international-spice-exporter': 'spices',
-  'dehydrated-ginger-supplier-in-india': 'spices',
-  'dehydrated-ginger-flakes-manufacturer-india': 'spices',
-  'dehydrated-green-chilli-exporter': 'spices',
-  'global-nut-dry-fruit-supplier': 'nuts',
-  'fox-nuts-supplier-navi-mumbai-panvibes-exim': 'makhana',
-  'dehydrated-jackfruit-exporter-in-india': 'fruits',
-  'dehydrated-fruits-exporter-in-navi-mumbai': 'fruits',
+// Original editorial photos take priority. Unassigned articles have distinct topic images.
+const articleImages = {
+  "global-export-import-services": "/assets/apart/transport.webp",
+  "international-export-import-company": "/assets/services/freight.webp",
+  "b2b-food-exporter-international": "/assets/services/import.webp",
+  "global-commodity-exporter-in-india": "/assets/services/export.webp",
+  "premium-dehydrated-food-manufacturer-in-india": "/assets/blog/photography/fruits.webp",
+  "bulk-dehydrated-food-supplier-in-india": "/images/photos/sourcing.webp",
+  "dehydrated-vegetable-flakes-exporter": "/assets/blog/photography/vegetables.webp",
+  "fruit-powder-exporter-in-india": "/images/photos/banana.webp",
+  "organic-dehydrated-powder-exporter": "/images/photos/nutraceuticals.webp",
+  "bulk-food-ingredients-supplier": "/assets/blog/photography/seeds.webp",
+  "international-spice-exporter": "/assets/blog/photography/spices.webp",
+  "dehydrated-ginger-supplier-in-india": "/images/product-spices.webp",
+  "dehydrated-ginger-flakes-manufacturer-india": "/images/photos/spices.webp",
+  "dehydrated-green-chilli-exporter": "/images/photos/vegetables.webp",
+  "global-nut-dry-fruit-supplier": "/assets/blog/photography/nuts.webp",
+  "dehydrated-jackfruit-exporter-in-india": "/images/product-fruits.webp"
 };
 
 export function getBlogImage(post) {
-  if (subjects[post.slug]) return photos[subjects[post.slug]];
-  if (/ginger|turmeric|chilli|spice/.test(post.slug)) return photos.spices;
-  return photos.vegetables;
+  return { src: post.image || articleImages[post.slug], alt: post.title };
 }

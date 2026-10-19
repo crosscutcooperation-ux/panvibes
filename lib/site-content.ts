@@ -39,7 +39,7 @@ export const navigation = [
 export const services = [
   {
     title: ["Export", "solutions"],
-    image: "photos/logistics.webp",
+    image: "air-freight.webp",
     overview: "Global trade support combining sourcing, logistics and quality-focused distribution.",
     description:
       "Documentation, customs clearance, logistics coordination, and delivery support for international exports.",
@@ -47,7 +47,7 @@ export const services = [
   },
   {
     title: ["Import", "solutions"],
-    image: "photos/warehouse.webp",
+    image: "warehouse.webp",
     overview: "Warehousing facilities supported by inventory management and distribution capabilities.",
     description:
       "Import support covering port operations, customs requirements, and inland transport.",
@@ -55,7 +55,7 @@ export const services = [
   },
   {
     title: ["Transport", "solutions"],
-    image: "photos/transport.webp",
+    image: "transport.webp",
     overview: "Transportation services focused on timely, secure delivery across destinations.",
     description:
       "Road, rail, and multimodal transport with shipment tracking and delivery coordination.",
@@ -63,7 +63,7 @@ export const services = [
   },
   {
     title: ["Document", "verification"],
-    image: "photos/documents.webp",
+    image: "customs.webp",
     overview: "Container handling and consolidation support for import and export operations.",
     description:
       "Verification and processing of shipping documents, including bills of lading, origin certificates, and commercial invoices.",
@@ -71,7 +71,7 @@ export const services = [
   },
   {
     title: ["Freight", "forwarding"],
-    image: "photos/logistics.webp",
+    image: "ocean-freight.webp",
     overview: "Specialized storage for temperature-sensitive goods and bulk liquid cargo.",
     description:
       "Air, sea, and land freight, with cargo insurance and supply chain management.",
@@ -85,10 +85,10 @@ export const stats = [
   { value: 5, suffix: "+", label: "Services provided", description: "Export, import, transport, document verification and freight forwarding support." },
 ];
 export const industries = [
-  { name: "Agriculture", image: "photos/vegetables.webp", description: "Banana powder, dehydrated vegetables, millets, makhana and dry fruits." },
-  { name: "Chemicals", image: "photos/chemicals.webp", description: "Specialty chemicals and construction admixtures from the PanVibes catalogue." },
-  { name: "Indian Spices", image: "photos/spices.webp", description: "Indian spices supplied as part of our international product portfolio." },
-  { name: "Nutraceutical", image: "photos/nutraceuticals.webp", description: "Moringa powder and ashwagandha for B2B ingredient sourcing enquiries." },
+  { name: "Agriculture", image: "industry-agriculture.webp", description: "Banana powder, dehydrated vegetables, millets, makhana and dry fruits." },
+  { name: "Chemicals", image: "industry-chemicals.webp", description: "Specialty chemicals and construction admixtures from the PanVibes catalogue." },
+  { name: "Indian Spices", image: "industry-spices.webp", description: "Indian spices supplied as part of our international product portfolio." },
+  { name: "Nutraceutical", image: "industry-nutraceutical.webp", description: "Moringa powder and ashwagandha for B2B ingredient sourcing enquiries." },
 ];
 export const benefits = [
   {

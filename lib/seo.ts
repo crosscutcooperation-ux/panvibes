@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import { company } from './site-content';
 import { shippingAreaSchema } from './shipping';
 
-export const siteUrl = 'https://www.panvibesexim.com';
+export const siteUrl = 'https://panvibes.com';
 export const organizationId = `${siteUrl}/#organization`;
 
 export function pageMetadata(title: string, description: string, path: string): Metadata {

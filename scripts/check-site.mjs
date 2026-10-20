@@ -6,7 +6,7 @@ const productSource = await fs.readFile(new URL('../lib/export-products.ts', imp
 const productRoutes = [...productSource.matchAll(/slug: '([^']+)'/g)].map(match => `/products/${match[1]}`);
 const routes = ['/', '/about', '/services', '/products', '/blog', '/contact', '/products/chemicals', '/quality', '/export-from-india', ...productRoutes];
 const chemicals = JSON.parse(await fs.readFile(new URL('../lib/chemicals.json', import.meta.url), 'utf8'));
-const canonicalOrigin = 'https://www.panvibesexim.com';
+const canonicalOrigin = 'https://panvibes.com';
 const posts = JSON.parse(await fs.readFile(new URL('../app/blog/posts.json', import.meta.url), 'utf8'));
 const catalogue = JSON.parse(await fs.readFile(new URL('../lib/product-types.json', import.meta.url), 'utf8'));
 const assets = new Set();
@@ -71,7 +71,7 @@ for (const route of [...routes, ...posts.map(post => `/blog/${post.slug}`)]) {
 }
 const robots = await fetch(new URL('/robots.txt', origin));
 assert.equal(robots.status, 200);
-assert.match(await robots.text(), /Sitemap: https:\/\/www\.panvibesexim\.com\/sitemap\.xml/);
+assert.ok((await robots.text()).includes(`Sitemap: ${canonicalOrigin}/sitemap.xml`));
 const sitemap = await fetch(new URL('/sitemap.xml', origin));
 assert.equal(sitemap.status, 200);
 const xml = await sitemap.text();

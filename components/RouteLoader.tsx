@@ -2,11 +2,15 @@
 
 import { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
+import Image from 'next/image';
 
 function LoadingView({path}:{path:string}) {
   const [loading,setLoading]=useState(true);
   useEffect(()=>{
-    let frame=0;
+    // The admin has its own loading state and must not inherit a hidden
+    // overlay's scroll lock. Media is never allowed to block the whole site.
+    if(path.startsWith('/admin'))return;
+    let timer:ReturnType<typeof setTimeout>;
     const previousOverflow=document.documentElement.style.overflow;
     document.documentElement.style.overflow='hidden';
     const start=performance.now();
@@ -14,23 +18,23 @@ function LoadingView({path}:{path:string}) {
       const elapsed=performance.now()-start;
       // Phones show the loader briefly; a video/3D asset
       // must never hold the whole page behind a loading overlay on slow data.
-      if(window.matchMedia('(max-width: 991px), (pointer: coarse)').matches && elapsed>350){
-        document.documentElement.style.overflow=previousOverflow;setLoading(false);return;
-      }
       let ready=document.fonts.status==='loaded';
-      if(path==='/')ready=ready&&(document.querySelector<HTMLVideoElement>('.home-hero-video')?.readyState??0)>=2;
+      if(path==='/'){
+        const hero=document.querySelector<HTMLElement>('.home-video-stage');
+        ready=ready&&((document.querySelector<HTMLVideoElement>('.home-hero-video')?.readyState??0)>=2||hero?.dataset.videoState==='fallback'||matchMedia('(prefers-reduced-motion: reduce)').matches);
+      }
       if(path==='/about')ready=ready&&!!document.querySelector('logistics-about')?.shadowRoot?.querySelector('canvas');
       if(path==='/products')ready=ready&&document.querySelector<HTMLElement>('.product-stage')?.dataset.assetsReady==='true';
       if(path==='/contact')ready=ready&&!!document.querySelector('.globe-ready');
       if(path==='/services')ready=ready&&[...document.querySelectorAll<HTMLImageElement>('main img')].filter(img=>img.fetchPriority==='high').every(img=>img.complete);
-      if((ready&&elapsed>350)||elapsed>6500){document.documentElement.style.overflow=previousOverflow;setLoading(false);return;}
-      frame=requestAnimationFrame(inspect);
+      if((ready&&elapsed>=350)||elapsed>=1500){document.documentElement.style.overflow=previousOverflow;setLoading(false);return;}
+      timer=setTimeout(inspect,100);
     };
-    frame=requestAnimationFrame(inspect);
-    return()=>{cancelAnimationFrame(frame);document.documentElement.style.overflow=previousOverflow;};
+    timer=setTimeout(inspect,100);
+    return()=>{clearTimeout(timer);document.documentElement.style.overflow=previousOverflow;};
   },[path]);
-  if(!loading)return null;
-  return <div className="route-loader" role="status" aria-live="polite"><div className="loader-mark" aria-hidden="true">p<span>↗</span></div><p>PanVibes Exim</p><div className="loader-line" aria-hidden="true"><i/></div><span>Preparing your view</span></div>;
+  if(!loading||path.startsWith('/admin'))return null;
+  return <div className="route-loader" role="status" aria-live="polite"><Image src="/images/panvibes-logo-transparent.png" alt="" width={210} height={80} unoptimized/><p>PanVibes Exim</p><div className="loader-line" aria-hidden="true"><i/></div><span>Preparing your view</span></div>;
 }
 
 export default function RouteLoader(){

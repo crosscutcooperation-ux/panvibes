@@ -4,6 +4,7 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { mix, segment, smooth, tippingTruck } from '@/lib/journey-motion';
 import { handoffTruck, heroFilm, videoTruckBounds, loadHandoffTruck } from '@/lib/hero-handoff';
+import videoAssets from '@/lib/hero-video-assets.json';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ScrollVideoHero({children}:{children:ReactNode}) {
@@ -16,8 +17,13 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
     const header=document.querySelector<HTMLElement>('.site-header')!;
     const reduced=matchMedia('(prefers-reduced-motion: reduce)');
     const compact=Boolean(context.conditions?.compact);
-    video.src=compact?'/media/home-hero/hero-desert-branded-mobile.mp4':'/media/home-hero/hero-desert-branded-desktop.mp4';
-    video.preload='auto';
+    const connection=(navigator as Navigator&{connection?:{saveData?:boolean;effectiveType?:string}}).connection;
+    const lightVideo=compact||connection?.saveData||['slow-2g','2g','3g'].includes(connection?.effectiveType??'');
+    const source=lightVideo?videoAssets.mobile.src:videoAssets.desktop.src;
+    const notice=stage.querySelector<HTMLElement>('.hero-video-notice')!;
+    const message=notice.querySelector<HTMLElement>('span')!;
+    const retry=notice.querySelector<HTMLButtonElement>('button')!;
+    let failed=false,startupTimer:ReturnType<typeof setTimeout>|undefined,seekTimer:ReturnType<typeof setTimeout>|undefined;
     const sample=document.createElement('canvas');sample.width=48;sample.height=28;
     const ctx=sample.getContext('2d',{willReadFrequently:true})!;
     const layer=document.createElement('canvas');layer.className='home-handoff-truck';layer.setAttribute('aria-hidden','true');document.body.appendChild(layer);
@@ -136,14 +142,18 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
       if(stage.style.getPropertyValue('--hero-nav-text')!==tone){stage.style.setProperty('--hero-nav-text',tone);window.dispatchEvent(new Event('panvibes:header-tone'));}
     }
     function seek(){
-      frame=0;if(disposed||video.seeking||video.readyState<1||!Number.isFinite(video.duration))return;
+      frame=0;if(disposed||failed||video.seeking||video.readyState<1||!Number.isFinite(video.duration))return;
       // Seek once per distinct encoded frame; always pick the latest scroll
       // position after an in-flight seek instead of building a request backlog.
       const finalFrame=Math.max(0,Math.round(video.duration*heroFilm.frameRate)-1);
       const targetFrame=Math.round(finalFrame*segment(progress,0,.86));
       // Decode inside each frame rather than its timestamp boundary. Only the
       // latest scroll target is queued, including when the user scrolls back.
-      if(Math.floor(video.currentTime*heroFilm.frameRate+.00001)!==targetFrame)video.currentTime=(targetFrame+.5)/heroFilm.frameRate;
+      if(video.readyState<2||Math.floor(video.currentTime*heroFilm.frameRate+.00001)!==targetFrame){
+        // A stalled seek must not leave a permanently pinned, frozen scene.
+        clearTimeout(seekTimer);seekTimer=setTimeout(fallback,10000);
+        video.currentTime=(targetFrame+.5)/heroFilm.frameRate;
+      }
     }
     function queue(){if(!frame&&!disposed)frame=requestAnimationFrame(seek);}
     function update(p:number){
@@ -166,11 +176,38 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
       copy.style.transform=!compact?`translateX(${w*.49*smooth(segment(p,.30,.68))}px)`:'';
       queue();handoff();
     }
-    function ready(){video.pause();queue();contrast();handoff();}
-    function sought(){contrast();queue();handoff();}
+    function ready(){
+      if(failed||disposed)return;
+      video.pause();
+      if(video.readyState>=2){clearTimeout(startupTimer);stage.dataset.videoState='ready';notice.hidden=true;}
+      queue();contrast();handoff();
+    }
+    function sought(){clearTimeout(seekTimer);ready();}
+    function fallback(){
+      if(disposed||failed)return;
+      failed=true;clearTimeout(startupTimer);clearTimeout(seekTimer);
+      video.pause();video.removeAttribute('src');video.load();
+      stage.dataset.videoState='fallback';stage.dataset.truckOwner='video';
+      plate.style.opacity='0';video.style.opacity='1';layer.style.visibility='hidden';
+      stage.style.setProperty('--hero-copy-color','#fff');stage.style.setProperty('--hero-nav-text','#fff');
+      stage.style.setProperty('--hero-shadow-opacity','1');
+      message.textContent='Preview image';retry.hidden=false;notice.hidden=false;
+      configure();ScrollTrigger.refresh();window.dispatchEvent(new Event('panvibes:header-tone'));
+    }
+    function startVideo(){
+      if(disposed)return;
+      if(reduced.matches){stage.dataset.videoState='fallback';notice.hidden=true;return;}
+      failed=false;stage.dataset.videoState='loading';notice.hidden=false;retry.hidden=true;
+      message.textContent='Loading video';video.preload='auto';video.muted=true;video.src=source;
+      clearTimeout(startupTimer);startupTimer=setTimeout(fallback,12000);
+      // Explicit load is important when choosing the source after hydration.
+      // No play/autoplay permission is required for the paused scroll film.
+      video.load();
+    }
+    function tryAgain(){startVideo();configure();ScrollTrigger.refresh();}
     function configure(){
       trigger?.kill(true);bridge?.kill();trigger=undefined;video.pause();update(0);
-      if(!reduced.matches)trigger=ScrollTrigger.create({id:'panvibes-video-hero',trigger:root,pin:stage,start:'top top',
+      if(!reduced.matches&&!failed)trigger=ScrollTrigger.create({id:'panvibes-video-hero',trigger:root,pin:stage,start:'top top',
         end:()=>`+=${stage.clientHeight*(compact?3:4)}`,invalidateOnRefresh:true,onUpdate:self=>update(self.progress),onRefresh:self=>{root.dataset.scrollStart=String(self.start);root.dataset.scrollEnd=String(self.end);update(self.progress);}});
       if(trigger)bridge=ScrollTrigger.create({trigger:root,start:()=>trigger!.end,end:()=>Number(document.querySelector<HTMLElement>('.trade-journey-v2')?.dataset.scrollStart)||trigger!.end+stage.clientHeight,
         invalidateOnRefresh:true,onUpdate:handoff,onRefresh:()=>{bridgeEnd=Infinity;handoff();}});
@@ -182,22 +219,25 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
       .catch(error=>console.error('Hero truck preparation failed',error));
     plateImage.onload=handoff;
     video.addEventListener('loadedmetadata',ready);video.addEventListener('loadeddata',ready);video.addEventListener('seeked',sought);
+    video.addEventListener('error',fallback);retry.addEventListener('click',tryAgain);
     window.addEventListener('scroll',handoff,{passive:true});
-    reduced.addEventListener('change',configure);configure();
+    configure();startVideo();
     document.fonts.ready.then(()=>{if(!disposed)ScrollTrigger.refresh();});
-    return()=>{disposed=true;cancelAnimationFrame(frame);cancelAnimationFrame(handoffFrame);resize.disconnect();trigger?.kill(true);bridge?.kill();video.pause();layer.remove();
+    return()=>{disposed=true;clearTimeout(startupTimer);clearTimeout(seekTimer);cancelAnimationFrame(frame);cancelAnimationFrame(handoffFrame);resize.disconnect();trigger?.kill(true);bridge?.kill();video.pause();video.removeAttribute('src');video.load();layer.remove();
       plateImage.onload=null;delete document.documentElement.dataset.truckHandoff;
       video.removeEventListener('loadedmetadata',ready);video.removeEventListener('loadeddata',ready);video.removeEventListener('seeked',sought);
+      video.removeEventListener('error',fallback);retry.removeEventListener('click',tryAgain);
       window.removeEventListener('scroll',handoff);
-      reduced.removeEventListener('change',configure);copy.style.transform='';
+      copy.style.transform='';
       [video,plate].forEach(node=>['width','height','left','top'].forEach(property=>node.style.removeProperty(property)));};
     });
     return()=>media.revert();
   },[]);
   return <section ref={rootRef} className="hero home-video-hero" id="home" aria-labelledby="hero-title">
-    <div ref={stageRef} className="hero-stage home-video-stage">
+    <div ref={stageRef} className="hero-stage home-video-stage" data-video-state="loading">
       <video ref={videoRef} className="home-hero-video" poster="/media/home-hero/hero-desert-branded-poster.jpg" preload="none" muted playsInline disablePictureInPicture disableRemotePlayback aria-label="Scroll-controlled PanVibes desert truck scene. Scroll to move; stop scrolling to pause."/>
       <div className="home-handoff-plate" aria-hidden="true"/>
+      <div className="hero-video-notice" role="status" aria-live="polite"><span>Loading video</span><button type="button" hidden>Retry video</button></div>
       {children}
     </div>
   </section>;

@@ -8,6 +8,11 @@ export const shippingMarkets = [
 ] as const;
 
 export const shippingMarketList = shippingMarkets.map(market => market.name).join(' / ');
+// An enquiry option, rather than a promise of delivery beyond confirmed markets.
+export const otherEnquiryDestination = 'Any other';
+export function normalizeEnquiryDestination(value: string): string {
+  return value.trim().toLowerCase() === otherEnquiryDestination.toLowerCase() ? otherEnquiryDestination : normalizeShippingMarket(value);
+}
 export const shippingCoverage = 'We ship only to India, the UK, the USA, Europe and the UAE.';
 export const shippingAreaSchema = shippingMarkets.map(market => ({ '@type': market.schemaType, name: market.name === 'UK' ? 'United Kingdom' : market.name === 'USA' ? 'United States' : market.name === 'UAE' ? 'United Arab Emirates' : market.name }));
 

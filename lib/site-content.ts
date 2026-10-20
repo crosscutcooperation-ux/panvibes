@@ -85,10 +85,10 @@ export const stats = [
   { value: 5, suffix: "+", label: "Services provided", description: "Export, import, transport, document verification and freight forwarding support." },
 ];
 export const industries = [
-  { name: "Agriculture", image: "industry-agriculture.webp", description: "Banana powder, dehydrated vegetables, millets, makhana and dry fruits." },
-  { name: "Chemicals", image: "industry-chemicals.webp", description: "Specialty chemicals and construction admixtures from the PanVibes catalogue." },
-  { name: "Indian Spices", image: "industry-spices.webp", description: "Indian spices supplied as part of our international product portfolio." },
-  { name: "Nutraceutical", image: "industry-nutraceutical.webp", description: "Moringa powder and ashwagandha for B2B ingredient sourcing enquiries." },
+  { name: "Agriculture", image: "photos/vegetables.webp", description: "Banana powder, dehydrated vegetables, millets, makhana and dry fruits." },
+  { name: "Chemicals", image: "photos/chemicals.webp", description: "Specialty chemicals and construction admixtures from the PanVibes catalogue." },
+  { name: "Indian Spices", image: "photos/ginger-turmeric.webp", description: "Indian spices supplied as part of our international product portfolio." },
+  { name: "Nutraceutical", image: "photos/nutraceuticals.webp", description: "Moringa powder and ashwagandha for B2B ingredient sourcing enquiries." },
 ];
 export const benefits = [
   {
@@ -115,8 +115,8 @@ export const products: {name:string;image:string;sector:'food'|'industrial'}[] =
   { name: "Dairy Products", image: "photos/dairy-v2.webp", sector:'food' },
   { name: "Dehydrated Vegetables", image: "photos/vegetables.webp", sector:'food' },
   { name: "Dehydrated Fruits", image: "photos/banana.webp", sector:'food' },
-  { name: "Cashew & Other Dry Fruits", image: "photos/nuts.webp", sector:'food' },
-  { name: "Spices", image: "photos/spices.webp", sector:'food' },
+  { name: "Cashew & Other Dry Fruits", image: "photos/cashews.webp", sector:'food' },
+  { name: "Spices", image: "photos/ginger-turmeric.webp", sector:'food' },
   { name: "Chemicals", image: "photos/chemicals.webp", sector:'industrial' },
   { name: "Nutraceuticals", image: "photos/nutraceuticals.webp", sector:'food' },
   { name: "Millets", image: "photos/millets.webp", sector:'food' },

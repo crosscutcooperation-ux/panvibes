@@ -38,10 +38,12 @@ function ProductRow({index,order,onEnquire}:{index:number;order:number;onEnquire
         <h3>{product.name}</h3>
         <p className="range-hint mono"><span className="range-hover-hint">Hover to explore the types</span><span className="range-touch-hint">Tap + to explore the types</span><span aria-hidden="true">↗</span></p>
       </div>
-      <div className="range-types" id={panelId} aria-hidden={!open}>
+      <div className="range-types" id={panelId} aria-hidden={!open} inert={!open}>
+        <div className="range-slide-clip"><div className="range-slide-body">
         <p className="range-kicker mono">Available types / {String(category.types.length).padStart(2,'0')}</p>
         <h3>{product.name}</h3>
         <ProductTypes index={index} open={open} onEnquire={onEnquire}/>
+        </div></div>
       </div>
       <button className="range-enquiry" type="button" onClick={()=>enquire()}>Enquire about this product <span aria-hidden="true">↗</span></button>
       <EnquiryButton className="range-quick-enquiry" product={product.name}>Enquiry form ↗</EnquiryButton>

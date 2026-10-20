@@ -1,0 +1,21 @@
+{
+  "source": "gemini_generated_video_282720c2.mp4",
+  "updated": "2026-10-20",
+  "width": 1280,
+  "height": 720,
+  "frameRate": 24,
+  "duration": 10.005,
+  "output": "gemini_generated_video_282720c2.mp4",
+  "encoding": "Exact original uploaded file; no re-encoding, resizing, trimming or cropping.",
+  "emailShortcut": "Opaque mail shortcut follows measured credit position and full-frame geometry.",
+  "creditBounds": {
+    "sourceWidth": 1280,
+    "sourceHeight": 720,
+    "left": 1130,
+    "top": 568,
+    "right": 1190,
+    "bottom": 632
+  },
+  "sha256": "d36c39482390d1ba5633ecb323cc0d319957a89794b2e708f19081eb36438dbf",
+  "layout": "Full-width 16:9 frame including overlaid navigation. Frame pins for full scroll playback; next section waits for final decoded frame and a 350 ms fade. No crop or letterboxing inside the video frame."
+}

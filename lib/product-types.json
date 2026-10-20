@@ -156,14 +156,6 @@
       "title": "Spices",
       "types": [
         {
-          "name": "Vanilla Beans",
-          "grades": []
-        },
-        {
-          "name": "Saffron",
-          "grades": []
-        },
-        {
           "name": "Turmeric Powder",
           "grades": [
             "1% Curcumin",
@@ -379,6 +371,6 @@
       "List of Chemical Mfg and Supplier.pdf",
       "Panvibes_Exim_Marketing_SEO_Sales_Master_Data.docx"
     ],
-    "latestRequest": "2026-10-18: remove ready-made foods and dehydrated sprouts; fruits only Banana Powder; nutraceuticals only Moringa Powder and Ashwagandha; retain Spices."
+    "latestRequest": "2026-10-18: remove ready-made foods and dehydrated sprouts; fruits only Banana Powder; nutraceuticals only Moringa Powder and Ashwagandha; retain Spices. 2026-10-20: remove Vanilla Beans and Saffron."
   }
 }

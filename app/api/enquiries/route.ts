@@ -1,6 +1,7 @@
 import { validateEnquiry } from '@/lib/enquiry-data';
 import { saveEnquiry } from '@/lib/enquiry-db';
 import { guardRequest } from '@/lib/request-guard';
+import { notifyEnquiry } from '@/lib/mailer';
 
 export async function POST(request: Request) {
   const rejected = guardRequest(request, 'enquiry', 10);
@@ -14,7 +15,8 @@ export async function POST(request: Request) {
   if (validation.error) return Response.json({ error: validation.error }, { status: 400 });
   try {
     const saved = saveEnquiry(validation.data!);
-    return Response.json(saved, { status: 201, headers: { 'Cache-Control': 'no-store' } });
+    const emailDelivery = await notifyEnquiry(saved.reference);
+    return Response.json({ ...saved, emailDelivery }, { status: 201, headers: { 'Cache-Control': 'no-store' } });
   } catch {
     console.error('Enquiry storage failed. Check the configured SQLite directory and write access.');
     return Response.json({ error: 'Your enquiry could not be saved. Please try again or contact us by email.' }, { status: 503 });

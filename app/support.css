@@ -33,3 +33,6 @@
 .support-bottom button { border:0;background:transparent;color:#52677b;text-decoration:underline;cursor:pointer; }
 @media(max-width:650px) { .support-dock { right:14px;bottom:calc(14px + env(safe-area-inset-bottom)); }.support-panel { right:16px;bottom:calc(16px + env(safe-area-inset-bottom));max-height:calc(100dvh - 32px - env(safe-area-inset-bottom)); }.support-history { max-height:34dvh; }.support-launcher { min-height:52px;padding:11px 15px; }.support-prompts button { min-height:40px; }.support-links a { min-height:40px; } }
 .support-pending { padding:8px 18px;color:#52677b;font:13px/1.5 Helvetica,sans-serif; }
+html[data-hero-email='active'] .support-email { display:none; }
+html[data-hero-email='active'] .support-launcher { margin-bottom:var(--hero-support-lift,0px); }
+html[data-hero-email='active'] .enquiry-global-button { transform:translateY(calc(-1 * var(--hero-enquiry-lift,0px))); }

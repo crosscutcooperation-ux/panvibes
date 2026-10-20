@@ -41,7 +41,7 @@ export const exportProducts: ExportProduct[] = [
   {
     slug: 'turmeric-powder', name: 'Turmeric Powder', title: 'Bulk Turmeric Powder Supplier & Exporter India',
     description: 'Request turmeric powder from India with 1–5% curcumin options and conventional, IPM or organic grade enquiries. Get product specifications and a bulk quote.',
-    image: 'photos/spices.webp',
+    image: 'photos/ginger-turmeric.webp',
     intro: 'PanVibes Exim supports bulk turmeric powder sourcing from India, with listed curcumin options from 1% to 5%. Enquire about conventional, IPM and organic grades for your food or ingredient business.',
     forms: ['Turmeric Powder'], grades: ['Conventional', 'IPM', 'Organic'],
     buyers: 'Spice companies, food manufacturers, ingredient distributors and nutraceutical buyers.',
@@ -131,16 +131,16 @@ export const exportProducts: ExportProduct[] = [
   {
     slug: 'spices', name: 'Spices & Spice Powders', title: 'Indian Spice & Spice Powder Supplier for Bulk Export',
     description: 'Source spices and spice powders from India through PanVibes Exim. Explore ginger and turmeric options and discuss bulk ingredient and export requirements.',
-    image: 'photos/spices.webp',
-    intro: 'PanVibes Exim supports Indian spice and spice powder sourcing for B2B buyers. Explore ginger and turmeric options alongside the vanilla beans and saffron listed in the broader product portfolio.',
-    forms: ['Ginger Whole, Flakes & Powder', 'Turmeric Powder', 'Vanilla Beans', 'Saffron'], grades: ['Product-specific grades on enquiry'],
+    image: 'photos/ginger-turmeric.webp',
+    intro: 'PanVibes Exim supports Indian spice and spice powder sourcing for B2B buyers. Explore ginger in whole, flake and powder forms, alongside turmeric powder.',
+    forms: ['Ginger Whole, Flakes & Powder', 'Turmeric Powder'], grades: ['Product-specific grades on enquiry'],
     buyers: 'Spice importers, seasoning manufacturers, food companies and ingredient distributors.',
     applications: ['Spice blending and seasoning', 'Food ingredient manufacturing', 'Wholesale ingredient distribution'],
     buyingGuide: 'Build your brief around the specific spice, form, grade and destination. Ginger and turmeric have different sourcing options; a grade listed for one product should not be assumed for another. Send any microbiology, residue, colour or active-content requirements with your bulk enquiry.',
     request: ['Spice, form and grade', 'Application and quality criteria', 'Bulk quantity and purchase frequency', 'Destination and required documentation'],
     faqs: [
       { question: 'Which spice powders are featured?', answer: 'Ginger powder and turmeric powder have dedicated sourcing pages. Turmeric enquiries can specify listed curcumin options from 1% to 5%; ginger enquiries can specify whole, flakes or powder.' },
-      { question: 'Can I enquire about other spices?', answer: 'Yes. Send your product list, specifications and quantity to export sales for sourcing confirmation. Vanilla beans and saffron are also listed in the broader portfolio.' },
+      { question: 'What should I include in a spice enquiry?', answer: 'Send the required ginger or turmeric form, specifications, quantity, packaging and delivery destination so export sales can review your requirement.' },
     ],
   },
 ];

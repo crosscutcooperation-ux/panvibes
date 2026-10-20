@@ -43,3 +43,7 @@
  .contact-main { padding-top:calc(var(--site-header-space) + 40px); }
 }
 @media(prefers-reduced-motion:reduce) { .site-header.unified-header { transition:none; } }
+@media(max-width:600px) {
+ .site-header.home-header.unified-header[data-route='/'] .header-main { min-height:48px;padding:2px 16px; }
+ .site-header.home-header.unified-header[data-route='/'] .brand { width:98px; }
+}

@@ -234,3 +234,24 @@
  .range-chemical .chemical-hover-photo { height:170px; }
 }
 @media(prefers-reduced-motion:reduce) { .chemical-hover-reveal,.chemical-flyout { transition:none; } }
+
+/* Keep the reveal in layout: it can slide and grow without clipping long lists. */
+.products-page .range-row[data-sector='food'] .range-content { min-height:400px;overflow:hidden; }
+.products-page .range-row[data-sector='food'] .range-overview { display:flex;position:absolute;inset:0;min-height:0;transition:transform .6s cubic-bezier(.22,1,.36,1),opacity .4s,visibility .6s; }
+.products-page .range-row[data-sector='food'] .range-types { display:grid;position:relative;inset:auto;padding:0;grid-template-rows:0fr;transform:none;opacity:0;visibility:hidden;transition:grid-template-rows .6s cubic-bezier(.22,1,.36,1),opacity .4s,visibility .6s; }
+.range-slide-clip { min-height:0;overflow:hidden; }
+.range-slide-body { padding:32px 32px 140px;transform:translateY(70px);transition:transform .6s cubic-bezier(.22,1,.36,1); }
+.products-page .range-row[data-sector='food'][data-open='true'] .range-overview { display:flex;transform:translateY(-70px);opacity:0;visibility:hidden; }
+.products-page .range-row[data-sector='food'][data-open='true'] .range-types { display:grid;grid-template-rows:1fr;opacity:1;visibility:visible; }
+.range-row[data-open='true'] .range-slide-body { transform:translateY(0); }
+@media(max-width:991px) {
+ .products-page .range-row[data-sector='food'] .range-content { min-height:280px; }
+ .range-slide-body { padding:26px 24px 160px; }
+}
+@media(max-width:767px) {
+ .products-page .range-row[data-sector='food'] .range-content { min-height:270px; }
+ .range-slide-body { padding:22px 20px 160px; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .products-page .range-row[data-sector='food'] .range-types,.products-page .range-row[data-sector='food'] .range-overview,.range-slide-body { transition:none;transform:none; }
+}

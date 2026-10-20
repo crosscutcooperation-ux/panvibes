@@ -6,7 +6,7 @@ import { randomUUID } from 'node:crypto';
 import type { EnquiryData } from './enquiry-data';
 
 const globalDatabase = globalThis as typeof globalThis & { panvibesEnquiries?: DatabaseSync };
-function database() {
+export function database() {
   if (globalDatabase.panvibesEnquiries) return globalDatabase.panvibesEnquiries;
   const path = resolve(/* turbopackIgnore: true */ process.env.SQLITE_PATH || './data/panvibes.sqlite');
   mkdirSync(dirname(path), { recursive: true });

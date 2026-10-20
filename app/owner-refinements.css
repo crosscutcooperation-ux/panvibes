@@ -3,7 +3,7 @@
 @media(max-width:991px){
  .products-page .range-content>.range-enquiry {bottom:76px;left:20px;max-width:calc(100% - 80px);}
  .products-page .range-content>.range-quick-enquiry {bottom:22px;left:20px;}
- .products-page .range-row[data-sector='food'] .range-types {padding-bottom:155px;}
+ .products-page .range-row[data-sector='food'] .range-types {padding-bottom:0;}
  .products-page .range-row[data-sector='food'] .range-overview {padding-bottom:145px;}
  .continuous-motion .motion-industry-title {left:4%;top:10%;width:34%;}
  .continuous-motion .motion-industry-title h2 {font-size:clamp(18px,5vw,34px);line-height:1.08;}

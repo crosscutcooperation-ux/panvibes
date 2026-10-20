@@ -54,7 +54,7 @@ for (const route of [...routes, ...posts.map(post => `/blog/${post.slug}`)]) {
     assert.equal((html.match(/class="chemical-row"/g)||[]).length,51,'The product page must include all 51 chemical listings');
     assert.ok(html.indexOf('class="product-range"')<html.indexOf('id="ingredient-pages-title"'),'The product range must precede the ingredient links');
     assert.equal((html.match(/data-sector="food"/g)||[]).length,8,'Expected eight remaining food and nutrition categories');
-    assert.doesNotMatch(html,/Indian Flavours Ready in Minutes|Dehydrated Sprouts|Sprouted Moth|Puran|Probiotics|Flaxseed/,'Removed catalog products must not return');
+    assert.doesNotMatch(html,/Indian Flavours Ready in Minutes|Dehydrated Sprouts|Sprouted Moth|Puran|Probiotics|Flaxseed|Vanilla Beans|Saffron/,'Removed catalog products must not return');
     assert.match(html,/Ashwagandha/,'Ashwagandha must appear in the catalog');
     assert.equal((html.match(/data-sector="industrial"/g)||[]).length,3,'Expected three compact industrial categories');
     const industrial=html.slice(html.indexOf('data-product-group="industrial"'));

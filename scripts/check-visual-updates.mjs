@@ -15,7 +15,7 @@ try {
  assert.deepEqual(schemas.map(JSON.parse).find(s=>s['@type']==='Organization').areaServed.map(s=>s.name),['India','United Kingdom','United States','Europe','United Arab Emirates']);
  await page.getByRole('button',{name:'Discuss supply to UAE',exact:false}).click();
  const form=page.locator('.enquiry-dialog');assert.equal(await form.locator('[name=country]').inputValue(),'UAE');
- assert.deepEqual(await form.locator('[name=country] option:not([value=""])').allTextContents(),['India','UK','USA','Europe','UAE']);
+ assert.deepEqual(await form.locator('[name=country] option:not([value=""])').allTextContents(),['India','UK','USA','Europe','UAE','Any other']);
  await page.keyboard.press('Escape');
  await page.goto(base+'/contact',{waitUntil:'networkidle'});
  await page.locator('.contact-atlas').getByRole('button',{name:'Click here for directions'}).click();

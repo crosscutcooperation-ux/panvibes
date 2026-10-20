@@ -9,11 +9,11 @@ export const handoffCrop:[number,number,number,number]=[
   handoffTruck.x/handoffTruck.imageWidth,handoffTruck.y/handoffTruck.imageHeight,
   handoffTruck.width/handoffTruck.imageWidth,handoffTruck.height/handoffTruck.imageHeight,
 ];
-export const heroFilm={width:1920,height:1080,frameRate:30};
+export const heroFilm={width:1920,height:1080,frameRate:24};
 export const videoTruckBounds={x:342,y:36,width:234,height:993};
 
-// Match the film's actual cover/contain sizing, including its mobile letterbox.
-export function arrivalTruckLength(width:number,height:number){
-  const scale=width<768?width/heroFilm.width:width/height>=1.6?Math.max(width/heroFilm.width,height/heroFilm.height):Math.min(width/heroFilm.width,height/heroFilm.height);
+// The full-width hero is always 16:9, including the overlaid navigation.
+export function arrivalTruckLength(width:number){
+  const scale=width/heroFilm.width;
   return videoTruckBounds.height*scale;
 }

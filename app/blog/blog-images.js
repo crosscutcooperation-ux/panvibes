@@ -12,7 +12,7 @@ const articleImages = {
   "bulk-food-ingredients-supplier": "/assets/blog/photography/seeds.webp",
   "international-spice-exporter": "/assets/blog/photography/spices.webp",
   "dehydrated-ginger-supplier-in-india": "/images/product-spices.webp",
-  "dehydrated-ginger-flakes-manufacturer-india": "/images/photos/spices.webp",
+  "dehydrated-ginger-flakes-manufacturer-india": "/images/photos/ginger-turmeric.webp",
   "dehydrated-green-chilli-exporter": "/images/photos/vegetables.webp",
   "global-nut-dry-fruit-supplier": "/assets/blog/photography/nuts.webp",
   "dehydrated-jackfruit-exporter-in-india": "/images/product-fruits.webp"

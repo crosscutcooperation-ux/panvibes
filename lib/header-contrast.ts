@@ -25,22 +25,34 @@ export function contrastingNavInk(backgrounds: Colour[]): '#ffffff' | '#104e87' 
 
 /** Sample the painted surfaces under each navigation item, independently of route names. */
 export function startHeaderContrast(header: HTMLElement, menuOpen: boolean) {
-  let disposed = false, frame = 0;
+  let disposed = false, frame = 0, timer = 0, lastUpdate = -Infinity, dynamicSurface = false;
   const pixels = document.createElement('canvas'); pixels.width = 64; pixels.height = 40;
   const context = pixels.getContext('2d', { willReadFrequently: true });
   const cssImages = new Map<string, HTMLImageElement>();
   let framePixels = new Map<CanvasImageSource, { data: Uint8ClampedArray; width: number; height: number } | null>();
+  const imagePixels = new WeakMap<HTMLImageElement, { src: string; data: Uint8ClampedArray; width: number; height: number }>();
   let styles = new Map<Element, CSSStyleDeclaration>();
   const styleOf = (element: Element) => { let value = styles.get(element); if (!value) { value = getComputedStyle(element); styles.set(element, value); } return value; };
-  const schedule = () => { if (!frame && !disposed) frame = requestAnimationFrame(update); };
+  const schedule = () => {
+    if (disposed || document.hidden || frame) return;
+    clearTimeout(timer);
+    const delay = Math.max(0, 140 - (performance.now() - lastUpdate));
+    if (delay) timer = window.setTimeout(() => { timer = 0; if (!disposed) frame = requestAnimationFrame(update); }, delay);
+    else frame = requestAnimationFrame(update);
+  };
 
   function imagePixel(source: CanvasImageSource, width: number, height: number, box: DOMRect, x: number, y: number, fit = 'fill', position = '50% 50%'): Colour | null {
     if (!context || !width || !height) return null;
     let cached = framePixels.get(source);
+    if (source instanceof HTMLImageElement) {
+      const still = imagePixels.get(source);
+      if (still?.src === source.currentSrc || still?.src === source.src) cached = still;
+    }
     if (cached === undefined) {
       try {
         context.clearRect(0, 0, 64, 40); context.drawImage(source, 0, 0, 64, 40);
         cached = { data: context.getImageData(0, 0, 64, 40).data, width: 64, height: 40 };
+        if (source instanceof HTMLImageElement) imagePixels.set(source, { ...cached, src: source.currentSrc || source.src });
       } catch { cached = null; }
       framePixels.set(source, cached);
     }
@@ -60,9 +72,16 @@ export function startHeaderContrast(header: HTMLElement, menuOpen: boolean) {
     if (opacity < .02 || style.visibility === 'hidden' || style.display === 'none') return null;
     const box = element.getBoundingClientRect();
     let media: Colour | null = null;
-    if (element instanceof HTMLVideoElement && element.readyState >= 2) media = imagePixel(element, element.videoWidth, element.videoHeight, box, x, y, style.objectFit, style.objectPosition);
+    if (element instanceof HTMLVideoElement && element.readyState >= 2) {
+      // The hero already samples its presented video frame. Reuse that result
+      // rather than forcing another decoder/GPU readback for every nav item.
+      const hero = element.closest<HTMLElement>('.home-video-stage');
+      const tone = hero && styleOf(hero).getPropertyValue('--hero-nav-text').trim();
+      if (tone === '#ffffff' || tone === '#104e87') media = tone === '#ffffff' ? BLUE : WHITE;
+      else { dynamicSurface = !element.paused || element.seeking; media = imagePixel(element, element.videoWidth, element.videoHeight, box, x, y, style.objectFit, style.objectPosition); }
+    }
     else if (element instanceof HTMLImageElement && element.complete) media = imagePixel(element, element.naturalWidth, element.naturalHeight, box, x, y, style.objectFit, style.objectPosition);
-    else if (element instanceof HTMLCanvasElement) media = imagePixel(element, element.width, element.height, box, x, y);
+    else if (element instanceof HTMLCanvasElement) { dynamicSurface = true; media = imagePixel(element, element.width, element.height, box, x, y); }
     let base = colour(style.backgroundColor) ?? [0, 0, 0, 0] as Colour;
     const background = style.backgroundImage;
     const url = background.match(/^url\(["']?([^"')]+)["']?\)$/)?.[1];
@@ -102,29 +121,41 @@ export function startHeaderContrast(header: HTMLElement, menuOpen: boolean) {
   function update() {
     frame = 0;
     if (disposed || document.hidden) return;
+    lastUpdate = performance.now(); dynamicSurface = false;
     const headerBox = header.getBoundingClientRect();
     if (headerBox.bottom <= 0 || header.dataset.hidden === 'true') return;
     styles = new Map(); framePixels = new Map();
     const items = header.querySelectorAll<HTMLElement>('.desktop-nav a,.mobile-quick-links a,.site-menu-toggle,.news-bar span,.header-brand');
     let whites = 0, count = 0;
+    const decisions: { item: HTMLElement; ink: '#ffffff' | '#104e87' }[] = [];
     for (const item of items) {
       const box = item.getBoundingClientRect();
       if (!box.width || !box.height) continue;
       const y = Math.max(0, Math.min(innerHeight - 1, box.top + box.height / 2));
       const backgrounds = menuOpen ? [WHITE] : [.2, .5, .8].map(ratio => underlay(Math.max(0, Math.min(innerWidth - 1, box.left + box.width * ratio)), y));
       const ink = contrastingNavInk(backgrounds);
-      if (item.style.getPropertyValue('--nav-item-ink') !== ink) item.style.setProperty('--nav-item-ink', ink);
-      item.dataset.ink = ink === '#ffffff' ? 'white' : 'blue';
+      decisions.push({ item, ink });
       if (ink === '#ffffff') whites++; count++;
     }
+    // Complete all geometry/style reads before changing navigation styles.
+    for (const { item, ink } of decisions) {
+      if (item.style.getPropertyValue('--nav-item-ink') !== ink) item.style.setProperty('--nav-item-ink', ink);
+      const name = ink === '#ffffff' ? 'white' : 'blue';
+      if (item.dataset.ink !== name) item.dataset.ink = name;
+    }
     header.dataset.tone = !menuOpen && whites > count / 2 ? 'light' : 'blue';
+    // Static pages need no polling. Moving canvas scenes are checked slowly;
+    // scrolling, media loads and explicit hero tone changes still wake us.
+    if (dynamicSurface) timer = window.setTimeout(schedule, 500);
   }
+
+  const visibility = () => { clearTimeout(timer); cancelAnimationFrame(frame); frame = 0; if (!document.hidden) schedule(); };
 
   const observer = new MutationObserver(records => { if (records.some(record => record.target !== header && !header.contains(record.target) || record.attributeName === 'data-hidden')) schedule(); });
   observer.observe(document.body, { childList: true, subtree: true, attributes: true, attributeFilter: ['class', 'data-hidden', 'data-ready'] });
   const resize = new ResizeObserver(schedule); resize.observe(header);
   window.addEventListener('scroll', schedule, { passive: true }); window.addEventListener('resize', schedule); window.addEventListener('panvibes:header-tone', schedule);
   document.addEventListener('load', schedule, true); document.fonts.ready.then(schedule);
-  const interval = window.setInterval(schedule, 240); schedule();
-  return () => { disposed = true; cancelAnimationFrame(frame); clearInterval(interval); observer.disconnect(); resize.disconnect(); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); window.removeEventListener('panvibes:header-tone', schedule); document.removeEventListener('load', schedule, true); };
+  document.addEventListener('visibilitychange', visibility); schedule();
+  return () => { disposed = true; cancelAnimationFrame(frame); clearTimeout(timer); observer.disconnect(); resize.disconnect(); window.removeEventListener('scroll', schedule); window.removeEventListener('resize', schedule); window.removeEventListener('panvibes:header-tone', schedule); document.removeEventListener('load', schedule, true); document.removeEventListener('visibilitychange', visibility); };
 }

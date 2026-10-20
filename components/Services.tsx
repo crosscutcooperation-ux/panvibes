@@ -52,15 +52,22 @@ export default function Journey() {
       const worldCopy=el.querySelector<HTMLElement>(".motion-world-copy")!;
       const clouds=[...el.querySelectorAll<HTMLElement>(".motion-cloud")];
       const progress=el.querySelector<HTMLElement>(".motion-progress i")!;
+      const progressLabel=el.querySelector<HTMLElement>(".motion-progress")!;
+      let layout={w:0,h:0,statHeight:0,rowSteps:[] as number[],trackWidth:0,industryHeight:0};
+      const measure=()=>{
+        const w=stage.clientWidth,h=stage.clientHeight;
+        const rowSteps=statRows.map(row=>row.offsetHeight+Math.min(40,h*.045));
+        layout={w,h,rowSteps,statHeight:rowSteps.reduce((total,step)=>total+step,0),trackWidth:track.scrollWidth,industryHeight:industryTrack.scrollHeight};
+      };
+      measure();
       const clock={time:0};
       const draw=()=>{
-        const t=clock.time,w=stage.clientWidth,h=stage.clientHeight;
+        const t=clock.time,{w,h,statHeight,rowSteps,trackWidth,industryHeight}=layout;
         const compact=w<=991;
         el.dataset.phase=t.toFixed(2);
         lane.style.transform=`translateY(${-h*1.7*smooth(segment(t,6,8))}px)`;
-        const statHeight=statRows.reduce((total,row)=>total+row.offsetHeight+Math.min(40,h*.045),0);
         let statY=h*.52-segment(t,0,6.3)*(statHeight+h*.52);
-        statRows.forEach(row=>{row.style.transform=`translateY(${statY}px)`;statY+=row.offsetHeight+Math.min(40,h*.045);});
+        statRows.forEach((row,index)=>{row.style.transform=`translateY(${statY}px)`;statY+=rowSteps[index];});
         // A phone blends into the ocean as one surface, rather than lifting
         // two white side panels across the ship and its container.
         const paperExit=smooth(segment(t,compact?32.9:33.25,compact?33.6:33.95));
@@ -74,7 +81,7 @@ export default function Journey() {
         const trackIn=smooth(segment(t,compact?16:17,compact?17.1:18));
         const trackTop=h<500&&w>h?.41:.39;
         track.style.top=compact?`${(floorTop+trackTop-.32)*100}%`:'';
-        const trackTravel=segment(t,18,23.7)*(track.scrollWidth-w+w*.045);
+        const trackTravel=segment(t,18,23.7)*(trackWidth-w+w*.045);
         track.style.transform=`translate(${w*(1-trackIn)-trackTravel-w*1.2*smooth(segment(t,23.7,25))}px,0)`;
         track.style.visibility=t>=16&&t<26?"visible":"hidden";
         road.style.visibility=t>=24?"visible":"hidden";
@@ -90,7 +97,7 @@ export default function Journey() {
         roadPaths[3].style.strokeDashoffset=String(-t*100);
         industry.style.transform=`translateY(${h*(1-smooth(segment(t,28,29)))-h*1.4*smooth(segment(t,31.8,33.2))}px)`;
         industry.style.visibility=t>=27.5&&t<33.5?"visible":"hidden";
-        industryTrack.style.transform=`translateY(${-segment(t,29,31.8)*(industryTrack.scrollHeight-h*.75)}px)`;
+        industryTrack.style.transform=`translateY(${-segment(t,29,31.8)*(industryHeight-h*.75)}px)`;
         // As the chassis rolls away, its container stays centred on the ship's deck.
         const fullShipZoom=Math.min(.135,h*.78/w*731/3579);
         const handoff=shipHandoff(t,w,h);
@@ -110,7 +117,7 @@ export default function Journey() {
           cloud.style.transform=`translate(${x+(i===0?-1:1)*w*2*smooth(segment(t,36,37.6))}px,${-h*.1}px) scale(${mix(1,2,p)})`;
         });
         progress.style.transform=`scaleX(${t/JOURNEY_DURATION})`;
-        el.querySelector<HTMLElement>(".motion-progress")!.style.color=(t>=16.1&&t<28)||t>=33?"#fff":brandTheme.blue;
+        progressLabel.style.color=(t>=16.1&&t<28)||t>=33?"#fff":brandTheme.blue;
         const nextActive=t>34.5;
         if(active!==nextActive){active=nextActive;setGlobeActive(active);}
         // Avoid a second renderer once the sea has shrunk beyond a pixel.
@@ -119,8 +126,8 @@ export default function Journey() {
         stage.dataset.layout=compact?"compact":"wide";
       };
       const animation=gsap.to(clock,{time:JOURNEY_DURATION,ease:"none",onUpdate:draw,
-        scrollTrigger:{id:"panvibes-journey",trigger:el,pin:stage,start:"top top",end:()=>"+="+stage.clientHeight*(compact.matches?19:JOURNEY_SCREENS),scrub:compact.matches?.25:.35,invalidateOnRefresh:true,onRefresh:self=>{el.dataset.scrollStart=String(self.start);el.dataset.scrollEnd=String(self.end);draw();}}});
-      const resize=new ResizeObserver(draw);resize.observe(stage);
+        scrollTrigger:{id:"panvibes-journey",trigger:el,pin:stage,start:"top top",end:()=>"+="+stage.clientHeight*(compact.matches?19:JOURNEY_SCREENS),scrub:compact.matches?.25:.35,invalidateOnRefresh:true,onRefresh:self=>{el.dataset.scrollStart=String(self.start);el.dataset.scrollEnd=String(self.end);measure();draw();}}});
+      const resize=new ResizeObserver(()=>{measure();draw();});[stage,track,industryTrack,...statRows].forEach(node=>resize.observe(node));
       draw();ScrollTrigger.refresh();
       if(animation.scrollTrigger){el.dataset.scrollStart=String(animation.scrollTrigger.start);el.dataset.scrollEnd=String(animation.scrollTrigger.end);}
       const revealServices=()=>{const trigger=animation.scrollTrigger;if(trigger){ScrollTrigger.refresh();window.scrollTo({top:trigger.start+(trigger.end-trigger.start)*18/JOURNEY_DURATION,behavior:'instant'});}};

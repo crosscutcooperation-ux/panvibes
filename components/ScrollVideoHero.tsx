@@ -25,13 +25,25 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
     let truck:HTMLImageElement|undefined;
     const plate=stage.querySelector<HTMLElement>('.home-handoff-plate')!;
     const plateImage=new Image();plateImage.src='/media/home-hero/handoff-clean-plate.webp';
-    let trigger:ScrollTrigger|undefined,bridge:ScrollTrigger|undefined,frame=0,progress=0,disposed=false,lastContrastAt=-Infinity;
-    function handoff(){
+    let trigger:ScrollTrigger|undefined,bridge:ScrollTrigger|undefined,frame=0,handoffFrame=0,progress=0,disposed=false,lastContrastAt=-Infinity,bridgeEnd=Infinity;
+    function handoff(){if(!handoffFrame&&!disposed)handoffFrame=requestAnimationFrame(paintHandoff);}
+    function paintHandoff(){
+      handoffFrame=0;
+      if(disposed)return;
+      if(progress<.86||(progress===1&&window.scrollY>=bridgeEnd)){
+        layer.style.visibility='hidden';
+        document.documentElement.dataset.truckHandoff='idle';
+        if(progress<.86&&stage.dataset.truckOwner==='handoff'){
+          stage.dataset.truckOwner='video';plate.style.opacity='0';video.style.opacity='1';
+        }
+        return;
+      }
       const w=stage.clientWidth,h=stage.clientHeight;
       if(disposed||!w||!h){layer.style.visibility='hidden';return;}
       const next=document.querySelector<HTMLElement>('.trade-journey-v2');
       const nextStage=next?.querySelector<HTMLElement>('.motion-stage');
       const nextStart=Number(next?.dataset.scrollStart)||((trigger?.end??0)+h);
+      bridgeEnd=nextStart;
       const after=trigger?segment(window.scrollY,trigger.end,nextStart):0;
       const ready=!!truck&&plateImage.complete&&plateImage.naturalWidth>0;
       // Phones may finish a seek after the scroll event. Transfer ownership
@@ -135,10 +147,10 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
     }
     function queue(){if(!frame&&!disposed)frame=requestAnimationFrame(seek);}
     function update(p:number){
+      const w=stage.clientWidth,h=stage.clientHeight,headerHeight=header.offsetHeight;
       progress=p;stage.dataset.heroProgress=p.toFixed(3);
-      stage.style.setProperty('--hero-header-height',`${header.offsetHeight}px`);
+      stage.style.setProperty('--hero-header-height',`${headerHeight}px`);
       if(compact){
-        const w=stage.clientWidth,h=stage.clientHeight;
         const zoom=smooth(segment(p,.48,.86));
         const landscape=w/h>1.6;
         const scale=mix(landscape?Math.max(w/heroFilm.width,h/heroFilm.height):Math.min(h/heroFilm.height,w/660),landscape?Math.max(w/heroFilm.width,h/heroFilm.height):w/heroFilm.width,zoom);
@@ -151,7 +163,7 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
         stage.style.setProperty('--mobile-heading-size',`${Math.min(48,w*.106)*(1-.30*zoom)}px`);
       }
       // Move the copy away from the truck's final lower-left position.
-      copy.style.transform=!compact?`translateX(${stage.clientWidth*.49*smooth(segment(p,.30,.68))}px)`:'';
+      copy.style.transform=!compact?`translateX(${w*.49*smooth(segment(p,.30,.68))}px)`:'';
       queue();handoff();
     }
     function ready(){video.pause();queue();contrast();handoff();}
@@ -161,7 +173,7 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
       if(!reduced.matches)trigger=ScrollTrigger.create({id:'panvibes-video-hero',trigger:root,pin:stage,start:'top top',
         end:()=>`+=${stage.clientHeight*(compact?3:4)}`,invalidateOnRefresh:true,onUpdate:self=>update(self.progress),onRefresh:self=>{root.dataset.scrollStart=String(self.start);root.dataset.scrollEnd=String(self.end);update(self.progress);}});
       if(trigger)bridge=ScrollTrigger.create({trigger:root,start:()=>trigger!.end,end:()=>Number(document.querySelector<HTMLElement>('.trade-journey-v2')?.dataset.scrollStart)||trigger!.end+stage.clientHeight,
-        invalidateOnRefresh:true,onUpdate:handoff,onRefresh:handoff});
+        invalidateOnRefresh:true,onUpdate:handoff,onRefresh:()=>{bridgeEnd=Infinity;handoff();}});
       if(trigger){root.dataset.scrollStart=String(trigger.start);root.dataset.scrollEnd=String(trigger.end);}
     }
     const resize=new ResizeObserver(()=>{update(progress);contrast(true);});resize.observe(stage);
@@ -173,7 +185,7 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
     window.addEventListener('scroll',handoff,{passive:true});
     reduced.addEventListener('change',configure);configure();
     document.fonts.ready.then(()=>{if(!disposed)ScrollTrigger.refresh();});
-    return()=>{disposed=true;cancelAnimationFrame(frame);resize.disconnect();trigger?.kill(true);bridge?.kill();video.pause();layer.remove();
+    return()=>{disposed=true;cancelAnimationFrame(frame);cancelAnimationFrame(handoffFrame);resize.disconnect();trigger?.kill(true);bridge?.kill();video.pause();layer.remove();
       plateImage.onload=null;delete document.documentElement.dataset.truckHandoff;
       video.removeEventListener('loadedmetadata',ready);video.removeEventListener('loadeddata',ready);video.removeEventListener('seeked',sought);
       window.removeEventListener('scroll',handoff);

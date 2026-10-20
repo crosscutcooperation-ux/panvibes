@@ -35,8 +35,9 @@ class LogisticsAbout extends HTMLElement {
       if(document.hidden){cancelAnimationFrame(this.frame);this.frame=0;this.lastFrameTime=null;}
       else this.requestFrame();
     },{signal:this.events.signal});
-    this.onPointer=e=>{const r=this.section.getBoundingClientRect();this.pointer.x=((e.clientX-r.left)/r.width-.5)*2;this.pointer.y=((e.clientY-r.top)/r.height-.5)*2;this.tiltTarget=Math.max(-.2,Math.min(.2,this.pointer.x*.6));};
-    this.onLeave=()=>{this.pointer.x=0;this.pointer.y=0;this.tiltTarget=0;};
+    this.onPointer=e=>{const r=this.section.getBoundingClientRect();this.pointer.x=((e.clientX-r.left)/r.width-.5)*2;this.pointer.y=((e.clientY-r.top)/r.height-.5)*2;this.tiltTarget=Math.max(-.2,Math.min(.2,this.pointer.x*.6));this.requestFrame();};
+    this.onLeave=()=>{this.pointer.x=0;this.pointer.y=0;this.tiltTarget=0;this.requestFrame();};
+    window.addEventListener('scroll',()=>{if(this.scrollMode||this.getAttribute('mode')==='scroll')this.requestFrame();},{passive:true,signal:this.events.signal});
     this.section.addEventListener('pointermove',this.onPointer,{signal:this.events.signal});this.section.addEventListener('pointerleave',this.onLeave,{signal:this.events.signal});
     try{this.setup3D(root.querySelector('.scene'));}catch(e){root.querySelector('.scene').innerHTML='<div class="fallback"></div>';this.headingElement.style.opacity=1;this.headingElement.style.transform='none';console.warn('Using the static container fallback',e);}
   }
@@ -96,13 +97,13 @@ class LogisticsAbout extends HTMLElement {
     this.observer.observe(this.section);
     this.requestFrame();
   }
-  resize(){const r=this.section.getBoundingClientRect();this.renderer.setSize(r.width,r.height,false);this.camera.aspect=r.width/r.height;this.container.scale.setScalar(r.width<700?.9:1);this.camera.position.z=r.width<700?13:10.8;this.camera.updateProjectionMatrix();}
+  resize(){const r=this.section.getBoundingClientRect();this.renderer.setSize(r.width,r.height,false);this.camera.aspect=r.width/r.height;this.container.scale.setScalar(r.width<700?.9:1);this.camera.position.z=r.width<700?13:10.8;this.camera.updateProjectionMatrix();this.requestFrame();}
   replay(){this.start=performance.now();this.pointer={x:0,y:0};this.tilt=0;this.tiltTarget=0;this.lastFrameTime=null;this.dispatchEvent(new CustomEvent('about-replay',{bubbles:true,composed:true}));}
   requestFrame(){if(!this.frame&&this.mounted&&this.visible&&!document.hidden)this.frame=requestAnimationFrame(()=>this.animate());}
   animate(){
-    this.frame=0;if(!this.visible||document.hidden){this.lastFrameTime=null;return;}this.requestFrame();
+    this.frame=0;if(!this.visible||document.hidden){this.lastFrameTime=null;return;}
     const now=performance.now();
-    if(innerWidth<=991&&this.lastFrameTime!==null&&now-this.lastFrameTime<32)return;
+    if(innerWidth<=991&&this.lastFrameTime!==null&&now-this.lastFrameTime<32){this.requestFrame();return;}
     const dt=this.lastFrameTime===null?0:Math.min(.05,Math.max(0,(now-this.lastFrameTime)/1000));
     this.lastFrameTime=now;
     this.tilt+=(this.tiltTarget-this.tilt)*Math.min(1,dt*6);
@@ -129,6 +130,9 @@ class LogisticsAbout extends HTMLElement {
     for(const c of this.cables){const lower=c.lower.clone().applyMatrix4(g.matrixWorld);const upper=c.upper;const direction=new THREE.Vector3().subVectors(lower,upper);c.mesh.position.copy(upper).add(lower).multiplyScalar(.5);c.mesh.scale.y=direction.length();c.mesh.quaternion.setFromUnitVectors(new THREE.Vector3(0,1,0),direction.normalize());}
     this.renderer.clear(true,true,true);
     this.renderer.render(this.scene,this.camera);
+    // In scroll mode the pose is fixed by page position. Sleep once pointer
+    // tilt settles, and wake on the next scroll/pointer/resize event.
+    if((!this.scrollMode&&this.getAttribute('mode')!=='scroll'&&!this.reduced)||Math.abs(this.tiltTarget-this.tilt)>.0001)this.requestFrame();
   }
   disconnectedCallback(){this.mounted=false;cancelAnimationFrame(this.frame);this.events?.abort();this.resizeObserver?.disconnect();this.observer?.disconnect();this.geometries?.forEach(g=>g.dispose());this.materials?.forEach(m=>m.dispose());this.labelTexture?.dispose();this.brandTexture?.dispose();this.renderer?.dispose();}
 }

@@ -84,7 +84,10 @@ class LogisticsCrane extends HTMLElement {
     this.events = new AbortController();
     const signal = this.events.signal;
     this.updateFromScroll = () => {
-      if (!this.scrollMode || this.reduced) return;
+      if (!this.scrollMode || this.reduced || !this.renderer || this.scrollFrame) return;
+      this.scrollFrame=requestAnimationFrame(()=>{
+      this.scrollFrame=0;
+      if(!this.mounted||!this.renderer)return;
       const r=this.shadowRoot.querySelector('.scene').getBoundingClientRect();
       if(document.hidden||r.bottom<=0||r.top>=innerHeight)return;
       const progress=Math.max(0,Math.min(1,(innerHeight*.85-r.top)/(innerHeight*.85+r.height*.55)));
@@ -92,6 +95,7 @@ class LogisticsCrane extends HTMLElement {
       this.rotationAngle=TAU*Math.max(0,Math.min(1,(progress-.30)/.70));
       this.dataset.scrollProgress=progress.toFixed(3);
       this.render();
+      });
     };
     window.addEventListener('scroll',this.updateFromScroll,{passive:true,signal});
     this.media.addEventListener('change', () => {
@@ -739,6 +743,7 @@ class LogisticsCrane extends HTMLElement {
     this.mounted = false;
     this.cancelInertia();
     cancelAnimationFrame(this.frame);
+    cancelAnimationFrame(this.scrollFrame);
     this.frame = null;
     this.events?.abort();
     this.resizeObserver?.disconnect();

@@ -13,7 +13,8 @@ export default function ShipCursor() {
     const mouse = matchMedia('(any-hover: hover) and (any-pointer: fine)');
     const sprite = new Image();
     const pointer = new Image();
-    let ready = false, disposed = false, x = 0, y = 0, seen = false;
+    let ready = false, disposed = false, x = 0, y = 0, seen = false, frame = 0;
+    let target: Element | null = null, hitTest = false;
 
     const hide = () => {
       cursor.hidden = true;
@@ -37,20 +38,30 @@ export default function ShipCursor() {
         return;
       }
       const interactive = !!target.closest('a,button,summary,select,[role="button"],[role="link"],label[for]');
-      cursor.dataset.variant = interactive ? 'pointer' : 'ship';
+      const variant = interactive ? 'pointer' : 'ship';
+      if (cursor.dataset.variant !== variant) cursor.dataset.variant = variant;
       const hotX = interactive ? 6.125 : 4.375;
       const hotY = interactive ? 7.875 : .875;
       cursor.style.transform = `translate3d(${x-hotX}px,${y-hotY}px,0)`;
       cursor.hidden = false;
-      root.dataset.shipCursor = 'active';
+      if (root.dataset.shipCursor !== 'active') root.dataset.shipCursor = 'active';
+    };
+
+    const schedule = () => {
+      if (frame || disposed) return;
+      frame = requestAnimationFrame(() => {
+        frame = 0;
+        if (hitTest) target = seen ? document.elementFromPoint(x,y) : null;
+        hitTest = false; update(target);
+      });
     };
 
     const move = (event: PointerEvent) => {
       if (event.pointerType !== 'mouse') { seen = false; hide(); return; }
       seen = true; x = event.clientX; y = event.clientY;
-      update(event.target instanceof Element ? event.target : null);
+      target = event.target instanceof Element ? event.target : null;hitTest = false;schedule();
     };
-    const refresh = () => update(seen ? document.elementFromPoint(x,y) : null);
+    const refresh = () => { if (!seen) return; hitTest = true; schedule(); };
     const leave = () => { seen = false; hide(); };
     const press = (event: PointerEvent) => {
       if(event.pointerType === 'mouse') cursor.dataset.pressed = 'true';
@@ -76,7 +87,7 @@ export default function ShipCursor() {
     mouse.addEventListener('change',refresh);
 
     return () => {
-      disposed = true; hide();
+      disposed = true; cancelAnimationFrame(frame); hide();
       sprite.onload = null; pointer.onload = null; sprite.onerror = null; pointer.onerror = null;
       window.removeEventListener('pointermove',move);
       document.removeEventListener('pointerleave',leave);

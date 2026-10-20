@@ -36,9 +36,11 @@ export default function ProductHero() {
     if (!section||!stage||!canvas||!title) return;
     const ctx=canvas.getContext('2d');
     if (!ctx) return;
-    let disposed=false, progress=0, width=0, height=0;
+    let disposed=false, progress=0, width=0, height=0, titleHeight=0, headerHeight=110;
+    const header=document.querySelector<HTMLElement>('.site-header');
     let letterTargets:{x:number;y:number}[]=[];
     let wordMask:HTMLCanvasElement|undefined;
+    let selectedPoints:{x:number;y:number}[]|undefined;
     const table=stage.querySelector<HTMLElement>('.product-table-scene')!;
     const names=stage.querySelector<HTMLElement>('.product-names')!;
     let wordRect={x:0,y:0,width:0,height:0};
@@ -51,9 +53,10 @@ export default function ProductHero() {
     const pointer={x:0,y:0};
     const requestDraw=()=>{if(!hoverFrame&&!disposed)hoverFrame=requestAnimationFrame(()=>{hoverFrame=0;draw();});};
     const move=(event:PointerEvent)=>{
-      if(event.pointerType!=='mouse')return;
+      if(event.pointerType!=='mouse'||progress<.75||motion.matches)return;
       const rect=stage!.getBoundingClientRect();pointer.x=event.clientX-rect.left;pointer.y=event.clientY-rect.top;
       const inside=pointer.x>=wordRect.x-35&&pointer.x<=wordRect.x+wordRect.width+35&&pointer.y>=wordRect.y-35&&pointer.y<=wordRect.y+wordRect.height+35;
+      if(!inside&&!hovered)return;
       if(inside&&!hovered)burstStart=performance.now();hovered=inside;requestDraw();
     };
     const leave=()=>{hovered=false;requestDraw();};
@@ -62,12 +65,13 @@ export default function ProductHero() {
 
     function draw() {
       if (!ctx||!canvas||!stage||!title||disposed) return;
+      const now=performance.now();
       ctx.clearRect(0,0,width,height);
       // The same pieces leave the bowls, swirl, and settle into PRODUCTS.
       // The final quarter holds the completed lettering still.
       const flight=ease(clamp((progress-.06)/.69));
       const formation=motion.matches?0:ease(clamp((progress-.36)/.39));
-      const bursting=!motion.matches&&formation>.95&&(hovered||performance.now()<burstUntil);
+      const bursting=!motion.matches&&formation>.95&&(hovered||now<burstUntil);
       let disturbed=false;
       stage.dataset.productBurst=String(bursting);
       stage.dataset.productPhase=progress>=.75?'word':progress>.36?'forming':progress>.06?'flight':'rest';
@@ -75,8 +79,8 @@ export default function ProductHero() {
       const zoom=motion.matches?0:ease(clamp((progress-.12)/.60));
       const titleScale=1-flight*.38;
       title.style.setProperty('--mobile-product-label-opacity',String(1-flight));
-      const titleStart=Math.max((document.querySelector<HTMLElement>('.site-header')?.offsetHeight??110)+(width<=991?48:42),height*(width<=991?.23:.20));
-      const titleEnd=wordRect.y-title.offsetHeight*titleScale-height*.025;
+      const titleStart=Math.max(headerHeight+(width<=991?48:42),height*(width<=991?.23:.20));
+      const titleEnd=wordRect.y-titleHeight*titleScale-height*.025;
       title.style.top=`${titleStart+(titleEnd-titleStart)*zoom}px`;
       title.style.transform=`scale(${titleScale})`;
       const photoWidth=Math.min(width,height*1.45)*(1-zoom*.32);
@@ -112,7 +116,7 @@ export default function ProductHero() {
         let y=flyingY+(destination.y-flyingY)*formation;
         const offset=offsets[particle];
         const distance=Math.hypot(x-pointer.x,y-pointer.y),influence=.3+.7*Math.exp(-distance/Math.max(100,width*.25));
-        const pulse=.68+.32*Math.sin((performance.now()-burstStart)/500+phase);
+        const pulse=.68+.32*Math.sin((now-burstStart)/500+phase);
         const force=bursting?influence*pulse:0;
         const targetX=Math.cos(phase+seed*5)*width*(.08+seed*.15)*force;
         const targetY=Math.sin(phase)*height*(.12+seed*.20)*force;
@@ -142,6 +146,7 @@ export default function ProductHero() {
       if(bursting||disturbed)requestDraw();
     }
     function buildLetterTargets(){
+      if(!selectedPoints){
       const mask=document.createElement('canvas');mask.width=1200;mask.height=240;
       wordMask=mask;
       const ink=mask.getContext('2d')!;ink.font='900 190px Arial, sans-serif';
@@ -160,28 +165,34 @@ export default function ProductHero() {
           if(distances[j]>largest){largest=distances[j];next=j;}
         }
       }
+      selectedPoints=selected;
+      }
       const wordWidth=Math.min(width*.94,height*1.7);
       const wordHeight=Math.max(wordWidth*.2,Math.min(height*.18,wordWidth*.32));
       wordRect={x:(width-wordWidth)/2,y:height*.40-wordHeight/2,width:wordWidth,height:wordHeight};
-      letterTargets=selected.map(point=>({x:wordRect.x+point.x/1200*wordRect.width,y:wordRect.y+point.y/240*wordRect.height}));
+      letterTargets=selectedPoints.map(point=>({x:wordRect.x+point.x/1200*wordRect.width,y:wordRect.y+point.y/240*wordRect.height}));
     }
     function resize() {
       if (!stage||!canvas||!ctx) return;
-      width=stage.clientWidth;height=stage.clientHeight;
-      const ratio=Math.min(devicePixelRatio,width<=991?1.25:1.75);
-      canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);
-      ctx.setTransform(ratio,0,0,ratio,0,0);draw();
-      buildLetterTargets();draw();
+      const nextWidth=stage.clientWidth,nextHeight=stage.clientHeight;
+      titleHeight=title!.offsetHeight;headerHeight=header?.offsetHeight??110;
+      const ratio=Math.min(devicePixelRatio,nextWidth<=991?1.25:1.75);
+      if(nextWidth!==width||nextHeight!==height||canvas.width!==Math.round(nextWidth*ratio)){
+        width=nextWidth;height=nextHeight;
+        canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);
+        ctx.setTransform(ratio,0,0,ratio,0,0);buildLetterTargets();
+      }
+      requestDraw();
     }
-    const sizing=new ResizeObserver(resize);sizing.observe(stage);resize();
-    sprites.forEach((asset,index)=>{asset.onload=()=>{stage.dataset.assetsReady=String(sprites.every(image=>image.complete&&image.naturalWidth>0));draw();};asset.src=index===0?'/images/products/ingredient-sprites.webp':'/images/products/catalogue-sprites.webp';});
+    const sizing=new ResizeObserver(resize);sizing.observe(stage);sizing.observe(title);if(header)sizing.observe(header);resize();
+    sprites.forEach((asset,index)=>{asset.onload=()=>{stage.dataset.assetsReady=String(sprites.every(image=>image.complete&&image.naturalWidth>0));requestDraw();};asset.src=index===0?'/images/products/ingredient-sprites.webp':'/images/products/catalogue-sprites.webp';});
     let trigger: ScrollTrigger | undefined;
     function configureMotion() {
       trigger?.kill(true);trigger=undefined;progress=0;
       if (!motion.matches) trigger=ScrollTrigger.create({
         trigger:section,start:'top top',end:()=>`+=${(stage?.clientHeight??height)*(window.innerWidth<=991?1.1:2.2)}`,
         pin:stage,invalidateOnRefresh:true,
-        onUpdate:self=>{progress=self.progress;draw();},
+        onUpdate:self=>{progress=self.progress;requestDraw();},
         onRefresh:self=>{progress=self.progress;resize();},
       });
       resize();

@@ -1,0 +1,28 @@
+[Unit]
+Description=PanVibes Next.js production server
+After=network.target
+
+[Service]
+Type=simple
+User=panvibes
+Group=panvibes
+WorkingDirectory=/srv/panvibes/current/.next/standalone
+Environment=NODE_ENV=production
+Environment=HOSTNAME=127.0.0.1
+Environment=PORT=3000
+Environment=NODE_OPTIONS=--max-old-space-size=768
+Environment=SQLITE_PATH=/var/lib/panvibes/panvibes.sqlite
+EnvironmentFile=/etc/panvibes.env
+ExecStart=/usr/bin/node server.js
+Restart=on-failure
+RestartSec=5
+StateDirectory=panvibes
+UMask=0077
+NoNewPrivileges=true
+PrivateTmp=true
+# Leave room for the OS and nginx on a 2 GB instance; use one Node process.
+MemoryHigh=1100M
+MemoryMax=1400M
+
+[Install]
+WantedBy=multi-user.target

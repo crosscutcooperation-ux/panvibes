@@ -22,6 +22,7 @@ import './cursor.css';
 import './owner-refinements.css';
 import ShipCursor from '@/components/ShipCursor';
 import RouteLoader from '@/components/RouteLoader';
+import './loading.css';
 import EnquiryProvider from '@/components/EnquiryProvider';
 import EnquiryButton from '@/components/EnquiryButton';
 

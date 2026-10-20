@@ -567,6 +567,9 @@ background: linear-gradient(135deg, rgb(243 91 25 / 49%), rgb(243 91 25 / 21%));
 }
 
 logistics-about, logistics-crane { display:block; }
+.about-initial-view { height:100svh;min-height:640px;display:grid;place-items:center;background:radial-gradient(ellipse at 50% 43%,#15558e 0%,#0a3866 68%);color:#fff; }
+.about-initial-view h1 { margin:0;font:700 clamp(68px,14.5vw,250px)/1.06 Steinhart,Arial,sans-serif;letter-spacing:-.035em;text-transform:uppercase; }
+logistics-crane:not(:defined) { height:clamp(760px,94svh,940px);background:#0a3866; }
 .about-page { font-size:16px; }
 logistics-about { --about-nav-space:120px; }
 /* Shared homepage type and explicit word colors. */

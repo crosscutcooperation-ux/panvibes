@@ -59,7 +59,7 @@ export default function Navbar() {
       <div className="header-main">
         <Link href="/" className="header-brand" aria-label="PanVibes home" onClick={()=>setMenuOpen(false)}><Brand /></Link>
         <nav className="desktop-nav" aria-label="Main navigation">
-          {navigation.map(item=><Link href={item.href} key={item.href} aria-current={isActive(item.href)?'page':undefined}>{item.label}</Link>)}
+          {navigation.map(item=><Link href={item.href} prefetch={false} key={item.href} aria-current={isActive(item.href)?'page':undefined}>{item.label}</Link>)}
         </nav>
         <button ref={menuButton} className="site-menu-toggle" type="button" aria-expanded={menuOpen} aria-controls="site-mobile-menu" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?'Close':'Menu'} <span aria-hidden="true"><svg viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"><path d={menuOpen?'M5 5l10 10M15 5 5 15':'M4 5h12M4 10h12M4 15h12'}/></svg></span></button>
         <div className="header-documents">
@@ -68,7 +68,7 @@ export default function Navbar() {
         </div>
       </div>
       <nav id="site-mobile-menu" className="site-mobile-menu" aria-label="Mobile navigation" hidden={!menuOpen}>
-        {navigation.map(item=><Link href={item.href} key={item.href} aria-current={isActive(item.href)?'page':undefined} onClick={()=>setMenuOpen(false)}>{item.label}<span aria-hidden="true">↗</span></Link>)}
+        {navigation.map(item=><Link href={item.href} prefetch={false} key={item.href} aria-current={isActive(item.href)?'page':undefined} onClick={()=>setMenuOpen(false)}>{item.label}<span aria-hidden="true">↗</span></Link>)}
         <div className="mobile-documents"><a href={company.brochure} target="_blank" rel="noopener noreferrer">Download E-brochure ↗</a><a href={company.profile} target="_blank" rel="noopener noreferrer">Company profile ↗</a><a className="mobile-whatsapp" href={`https://wa.me/${enquiryContact.phone}`} target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div>
       </nav>
     </header>

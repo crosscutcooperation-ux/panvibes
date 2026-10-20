@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react';
 import Image from 'next/image';
-import mapPoints from '@/lib/footer-map-points.json';
+import { whenNear } from '@/lib/when-near';
 
 export default function FooterParticleMap() {
   const hostRef = useRef<HTMLDivElement>(null);
@@ -13,7 +13,8 @@ export default function FooterParticleMap() {
     if (!host || !canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
-    const particles = mapPoints.map(([u,v]) => ({u,v,x:0,y:0,vx:0,vy:0}));
+    const particles: {u:number;v:number;x:number;y:number;vx:number;vy:number}[] = [];
+    let disposed=false;
     const motion = matchMedia('(prefers-reduced-motion: reduce)');
     let width = 0, height = 0, frame = 0, lastTime = 0, visible = false;
     const pointer = {x:0,y:0,active:false};
@@ -52,9 +53,9 @@ export default function FooterParticleMap() {
       if (visible && !document.hidden && !motion.matches && (pointer.active||unsettled)) frame=requestAnimationFrame(paint);
       else lastTime=0;
     }
-    function wake() { if (!frame && visible && !document.hidden) frame=requestAnimationFrame(paint); }
+    function wake() { if (particles.length && !frame && visible && !document.hidden) frame=requestAnimationFrame(paint); }
     function resize() {
-      if (!host || !canvas || !ctx) return;
+      if (!host || !canvas || !ctx || !particles.length) return;
       cancelAnimationFrame(frame); frame=0; lastTime=0;
       const bounds=host.getBoundingClientRect(); width=bounds.width; height=bounds.height;
       const ratio=Math.min(devicePixelRatio,2);
@@ -77,11 +78,18 @@ export default function FooterParticleMap() {
       if (visible) wake(); else {pointer.active=false;cancelAnimationFrame(frame);frame=0;lastTime=0;}
     });
     sizing.observe(host); intersection.observe(host); resize();
+    const stopLoading=whenNear(host,()=>{
+      import('@/lib/footer-map-points.json').then(({default:points})=>{
+        if(disposed)return;
+        particles.push(...points.map(([u,v])=>({u,v,x:0,y:0,vx:0,vy:0})));
+        resize();
+      }).catch(error=>console.warn('Footer map unavailable; keeping the static map.',error));
+    },300);
     host.addEventListener('pointermove',move); host.addEventListener('pointerleave',leave);
     host.addEventListener('pointercancel',leave); host.addEventListener('pointerup',release);
     document.addEventListener('visibilitychange',visibility); motion.addEventListener('change',resize);
     return () => {
-      sizing.disconnect(); intersection.disconnect(); cancelAnimationFrame(frame);
+      disposed=true;stopLoading();sizing.disconnect(); intersection.disconnect(); cancelAnimationFrame(frame);
       host.removeEventListener('pointermove',move);host.removeEventListener('pointerleave',leave);host.removeEventListener('pointercancel',leave);
       host.removeEventListener('pointerup',release);
       document.removeEventListener('visibilitychange',visibility);motion.removeEventListener('change',resize);

@@ -2,7 +2,7 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import Link from 'next/link';
 import { company } from '@/lib/site-content';
-import { answerEnquiry, type AssistantReply } from '@/lib/chat-assistant';
+import type { AssistantReply } from '@/lib/chat-assistant';
 import { useEnquiry } from './EnquiryProvider';
 
 type Message = AssistantReply & { role: 'user' | 'assistant'; id: number };
@@ -38,7 +38,13 @@ export default function SupportWidget() {
       const answer = await response.json();
       const reply = response.ok ? answer : { text: answer.error || 'Please try again shortly.' };
       setMessages(current => [...current, { role: 'assistant', id: nextId.current++, ...reply }].slice(-31));
-    } catch { if (!controller.signal.aborted) setMessages(current => [...current, { role: 'assistant' as const, id: nextId.current++, ...answerEnquiry(trimmed) }].slice(-31)); }
+    } catch {
+      if (!controller.signal.aborted) {
+        const answer = await import('@/lib/chat-assistant').then(({answerEnquiry})=>answerEnquiry(trimmed))
+          .catch(()=>({text:`Please contact our team at ${company.email} for product and export enquiries.`,links:[{label:'Email our team',href:`mailto:${company.email}`}]}));
+        if (!controller.signal.aborted) setMessages(current => [...current, { role: 'assistant' as const, id: nextId.current++, ...answer }].slice(-31));
+      }
+    }
     finally { if (activeRequest.current === controller) { setPending(false); activeRequest.current = null; } }
   }
   function submit(event: FormEvent<HTMLFormElement>) { event.preventDefault(); ask(input); }

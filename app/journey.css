@@ -91,6 +91,7 @@ button:disabled { opacity:1; cursor:default; }
 .motion-vehicles canvas {display:block;width:100%;height:100%; }
 .continuous-motion .motion-ocean {display:block;position:absolute;inset:0;z-index:1;overflow:hidden;background:transparent; }
 .motion-ocean-texture {position:absolute;inset:0;background:url('/images/ocean.jpg') center/cover; }
+.trade-journey-v2:not([data-assets-ready]) :is(.motion-stars,.motion-ocean-texture) { background-image:none; }
 .motion-ship {position:absolute;left:50%;top:50%;width:100vw;transform:translate(-50%,-50%);max-width:none; }
 .motion-ship img {width:100%;max-width:none;height:auto; }
 .continuous-motion .motion-cloud {display:block;position:absolute;inset:0;z-index:6;pointer-events:none;visibility:hidden; }

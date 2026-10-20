@@ -28,7 +28,13 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
     const ctx=sample.getContext('2d',{willReadFrequently:true})!;
     const layer=document.createElement('canvas');layer.className='home-handoff-truck';layer.setAttribute('aria-hidden','true');document.body.appendChild(layer);
     const truckContext=layer.getContext('2d')!;
-    let truck:HTMLImageElement|undefined;
+    let truck:HTMLImageElement|undefined,truckRequested=false,videoRequested=false,startupFrame=0;
+    function prepareTruck(){
+      if(truckRequested||disposed)return;
+      truckRequested=true;
+      loadHandoffTruck().then(image=>{if(!disposed){truck=image;handoff();}})
+        .catch(error=>console.error('Hero truck preparation failed',error));
+    }
     const plate=stage.querySelector<HTMLElement>('.home-handoff-plate')!;
     let trigger:ScrollTrigger|undefined,bridge:ScrollTrigger|undefined,frame=0,handoffFrame=0,progress=0,disposed=false,lastContrastAt=-Infinity,bridgeEnd=Infinity;
     function handoff(){if(!handoffFrame&&!disposed)handoffFrame=requestAnimationFrame(paintHandoff);}
@@ -158,6 +164,8 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
     function update(p:number){
       const w=stage.clientWidth,h=stage.clientHeight,headerHeight=header.offsetHeight;
       progress=p;stage.dataset.heroProgress=p.toFixed(3);
+      if(p>.01)scheduleVideo();
+      if(p>.35)prepareTruck();
       stage.style.setProperty('--hero-header-height',`${headerHeight}px`);
       if(compact){
         const zoom=smooth(segment(p,.48,.86));
@@ -203,6 +211,15 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
       // No play/autoplay permission is required for the paused scroll film.
       video.load();
     }
+    function scheduleVideo(){
+      if(videoRequested||disposed)return;
+      videoRequested=true;
+      // Let the server-rendered poster paint before video setup competes for
+      // bandwidth/decoding. Scrolling can start the film immediately if needed.
+      startupFrame=requestAnimationFrame(()=>{
+        startupFrame=requestAnimationFrame(()=>{startupFrame=0;startVideo();});
+      });
+    }
     function tryAgain(){startVideo();configure();ScrollTrigger.refresh();}
     function configure(){
       trigger?.kill(true);bridge?.kill();trigger=undefined;video.pause();update(0);
@@ -213,15 +230,15 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
       if(trigger){root.dataset.scrollStart=String(trigger.start);root.dataset.scrollEnd=String(trigger.end);}
     }
     const resize=new ResizeObserver(()=>{update(progress);contrast(true);});resize.observe(stage);
-    loadHandoffTruck()
-      .then(image=>{if(!disposed){truck=image;handoff();}})
-      .catch(error=>console.error('Hero truck preparation failed',error));
     video.addEventListener('loadedmetadata',ready);video.addEventListener('loadeddata',ready);video.addEventListener('seeked',sought);
     video.addEventListener('error',fallback);retry.addEventListener('click',tryAgain);
     window.addEventListener('scroll',handoff,{passive:true});
-    configure();startVideo();
+    configure();
+    const posterImage=new Image();posterImage.decoding='async';
+    posterImage.onload=posterImage.onerror=scheduleVideo;posterImage.src=video.poster;
+    if(posterImage.complete)scheduleVideo();
     document.fonts.ready.then(()=>{if(!disposed)ScrollTrigger.refresh();});
-    return()=>{disposed=true;clearTimeout(startupTimer);clearTimeout(seekTimer);cancelAnimationFrame(frame);cancelAnimationFrame(handoffFrame);resize.disconnect();trigger?.kill(true);bridge?.kill();video.pause();video.removeAttribute('src');video.load();layer.remove();
+    return()=>{disposed=true;posterImage.onload=posterImage.onerror=null;cancelAnimationFrame(startupFrame);clearTimeout(startupTimer);clearTimeout(seekTimer);cancelAnimationFrame(frame);cancelAnimationFrame(handoffFrame);resize.disconnect();trigger?.kill(true);bridge?.kill();video.pause();video.removeAttribute('src');video.load();layer.remove();
       delete document.documentElement.dataset.truckHandoff;
       video.removeEventListener('loadedmetadata',ready);video.removeEventListener('loadeddata',ready);video.removeEventListener('seeked',sought);
       video.removeEventListener('error',fallback);retry.removeEventListener('click',tryAgain);

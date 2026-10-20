@@ -7,7 +7,7 @@ export const metadata = pageMetadata('About Our B2B Sourcing & Export Business',
 export default function AboutPage() {
   return (
     <div className="about-page">
-      <logistics-about />
+      <logistics-about><div className="about-initial-view"><h1>About us</h1></div></logistics-about>
       <main className="panvibes-content">
       <section className="company-introduction" aria-labelledby="company-title">
           <div className="container">

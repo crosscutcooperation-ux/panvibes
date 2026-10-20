@@ -21,8 +21,6 @@ import './enquiry.css';
 import './cursor.css';
 import './owner-refinements.css';
 import ShipCursor from '@/components/ShipCursor';
-import RouteLoader from '@/components/RouteLoader';
-import './loading.css';
 import EnquiryProvider from '@/components/EnquiryProvider';
 import EnquiryButton from '@/components/EnquiryButton';
 
@@ -42,7 +40,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
-      <body><RouteLoader/><ShipCursor/><EnquiryProvider><StructuredData data={organizationSchema}/><Navbar/>{children}<EnquiryButton className="enquiry-global-button">Enquiry ↗</EnquiryButton><SupportWidget/></EnquiryProvider></body>
+      <body><ShipCursor/><EnquiryProvider><StructuredData data={organizationSchema}/><Navbar/>{children}<EnquiryButton className="enquiry-global-button">Enquiry ↗</EnquiryButton><SupportWidget/></EnquiryProvider></body>
     </html>
   );
 }

@@ -1,7 +1,11 @@
 'use client';
 
 import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from 'react';
-import EnquiryForm from './EnquiryForm';
+import dynamic from 'next/dynamic';
+
+const EnquiryForm = dynamic(() => import('./EnquiryForm'), {
+  loading: () => <p role="status">Loading enquiry form…</p>,
+});
 
 export type EnquiryRequest = { product?: string; purpose?: string; service?: string; country?: string };
 const EnquiryContext = createContext<(request?: EnquiryRequest) => void>(() => {});

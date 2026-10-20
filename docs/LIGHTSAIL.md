@@ -6,6 +6,43 @@ The live desktop source was 28,762,839 bytes at 23.3 Mbps. A browser test reache
 only metadata readiness after ten seconds. The IP's default nginx welcome page
 is a different virtual host; test the domain, not the bare IP.
 
+## Installed deployment (20 October 2026)
+
+Code release `c5c733a675a0d0e9b34d1888ecd724408bf29711` was built on the Ubuntu
+instance and verified at https://panvibes.com. The source checkout remains
+`/var/www/panvibes`; the running artifact is under
+`/var/www/panvibes-releases/c5c733a675a0d0e9b34d1888ecd724408bf29711/.next/standalone`.
+The existing `panvibes.service` uses a `20-release.conf` systemd override, retains
+the existing Ubuntu service account, and loads private settings from the original
+`/var/www/panvibes/.env.production.local` with Node's `--env-file` option.
+`SQLITE_PATH` remains `/var/lib/panvibes/panvibes.sqlite`. No real enquiries or
+emails were sent during deployment tests.
+
+Nginx retains its Certbot HTTPS configuration and now serves versioned MP4s,
+images, PDFs and static browser bundles directly. Previously emitted hashed JS
+bundles were retained so already-open browser tabs can finish loading. The
+application uses a 768 MB V8 heap limit and a 1,400 MB systemd process memory cap.
+The instance actually reports about 4 GB RAM; the application budget leaves room
+on a 2 GB machine, but this deployment was not a load test on a 2 GB instance.
+
+The service used approximately 70–100 MB during validation. Public checks passed
+for all 18 checked pages, 27 articles and 73 referenced assets, MP4 range requests,
+desktop/mobile seeking, the final frame, slow 3G, blocked-video retry, reduced
+motion and admin access protection. This is an observed validation footprint,
+not a peak-memory or traffic-capacity guarantee.
+
+Deployment metadata is recorded in `/home/ubuntu/panvibes-deployed.txt`. The
+rollback command for this release is
+`sudo sh /var/backups/panvibes/20261020T133240Z/rollback.sh`.
+That backup contains the prior service/nginx configuration; it does not roll
+back or delete enquiries received after deployment. For future releases, build
+and test another Linux artifact, update the service override and nginx asset
+paths, then restart/reload. Pulling source alone does not update the running
+standalone artifact. The generic `/srv/panvibes` examples below are for a fresh
+installation; use the existing paths above on this instance.
+
+## Media and loading behavior
+
 The same branded footage, all 296 frames, timings and transparent-truck handoff
 are retained. The web copies use H.264/yuv420p, no audio, no B-frames, fast-start
 MP4, and a closed short GOP of six frames (200 ms). The desktop copy is 720p;

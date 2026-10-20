@@ -1,0 +1,168 @@
+{
+  "generator": "Built-in image_gen",
+  "purpose": "27 distinct editorial concept photos for the PanVibes journal. Each photo belongs to one article. Responsive thumbnails are derivatives of that article photo.",
+  "articles": [
+    {
+      "slug": "global-export-import-services",
+      "image": "/assets/blog/editorial/global-export-import-services.webp",
+      "thumbnail": "/assets/blog/editorial/global-export-import-services-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: a unique PanVibes export trade blog editorial photograph. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: High aerial view of a large container ship entering a deep blue ocean port at sunrise, red and blue containers, impressive international shipping scale. No text, lettering, logo, watermarks, collage, borders, illustrations or fake branding. This is an editorial concept photo, not a depiction of the actual company's facilities."
+    },
+    {
+      "slug": "opportunities-challenges-how-to-get-started",
+      "image": "/assets/blog/editorial/opportunities-challenges-how-to-get-started.webp",
+      "thumbnail": "/assets/blog/editorial/opportunities-challenges-how-to-get-started-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: A small new exporter desk: hands examining a paper world map alongside a compass, sample carton, and blank shipping documents, bright natural window light, overhead composition. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "international-export-import-company",
+      "image": "/assets/blog/editorial/international-export-import-company.webp",
+      "thumbnail": "/assets/blog/editorial/international-export-import-company-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Two business partners exchanging a handshake across a warehouse desk, organized shelves of export cartons behind, candid mid-distance photography. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "b2b-food-exporter-international",
+      "image": "/assets/blog/editorial/b2b-food-exporter-international.webp",
+      "thumbnail": "/assets/blog/editorial/b2b-food-exporter-international-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Food-safe sealed ingredient pouches arranged in a five-item row beside a clean pallet in a bright export packing facility, three-quarter low angle. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "global-commodity-exporter-in-india",
+      "image": "/assets/blog/editorial/global-commodity-exporter-in-india.webp",
+      "thumbnail": "/assets/blog/editorial/global-commodity-exporter-in-india-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Open burlap sacks of rice and golden wheat in a bustling commodity warehouse, rich grain textures, sunlight from high windows. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "agro-product-exporter-in-india-panvibes-exim-global-supplier",
+      "image": "/assets/blog/editorial/agro-product-exporter-in-india-panvibes-exim-global-supplier.webp",
+      "thumbnail": "/assets/blog/editorial/agro-product-exporter-in-india-panvibes-exim-global-supplier-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: An Indian farmer's hands presenting freshly harvested colorful vegetables above a woven basket at the edge of a lush cultivated field, morning daylight. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "dehydrated-food-exporter-in-india",
+      "image": "/assets/blog/editorial/dehydrated-food-exporter-in-india.webp",
+      "thumbnail": "/assets/blog/editorial/dehydrated-food-exporter-in-india-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: A sealed glass jar of dehydrated mixed vegetables with a neat export carton in soft focus, warm tabletop still life. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "premium-dehydrated-food-manufacturer-in-india",
+      "image": "/assets/blog/editorial/premium-dehydrated-food-manufacturer-in-india.webp",
+      "thumbnail": "/assets/blog/editorial/premium-dehydrated-food-manufacturer-in-india-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Stainless steel industrial food dehydrator with racks of neatly spaced carrot rounds and peas inside a spotless production room, wide documentary view. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "bulk-dehydrated-food-supplier-in-india",
+      "image": "/assets/blog/editorial/bulk-dehydrated-food-supplier-in-india.webp",
+      "thumbnail": "/assets/blog/editorial/bulk-dehydrated-food-supplier-in-india-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Neat bulk kraft sacks filled with dehydrated tomato pieces on wooden pallets in a dry-food storage warehouse, diagonal perspective. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "dehydrated-vegetable-flakes-exporter",
+      "image": "/assets/blog/editorial/dehydrated-vegetable-flakes-exporter.webp",
+      "thumbnail": "/assets/blog/editorial/dehydrated-vegetable-flakes-exporter-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Macro still life of dried carrot flakes, spinach flakes and sweet pepper flakes separated in three shallow ceramic dishes on pale stone, top-down. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "dehydrated-onion-flakes-exporter-in-india-premium-bulk-supplier",
+      "image": "/assets/blog/editorial/dehydrated-onion-flakes-exporter-in-india-premium-bulk-supplier.webp",
+      "thumbnail": "/assets/blog/editorial/dehydrated-onion-flakes-exporter-in-india-premium-bulk-supplier-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Golden dehydrated white onion flakes spilling gently from a small natural linen sack onto dark slate, crisp macro texture. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "dehydrated-vegetables-exporter-in-navi-mumbai",
+      "image": "/assets/blog/editorial/dehydrated-vegetables-exporter-in-navi-mumbai.webp",
+      "thumbnail": "/assets/blog/editorial/dehydrated-vegetables-exporter-in-navi-mumbai-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Three stainless drying trays of colorful vegetable slices being wheeled through a clean packing area, close hands only, side-lit documentary photo. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "dehydrated-food-supplier-navi-mumbai-premium-quality-ingredients",
+      "image": "/assets/blog/editorial/dehydrated-food-supplier-navi-mumbai-premium-quality-ingredients.webp",
+      "thumbnail": "/assets/blog/editorial/dehydrated-food-supplier-navi-mumbai-premium-quality-ingredients-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: A food quality technician's gloved hand inspecting a dried vegetable sample with a magnifying glass beside small sample bowls on a clean workbench. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "beetroot-powder-supplier-in-mumbai-panvibes-exim",
+      "image": "/assets/blog/editorial/beetroot-powder-supplier-in-mumbai-panvibes-exim.webp",
+      "thumbnail": "/assets/blog/editorial/beetroot-powder-supplier-in-mumbai-panvibes-exim-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Deep magenta beetroot powder heaped in a black ceramic bowl with one sliced beetroot, dramatic side lighting, dark charcoal backdrop. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "dehydrated-garlic-powder-supplier-india",
+      "image": "/assets/blog/editorial/dehydrated-garlic-powder-supplier-india.webp",
+      "thumbnail": "/assets/blog/editorial/dehydrated-garlic-powder-supplier-india-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Ivory garlic powder in a wooden spoon beside peeled garlic cloves on pale blue linen, clean close-up natural light. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "dehydrated-ginger-powder-supplier-in-navi-mumbai-panvibes-exim",
+      "image": "/assets/blog/editorial/dehydrated-ginger-powder-supplier-in-navi-mumbai-panvibes-exim.webp",
+      "thumbnail": "/assets/blog/editorial/dehydrated-ginger-powder-supplier-in-navi-mumbai-panvibes-exim-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Warm tan ginger powder mound in a shallow ceramic bowl, one knobby fresh ginger root on dark rustic wood, overhead editorial food photo. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "fruit-powder-exporter-in-india",
+      "image": "/assets/blog/editorial/fruit-powder-exporter-in-india.webp",
+      "thumbnail": "/assets/blog/editorial/fruit-powder-exporter-in-india-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Four small white porcelain cups of vibrant mango, strawberry, banana and orange fruit powders, minimal pastel background, straight-on still life. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "organic-dehydrated-powder-exporter",
+      "image": "/assets/blog/editorial/organic-dehydrated-powder-exporter.webp",
+      "thumbnail": "/assets/blog/editorial/organic-dehydrated-powder-exporter-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Vivid green moringa powder on a white ceramic plate alongside fresh moringa leaves on beige linen, soft natural light, close shot. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "bulk-food-ingredients-supplier",
+      "image": "/assets/blog/editorial/bulk-food-ingredients-supplier.webp",
+      "thumbnail": "/assets/blog/editorial/bulk-food-ingredients-supplier-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: A scoop of pale flour surrounded by measured lentils and seeds in a commercial bakery ingredient preparation station, overhead composition. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "international-spice-exporter",
+      "image": "/assets/blog/editorial/international-spice-exporter.webp",
+      "thumbnail": "/assets/blog/editorial/international-spice-exporter-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: An Indian spice market stall with distinct bowls of turmeric, red chili powder, star anise, cinnamon and cardamom, saturated natural colors, oblique close angle. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "dehydrated-ginger-supplier-in-india",
+      "image": "/assets/blog/editorial/dehydrated-ginger-supplier-in-india.webp",
+      "thumbnail": "/assets/blog/editorial/dehydrated-ginger-supplier-in-india-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Large pale dried ginger chunks in a rounded woven basket, one piece broken to show fibrous interior, neutral gray background, macro study. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "dehydrated-ginger-flakes-manufacturer-india",
+      "image": "/assets/blog/editorial/dehydrated-ginger-flakes-manufacturer-india.webp",
+      "thumbnail": "/assets/blog/editorial/dehydrated-ginger-flakes-manufacturer-india-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Thin dehydrated ginger slices spread evenly over a black mesh drying rack, shallow focus across the crisp slices, warm side light. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "dehydrated-green-chilli-exporter",
+      "image": "/assets/blog/editorial/dehydrated-green-chilli-exporter.webp",
+      "thumbnail": "/assets/blog/editorial/dehydrated-green-chilli-exporter-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Dried whole green chillies piled on a rough clay dish beside a few fresh bright green chillies, dark green backdrop, detailed close-up. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "global-nut-dry-fruit-supplier",
+      "image": "/assets/blog/editorial/global-nut-dry-fruit-supplier.webp",
+      "thumbnail": "/assets/blog/editorial/global-nut-dry-fruit-supplier-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Elegant mixed almonds, walnuts, pistachios, cashews, dried apricots and raisins in separate open wooden compartments, overhead natural food photo. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "fox-nuts-supplier-navi-mumbai-panvibes-exim",
+      "image": "/assets/blog/editorial/fox-nuts-supplier-navi-mumbai-panvibes-exim.webp",
+      "thumbnail": "/assets/blog/editorial/fox-nuts-supplier-navi-mumbai-panvibes-exim-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: A mound of white puffed fox nuts (makhana) in an earthenware bowl with a few scattered on muted terracotta, soft shadows, macro food portrait. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "dehydrated-jackfruit-exporter-in-india",
+      "image": "/assets/blog/editorial/dehydrated-jackfruit-exporter-in-india.webp",
+      "thumbnail": "/assets/blog/editorial/dehydrated-jackfruit-exporter-in-india-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Golden dehydrated jackfruit pieces on a banana leaf beside a cut fresh jackfruit showing yellow pods, tropical daylight, eye-level close still life. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    },
+    {
+      "slug": "dehydrated-fruits-exporter-in-navi-mumbai",
+      "image": "/assets/blog/editorial/dehydrated-fruits-exporter-in-navi-mumbai.webp",
+      "thumbnail": "/assets/blog/editorial/dehydrated-fruits-exporter-in-navi-mumbai-thumb.webp",
+      "prompt": "Use case: photorealistic-natural. Asset type: unique export trade blog editorial photo. Create one premium realistic landscape photograph, 3:2 composition, clear subject readable as a small thumbnail. Subject: Translucent dried orange wheels, apple rings and pineapple slices hanging from a simple drying rack against a sunlit pale wall, airy side view. No text, lettering, logos, watermarks, collage, borders or illustrations. Editorial concept photograph."
+    }
+  ]
+}

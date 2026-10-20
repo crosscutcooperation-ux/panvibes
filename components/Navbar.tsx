@@ -61,7 +61,7 @@ export default function Navbar() {
         <nav className="desktop-nav" aria-label="Main navigation">
           {navigation.map(item=><Link href={item.href} key={item.href} aria-current={isActive(item.href)?'page':undefined}>{item.label}</Link>)}
         </nav>
-        <button ref={menuButton} className="site-menu-toggle" type="button" aria-expanded={menuOpen} aria-controls="site-mobile-menu" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?'Close':'Menu'} <span aria-hidden="true">{menuOpen?'−':'+'}</span></button>
+        <button ref={menuButton} className="site-menu-toggle" type="button" aria-expanded={menuOpen} aria-controls="site-mobile-menu" onClick={()=>setMenuOpen(!menuOpen)}>{menuOpen?'Close':'Menu'} <span aria-hidden="true"><svg viewBox="0 0 20 20" width="14" height="14" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"><path d={menuOpen?'M5 5l10 10M15 5 5 15':'M4 5h12M4 10h12M4 15h12'}/></svg></span></button>
         <div className="header-documents">
           <Pill className="pill-white" href={company.brochure} newTab>Download E-brochure</Pill>
           <Pill className="pill-white" href={company.profile} newTab>Company profile</Pill>

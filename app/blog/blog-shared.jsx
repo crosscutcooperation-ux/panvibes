@@ -13,7 +13,7 @@ export function BlogCard({ post, index }) {
   return <article className={styles.card}>
     <Link href={`/blog/${post.slug}`} className={styles.cardLink} aria-label={`${label} — ${post.title}`}>
       <span className={styles.cardNumber}>{String(index + 1).padStart(2, '0')}</span>
-      <div className={styles.cardImage}><img src={image.src} alt={image.alt} width="720" height="450" loading="lazy" decoding="async" /></div>
+      <div className={styles.cardImage}><img src={image.thumbnail} alt={image.alt} width="480" height="320" loading="lazy" decoding="async" /></div>
       <h3>{label}</h3>
       <span className={styles.cardArrow}><Arrow diagonal /></span>
     </Link>

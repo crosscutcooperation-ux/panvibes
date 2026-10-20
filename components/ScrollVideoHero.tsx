@@ -24,7 +24,6 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
     const truckContext=layer.getContext('2d')!;
     let truck:HTMLImageElement|undefined;
     const plate=stage.querySelector<HTMLElement>('.home-handoff-plate')!;
-    const plateImage=new Image();plateImage.src='/media/home-hero/handoff-clean-plate.webp';
     let trigger:ScrollTrigger|undefined,bridge:ScrollTrigger|undefined,frame=0,handoffFrame=0,progress=0,disposed=false,lastContrastAt=-Infinity,bridgeEnd=Infinity;
     function handoff(){if(!handoffFrame&&!disposed)handoffFrame=requestAnimationFrame(paintHandoff);}
     function paintHandoff(){
@@ -45,7 +44,7 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
       const nextStart=Number(next?.dataset.scrollStart)||((trigger?.end??0)+h);
       bridgeEnd=nextStart;
       const after=trigger?segment(window.scrollY,trigger.end,nextStart):0;
-      const ready=!!truck&&plateImage.complete&&plateImage.naturalWidth>0;
+      const ready=!!truck;
       // Phones may finish a seek after the scroll event. Transfer ownership
       // only once the matching final frame is decoded, so two trucks never blend.
       const finalFrame=Math.max(0,Math.round(video.duration*heroFilm.frameRate)-1);
@@ -180,13 +179,12 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
     loadHandoffTruck()
       .then(image=>{if(!disposed){truck=image;handoff();}})
       .catch(error=>console.error('Hero truck preparation failed',error));
-    plateImage.onload=handoff;
     video.addEventListener('loadedmetadata',ready);video.addEventListener('loadeddata',ready);video.addEventListener('seeked',sought);
     window.addEventListener('scroll',handoff,{passive:true});
     reduced.addEventListener('change',configure);configure();
     document.fonts.ready.then(()=>{if(!disposed)ScrollTrigger.refresh();});
     return()=>{disposed=true;cancelAnimationFrame(frame);cancelAnimationFrame(handoffFrame);resize.disconnect();trigger?.kill(true);bridge?.kill();video.pause();layer.remove();
-      plateImage.onload=null;delete document.documentElement.dataset.truckHandoff;
+      delete document.documentElement.dataset.truckHandoff;
       video.removeEventListener('loadedmetadata',ready);video.removeEventListener('loadeddata',ready);video.removeEventListener('seeked',sought);
       window.removeEventListener('scroll',handoff);
       reduced.removeEventListener('change',configure);copy.style.transform='';

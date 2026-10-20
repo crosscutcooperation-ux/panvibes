@@ -36,7 +36,7 @@ export default async function ArticlePage({ params }) {
         <h1>{post.title}</h1><p className={styles.articleLead}>{post.excerpt}</p>
         <p className={styles.shippingNote}><strong>Shipping destinations:</strong> {shippingCoverage}</p>
         <div className={styles.byline}><span className={styles.bylineIcon}>p↗</span><div>PanVibes Exim<span>THE PANVIBES JOURNAL</span></div></div>
-        <img className={styles.articleImage} src={image.src} alt={image.alt} width="1000" height="700" />
+        <img className={styles.articleImage} src={image.src} alt={image.alt} width="1200" height="800" />
         <div id="article-content" className={styles.articleBody} dangerouslySetInnerHTML={{ __html: post.content }} />
         <Link href="/blog#stories" className={styles.articleEnd}>Explore more stories <Arrow /></Link>
       </article>

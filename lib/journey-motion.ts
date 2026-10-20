@@ -23,7 +23,7 @@ export function truckWheelAngle(t: number, arrival = false) {
 }
 
 export function tippingTruck(t: number, w: number, h: number) {
-  const length = mix(arrivalTruckLength(w),Math.min(w * .58,h * .86),smooth(segment(t,0,2.3))), height = length * 614 / 2664;
+  const length = mix(arrivalTruckLength(w,h),Math.min(w * .58,h * .86),smooth(segment(t,0,2.3))), height = length * 614 / 2664;
   const turn = smooth(segment(t, 6, 8));
   const receiver = receivingContainer(w, h);
   const x = mix(w * .265, receiver.x + length * .497, turn) + w * 1.4 * smooth(segment(t, 10.8, 12.7));

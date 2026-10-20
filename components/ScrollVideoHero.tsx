@@ -3,9 +3,7 @@ import { useEffect, useRef, type ReactNode } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { mix, segment, smooth, tippingTruck } from '@/lib/journey-motion';
-import brandedAssets from '@/lib/container-branding-assets.json';
-import { handoffTruck, heroFilm, videoTruckBounds } from '@/lib/hero-handoff';
-import { company } from '@/lib/site-content';
+import { handoffTruck, heroFilm, videoTruckBounds, loadHandoffTruck } from '@/lib/hero-handoff';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ScrollVideoHero({children}:{children:ReactNode}) {
@@ -15,84 +13,69 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
     media.add({compact:'(max-width: 991px)',wide:'(min-width: 992px)',reduced:'(prefers-reduced-motion: reduce)'},context=>{
     const root=rootRef.current!,stage=stageRef.current!,video=videoRef.current!;
     const copy=stage.querySelector<HTMLElement>('.hero-copy')!;
-    const email=stage.querySelector<HTMLAnchorElement>('.hero-email')!;
     const header=document.querySelector<HTMLElement>('.site-header')!;
     const reduced=matchMedia('(prefers-reduced-motion: reduce)');
     const compact=Boolean(context.conditions?.compact);
-    video.src='/media/home-hero/gemini_generated_video_282720c2.mp4';
+    video.src=compact?'/media/home-hero/hero-desert-branded-mobile.mp4':'/media/home-hero/hero-desert-branded-desktop.mp4';
     video.preload='auto';
     const sample=document.createElement('canvas');sample.width=48;sample.height=28;
     const ctx=sample.getContext('2d',{willReadFrequently:true})!;
     const layer=document.createElement('canvas');layer.className='home-handoff-truck';layer.setAttribute('aria-hidden','true');document.body.appendChild(layer);
     const truckContext=layer.getContext('2d')!;
-    const truck=new Image();truck.src=(brandedAssets as Record<string,string>)[handoffTruck.src]||handoffTruck.src;
+    let truck:HTMLImageElement|undefined;
     const plate=stage.querySelector<HTMLElement>('.home-handoff-plate')!;
     const plateImage=new Image();plateImage.src='/media/home-hero/handoff-clean-plate.webp';
-    let trigger:ScrollTrigger|undefined,bridge:ScrollTrigger|undefined,frame=0,emailFrame=0,progress=0,disposed=false,lastContrastAt=-Infinity;
-    function queueEmailPosition(){cancelAnimationFrame(emailFrame);emailFrame=requestAnimationFrame(()=>{emailFrame=0;if(!disposed)positionEmail();});}
-    function positionEmail(){
-      const html=document.documentElement,stageBox=stage.getBoundingClientRect();
-      const visible=stageBox.top<innerHeight&&stageBox.bottom>0;
-      const videoStyle=getComputedStyle(video);
-      const emailBox=email.getBoundingClientRect();
-      const showing=visible&&emailBox.top<innerHeight&&emailBox.bottom>0&&(progress<.94||Number(videoStyle.opacity)>.01);
-      email.inert=!showing;email.tabIndex=showing?0:-1;
-      const position=showing?emailBox:null;
-      if(!position){delete html.dataset.heroEmail;return;}
-      html.dataset.heroEmail='active';
-      // Let the assistant move above the shortcut if their hit areas intersect.
-      const bot=document.querySelector<HTMLElement>('.support-launcher');
-      const botWidth=bot?.offsetWidth??125,botHeight=bot?.offsetHeight??56;
-      const overlaps=position.left+position.width>innerWidth-botWidth-32&&position.top+position.height>innerHeight-botHeight-32;
-      html.style.setProperty('--hero-support-lift',`${overlaps?Math.max(0,innerHeight-22-position.top+12):0}px`);
-      const enquiry=document.querySelector<HTMLElement>('.enquiry-global-button');
-      if(enquiry){
-        const box=enquiry.getBoundingClientRect(),previousLift=parseFloat(html.style.getPropertyValue('--hero-enquiry-lift'))||0;
-        const originalTop=box.top+previousLift;
-        let top=originalTop;
-        const obstacles=[{left:position.left,right:position.left+position.width,top:position.top,bottom:position.top+position.height},...(bot?[bot.getBoundingClientRect()]:[])].sort((a,b)=>b.bottom-a.bottom);
-        for(const obstacle of obstacles)if(box.right>obstacle.left&&box.left<obstacle.right&&top+box.height>obstacle.top&&top<obstacle.bottom)top=obstacle.top-box.height-12;
-        html.style.setProperty('--hero-enquiry-lift',`${Math.max(0,originalTop-top)}px`);
-      }
-    }
+    let trigger:ScrollTrigger|undefined,bridge:ScrollTrigger|undefined,frame=0,progress=0,disposed=false,lastContrastAt=-Infinity;
     function handoff(){
       const w=stage.clientWidth,h=stage.clientHeight;
       if(disposed||!w||!h){layer.style.visibility='hidden';return;}
-      const after=trigger?segment(window.scrollY,trigger.end,trigger.end+Math.max(h,innerHeight)):0;
-      const ready=truck.complete&&truck.naturalWidth>0&&plateImage.complete&&plateImage.naturalWidth>0;
-      // Every screen must decode the actual final frame before the cutout
-      // takes over; a delayed native-file seek must never cut the film short.
+      const next=document.querySelector<HTMLElement>('.trade-journey-v2');
+      const nextStage=next?.querySelector<HTMLElement>('.motion-stage');
+      const nextStart=Number(next?.dataset.scrollStart)||((trigger?.end??0)+h);
+      const after=trigger?segment(window.scrollY,trigger.end,nextStart):0;
+      const ready=!!truck&&plateImage.complete&&plateImage.naturalWidth>0;
+      // Phones may finish a seek after the scroll event. Transfer ownership
+      // only once the matching final frame is decoded, so two trucks never blend.
       const finalFrame=Math.max(0,Math.round(video.duration*heroFilm.frameRate)-1);
-      const finalDecoded=video.readyState>=2&&!video.seeking&&video.currentTime>=finalFrame/heroFilm.frameRate-.001;
-      stage.dataset.videoComplete=String(finalDecoded);
-      const separation=ready&&finalDecoded&&!reduced.matches?smooth(segment(progress,.86,.94)):0;
+      const finalDecoded=video.readyState>=2&&!video.seeking&&video.currentTime>=finalFrame/heroFilm.frameRate;
+      const separation=ready&&finalDecoded&&!reduced.matches?smooth(segment(progress,.86,.90)):0;
       stage.dataset.truckOwner=separation>0?'handoff':'video';
-      plate.style.opacity=String(separation);video.style.opacity=String(1-separation);email.style.opacity=String(1-separation);
+      // Keep the truck opaque while the background changes ownership. Fading
+      // both identical truck layers independently makes it look translucent.
+      plate.style.opacity=String(separation);video.style.opacity=separation===1?'0':'1';
       const active=separation>0&&after<1;
-      layer.style.visibility=active?'visible':'hidden';layer.style.opacity=String(separation);
+      layer.style.visibility=active?'visible':'hidden';layer.style.opacity='1';
       document.documentElement.dataset.truckHandoff=active&&after>0?'active':'idle';
-      if(!active)return;
-      const ratio=Math.min(devicePixelRatio,1.75),viewportHeight=innerHeight;
-      if(layer.width!==Math.round(w*ratio)||layer.height!==Math.round(viewportHeight*ratio)){layer.width=Math.round(w*ratio);layer.height=Math.round(viewportHeight*ratio);}
-      truckContext.setTransform(ratio,0,0,ratio,0,0);truckContext.clearRect(0,0,w,viewportHeight);
+      if(!active||!truck)return;
+      const ratio=Math.min(devicePixelRatio,1.75);
+      if(layer.width!==Math.round(w*ratio)||layer.height!==Math.round(h*ratio)){layer.width=Math.round(w*ratio);layer.height=Math.round(h*ratio);}
+      truckContext.setTransform(ratio,0,0,ratio,0,0);truckContext.clearRect(0,0,w,h);
       const box=video.getBoundingClientRect(),stageBox=stage.getBoundingClientRect();
       const cover=getComputedStyle(video).objectFit==='cover';
       const scale=cover?Math.max(box.width/heroFilm.width,box.height/heroFilm.height):Math.min(box.width/heroFilm.width,box.height/heroFilm.height);
       const originX=box.left-stageBox.left+(box.width-heroFilm.width*scale)/2;
       const originY=box.top-stageBox.top+(box.height-heroFilm.height*scale)/2;
       const startX=originX+(videoTruckBounds.x+videoTruckBounds.width/2)*scale;
-      const startY=stageBox.top+originY+(videoTruckBounds.y+videoTruckBounds.height/2)*scale;
+      // The overlay is fixed to the viewport. Include the pin's real offset,
+      // then remove the stage's outgoing scroll translation after unpinning.
+      const pinnedTop=stageBox.top+Math.max(0,window.scrollY-(trigger?.end??window.scrollY));
+      const startY=pinnedTop+originY+(videoTruckBounds.y+videoTruckBounds.height/2)*scale;
       const startLength=videoTruckBounds.height*scale;
-      const landing=smooth(segment(progress,.90,1)),pose=tippingTruck(0,w,viewportHeight);
-      const length=startLength;
-      const x=mix(startX,pose.x,landing),y=mix(mix(startY,viewportHeight*.54,landing),pose.y,after);
-      const width=length*handoffTruck.width/handoffTruck.height;
+      const nextBox=nextStage?.getBoundingClientRect();
+      const landing=smooth(segment(progress,.90,1)),pose=tippingTruck(0,nextStage?.clientWidth??w,nextStage?.clientHeight??h);
+      // Meet the following canvas at its measured pin position, including any
+      // header offset. Guessing one screen of travel causes a visible jump.
+      const targetX=(nextBox?.left??0)+pose.x;
+      const targetY=(nextBox?nextBox.top+window.scrollY-nextStart:0)+pose.y;
+      const length=mix(startLength,pose.length,landing);
+      const x=mix(startX,targetX,landing),y=mix(mix(startY,h*.54,landing),targetY,after);
+      const width=length*videoTruckBounds.width/videoTruckBounds.height;
       truckContext.drawImage(truck,handoffTruck.x,handoffTruck.y,handoffTruck.width,handoffTruck.height,x-width/2,y-length/2,width,length);
-      layer.dataset.truckX=x.toFixed(2);layer.dataset.truckY=y.toFixed(2);layer.dataset.truckLength=length.toFixed(2);
+      layer.dataset.truckX=x.toFixed(2);layer.dataset.truckY=y.toFixed(2);layer.dataset.truckLength=length.toFixed(2);layer.dataset.truckWidth=width.toFixed(2);
     }
     function contrast(force=false){
       if(disposed||video.readyState<2||!video.videoWidth||!video.videoHeight||!Number.isFinite(video.duration)||video.duration<=0)return;
-      // Keep the road introduction white; blend into brand blue only as the
+      // Keep the desert introduction white; blend into brand blue only as the
       // supplied film dissolves into the pale overhead scene. Use the decoded
       // frame's time so the copy follows the picture during reverse seeking.
       const ink=smooth(segment(video.currentTime/video.duration,.68,.80));
@@ -146,62 +129,64 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
       // position after an in-flight seek instead of building a request backlog.
       const finalFrame=Math.max(0,Math.round(video.duration*heroFilm.frameRate)-1);
       const targetFrame=Math.round(finalFrame*segment(progress,0,.86));
-      // Seek inside the frame rather than onto its timestamp boundary. This
-      // also lets the original file reliably decode its final video frame
-      // when its audio track lasts a few milliseconds longer than the picture.
+      // Decode inside each frame rather than its timestamp boundary. Only the
+      // latest scroll target is queued, including when the user scrolls back.
       if(Math.floor(video.currentTime*heroFilm.frameRate+.00001)!==targetFrame)video.currentTime=(targetFrame+.5)/heroFilm.frameRate;
     }
     function queue(){if(!frame&&!disposed)frame=requestAnimationFrame(seek);}
     function update(p:number){
       progress=p;stage.dataset.heroProgress=p.toFixed(3);
       stage.style.setProperty('--hero-header-height',`${header.offsetHeight}px`);
+      if(compact){
+        const w=stage.clientWidth,h=stage.clientHeight;
+        const zoom=smooth(segment(p,.48,.86));
+        const landscape=w/h>1.6;
+        const scale=mix(landscape?Math.max(w/heroFilm.width,h/heroFilm.height):Math.min(h/heroFilm.height,w/660),landscape?Math.max(w/heroFilm.width,h/heroFilm.height):w/heroFilm.width,zoom);
+        const width=heroFilm.width*scale,height=heroFilm.height*scale;
+        const left=mix(w*.54-width*.57,(w-width)/2,zoom);
+        const top=mix(h-height,(h-height)*.5,zoom);
+        [video,plate].forEach(node=>{node.style.width=`${width}px`;node.style.height=`${height}px`;node.style.left=`${left}px`;node.style.top=`${top}px`;});
+        stage.style.setProperty('--mobile-copy-x',`${w*.38*zoom}px`);
+        stage.style.setProperty('--mobile-copy-width',`${w*(.89-.39*zoom)}px`);
+        stage.style.setProperty('--mobile-heading-size',`${Math.min(48,w*.106)*(1-.30*zoom)}px`);
+      }
       // Move the copy away from the truck's final lower-left position.
       copy.style.transform=!compact?`translateX(${stage.clientWidth*.49*smooth(segment(p,.30,.68))}px)`:'';
-      queue();handoff();positionEmail();queueEmailPosition();
+      queue();handoff();
     }
     function ready(){video.pause();queue();contrast();handoff();}
-    function sought(){contrast();queue();handoff();positionEmail();}
+    function sought(){contrast();queue();handoff();}
     function configure(){
       trigger?.kill(true);bridge?.kill();trigger=undefined;video.pause();update(0);
-      const reserveFollowingSection=()=>{root.style.paddingBottom=reduced.matches?'0px':`${Math.max(0,innerHeight-stage.clientHeight)}px`;};
-      reserveFollowingSection();
-      // Keep the 16:9 frame in place through the entire film and fade. The
-      // following section cannot enter until this scroll sequence completes.
-      if(!reduced.matches)trigger=ScrollTrigger.create({id:'panvibes-video-hero',trigger:root,pin:stage,pinType:'transform',start:0,
-        end:()=>`+=${Math.max(stage.clientHeight,innerHeight)*(compact?3:4)}`,invalidateOnRefresh:true,onRefreshInit:reserveFollowingSection,onUpdate:self=>update(self.progress),onRefresh:self=>{root.dataset.scrollStart=String(self.start);root.dataset.scrollEnd=String(self.end);update(self.progress);}});
-      if(trigger)bridge=ScrollTrigger.create({trigger:root,start:()=>trigger!.end,end:()=>trigger!.end+Math.max(stage.clientHeight,innerHeight),
+      if(!reduced.matches)trigger=ScrollTrigger.create({id:'panvibes-video-hero',trigger:root,pin:stage,start:'top top',
+        end:()=>`+=${stage.clientHeight*(compact?3:4)}`,invalidateOnRefresh:true,onUpdate:self=>update(self.progress),onRefresh:self=>{root.dataset.scrollStart=String(self.start);root.dataset.scrollEnd=String(self.end);update(self.progress);}});
+      if(trigger)bridge=ScrollTrigger.create({trigger:root,start:()=>trigger!.end,end:()=>Number(document.querySelector<HTMLElement>('.trade-journey-v2')?.dataset.scrollStart)||trigger!.end+stage.clientHeight,
         invalidateOnRefresh:true,onUpdate:handoff,onRefresh:handoff});
       if(trigger){root.dataset.scrollStart=String(trigger.start);root.dataset.scrollEnd=String(trigger.end);}
     }
     const resize=new ResizeObserver(()=>{update(progress);contrast(true);});resize.observe(stage);
-    // Pin transforms can settle after refresh and font callbacks. Track those
-    // geometry changes so the email shortcut follows the final painted frame.
-    const positioning=new MutationObserver(queueEmailPosition);
-    positioning.observe(root,{subtree:true,attributes:true,attributeFilter:['style']});
-    window.addEventListener('scroll',queueEmailPosition,{passive:true});
-    ScrollTrigger.addEventListener('refresh',queueEmailPosition);
-    truck.onload=handoff;plateImage.onload=handoff;
+    loadHandoffTruck()
+      .then(image=>{if(!disposed){truck=image;handoff();}})
+      .catch(error=>console.error('Hero truck preparation failed',error));
+    plateImage.onload=handoff;
     video.addEventListener('loadedmetadata',ready);video.addEventListener('loadeddata',ready);video.addEventListener('seeked',sought);
-    video.addEventListener('transitionend',positionEmail);
+    window.addEventListener('scroll',handoff,{passive:true});
     reduced.addEventListener('change',configure);configure();
-    document.fonts.ready.then(()=>{if(!disposed){ScrollTrigger.refresh();queueEmailPosition();}});
-    return()=>{disposed=true;cancelAnimationFrame(frame);cancelAnimationFrame(emailFrame);resize.disconnect();positioning.disconnect();trigger?.kill(true);bridge?.kill();video.pause();layer.remove();
-      truck.onload=null;plateImage.onload=null;delete document.documentElement.dataset.truckHandoff;
-      window.removeEventListener('scroll',queueEmailPosition);ScrollTrigger.removeEventListener('refresh',queueEmailPosition);delete document.documentElement.dataset.heroEmail;
-      ['left','top','width','height'].forEach(key=>document.documentElement.style.removeProperty(`--hero-mail-${key}`));document.documentElement.style.removeProperty('--hero-support-lift');document.documentElement.style.removeProperty('--hero-enquiry-lift');
+    document.fonts.ready.then(()=>{if(!disposed)ScrollTrigger.refresh();});
+    return()=>{disposed=true;cancelAnimationFrame(frame);resize.disconnect();trigger?.kill(true);bridge?.kill();video.pause();layer.remove();
+      plateImage.onload=null;delete document.documentElement.dataset.truckHandoff;
       video.removeEventListener('loadedmetadata',ready);video.removeEventListener('loadeddata',ready);video.removeEventListener('seeked',sought);
-      video.removeEventListener('transitionend',positionEmail);
-      reduced.removeEventListener('change',configure);copy.style.transform='';root.style.removeProperty('padding-bottom');
+      window.removeEventListener('scroll',handoff);
+      reduced.removeEventListener('change',configure);copy.style.transform='';
       [video,plate].forEach(node=>['width','height','left','top'].forEach(property=>node.style.removeProperty(property)));};
     });
     return()=>media.revert();
   },[]);
   return <section ref={rootRef} className="hero home-video-hero" id="home" aria-labelledby="hero-title">
     <div ref={stageRef} className="hero-stage home-video-stage">
-      <video ref={videoRef} className="home-hero-video" poster="/media/home-hero/hero-panvibes-1020-poster.jpg" preload="none" muted playsInline disablePictureInPicture aria-label="PanVibes-branded truck travelling through India. Scroll to move the truck."/>
+      <video ref={videoRef} className="home-hero-video" poster="/media/home-hero/hero-desert-branded-poster.jpg" preload="none" muted playsInline disablePictureInPicture disableRemotePlayback aria-label="Scroll-controlled PanVibes desert truck scene. Scroll to move; stop scrolling to pause."/>
       <div className="home-handoff-plate" aria-hidden="true"/>
       {children}
-      <a className="hero-email" href={`mailto:${company.email}?subject=${encodeURIComponent('B2B product enquiry — PanVibes Exim')}`} aria-label="Email PanVibes export sales" title={`Email ${company.email}`}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m4 7 8 6 8-6"/></svg></a>
     </div>
   </section>;
 }

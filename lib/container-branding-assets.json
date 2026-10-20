@@ -280,5 +280,8 @@
   "/media/home-hero/handoff-truck.webp": "/images/branded/home-hero/handoff-truck.webp",
   "/images/container-top.avif": "/images/branded/container-top.webp",
   "/images/journey-mobile/stills/container-top.webp": "/images/branded/journey-mobile/stills/container-top.webp",
-  "/images/ship.avif": "/images/branded/ship.webp"
+  "/images/ship.avif": "/images/branded/ship.webp",
+  "/media/home-hero/handoff-truck.png": "/images/branded/home-hero/desert-handoff-truck.png",
+  "/images/truck-top.avif": "/images/branded/truck-top.webp",
+  "/images/journey-mobile/stills/truck-top.webp": "/images/branded/journey-mobile/stills/truck-top.webp"
 }

@@ -1,7 +1,7 @@
 import brandedAssets from './container-branding-assets.json';
 import sequences from './reference-sequences.json';
 import mobileAssets from './mobile-journey-assets.json';
-import { handoffTruck, handoffCrop } from './hero-handoff';
+import { handoffTruck, handoffCrop, videoTruckBounds, loadHandoffTruck } from './hero-handoff';
 import { mix, segment, smooth, truckPose, receivingContainer, truckWheelAngle, tippingTruck, shipHandoff } from './journey-motion';
 
 // The reference uses pre-rendered 3D, not low-detail browser geometry. A single
@@ -22,6 +22,13 @@ export function createJourneyScene(host: HTMLElement) {
     while (!disposed && loading < 4 && queue.length) {
       const path = queue.shift()!, image = new Image();
       loading++; image.decoding = 'async'; image.dataset.asset = path;
+      if(path===handoffTruck.src){
+        loadHandoffTruck().then(truck=>{
+          loading--;waiting.delete(path);
+          if(!disposed){images.set(path,truck);redraw();pump();}
+        }).catch(()=>{loading--;waiting.delete(path);pump();});
+        continue;
+      }
       image.onload = () => {
         loading--; waiting.delete(path);
         image.onload = null; image.onerror = null;
@@ -118,7 +125,7 @@ export function createJourneyScene(host: HTMLElement) {
     const cameraTurn = smooth(segment(t, 6, 8));
     const smallX = smallTruck.x, smallY = smallTruck.y;
     if (t < 6) {
-      photo(image(handoffTruck.src),smallX,smallY,smallLength*handoffTruck.width/handoffTruck.height,smallLength,0,handoffCrop);
+      photo(image(handoffTruck.src),smallX,smallY,smallLength*videoTruckBounds.width/videoTruckBounds.height,smallLength,0,handoffCrop);
     }
     if (t >= 6 && t < 8) photo(frame('truck-turn', 1 - cameraTurn), smallX, smallY, smallLength, smallLength * 809 / 2880, (1 - cameraTurn) * Math.PI / 2);
     if (t >= 8 && t < 13) {

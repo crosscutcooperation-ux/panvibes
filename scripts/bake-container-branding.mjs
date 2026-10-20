@@ -9,11 +9,12 @@ const mobile=JSON.parse(await fs.readFile('lib/mobile-journey-assets.json','utf8
 const logo=await fs.readFile('public/images/panvibes-logo-transparent.png');
 const logoUri='data:image/png;base64,'+logo.toString('base64');
 const shipOnly=process.argv.includes('--ship-only');
-const mapping=shipOnly?JSON.parse(await fs.readFile('lib/container-branding-assets.json','utf8')):{};
+const roofsOnly=process.argv.includes('--truck-roofs-only');
+const mapping=JSON.parse(await fs.readFile('lib/container-branding-assets.json','utf8'));
 const interpolate=(keys,p)=>{let b=keys.findIndex(k=>k[0]>=p);if(b<0)return keys.at(-1).slice(1);if(!b)return keys[0].slice(1);const a=keys[b-1],z=keys[b],t=(p-a[0])/(z[0]-a[0]);return a.slice(1).map((v,i)=>v+(z[i+1]-v)*t)};
 const fit=(x,y,w,h,rotation=0,white=false,mirror=false)=>`<g transform="translate(${x} ${y}) rotate(${rotation}) scale(${mirror?-1:1} 1)"><image href="${logoUri}" x="${-w/2}" y="${-h/2}" width="${w}" height="${h}" preserveAspectRatio="xMidYMid meet" opacity=".94" ${white?'filter="url(#white)"':''}/></g>`;
 async function bake(src,marks){if(!marks.length)return;const meta=await sharp('public'+src).metadata();const w=meta.width,h=meta.height;const svg=`<svg xmlns="http://www.w3.org/2000/svg" width="${w}" height="${h}"><defs><filter id="white"><feColorMatrix values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/></filter></defs>${marks.map(m=>fit(m[0]*w,m[1]*h,m[2]*w,m[3]*h,m[4],m[5],m[6])).join('')}</svg>`;const dest='/images/branded'+src.replace(/^\/images|^\/media/,'').replace(/\.[^.]+$/,'.webp');await fs.mkdir(path.dirname('public'+dest),{recursive:true});await sharp('public'+src).composite([{input:Buffer.from(svg)}]).webp({quality:88,alphaQuality:100,effort:4}).toFile('public'+dest);mapping[src]=dest;}
-if(!shipOnly){
+if(!shipOnly&&!roofsOnly){
 for(const [name,frames] of Object.entries(sequences)){
  for(let i=0;i<frames.length;i++){
   const p=i/(frames.length-1);let marks=[];
@@ -43,9 +44,13 @@ await bake('/media/home-hero/handoff-truck.webp',[[.505,.38,.85,.15,-90,false]])
 await bake('/images/container-top.avif',[[.402,.50,.52,.52,0,false]]);
 await bake('/images/journey-mobile/stills/container-top.webp',[[.402,.50,.52,.52,0,false]]);
 }
+if(!shipOnly){
+await bake('/images/truck-top.avif',[[.402,.50,.52,.52,0,false]]);
+await bake('/images/journey-mobile/stills/truck-top.webp',[[.402,.50,.52,.52,0,false]]);
+}
 // Same roof positions as the approved ship treatment. Blue and orange/red
 // pink and dark green steel use white ink; lighter roofs keep the blue/orange logo.
 const rows=[{y:656,h:382,x:[128,225,321,417,513],white:[1,1,1,1,0]},{y:1120,h:382,x:[128,225,321,417,513],white:[1,1,1,1,1]},{y:1600,h:382,x:[128,225,321,417,513],white:[1,1,0,1,0]},{y:2060,h:382,x:[128,225,321,417,513],white:[0,1,1,1,1]},{y:2510,h:236,x:[128,225,321,417,513],white:[0,1,0,0,1]},{y:2800,h:350,x:[225,321,417],white:[1,1,1]}];
-await bake('/images/ship.avif',rows.flatMap(r=>r.x.map((x,i)=>[(x+42)/731,(r.y+r.h/2)/3579,r.h*.86/731,84*.76/3579,90,Boolean(r.white[i])])));
+if(!roofsOnly)await bake('/images/ship.avif',rows.flatMap(r=>r.x.map((x,i)=>[(x+42)/731,(r.y+r.h/2)/3579,r.h*.86/731,84*.76/3579,90,Boolean(r.white[i])])));
 await fs.writeFile('lib/container-branding-assets.json',JSON.stringify(mapping,null,2)+'\n');
 console.log('Baked',Object.keys(mapping).length,'assets; originals preserved.');

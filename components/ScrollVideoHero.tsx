@@ -5,6 +5,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { mix, segment, smooth, tippingTruck } from '@/lib/journey-motion';
 import { handoffTruck, heroFilm, videoTruckBounds, loadHandoffTruck } from '@/lib/hero-handoff';
 import videoAssets from '@/lib/hero-video-assets.json';
+import mobileTones from '@/lib/hero-mobile-tones.json';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ScrollVideoHero({children}:{children:ReactNode}) {
@@ -105,6 +106,15 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
       const ink=smooth(segment(video.currentTime/video.duration,.68,.80));
       stage.style.setProperty('--hero-copy-color',`rgb(${Math.round(mix(255,16,ink))} ${Math.round(mix(255,78,ink))} ${Math.round(mix(255,135,ink))})`);
       stage.style.setProperty('--hero-shadow-opacity',String(1-ink));
+      if(compact){
+        // Sampling a paused HD video through canvas forces pixel readback on
+        // each seek. These colours come from the same film, prepared offline.
+        const tone=mobileTones[Math.min(mobileTones.length-1,Math.max(0,Math.floor(video.currentTime*heroFilm.frameRate)))];
+        stage.style.setProperty('--hero-background',`rgb(${tone.join(',')})`);
+        const navigation=ink>.5?'#104e87':'#ffffff';
+        if(stage.style.getPropertyValue('--hero-nav-text')!==navigation){stage.style.setProperty('--hero-nav-text',navigation);window.dispatchEvent(new Event('panvibes:header-tone'));}
+        return;
+      }
       // Pixel readback stalls the decoder. Copy colour is cheap and follows
       // every presented seek; navigation sampling only needs occasional work.
       const now=performance.now();
@@ -123,13 +133,6 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
       const edge=ctx.getImageData(compact?visibleColumn:46,0,1,1).data;
       const background=`rgb(${edge[0]},${edge[1]},${edge[2]})`;
       stage.style.setProperty('--hero-background',background);
-      // The transparent mobile navigation follows the existing copy transition
-      // without a second canvas readback from the video decoder.
-      if(compact){
-        const tone=ink>.5?'#104e87':'#ffffff';
-        if(stage.style.getPropertyValue('--hero-nav-text')!==tone){stage.style.setProperty('--hero-nav-text',tone);window.dispatchEvent(new Event('panvibes:header-tone'));}
-        return;
-      }
       ctx.fillStyle=background;ctx.fillRect(0,0,48,28);
       ctx.drawImage(video,(bounds.left-stageBounds.left+(bounds.width-dw)/2)/w*48,(bounds.top-stageBounds.top+(bounds.height-dh)/2)/h*28,dw/w*48,dh/h*28);
       const pixels=ctx.getImageData(0,0,48,28).data;

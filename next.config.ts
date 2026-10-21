@@ -15,6 +15,9 @@ const nextConfig: NextConfig = {
     return [{
       source: '/media/home-hero/:asset(hero-web-.*)',
       headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+    },{
+      source: '/media/journey/:asset(journey-.*)',
+      headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
     }];
   },
   cacheComponents: true,

@@ -1,0 +1,12 @@
+{
+  "desktop": {
+    "src": "/media/journey/journey-desktop-01bd1fb3f723.bin",
+    "bytes": 6016677,
+    "entries": 203
+  },
+  "mobile": {
+    "src": "/media/journey/journey-mobile-c1aa40df0dd8.bin",
+    "bytes": 2907754,
+    "entries": 203
+  }
+}

@@ -35,7 +35,7 @@ try {
     console.log(`PASS: ${mobile?'mobile':'desktop'} first frame, loader, forward/reverse frame-accurate seeks and final-frame handoff`);
     await context.close();
   }
-  // A slow mobile connection must reveal the page instead of a long loader.
+  // Slow mobile connections still wait for the complete scene before release.
   const slow = await browser.newContext({ viewport:{width:390,height:844},isMobile:true,hasTouch:true });
   const page = await slow.newPage();
   const cdp = await slow.newCDPSession(page);

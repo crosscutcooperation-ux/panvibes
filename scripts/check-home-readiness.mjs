@@ -4,19 +4,21 @@ import {mkdirSync} from 'node:fs';
 const require=createRequire(import.meta.url);
 const {chromium}=require(process.env.PLAYWRIGHT_MODULE||'playwright');
 const base=process.env.BASE_URL||'http://127.0.0.1:3001';
+const journeyPattern='**/media/journey/journey-desktop-*.bin';
 mkdirSync('tmp/readiness',{recursive:true});
 const browser=await chromium.launch({headless:true});
 try{
   const context=await browser.newContext({viewport:{width:1440,height:900}});
-  const page=await context.newPage(),errors=[];
+  const page=await context.newPage(),errors=[],networkFrames=[];
   page.on('pageerror',error=>errors.push(error.message));
+  page.on('request',request=>{if(/\/images\/(?:branded\/)?journey(?:-mobile)?\//.test(request.url()))networkFrames.push(request.url());});
   let held,releaseHeld;
   const heldReady=new Promise(resolve=>{releaseHeld=resolve;});
-  await page.route('**/images/branded/ship.webp',route=>{held=route;releaseHeld();});
+  await page.route(journeyPattern,route=>{held=route;releaseHeld();});
   await page.goto(base,{waitUntil:'domcontentloaded'});
   await page.locator('.home-loader').waitFor({state:'visible'});
   await page.screenshot({path:'tmp/readiness/loader.png'});
-  // Even with the hero ready, one missing transport asset keeps the loader up.
+  // Even with the hero ready, the unfinished transport pack keeps the loader up.
   await page.waitForFunction(()=>document.querySelector('.home-video-stage')?.dataset.videoState==='ready',null,{timeout:45000});
   await heldReady;
   assert.equal(await page.locator('.home-loader').isVisible(),true);
@@ -24,7 +26,7 @@ try{
   await page.mouse.wheel(0,3000);
   assert.equal(await page.evaluate(()=>window.scrollY),0);
   assert.ok(held,'The complete journey, including its ship, must be prepared');
-  await held.continue();await page.unroute('**/images/branded/ship.webp');
+  await held.continue();await page.unroute(journeyPattern);
   await page.locator('.home-loader').waitFor({state:'hidden',timeout:45000});
   const ready=await page.evaluate(()=>({
     blob:document.querySelector('video').currentSrc.startsWith('blob:'),
@@ -45,6 +47,7 @@ try{
     if([8.5,11.7,25,33.1,38].includes(t))await page.screenshot({path:`tmp/readiness/journey-${t}.png`});
   }
   assert.deepEqual(errors,[]);
+  assert.deepEqual(networkFrames,[],'Prepared frames must decode from the pack, not download separately');
   console.log('PASS: all truck/crane/ship phases and reverse scrolling render without blank canvases or browser errors');
   await context.close();
 

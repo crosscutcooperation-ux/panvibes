@@ -1,6 +1,7 @@
 import brandedAssets from './container-branding-assets.json';
 import sequences from './reference-sequences.json';
 import mobileAssets from './mobile-journey-assets.json';
+import { preparedAsset } from './prepared-assets';
 import { handoffTruck, handoffCrop, videoTruckBounds, loadHandoffTruck } from './hero-handoff';
 import { mix, segment, smooth, truckPose, receivingContainer, truckWheelAngle, tippingTruck, shipHandoff } from './journey-motion';
 
@@ -42,7 +43,7 @@ export function createJourneyScene(host: HTMLElement) {
       };
       image.onerror = () => { loading--; waiting.delete(path);waiters.get(path)?.forEach(waiter=>waiter.reject());waiters.delete(path); pump(); };
       const resolved = compact ? (mobileAssets as Record<string,string>)[path] || path : path;
-      image.src = (brandedAssets as Record<string,string>)[resolved] || resolved;
+      image.src = preparedAsset((brandedAssets as Record<string,string>)[resolved] || resolved);
     }
   }
   function request(path: string, urgent = false) {

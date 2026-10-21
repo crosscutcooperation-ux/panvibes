@@ -1,14 +1,14 @@
 {
   "desktop": {
-    "src": "/media/home-hero/hero-web-desktop-b121dba6c06d.mp4",
-    "bytes": 4562674
+    "src": "/media/home-hero/hero-web-desktop-074caec1a437.mp4",
+    "bytes": 2115649
   },
   "dataSaver": {
     "src": "/media/home-hero/hero-web-mobile-f014664b1f9a.mp4",
     "bytes": 1669238
   },
   "mobile": {
-    "src": "/media/home-hero/hero-web-mobile-e4f2306405d1.mp4",
-    "bytes": 14157742
+    "src": "/media/home-hero/hero-web-mobile-d2ead18a40e8.mp4",
+    "bytes": 4101081
   }
 }

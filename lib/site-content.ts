@@ -81,7 +81,7 @@ export const services = [
 export const stats = [
   { value: 10, suffix: "+", label: "Product categories", description: "A portfolio of agro products, food, nutraceutical ingredients and specialty chemicals." },
   { value: 25, suffix: "+", label: "Subproduct categories", description: "Explore dehydrated produce, spices, dry fruits, snacks and more in our catalogue." },
-  { value: shippingMarkets.length, suffix: "", label: "Shipping markets", description: "Shipping only to India, the UK, the USA, Europe and the UAE." },
+  { value: shippingMarkets.length, suffix: "+", label: "Shipping markets", description: "Shipping only to India, the UK, the USA, Europe and the UAE." },
   { value: 5, suffix: "+", label: "Services provided", description: "Export, import, transport, document verification and freight forwarding support." },
 ];
 export const industries = [

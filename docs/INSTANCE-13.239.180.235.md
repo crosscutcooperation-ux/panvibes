@@ -43,3 +43,19 @@ The exact deployed commit and release directory are recorded in
 `/home/ubuntu/panvibes-deployed.txt`. Updating source alone does not rebuild or
 restart the running release. Preserve `/etc/panvibes.env` and the SQLite database
 when changing release paths.
+
+## Verification on 21 October 2026
+
+Application release `90dd1a6e5a0955273ac3a64da4dedf9da53585f5` passed the public
+checks for 18 pages, 27 articles and 93 referenced assets, all three MP4 delivery
+variants, 11 first-paint routes, desktop/mobile forward and reverse seeking,
+slow 3G, blocked-video retry and reduced motion. Admin login was tested through
+the IP with a persistent browser cookie; dashboard access, CSV export and logout
+all worked. A real chatbot query returned Gemini mode successfully.
+
+SMTP settings are installed, but Google returns `534 5.7.9 WebLoginRequired` when
+the new instance authenticates. Google requires browser/account verification
+for the sending account before SMTP can send enquiry notifications or reset
+codes. This is an upstream authentication restriction, not missing server
+configuration. Enquiries are retained in SQLite and accessible through admin
+even when notification delivery fails. No real test email was sent.

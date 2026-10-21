@@ -3,6 +3,7 @@ import { createHash, createHmac, randomBytes, randomInt, scryptSync, timingSafeE
 import { cookies } from 'next/headers';
 import { database } from './enquiry-db';
 import { sendMail } from './mailer';
+import { adminCookieSecure } from './admin-cookie';
 
 export const adminCookie = 'panvibes_admin';
 const sessionLifetime = 8 * 60 * 60;
@@ -55,8 +56,8 @@ export async function loginAdmin(username: string, password: string, request: Re
   db.prepare('INSERT INTO admin_sessions VALUES(?,?,?)').run(digest(token), user.password_version, Date.now() + sessionLifetime * 1000);
   const url = new URL(request.url);
   const hostname = new URL('http://' + (request.headers.get('host') || url.host)).hostname;
-  const local = /^(localhost|127\.0\.0\.1|\[::1\])$/.test(hostname);
-  (await cookies()).set(adminCookie, token, { httpOnly: true, sameSite: 'strict', secure: !local || url.protocol === 'https:', path: '/', maxAge: sessionLifetime });
+  const protocol = request.headers.get('x-forwarded-proto')?.split(',')[0].trim() || url.protocol;
+  (await cookies()).set(adminCookie, token, { httpOnly: true, sameSite: 'strict', secure: adminCookieSecure(hostname, protocol, process.env.ADMIN_HTTP_HOST), path: '/', maxAge: sessionLifetime });
   return { username: user.username };
 }
 

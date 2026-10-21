@@ -34,7 +34,7 @@ export function Pill({
 export function Brand({ large = false }: { large?: boolean }) {
   return (
     <span className={`brand ${large ? "brand-large" : ""}`}>
-      <Image src="/images/panvibes-logo-transparent.png" width={2071} height={759} sizes={large?'380px':'230px'} alt="PanVibes Exim — Quality, Trust, Global" priority={!large}/>
+      <Image src="/images/panvibes-logo-ffad64e4ba54.webp" width={2071} height={759} sizes={large?'380px':'230px'} alt="PanVibes Exim — Quality, Trust, Global" priority={!large}/>
     </span>
   );
 }

@@ -31,7 +31,7 @@ export default function HomeExperience({children}:{children:ReactNode}){
     <div ref={content} className="home-experience" data-home-ready={!loading}>{children}</div>
     {loading&&<div className="home-loader" role="dialog" aria-modal="true" aria-labelledby="home-loader-title">
       <div className="home-loader-inner">
-        <Image src="/images/panvibes-logo-transparent.png" width={240} height={90} alt="PanVibes Exim" unoptimized/>
+        <Image src="/images/panvibes-logo-ffad64e4ba54.webp" width={240} height={90} alt="PanVibes Exim" loading="eager" fetchPriority="high" unoptimized/>
         <p className="home-loader-eyebrow">Quality · Trust · Global</p>
         <h2 id="home-loader-title">Preparing your journey.</h2>
         <p className="home-loader-message" role="status">{error||'Getting the opening film and journey ready for smooth scrolling.'}</p>

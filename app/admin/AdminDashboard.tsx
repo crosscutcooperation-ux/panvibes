@@ -7,7 +7,7 @@ import { csvFields } from '@/lib/enquiry-csv';
 type Enquiry = Record<string, string | number | null> & { reference: string; created_at: string; name: string; company: string; email: string; product: string; status: string; email_status: string };
 type Dashboard = { summary: { total: number; unread: number; week: number; failedEmails: number }; rows: Enquiry[]; count: number; page: number; pages: number };
 type Screen = 'loading' | 'login' | 'request' | 'reset' | 'dashboard';
-const logo = '/images/panvibes-logo-transparent.png';
+const logo = '/images/panvibes-logo-ffad64e4ba54.webp';
 
 async function api(path: string, body?: unknown) {
   const response = await fetch('/api/admin/' + path, { method: body ? 'POST' : 'GET', headers: body ? { 'Content-Type': 'application/json' } : undefined, body: body ? JSON.stringify(body) : undefined, cache: 'no-store' });

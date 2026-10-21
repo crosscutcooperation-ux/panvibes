@@ -4,8 +4,12 @@ import SiteMotion from "@/components/SiteMotion";
 import Footer from "@/components/Footer";
 import { IngredientLinks, BuyerFaqs } from '@/components/ProcurementContent';
 import HomeExperience from '@/components/HomeExperience';
+import packs from '@/lib/journey-packs.json';
 export default function Home() {
   return (
+    <>
+    <link rel="preload" as="fetch" href={packs.desktop.src} crossOrigin="anonymous" media="(min-width: 992px) and (pointer: fine) and (prefers-reduced-motion: no-preference)"/>
+    <link rel="preload" as="fetch" href={packs.mobile.src} crossOrigin="anonymous" media="(max-width: 991px) and (prefers-reduced-motion: no-preference), (pointer: coarse) and (prefers-reduced-motion: no-preference)"/>
     <HomeExperience><SiteMotion>
       <main>
         <Hero />
@@ -14,5 +18,6 @@ export default function Home() {
       </main>
       <Footer />
     </SiteMotion></HomeExperience>
+    </>
   );
 }

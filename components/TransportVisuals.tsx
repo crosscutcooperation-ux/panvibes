@@ -78,7 +78,7 @@ export function Tempo() {
       ))}
       <path d="M68 236h363v19H68Z" fill="#939aa2" />
       <path d="M81 243h338" stroke="#f50" strokeWidth="3" />
-      <image href="/images/panvibes-logo-transparent.png" x="112" y="112" width="275" height="101" preserveAspectRatio="xMidYMid meet" />
+      <image href="/images/panvibes-logo-ffad64e4ba54.webp" x="112" y="112" width="275" height="101" preserveAspectRatio="xMidYMid meet" />
       </g>
       <path
         d="M430 246h34V119q0-29 31-30h47q17 0 25 20l42 82v55h23v22H430Z"

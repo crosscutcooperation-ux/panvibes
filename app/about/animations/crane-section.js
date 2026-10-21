@@ -423,7 +423,7 @@ class LogisticsCrane extends HTMLElement {
       brandedWalls.forEach(wall=>{wall.material=wallPaint;});
       this.dataset.branded='true';this.dataset.brandStyle='baked-wall-texture';this.render();
     };
-    brandImage.src='/images/panvibes-logo-transparent.png';
+    brandImage.src='/images/panvibes-logo-ffad64e4ba54.webp';
 
     this.mainCables = [-1, 1].map(sign => ({
       mesh: rod(this.scene, [tip.x + sign * .13, tip.y, 0], [tip.x + sign * .13, 3.6, 0], .018, steel),

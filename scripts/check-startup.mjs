@@ -7,7 +7,7 @@ for(const route of routes){
   const response=await fetch(new URL(route,origin),{signal:AbortSignal.timeout(20000)});
   assert.equal(response.status,200,route);
   const html=await response.text();
-  assert.ok(!html.includes('class="route-loader"'),`${route}: no screen-blocking media loader`);
+  assert.equal(html.includes('class="home-loader"'),['/','/mobile-preview'].includes(route),`${route}: the readiness loader belongs only to the animated homepage and its preview`);
   if(route==='/'){
     home=html;
     const hints=response.headers.get('link')||'';
@@ -26,4 +26,4 @@ for(const script of scripts){
 assert.ok(bytes<900000,`Initial JS budget exceeded: ${bytes} bytes`);
 const admin=await fetch(new URL('/api/admin/enquiries',origin));
 assert.equal(admin.status,401,'Private enquiries must remain protected');
-console.log(`PASS: ${routes.length} routes, immediate visible content, high-priority poster, deferred artwork, protected admin, ${scripts.length} initial scripts / ${bytes} decoded JS bytes.`);
+console.log(`PASS: ${routes.length} routes, homepage readiness loader, high-priority poster, protected admin, ${scripts.length} initial scripts / ${bytes} decoded JS bytes.`);

@@ -1,6 +1,6 @@
 "use client";
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Globe from "./Globe";
@@ -12,6 +12,8 @@ import { brandTheme } from "@/lib/brand-theme";
 import { useServiceDetails } from './ServiceDetails';
 import EnquiryButton from './EnquiryButton';
 import { whenNear } from '@/lib/when-near';
+import { useHomeLoading } from './HomeExperience';
+import { prepareJourneyDownloads } from '@/lib/home-assets';
 
 gsap.registerPlugin(ScrollTrigger);
 export default function Journey() {
@@ -20,14 +22,19 @@ export default function Journey() {
   const vehicleHost=useRef<HTMLDivElement>(null);
   const [globeActive,setGlobeActive]=useState(false);
   const [assetsReady,setAssetsReady]=useState(false);
+  const {staticView,report,fail}=useHomeLoading();
+  const globePrepared=useCallback((ready:boolean)=>report('globe',ready?1:0),[report]);
+  const globeFallback=useCallback(()=>report('globe',1),[report]);
   useEffect(()=>{
     const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
     const compact=window.matchMedia('(max-width: 991px), (pointer: coarse)');
     const run=()=>{
     const el=root.current!, host=vehicleHost.current!;
-    let cancelled=false, active=false;
+    let cancelled=false, active=false;report('journey',0);
+    const downloads=new AbortController();
     let dispose=()=>{};
-    if(reduced.matches){
+    if(reduced.matches||staticView){
+      report('journey',1);report('globe',1);
       const stopAssets=whenNear(el,()=>setAssetsReady(true),Math.max(1200,window.innerHeight*2));
       const observer=new IntersectionObserver(([entry])=>setGlobeActive(entry.isIntersecting));
       observer.observe(el.querySelector(".motion-orbit")!);
@@ -130,19 +137,33 @@ export default function Journey() {
         scrollTrigger:{id:"panvibes-journey",trigger:el,pin:stage,start:"top top",end:()=>"+="+stage.clientHeight*(compact.matches?19:JOURNEY_SCREENS),scrub:compact.matches?.25:.35,invalidateOnRefresh:true,onRefresh:self=>{el.dataset.scrollStart=String(self.start);el.dataset.scrollEnd=String(self.end);measure();draw();}}});
       const resize=new ResizeObserver(()=>{measure();draw();});[stage,track,industryTrack,...statRows].forEach(node=>resize.observe(node));
       draw();ScrollTrigger.refresh();
-      const stopLoading=whenNear(el,()=>{
-        setAssetsReady(true);
-        import('@/lib/journey-scene').then(({createJourneyScene})=>{
+      let stalled:ReturnType<typeof setTimeout>;
+      const heartbeat=()=>{clearTimeout(stalled);stalled=setTimeout(()=>{downloads.abort();if(!cancelled)fail('Loading paused because the connection stopped. Retry, or continue with the still view.');},30000);};
+      heartbeat();
+      async function prepare(){
+        try{
+          await prepareJourneyDownloads(compact.matches,downloads.signal,value=>{heartbeat();report('journey',value*.9);});
           if(cancelled)return;
-          scene=createJourneyScene(host);el.dataset.sceneReady='true';draw();
-        }).catch(error=>console.error('Journey rendering unavailable',error));
-      },Math.max(1200,window.innerHeight*2));
+          const {createJourneyScene}=await import('@/lib/journey-scene');
+          if(cancelled)return;
+          scene=createJourneyScene(host);await scene.prepare();
+          if(cancelled)return;
+          setAssetsReady(true);
+          await new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve())));
+          await Promise.all([...stage.querySelectorAll<HTMLImageElement>('img')].map(image=>image.decode()));
+          if(cancelled)return;
+          await document.fonts.ready;
+          measure();ScrollTrigger.refresh();draw();el.dataset.sceneReady='true';report('journey',1);
+        }catch{if(!cancelled)fail('Some journey assets could not be prepared. Retry, or continue with the still view.');}
+        finally{clearTimeout(stalled);}
+      }
+      void prepare();
       if(animation.scrollTrigger){el.dataset.scrollStart=String(animation.scrollTrigger.start);el.dataset.scrollEnd=String(animation.scrollTrigger.end);}
       const revealServices=()=>{const trigger=animation.scrollTrigger;if(trigger){ScrollTrigger.refresh();window.scrollTo({top:trigger.start+(trigger.end-trigger.start)*18/JOURNEY_DURATION,behavior:'instant'});}};
       window.addEventListener('panvibes:services',revealServices);
       document.fonts.ready.then(()=>{if(!cancelled&&new URLSearchParams(window.location.search).get('section')==='services')revealServices();});
       dispose=()=>{
-        stopLoading();window.removeEventListener('panvibes:services',revealServices);resize.disconnect();animation.scrollTrigger?.kill();animation.kill();scene?.dispose();el.classList.remove('continuous-motion');delete el.dataset.sceneReady;
+        clearTimeout(stalled);downloads.abort();window.removeEventListener('panvibes:services',revealServices);resize.disconnect();animation.scrollTrigger?.kill();animation.kill();scene?.dispose();el.classList.remove('continuous-motion');delete el.dataset.sceneReady;
         // Leaving the desktop breakpoint must also remove the scene's inline
         // transforms/visibility, otherwise its natural mobile content stays hidden.
         [lane,...statRows,paper,track,serviceFloor,road,industry,industryTrack,ocean,oceanTexture,ship,globe,worldCopy,...clouds,progress,host].forEach(node=>{
@@ -158,13 +179,13 @@ export default function Journey() {
     const configure=()=>{stop();stop=run();ScrollTrigger.refresh();};
     compact.addEventListener('change',configure);reduced.addEventListener('change',configure);
     return()=>{stop();compact.removeEventListener('change',configure);reduced.removeEventListener('change',configure);};
-  },[]);
+  },[staticView,report,fail]);
   return (
     <section className="trade-journey-v2" ref={root} data-assets-ready={assetsReady||undefined} aria-label="The PanVibes journey">
       <div className="motion-stage">
         <section className="motion-orbit" aria-labelledby="transit-title">
           <div className="motion-stars" />
-          <div className="motion-globe"><Globe active={globeActive}/></div>
+          <div className="motion-globe"><Globe active={globeActive} prepare={!staticView} onPrepared={globePrepared} onFailure={globeFallback}/></div>
           <div className="motion-world-copy">
             <p className="eyebrow">PanVibes Exim</p>
             <p className="transit-description">We ship only to India, the UK, the USA, Europe and the UAE.</p>
@@ -175,7 +196,7 @@ export default function Journey() {
         </section>
         <div className="motion-ocean" aria-hidden="true">
           <div className="motion-ocean-texture"/>
-          <div className="motion-ship">{assetsReady&&<Image src="/images/branded/ship.webp" width={731} height={3579} alt="" unoptimized/>}</div>
+          <div className="motion-ship">{assetsReady&&<Image src="/images/branded/ship.webp" width={731} height={3579} alt="" loading="eager" unoptimized/>}</div>
         </div>
         <div className="motion-paper" aria-hidden="true">
           <div className="arrival-lane"><div/></div>
@@ -191,17 +212,17 @@ export default function Journey() {
         <div className="motion-service-track" aria-labelledby="services-title">
           <div className="motion-service-intro"><p className="eyebrow">Our services / 01—05</p><h2 id="services-title">Your vision.<br/>Our expert<br/>execution.</h2><p>{company.heroDescription}</p><EnquiryButton className="pill pill-outline" purpose="Bulk quotation">Request a Quote</EnquiryButton></div>
           {services.map((service,i)=><article className="motion-service-card" key={service.title.join(" ")}>
-            <div className="motion-service-top"><span className="mono">0{i+1}</span>{assetsReady&&<Image src={"/images/"+service.image} width={200} height={150} alt="" unoptimized/>}</div>
+            <div className="motion-service-top"><span className="mono">0{i+1}</span>{assetsReady&&<Image src={"/images/"+service.image} width={200} height={150} alt="" loading="eager" unoptimized/>}</div>
             <h3><button type="button" className="service-title-button" onClick={()=>openDetails(i)}>{service.title[0]}<br/>{service.title[1]}</button></h3><p className="motion-service-overview">{service.overview}</p><p>{service.description}</p><span className="mono motion-features">{service.features}</span><button type="button" onClick={()=>openDetails(i)} className="text-link mono">View details & enquire<Arrow diagonal/></button>
           </article>)}
         </div>
         <section className="motion-industries" aria-labelledby="industries-title">
           <div className="motion-industry-title"><p className="eyebrow">PanVibes Exim</p><h2 id="industries-title">Industries<br/>we serve.</h2><p className="motion-industry-introduction">{company.industryIntroduction}</p><p className="motion-industry-note">{company.overview[2]}</p></div>
-          <div className="motion-industry-track">{industries.map((industry,i)=><article className="motion-industry-card" key={industry.name}><div className="motion-industry-photo">{assetsReady&&<Image src={"/images/"+industry.image} alt={industry.name} fill sizes="(max-width: 767px) 43vw, 33vw"/>}<span className="mono">0{i+1}</span><h3>{industry.name}</h3></div><p>{industry.description}</p></article>)}</div>
+          <div className="motion-industry-track">{industries.map((industry,i)=><article className="motion-industry-card" key={industry.name}><div className="motion-industry-photo">{assetsReady&&<Image src={"/images/"+industry.image} alt={industry.name} fill sizes="(max-width: 767px) 43vw, 33vw" loading="eager" unoptimized/>}<span className="mono">0{i+1}</span><h3>{industry.name}</h3></div><p>{industry.description}</p></article>)}</div>
         </section>
         <div className="motion-vehicles" ref={vehicleHost} aria-hidden="true"/>
-        <div className="motion-cloud motion-cloud-left" aria-hidden="true">{assetsReady&&<Image src="/images/cloud-left.avif" alt="" width={1400} height={1400} unoptimized/>}</div>
-        <div className="motion-cloud motion-cloud-right" aria-hidden="true">{assetsReady&&<Image src="/images/cloud-right.avif" alt="" width={1400} height={1400} unoptimized/>}</div>
+        <div className="motion-cloud motion-cloud-left" aria-hidden="true">{assetsReady&&<Image src="/images/cloud-left.avif" alt="" width={1400} height={1400} loading="eager" unoptimized/>}</div>
+        <div className="motion-cloud motion-cloud-right" aria-hidden="true">{assetsReady&&<Image src="/images/cloud-right.avif" alt="" width={1400} height={1400} loading="eager" unoptimized/>}</div>
         <div className="motion-progress mono" aria-hidden="true"><span>PanVibes Exim</span><div><i/></div><span>Scroll to explore ↓</span></div>
       </div>
     </section>

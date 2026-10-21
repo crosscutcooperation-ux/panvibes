@@ -20,6 +20,7 @@ import './header-contrast.css';
 import './enquiry.css';
 import './cursor.css';
 import './owner-refinements.css';
+import './loading.css';
 import ShipCursor from '@/components/ShipCursor';
 import EnquiryProvider from '@/components/EnquiryProvider';
 import EnquiryButton from '@/components/EnquiryButton';

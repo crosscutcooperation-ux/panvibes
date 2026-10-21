@@ -15,6 +15,8 @@ export function createJourneyScene(host: HTMLElement) {
   const waiting = new Set<string>();
   const queue: string[] = [];
   const needed = new Set<string>();
+  const waiters=new Map<string,{resolve:()=>void;reject:()=>void}[]>();
+  const displayed=new Map<string,{path:string;image:HTMLImageElement}>();
   let disposed = false, loading = 0, raf = 0, time = 0, width = 0, height = 0;
   const framePaths = new Set(Object.values(sequences).flat());
   const pinned = new Set<string>(['/images/truck-container.avif', '/images/truck-top.avif', '/images/container-top.avif', '/images/container-blue.avif', '/images/container-orange.avif', '/images/crane-base.avif', '/images/crane-beam.avif', sequences['crane-lift'][0], sequences['truck-turn'][0], sequences['truck-turn'].at(-1)!, sequences['crane-place'].at(-1)!]);
@@ -27,15 +29,18 @@ export function createJourneyScene(host: HTMLElement) {
         loadHandoffTruck().then(truck=>{
           loading--;waiting.delete(path);
           if(!disposed){images.set(path,truck);if(needed.has(path))redraw();pump();}
-        }).catch(()=>{loading--;waiting.delete(path);pump();});
+          waiters.get(path)?.forEach(waiter=>waiter.resolve());waiters.delete(path);
+        }).catch(()=>{loading--;waiting.delete(path);waiters.get(path)?.forEach(waiter=>waiter.reject());waiters.delete(path);pump();});
         continue;
       }
-      image.onload = () => {
-        loading--; waiting.delete(path);
+      image.onload = async () => {
         image.onload = null; image.onerror = null;
+        try{await image.decode();}catch{loading--;waiting.delete(path);waiters.get(path)?.forEach(waiter=>waiter.reject());waiters.delete(path);pump();return;}
+        loading--; waiting.delete(path);
         if (!disposed) { images.set(path, image); if (needed.has(path)) redraw(); pump(); }
+        waiters.get(path)?.forEach(waiter=>waiter.resolve());waiters.delete(path);
       };
-      image.onerror = () => { loading--; waiting.delete(path); pump(); };
+      image.onerror = () => { loading--; waiting.delete(path);waiters.get(path)?.forEach(waiter=>waiter.reject());waiters.delete(path); pump(); };
       const resolved = compact ? (mobileAssets as Record<string,string>)[path] || path : path;
       image.src = (brandedAssets as Record<string,string>)[resolved] || resolved;
     }
@@ -60,7 +65,11 @@ export function createJourneyScene(host: HTMLElement) {
       if (list[index + offset]) request(list[index + offset]);
       if (list[index - offset]) request(list[index - offset]);
     }
-    if (images.has(list[index])) return images.get(list[index]);
+    const exact=images.get(list[index]);
+    if(exact){displayed.set(name,{path:list[index],image:exact});return exact;}
+    // Hold the preceding rendered frame while its replacement decodes. Picking
+    // an arbitrary cached endpoint makes the truck/crane jump backwards.
+    const previous=displayed.get(name);if(previous)return previous.image;
     for (let distance = 1; distance < list.length; distance++) {
       const nearby = images.get(list[index - distance]) || images.get(list[index + distance]);
       if (nearby) return nearby;
@@ -68,6 +77,7 @@ export function createJourneyScene(host: HTMLElement) {
   }
   pinned.add(handoffTruck.src);
   pinned.add('/images/panvibes-logo-transparent.png');
+  for(const list of Object.values(sequences)){pinned.add(list[0]);pinned.add(list.at(-1)!);}
   function photo(asset: HTMLImageElement | undefined, x: number, y: number, w: number, h: number, angle = 0, crop?: [number, number, number, number]) {
     if (!asset) return;
     ctx.save(); ctx.translate(x, y); ctx.rotate(angle);
@@ -257,10 +267,17 @@ export function createJourneyScene(host: HTMLElement) {
     }
     // Keep a bounded decoded-image cache rather than retaining hundreds of
     // full-resolution frames on phones. Nearby frames refill on reverse scroll.
-    if (images.size > (compact?40:76)) for (const [path, cached] of images) {
-      if (images.size <= (compact?30:60)) break;
-      if (!pinned.has(path) && !needed.has(path) && framePaths.has(path)) { images.delete(path); cached.onload = null; cached.onerror = null; cached.src = ''; }
+    if (images.size > (compact?28:38)) for (const [path, cached] of images) {
+      if (images.size <= (compact?24:32)) break;
+      if (!pinned.has(path) && !needed.has(path) && ![...displayed.values()].some(frame=>frame.path===path) && framePaths.has(path)) { images.delete(path); cached.onload = null; cached.onerror = null; cached.src = ''; }
     }
   }
-  return { draw, dispose() { disposed = true; cancelAnimationFrame(raf); queue.length = 0; images.forEach((asset,path) => { if(path===handoffTruck.src)return; asset.onload = null; asset.onerror = null; asset.src = ''; }); images.clear(); canvas.remove(); } };
+  async function prepare(){
+    await Promise.all([...pinned].filter(path=>path!=='/images/panvibes-logo-transparent.png').map(path=>{
+      if(images.has(path))return Promise.resolve();
+      return new Promise<void>((resolve,reject)=>{const list=waiters.get(path)||[];list.push({resolve,reject:()=>reject(new Error('A transport frame could not be decoded'))});waiters.set(path,list);request(path,true);});
+    }));
+    canvas.dataset.ready='true';
+  }
+  return { draw, prepare, dispose() { disposed = true; cancelAnimationFrame(raf); queue.length = 0;waiters.forEach(list=>list.forEach(waiter=>waiter.reject()));waiters.clear();displayed.clear(); images.forEach((asset,path) => { if(path===handoffTruck.src)return; asset.onload = null; asset.onerror = null; asset.src = ''; }); images.clear(); canvas.remove(); } };
 }

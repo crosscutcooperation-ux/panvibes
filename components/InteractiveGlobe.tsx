@@ -3,9 +3,11 @@ import { useEffect, useRef } from 'react';
 import { destinations } from '@/lib/site-content';
 import { officeLocation } from '@/lib/office-location';
 
-export default function InteractiveGlobe({active=true,variant='home',focusOffice=false}:{active?:boolean;variant?:'home'|'contact';focusOffice?:boolean}) {
+export default function InteractiveGlobe({active=true,variant='home',focusOffice=false,prepare=false,onPrepared,onFailure}:{active?:boolean;variant?:'home'|'contact';focusOffice?:boolean;prepare?:boolean;onPrepared?:(ready:boolean)=>void;onFailure?:()=>void}) {
   const container=useRef<HTMLDivElement>(null),activeRef=useRef(active);
   const focusRef=useRef(focusOffice);
+  const prepareRef=useRef(prepare),preparedRef=useRef(onPrepared),failureRef=useRef(onFailure);
+  useEffect(()=>{preparedRef.current=onPrepared;failureRef.current=onFailure;prepareRef.current=prepare;container.current?.dispatchEvent(new Event('globe-activity'));},[prepare,onPrepared,onFailure]);
   useEffect(()=>{activeRef.current=active;container.current?.dispatchEvent(new Event('globe-activity'));},[active]);
   useEffect(()=>{focusRef.current=focusOffice;container.current?.dispatchEvent(new Event(focusOffice?'globe-office-focus':'globe-reset'));},[focusOffice]);
   useEffect(()=>{
@@ -129,20 +131,23 @@ export default function InteractiveGlobe({active=true,variant='home',focusOffice
         group.updateMatrixWorld();labels.forEach(({point,label,marker})=>{const world=point.clone().applyMatrix4(group.matrixWorld),visible=world.z>.25&&(!officeFocused||flight<.22);const projected=world.project(camera);label.style.opacity=visible?'1':'0';marker.material.opacity=officeFocused?Math.max(0,1-flight*2):1;label.style.transform=`translate(${(projected.x*.5+.5)*width}px,${(-projected.y*.5+.5)*height-12}px) translate(-50%,-100%)`;});
         host.dataset.rotation=`${group.rotation.x.toFixed(3)},${group.rotation.y.toFixed(3)}`;host.dataset.zoom=camera.position.z.toFixed(2);host.dataset.touch=strength.value.toFixed(2);renderer.render(scene,camera);dirty=false;
         frame=requestAnimationFrame(animate);
-      };if(focusRef.current)officeFocus();else syncActivity();host.classList.add('globe-ready');
+      };if(focusRef.current)officeFocus();else syncActivity();renderer.render(scene,camera);host.classList.add('globe-ready');preparedRef.current?.(true);
       document.addEventListener('visibilitychange',syncActivity);host.addEventListener('globe-activity',syncActivity);
       dispose=()=>{cancelAnimationFrame(frame);resize.disconnect();visibility.disconnect();document.removeEventListener('visibilitychange',syncActivity);host.removeEventListener('globe-activity',syncActivity);canvas.removeEventListener('pointerdown',down);canvas.removeEventListener('pointermove',move);canvas.removeEventListener('pointerup',up);canvas.removeEventListener('pointercancel',up);canvas.removeEventListener('pointerleave',leave);canvas.removeEventListener('dblclick',reset);canvas.removeEventListener('keydown',keydown);host.removeEventListener('globe-reset',reset);host.removeEventListener('globe-zoom-in',zoomIn);host.removeEventListener('globe-zoom-out',zoomOut);host.removeEventListener('globe-office-focus',officeFocus);scene.traverse(object=>{if(object instanceof THREE.Mesh||object instanceof THREE.Points||object instanceof THREE.Line){object.geometry.dispose();(Array.isArray(object.material)?object.material:[object.material]).forEach(material=>material.dispose());}});map.dispose();bump.dispose();renderer.dispose();host.replaceChildren();host.classList.remove('globe-ready');};
     }
     // Defer the WebGL module, textures and geometry until the globe is nearby.
     let nearby=false,started=false;
     const start=()=>{
-      if(started||!nearby||!activeRef.current)return;
+      const prewarming=prepareRef.current&&!matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if(started||(!prewarming&&(!nearby||!activeRef.current)))return;
       started=true;preload.disconnect();
-      setup().catch(error=>{if(!cancelled)console.warn('Globe unavailable; displaying the static fallback.',error);});
+      preparedRef.current?.(false);
+      setup().catch(error=>{if(!cancelled){failureRef.current?.();console.warn('Globe unavailable; displaying the static fallback.',error);}});
     };
     const preload=new IntersectionObserver(([entry])=>{nearby=entry.isIntersecting;start();},{rootMargin:'300px'});
     preload.observe(host);
     host.addEventListener('globe-activity',start);
+    start();
     return()=>{cancelled=true;preload.disconnect();host.removeEventListener('globe-activity',start);abort.abort();dispose();};
   },[variant]);
   return <div className={`globe-shell globe-${variant}`}><div ref={container} className="globe-renderer"/>

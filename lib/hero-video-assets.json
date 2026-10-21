@@ -3,8 +3,12 @@
     "src": "/media/home-hero/hero-web-desktop-b121dba6c06d.mp4",
     "bytes": 4562674
   },
-  "mobile": {
+  "dataSaver": {
     "src": "/media/home-hero/hero-web-mobile-f014664b1f9a.mp4",
     "bytes": 1669238
+  },
+  "mobile": {
+    "src": "/media/home-hero/hero-web-mobile-8b3f06abef08.mp4",
+    "bytes": 15732342
   }
 }

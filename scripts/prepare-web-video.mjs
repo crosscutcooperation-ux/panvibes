@@ -7,8 +7,16 @@ import path from 'node:path';
 
 const directory = path.resolve('public/media/home-hero');
 const source = path.join(directory, 'hero-desert-branded-desktop.mp4');
-const manifest = {};
-for (const [variant, width, crf] of [['desktop', 1280, 27], ['mobile', 768, 28]]) {
+const manifestPath = path.resolve('lib/hero-video-assets.json');
+const manifest = JSON.parse(readFileSync(manifestPath, 'utf8'));
+const variants = [['desktop', 1280, 27], ['mobile', 1920, 24], ['dataSaver', 768, 28]];
+// Pass variant names to rebuild only the required assets, preserving the rest.
+const requested = process.argv.slice(2);
+if (requested.some(name => !variants.some(([variant]) => variant === name))) {
+  throw new Error('Choose desktop, mobile or dataSaver');
+}
+for (const [variant, width, crf] of variants) {
+  if (requested.length && !requested.includes(variant)) continue;
   const temporary = path.join(directory, `web-${variant}.mp4`);
   const result = spawnSync(process.env.FFMPEG || 'ffmpeg', [
     '-y', '-hide_banner', '-loglevel', 'error', '-i', source,
@@ -26,4 +34,4 @@ for (const [variant, width, crf] of [['desktop', 1280, 27], ['mobile', 768, 28]]
   manifest[variant] = { src: `/media/home-hero/${filename}`, bytes: statSync(path.join(directory, filename)).size };
   console.log(`${variant}: ${manifest[variant].bytes} bytes`);
 }
-writeFileSync('lib/hero-video-assets.json', JSON.stringify(manifest, null, 2) + '\n');
+writeFileSync(manifestPath, JSON.stringify(manifest, null, 2) + '\n');

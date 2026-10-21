@@ -17,9 +17,10 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
     const header=document.querySelector<HTMLElement>('.site-header')!;
     const reduced=matchMedia('(prefers-reduced-motion: reduce)');
     const compact=Boolean(context.conditions?.compact);
-    const connection=(navigator as Navigator&{connection?:{saveData?:boolean;effectiveType?:string}}).connection;
-    const lightVideo=compact||connection?.saveData||['slow-2g','2g','3g'].includes(connection?.effectiveType??'');
-    const source=lightVideo?videoAssets.mobile.src:videoAssets.desktop.src;
+    const connection=(navigator as Navigator&{connection?:{saveData?:boolean}}).connection;
+    // The mobile framing magnifies the original film. Keep its Full HD detail;
+    // use the smaller copy only when the visitor explicitly enables Data Saver.
+    const source=connection?.saveData?videoAssets.dataSaver.src:compact?videoAssets.mobile.src:videoAssets.desktop.src;
     const notice=stage.querySelector<HTMLElement>('.hero-video-notice')!;
     const message=notice.querySelector<HTMLElement>('span')!;
     const retry=notice.querySelector<HTMLButtonElement>('button')!;

@@ -1,6 +1,6 @@
 # IP-accessible Lightsail installation
 
-Public URL: http://13.239.180.235
+Public URL: https://13.239.180.235 (HTTP is also available).
 
 Private IPv4: `172.26.4.106`. Primary domain: `panvibes.com`. DNS is managed
 separately and has not been changed by this deployment. Nginx accepts the public
@@ -20,7 +20,7 @@ at `/var/lib/panvibes/panvibes.sqlite`, independently of releases. Node is bound
 loopback port 3000 behind Nginx and starts automatically after a reboot. Its heap
 is capped at 768 MB and its service memory at 1400 MB.
 
-Admin URL: http://13.239.180.235/admin. `ADMIN_HTTP_HOST=13.239.180.235` explicitly
+Admin URL: https://13.239.180.235/admin. `ADMIN_HTTP_HOST=13.239.180.235` explicitly
 enables the session cookie on this one numeric HTTP host. The cookie remains
 HttpOnly/SameSite Strict. HTTPS hosts always retain secure cookies; arbitrary
 other HTTP hosts do not inherit the exception. When using HTTPS for the domain,
@@ -59,3 +59,26 @@ for the sending account before SMTP can send enquiry notifications or reset
 codes. This is an upstream authentication restriction, not missing server
 configuration. Enquiries are retained in SQLite and accessible through admin
 even when notification delivery fails. No real test email was sent.
+
+## HTTPS added on 21 October 2026
+
+A trusted Let's Encrypt IP-address certificate is installed at
+`/etc/letsencrypt/live/13.239.180.235/`. Nginx listens on port 443 with TLS 1.2/1.3
+and HTTP/2. This fixes direct HTTPS links and supplies an HTTPS-capable origin
+for the Lightsail distribution's HTTPS-only origin policy. No DNS records or
+distribution settings were changed. Public HTTPS, secure admin session cookies,
+dashboard access, CSV downloads and MP4 byte ranges were verified.
+
+Certbot 5.8.0 uses the shortlived profile for this numeric-IP certificate.
+`snap.certbot.renew.timer` checks automatically, and a deploy hook validates and
+reloads Nginx after renewal. A simulated renewal and its deploy hook succeeded.
+HTTP-01 challenges are served from `/var/www/panvibes-acme/.well-known/acme-challenge/`
+using a dedicated Nginx location ahead of the hidden-file restriction. Preserve
+that path, the Certbot snap/timer, the renewal configuration and port 80 access.
+The prior Nginx configuration was backed up at
+`/var/backups/panvibes-https-20261021T171730Z/nginx.conf`.
+
+The instance role cannot change Lightsail firewall/distribution settings. Public
+443 was reachable once the Nginx TLS listener was installed, so no firewall
+change was required. This IP certificate does not cover `panvibes.com`; request
+a domain certificate when its DNS is connected.

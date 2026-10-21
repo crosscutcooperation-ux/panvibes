@@ -63,10 +63,10 @@ try {
   const reduced = await browser.newContext({reducedMotion:'reduce'});
   const still = await reduced.newPage();
   const requests=[];
-  still.on('request',request=>{if(request.url().includes('.mp4'))requests.push(request.url());});
+  still.on('request',request=>{if(request.url().includes('.mp4')||request.url().includes('/media/journey/'))requests.push(request.url());});
   await still.goto(base,{waitUntil:'domcontentloaded'});
   await still.locator('.home-loader').waitFor({state:'hidden',timeout:15000});
-  assert.deepEqual(requests,[],'Reduced motion must not download the video');
+  assert.deepEqual(requests,[],'Reduced motion must not download video or animation packs');
   console.log('PASS: reduced motion renders without downloading MP4');
   await reduced.close();
 } finally { await browser.close(); }

@@ -53,6 +53,12 @@ when changing release paths.
 
 ## Loading and animation rollout on 22 October 2026
 
+The subsequent startup optimization is deployed as
+`c290e3f8ed3989337201de0644005cedf7e4daa9`, with measured median animation-ready
+startup improving 3.60× on desktop and 3.96× on mobile under the documented test
+connection. See [PERFORMANCE-2026-10-22.md](PERFORMANCE-2026-10-22.md).
+The current rollback snapshot is `/var/backups/panvibes-speed-20261021T202947Z/`.
+
 Release `cf4dacb3bc26e300f00356503ba95dd2242f143c` adds the complete animation
 readiness screen, preloads video and transport assets, and bounds decoded-frame
 memory. See [ANIMATION-READINESS.md](ANIMATION-READINESS.md) for behavior and checks.

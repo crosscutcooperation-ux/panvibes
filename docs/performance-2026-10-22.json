@@ -1,0 +1,286 @@
+{
+  "base": "https://16.176.182.103",
+  "network": {
+    "latencyMs": 100,
+    "downloadBytesPerSecond": 2500000,
+    "coldCache": true
+  },
+  "results": [
+    {
+      "version": "before",
+      "device": "desktop",
+      "run": 1,
+      "readyMs": 34747,
+      "requests": 266,
+      "bytes": 17663851,
+      "packs": [],
+      "video": "ready",
+      "scene": "true",
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 5008
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 5008
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "after",
+      "device": "desktop",
+      "run": 1,
+      "readyMs": 7650,
+      "requests": 60,
+      "bytes": 9286132,
+      "packs": [
+        "https://16.176.182.103/media/journey/journey-desktop-01bd1fb3f723.bin"
+      ],
+      "video": "ready",
+      "scene": "true",
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 2620
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 2620
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "before",
+      "device": "desktop",
+      "run": 2,
+      "readyMs": 28140,
+      "requests": 266,
+      "bytes": 17663851,
+      "packs": [],
+      "video": "ready",
+      "scene": "true",
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 2292
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 2292
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "after",
+      "device": "desktop",
+      "run": 2,
+      "readyMs": 8083,
+      "requests": 60,
+      "bytes": 9210377,
+      "packs": [
+        "https://16.176.182.103/media/journey/journey-desktop-01bd1fb3f723.bin"
+      ],
+      "video": "ready",
+      "scene": "true",
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 1804
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 1804
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "before",
+      "device": "desktop",
+      "run": 3,
+      "readyMs": 29055,
+      "requests": 266,
+      "bytes": 17663842,
+      "packs": [],
+      "video": "ready",
+      "scene": "true",
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 1912
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 1912
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "after",
+      "device": "desktop",
+      "run": 3,
+      "readyMs": 8079,
+      "requests": 60,
+      "bytes": 9210386,
+      "packs": [
+        "https://16.176.182.103/media/journey/journey-desktop-01bd1fb3f723.bin"
+      ],
+      "video": "ready",
+      "scene": "true",
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 2204
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 2204
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "before",
+      "device": "mobile",
+      "run": 1,
+      "readyMs": 29792,
+      "requests": 266,
+      "bytes": 20892476,
+      "packs": [],
+      "video": "ready",
+      "scene": "true",
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 2408
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 2408
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "after",
+      "device": "mobile",
+      "run": 1,
+      "readyMs": 10620,
+      "requests": 60,
+      "bytes": 8161399,
+      "packs": [
+        "https://16.176.182.103/media/journey/journey-mobile-c1aa40df0dd8.bin"
+      ],
+      "video": "ready",
+      "scene": "true",
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 2260
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 2260
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "before",
+      "device": "mobile",
+      "run": 2,
+      "readyMs": 33177,
+      "requests": 266,
+      "bytes": 20892476,
+      "packs": [],
+      "video": "ready",
+      "scene": "true",
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 2116
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 2116
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "after",
+      "device": "mobile",
+      "run": 2,
+      "readyMs": 7568,
+      "requests": 60,
+      "bytes": 8161399,
+      "packs": [
+        "https://16.176.182.103/media/journey/journey-mobile-c1aa40df0dd8.bin"
+      ],
+      "video": "ready",
+      "scene": "true",
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 2272
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 2272
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "before",
+      "device": "mobile",
+      "run": 3,
+      "readyMs": 31333,
+      "requests": 266,
+      "bytes": 20892476,
+      "packs": [],
+      "video": "ready",
+      "scene": "true",
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 2396
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 2396
+        }
+      ],
+      "errors": []
+    },
+    {
+      "version": "after",
+      "device": "mobile",
+      "run": 3,
+      "readyMs": 7912,
+      "requests": 60,
+      "bytes": 8161399,
+      "packs": [
+        "https://16.176.182.103/media/journey/journey-mobile-c1aa40df0dd8.bin"
+      ],
+      "video": "ready",
+      "scene": "true",
+      "paint": [
+        {
+          "name": "first-paint",
+          "ms": 2392
+        },
+        {
+          "name": "first-contentful-paint",
+          "ms": 2392
+        }
+      ],
+      "errors": []
+    }
+  ]
+}

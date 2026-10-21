@@ -1,6 +1,13 @@
 # IP-accessible Lightsail installation
 
-Public URL: https://13.239.180.235 (HTTP is also available).
+Current public URL: https://16.176.182.103 (HTTP is also available).
+
+Updated 22 October 2026 (India time): the user deleted the distribution and
+released static IP `13.239.180.235`. Ubuntu-1 now uses the public address above.
+The historical filename and verification notes below retain the earlier setup.
+This address is not a reserved static IP and can change if the instance is
+stopped and started; update Nginx, the IP certificate and the HTTP admin-host
+setting if it changes.
 
 Private IPv4: `172.26.4.106`. Primary domain: `panvibes.com`. DNS is managed
 separately and has not been changed by this deployment. Nginx accepts the public
@@ -20,7 +27,7 @@ at `/var/lib/panvibes/panvibes.sqlite`, independently of releases. Node is bound
 loopback port 3000 behind Nginx and starts automatically after a reboot. Its heap
 is capped at 768 MB and its service memory at 1400 MB.
 
-Admin URL: https://13.239.180.235/admin. `ADMIN_HTTP_HOST=13.239.180.235` explicitly
+Admin URL: https://16.176.182.103/admin. `ADMIN_HTTP_HOST=16.176.182.103` explicitly
 enables the session cookie on this one numeric HTTP host. The cookie remains
 HttpOnly/SameSite Strict. HTTPS hosts always retain secure cookies; arbitrary
 other HTTP hosts do not inherit the exception. When using HTTPS for the domain,
@@ -34,15 +41,30 @@ sudo systemctl status panvibes nginx
 sudo journalctl -u panvibes -n 30 --no-pager
 sudo nginx -t
 cd /var/www/panvibes
-BASE_URL=http://13.239.180.235 node scripts/check-video-delivery.mjs
-BASE_URL=http://13.239.180.235 node scripts/check-startup.mjs
-SITE_URL=http://13.239.180.235 node scripts/check-site.mjs
+BASE_URL=https://16.176.182.103 node scripts/check-video-delivery.mjs
+BASE_URL=https://16.176.182.103 node scripts/check-startup.mjs
+SITE_URL=https://16.176.182.103 node scripts/check-site.mjs
 ```
 
 The exact deployed commit and release directory are recorded in
 `/home/ubuntu/panvibes-deployed.txt`. Updating source alone does not rebuild or
 restart the running release. Preserve `/etc/panvibes.env` and the SQLite database
 when changing release paths.
+
+## Loading and animation rollout on 22 October 2026
+
+Release `cf4dacb3bc26e300f00356503ba95dd2242f143c` adds the complete animation
+readiness screen, preloads video and transport assets, and bounds decoded-frame
+memory. See [ANIMATION-READINESS.md](ANIMATION-READINESS.md) for behavior and checks.
+The active standalone artifact, Nginx paths and systemd service were switched
+after a candidate passed startup and media checks. SQLite and private runtime
+settings were preserved; rollback files are under
+`/var/backups/panvibes-loader-20261021T192458Z/`.
+
+The current certificate is `/etc/letsencrypt/live/16.176.182.103/`; automatic
+renewal uses the existing Certbot timer and Nginx reload hook. The old IP
+certificate was deleted because that address is no longer assigned to this
+instance. Domain DNS and any domain certificate remain separate.
 
 ## Verification on 21 October 2026
 

@@ -45,8 +45,21 @@ Verification completed against a local production standalone build:
   canvases and browser errors, plus recovery through Retry loading.
 - Public-page metadata, catalog, startup JavaScript budget and MP4 delivery tests.
 
-Deployment uses the existing Linux standalone release process. No database,
-email credentials, certificate, DNS or distribution settings are changed by the
-application code. The production target is `https://13.239.180.235`. At the time
-of preparing this change, SSH, HTTP and HTTPS to that IP were timing out; local
-validation must not be mistaken for a completed production rollout.
+Application release `cf4dacb3bc26e300f00356503ba95dd2242f143c` was built on the
+Lightsail instance and deployed at `https://16.176.182.103` on 22 October 2026
+(India time). The user released the previous static IP and removed the
+distribution; the current public IP reaches the same Ubuntu-1 instance at
+private address `172.26.4.106`. DNS remains unchanged.
+
+The candidate passed route/startup and MP4 delivery checks before activation.
+Public HTTPS checks confirmed the readiness lock, all forward/reverse transport
+phases without blank canvases or browser errors, and retry after a failed video
+download. Nginx serves the compressed media directly. The running Node service
+keeps its existing 768 MB heap / 1400 MB service memory limits; no live video
+transcoding runs on the instance.
+
+Private runtime configuration and the SQLite database remain outside releases.
+A database snapshot and previous service/Nginx configuration are retained at
+`/var/backups/panvibes-loader-20261021T192458Z/`. A new, automatically renewed
+Let's Encrypt IP certificate covers the current address, and renewal for the
+released IP was removed. The HTTP admin-host setting follows the new address.

@@ -1,5 +1,14 @@
 # Product page, navigation and brand metadata
 
+Deployed application release: `fa158151d0629001649b7b88c1a85f49220fdd6c` at
+https://16.176.182.103/products on 22 October 2026. The Linux build, public
+desktop/mobile navigation and product checks, site metadata/catalog checks,
+icon delivery and SQLite integrity check passed. Nginx serves the versioned
+product images with immutable yearly caching. Previous service/Nginx
+configuration and a SQLite snapshot are retained at
+`/var/backups/panvibes-products-20261022T072245Z/`. Runtime credentials, database
+location, HTTPS and DNS settings were preserved.
+
 The product hero retains the original six-bowl composition, ingredient flight,
 PRODUCTS lettering, hover burst and reverse scrolling. Offline-generated WebP
 copies keep alpha and the same aspect ratios, sized for the rendered sprites:

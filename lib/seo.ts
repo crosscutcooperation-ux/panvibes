@@ -6,7 +6,7 @@ export const siteUrl = 'https://panvibes.com';
 export const organizationId = `${siteUrl}/#organization`;
 
 export function pageMetadata(title: string, description: string, path: string): Metadata {
-  const fullTitle = `${title} | ${company.name}`;
+  const fullTitle = `${company.name} | ${title}`;
   return {
     title: { absolute: fullTitle }, description,
     alternates: { canonical: path },

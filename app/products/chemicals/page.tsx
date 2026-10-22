@@ -1,5 +1,5 @@
 import EnquiryButton from '@/components/EnquiryButton';
-import Link from 'next/link';
+import Link from '@/components/SiteLink';
 import Image from 'next/image';
 import PageShell from '@/components/PageShell';
 import StructuredData from '@/components/StructuredData';
@@ -8,7 +8,7 @@ import { breadcrumbSchema, organizationId, pageMetadata, siteUrl } from '@/lib/s
 import chemicals from '@/lib/chemicals.json';
 import ChemicalCatalogue from './ChemicalCatalogue';
 
-export const metadata = pageMetadata('Industrial Chemical Supplier & Export Sourcing India', 'Explore acids, alkalis, chlorides, sulphates, phosphates, oxides, water treatment chemicals and industrial salts. Request chemical specifications and a B2B quote.', '/products/chemicals');
+export const metadata = pageMetadata('Chemical Catalogue', 'Explore acids, alkalis, chlorides, sulphates, phosphates, oxides, water treatment chemicals and industrial salts. Request chemical specifications and a B2B quote.', '/products/chemicals');
 const faqs = [
   { question: 'Which chemical groups are listed?', answer: 'The catalog lists acids, alkalis and bases, chlorides, sulphates, phosphates, oxides, water treatment chemicals, industrial salts and heavy metal salts.' },
   { question: 'How do I request a chemical quotation?', answer: 'Send the chemical name, required grade and concentration or purity, quantity, application, packaging and destination. Ask for the applicable specification, certificate of analysis and SDS. Availability and shipment requirements are confirmed before quotation.' },

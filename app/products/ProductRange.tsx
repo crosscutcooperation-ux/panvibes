@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/components/SiteLink';
 import { products } from '@/lib/site-content';
 import catalogue from '@/lib/product-types.json';
 import ProductEnquiry, { type ProductSelection } from './ProductEnquiry';

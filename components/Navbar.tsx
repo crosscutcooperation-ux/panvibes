@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState } from 'react';
-import Link from 'next/link';
+import Link from '@/components/SiteLink';
 import { usePathname } from 'next/navigation';
 import { company, navigation } from "@/lib/site-content";
 import { Brand, Pill } from "./ui";

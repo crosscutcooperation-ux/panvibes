@@ -1,7 +1,7 @@
 import { company, navigation, destinations } from '@/lib/site-content';
 import { Pill, Arrow } from './ui';
 import FooterParticleMap from './FooterParticleMap';
-import Link from 'next/link';
+import Link from '@/components/SiteLink';
 
 export default function Footer() {
   return (

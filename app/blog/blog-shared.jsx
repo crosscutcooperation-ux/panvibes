@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/components/SiteLink';
 import styles from './blog.module.css';
 import { getBlogImage } from './blog-images';
 import { storyLabels } from './story-labels';

@@ -2,7 +2,7 @@
 
 import { useRef, useState } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/components/SiteLink';
 import chemicals from '@/lib/chemicals.json';
 import { chemicalFormula } from '@/lib/chemical-formulas';
 import type { ProductSelection } from './ProductEnquiry';

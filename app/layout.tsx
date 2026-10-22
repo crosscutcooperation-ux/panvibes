@@ -21,6 +21,7 @@ import './enquiry.css';
 import './cursor.css';
 import './owner-refinements.css';
 import './loading.css';
+import './navigation-loading.css';
 import ShipCursor from '@/components/ShipCursor';
 import EnquiryProvider from '@/components/EnquiryProvider';
 import EnquiryButton from '@/components/EnquiryButton';
@@ -33,7 +34,7 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  ...pageMetadata('B2B Food Ingredient Supplier & Exporter India', 'Source dehydrated vegetables, ginger, turmeric, moringa, makhana and fruit powders from India. B2B ingredient and chemical sourcing with export support.', '/'),
+  ...pageMetadata('Your Vision, Our Expert Execution', 'Source dehydrated vegetables, ginger, turmeric, moringa, makhana and fruit powders from India. B2B ingredient and chemical sourcing with export support.', '/'),
   metadataBase: new URL(siteUrl),
   applicationName: 'PanVibes Exim',
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 } },

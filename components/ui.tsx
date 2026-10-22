@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import Image from "next/image";
+import Link from './SiteLink';
 
 export function Arrow({ diagonal = false }: { diagonal?: boolean }) {
   return (
@@ -29,6 +30,7 @@ export function Pill({
       </span>
       <span className="pill-arrow"><Arrow diagonal/></span>
     </>;
+  if(href?.startsWith('/')&&!href.startsWith('//')&&!href.startsWith('/api/')&&!newTab)return <Link href={href} className={`pill ${className}`}>{content}</Link>;
   return href?<a href={href} className={`pill ${className}`} target={newTab?'_blank':undefined} rel={newTab?'noopener noreferrer':undefined}>{content}</a>:<button type="button" disabled className={`pill ${className}`}>{content}</button>;
 }
 export function Brand({ large = false }: { large?: boolean }) {

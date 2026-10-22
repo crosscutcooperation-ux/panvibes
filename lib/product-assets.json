@@ -1,0 +1,32 @@
+{
+  "ingredients": {
+    "mobile": {
+      "src": "/images/products/ingredients-mobile-0634c685edce.webp",
+      "bytes": 24796
+    },
+    "desktop": {
+      "src": "/images/products/ingredients-desktop-5ca9359e04f9.webp",
+      "bytes": 77782
+    }
+  },
+  "catalogue": {
+    "mobile": {
+      "src": "/images/products/catalogue-mobile-eb26f8cdf5b4.webp",
+      "bytes": 28444
+    },
+    "desktop": {
+      "src": "/images/products/catalogue-desktop-72aba61b4228.webp",
+      "bytes": 92556
+    }
+  },
+  "table": {
+    "mobile": {
+      "src": "/images/products/table-mobile-c6c3ca10c904.webp",
+      "bytes": 40276
+    },
+    "desktop": {
+      "src": "/images/products/table-desktop-cef4fbaec1b6.webp",
+      "bytes": 102674
+    }
+  }
+}

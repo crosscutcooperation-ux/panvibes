@@ -1,11 +1,11 @@
 import EnquiryButton from '@/components/EnquiryButton';
-import Link from 'next/link';
+import Link from '@/components/SiteLink';
 import PageShell from '@/components/PageShell';
 import StructuredData from '@/components/StructuredData';
 import { BuyerFaqs } from '@/components/ProcurementContent';
 import { breadcrumbSchema, pageMetadata } from '@/lib/seo';
 
-export const metadata = pageMetadata('Quality Assurance, Testing & Export Documentation', 'Review what to request for B2B ingredient and chemical procurement: specifications, COA, laboratory reports, SDS and product-specific export documentation.', '/quality');
+export const metadata = pageMetadata('Quality & Documentation', 'Review what to request for B2B ingredient and chemical procurement: specifications, COA, laboratory reports, SDS and product-specific export documentation.', '/quality');
 export default function QualityPage() {
   return <PageShell><main className="buyer-page buyer-main">
     <nav className="buyer-breadcrumb" aria-label="Breadcrumb"><Link href="/">Home</Link><span>/</span><span>Quality &amp; documentation</span></nav>

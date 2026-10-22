@@ -1,12 +1,12 @@
 import EnquiryButton from '@/components/EnquiryButton';
-import Link from 'next/link';
+import Link from '@/components/SiteLink';
 import PageShell from '@/components/PageShell';
 import StructuredData from '@/components/StructuredData';
 import { BuyerFaqs } from '@/components/ProcurementContent';
 import { breadcrumbSchema, pageMetadata } from '@/lib/seo';
 import { shippingCoverage, shippingMarketList } from '@/lib/shipping';
 
-export const metadata = pageMetadata('Food Ingredient Shipping | India, UK, USA, Europe & UAE', 'PanVibes Exim ships only to India, the UK, the USA, Europe and the UAE. Discuss B2B ingredient packaging, documentation, samples, bulk orders and logistics.', '/export-from-india');
+export const metadata = pageMetadata('Shipping Destinations', 'PanVibes Exim ships only to India, the UK, the USA, Europe and the UAE. Discuss B2B ingredient packaging, documentation, samples, bulk orders and logistics.', '/export-from-india');
 const markets = [
   ['India', 'Indian food manufacturers, ingredient distributors, snack brands and nutraceutical businesses.', 'Share your delivery city, product specification, quantity and packing requirements for domestic supply. Confirm availability, dispatch arrangements and required documents with the team.'],
   ['UK', 'Ingredient distributors, spice importers, food manufacturers, ethnic-food distributors and health-food businesses.', 'Identify the delivery location, ingredient specification, grade, labelling requirements and any requested organic documentation. Confirm the applicable product and shipment documents with the team.'],

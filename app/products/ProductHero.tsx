@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import assets from '@/lib/product-assets.json';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -24,6 +25,7 @@ const ingredients = bowls.flatMap((bowl,family)=>Array.from({length:bowl.count},
 }))).sort((a,b)=>Math.sin(a.phase)*a.radial-Math.sin(b.phase)*b.radial);
 const clamp=(value:number)=>Math.max(0,Math.min(1,value));
 const ease=(value:number)=>value*value*(3-2*value);
+let cachedLetterPoints:{x:number;y:number}[]|undefined;
 
 export default function ProductHero() {
   const sectionRef=useRef<HTMLElement>(null);
@@ -40,7 +42,8 @@ export default function ProductHero() {
     const header=document.querySelector<HTMLElement>('.site-header');
     let letterTargets:{x:number;y:number}[]=[];
     let wordMask:HTMLCanvasElement|undefined;
-    let selectedPoints:{x:number;y:number}[]|undefined;
+    let selectedPoints=cachedLetterPoints;
+    const compact=matchMedia('(max-width:991px)');
     const table=stage.querySelector<HTMLElement>('.product-table-scene')!;
     const names=stage.querySelector<HTMLElement>('.product-names')!;
     let wordRect={x:0,y:0,width:0,height:0};
@@ -146,11 +149,11 @@ export default function ProductHero() {
       if(bursting||disturbed)requestDraw();
     }
     function buildLetterTargets(){
-      if(!selectedPoints){
       const mask=document.createElement('canvas');mask.width=1200;mask.height=240;
       wordMask=mask;
       const ink=mask.getContext('2d')!;ink.font='900 190px Arial, sans-serif';
       ink.textAlign='center';ink.textBaseline='middle';ink.fillStyle='white';ink.fillText('PRODUCTS',600,128);
+      if(!selectedPoints){
       const pixels=ink.getImageData(0,0,1200,240).data,points:{x:number;y:number}[]=[];
       for(let y=20;y<220;y+=7)for(let x=30;x<1170;x+=7)if(pixels[(y*1200+x)*4+3]>180)points.push({x,y});
       // Farthest-point sampling fills every letter evenly instead of clumping
@@ -165,7 +168,7 @@ export default function ProductHero() {
           if(distances[j]>largest){largest=distances[j];next=j;}
         }
       }
-      selectedPoints=selected;
+      selectedPoints=selected;cachedLetterPoints=selected;
       }
       const wordWidth=Math.min(width*.94,height*1.7);
       const wordHeight=Math.max(wordWidth*.2,Math.min(height*.18,wordWidth*.32));
@@ -176,7 +179,7 @@ export default function ProductHero() {
       if (!stage||!canvas||!ctx) return;
       const nextWidth=stage.clientWidth,nextHeight=stage.clientHeight;
       titleHeight=title!.offsetHeight;headerHeight=header?.offsetHeight??110;
-      const ratio=Math.min(devicePixelRatio,nextWidth<=991?1.25:1.75);
+      const ratio=Math.min(devicePixelRatio,nextWidth<=991?1.25:1.5);
       if(nextWidth!==width||nextHeight!==height||canvas.width!==Math.round(nextWidth*ratio)){
         width=nextWidth;height=nextHeight;
         canvas.width=Math.round(width*ratio);canvas.height=Math.round(height*ratio);
@@ -185,7 +188,9 @@ export default function ProductHero() {
       requestDraw();
     }
     const sizing=new ResizeObserver(resize);sizing.observe(stage);sizing.observe(title);if(header)sizing.observe(header);resize();
-    sprites.forEach((asset,index)=>{asset.onload=()=>{stage.dataset.assetsReady=String(sprites.every(image=>image.complete&&image.naturalWidth>0));requestDraw();};asset.src=index===0?'/images/products/ingredient-sprites.webp':'/images/products/catalogue-sprites.webp';});
+    sprites.forEach(asset=>{asset.onload=()=>{stage.dataset.assetsReady=String(sprites.every(image=>image.complete&&image.naturalWidth>0));requestDraw();};});
+    const loadSprites=()=>{stage.dataset.assetsReady='false';sprites.forEach((asset,index)=>{const source=index===0?assets.ingredients:assets.catalogue;asset.src=(compact.matches?source.mobile:source.desktop).src;});};
+    loadSprites();compact.addEventListener('change',loadSprites);
     let trigger: ScrollTrigger | undefined;
     function configureMotion() {
       trigger?.kill(true);trigger=undefined;progress=0;
@@ -206,7 +211,7 @@ export default function ProductHero() {
     return()=>{
       disposed=true;sizing.disconnect();trigger?.kill(true);
       cancelAnimationFrame(hoverFrame);stage.removeEventListener('pointermove',move);stage.removeEventListener('pointerleave',leave);burstButton.removeEventListener('click',replay);
-      motion.removeEventListener('change',configureMotion);compactLayout.removeEventListener('change',configureMotion);sprites.forEach(asset=>{asset.onload=null;asset.src='';});
+      motion.removeEventListener('change',configureMotion);compactLayout.removeEventListener('change',configureMotion);compact.removeEventListener('change',loadSprites);sprites.forEach(asset=>{asset.onload=null;asset.src='';});
       title.style.transform='';title.style.top='';
     };
   },[]);
@@ -214,7 +219,7 @@ export default function ProductHero() {
   return <section ref={sectionRef} className="product-hero" aria-labelledby="products-title">
     <div ref={stageRef} className="product-stage">
       <div className="product-table-scene">
-        <Image className="product-table" src="/images/products/table-bowls-transparent.webp" width={1672} height={941} sizes="(max-width: 767px) 100vw, 80vw" alt="Six bowls of makhana, paneer, ginger, cashews, dehydrated fruits and millets; the same ingredients rise out to form PRODUCTS" priority/>
+        <picture><source media="(max-width:991px)" srcSet={assets.table.mobile.src}/><Image className="product-table" src={assets.table.desktop.src} width={1672} height={941} alt="Six bowls of makhana, paneer, ginger, cashews, dehydrated fruits and millets; the same ingredients rise out to form PRODUCTS" loading="eager" fetchPriority="high" unoptimized/></picture>
         <div className="product-names mono" aria-label="Featured products">{bowls.map(bowl=><span key={bowl.label} style={{left:`${bowl.x*100}%`,top:bowl.row?'94%':'60%'}}>{bowl.label}</span>)}</div>
       </div>
       <div className="product-vignette" aria-hidden="true"/>

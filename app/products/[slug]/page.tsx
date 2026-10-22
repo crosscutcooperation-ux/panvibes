@@ -1,4 +1,4 @@
-import Link from 'next/link';
+import Link from '@/components/SiteLink';
 import Image from 'next/image';
 import { notFound } from 'next/navigation';
 import PageShell from '@/components/PageShell';
@@ -15,7 +15,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const { slug } = await params;
   const product = exportProducts.find(item => item.slug === slug);
   if (!product) notFound();
-  return pageMetadata(product.title, product.description, `/products/${slug}`);
+  return pageMetadata(product.name, product.description, `/products/${slug}`);
 }
 
 export default async function ExportProductPage({ params }: { params: Promise<{ slug: string }> }) {

@@ -7,7 +7,7 @@ import ContactMap from './ContactMap';
 import ContactForm from './ContactForm';
 import './contact.css';
 
-export const metadata=pageMetadata('Contact Export Sales | Bulk Quote, Samples & COA', 'Contact PanVibes Exim in Navi Mumbai. Share your product, grade, quantity and country to request a bulk quotation, sample, COA or export sourcing discussion.', '/contact');
+export const metadata=pageMetadata('Contact Us', 'Contact PanVibes Exim in Navi Mumbai. Share your product, grade, quantity and country to request a bulk quotation, sample, COA or export sourcing discussion.', '/contact');
 
 export default function ContactPage(){
   return <SiteMotion><div className="contact-page">

@@ -18,6 +18,9 @@ const nextConfig: NextConfig = {
     },{
       source: '/media/journey/:asset(journey-.*)',
       headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
+    },{
+      source: '/images/products/:asset((?:ingredients|catalogue|table)-(?:mobile|desktop)-.*)',
+      headers: [{ key: 'Cache-Control', value: 'public, max-age=31536000, immutable' }],
     }];
   },
   cacheComponents: true,

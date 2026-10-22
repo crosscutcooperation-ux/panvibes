@@ -1,0 +1,5 @@
+.navigation-loading{position:fixed;z-index:11000;left:50%;top:50%;transform:translate(-50%,-50%);display:flex;align-items:center;gap:14px;max-width:calc(100vw - 32px);padding:20px 26px;border:1px solid #d8e5ef;border-radius:18px;background:#fffffff5;box-shadow:0 12px 50px #0a386629;color:#104e87;font-size:15px;line-height:1.5;pointer-events:none;animation:navigation-appear .15s ease-out both;}
+.navigation-spinner{display:block;flex:0 0 23px;width:23px;height:23px;border:2px solid #d8e5ef;border-top-color:#104e87;border-right-color:#fc6034;border-radius:50%;animation:navigation-spin .65s linear infinite;}
+@keyframes navigation-spin{to{transform:rotate(360deg)}}
+@keyframes navigation-appear{from{opacity:0}to{opacity:1}}
+@media(prefers-reduced-motion:reduce){.navigation-loading{animation:none}.navigation-spinner{animation:none;border-right-color:#104e87}}

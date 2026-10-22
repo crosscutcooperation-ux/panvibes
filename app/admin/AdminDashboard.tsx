@@ -1,7 +1,7 @@
 'use client';
 import { useCallback, useEffect, useRef, useState, type FormEvent, type ReactNode } from 'react';
 import Image from 'next/image';
-import Link from 'next/link';
+import Link from '@/components/SiteLink';
 import { csvFields } from '@/lib/enquiry-csv';
 
 type Enquiry = Record<string, string | number | null> & { reference: string; created_at: string; name: string; company: string; email: string; product: string; status: string; email_status: string };

@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useRef, useState, type FormEvent } from 'react';
-import Link from 'next/link';
+import Link from '@/components/SiteLink';
 import { company } from '@/lib/site-content';
 import type { AssistantReply } from '@/lib/chat-assistant';
 import { useEnquiry } from './EnquiryProvider';

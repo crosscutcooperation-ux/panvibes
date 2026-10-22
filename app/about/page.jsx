@@ -2,7 +2,7 @@ import ClientEffects from './client-effects';
 import './about.css';
 import { pageMetadata } from '@/lib/seo';
 
-export const metadata = pageMetadata('About Our B2B Sourcing & Export Business', 'Meet PanVibes Exim, an India-based B2B ingredient supplier and export partner in Navi Mumbai. Learn about our business and leadership team.', '/about');
+export const metadata = pageMetadata('About Us', 'Meet PanVibes Exim, an India-based B2B ingredient supplier and export partner in Navi Mumbai. Learn about our business and leadership team.', '/about');
 
 export default function AboutPage() {
   return (

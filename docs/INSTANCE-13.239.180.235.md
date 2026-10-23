@@ -1,6 +1,13 @@
 # IP-accessible Lightsail installation
 
-Current public URL: https://16.176.182.103 (HTTP is also available).
+Current public URL: https://panvibes.com. Admin: https://panvibes.com/admin.
+
+Updated 24 October 2026 (India time): the owner's DNS records now point the apex
+to `16.176.182.103`, with `www` as a CNAME to `panvibes.com`. Both names have a
+trusted Let's Encrypt certificate. HTTP and HTTPS `www` requests redirect to
+`https://panvibes.com`, preserving the path and query. Direct HTTPS access to
+`https://16.176.182.103` remains available with its separate IP certificate.
+The historical notes below describe earlier deployment stages.
 
 Updated 22 October 2026 (India time): the user deleted the distribution and
 released static IP `13.239.180.235`. Ubuntu-1 now uses the public address above.
@@ -10,8 +17,8 @@ stopped and started; update Nginx, the IP certificate and the HTTP admin-host
 setting if it changes.
 
 Private IPv4: `172.26.4.106`. Primary domain: `panvibes.com`. DNS is managed
-separately and has not been changed by this deployment. Nginx accepts the public
-IP, `panvibes.com` and `www.panvibes.com` without redirecting the IP to the domain.
+separately; the domain rollout verified the owner's records without editing DNS.
+Nginx serves the apex and public IP over HTTPS, and redirects `www` to the apex.
 Canonical SEO URLs retain `https://panvibes.com`.
 
 The Ubuntu instance uses official Node 24 LTS, Nginx and one production systemd
@@ -27,12 +34,11 @@ at `/var/lib/panvibes/panvibes.sqlite`, independently of releases. Node is bound
 loopback port 3000 behind Nginx and starts automatically after a reboot. Its heap
 is capped at 768 MB and its service memory at 1400 MB.
 
-Admin URL: https://16.176.182.103/admin. `ADMIN_HTTP_HOST=16.176.182.103` explicitly
-enables the session cookie on this one numeric HTTP host. The cookie remains
-HttpOnly/SameSite Strict. HTTPS hosts always retain secure cookies; arbitrary
-other HTTP hosts do not inherit the exception. When using HTTPS for the domain,
-remove that temporary HTTP-host setting. No additional frontend login link is
-introduced.
+Admin URL: https://panvibes.com/admin. HTTPS sessions retain secure,
+HttpOnly/SameSite Strict cookies. The legacy numeric-IP HTTP-host setting is
+still present in the private runtime environment, but Nginx now redirects all
+HTTP application requests to HTTPS before they reach the application. No
+additional frontend login link is introduced.
 
 Useful checks on the instance:
 
@@ -41,15 +47,36 @@ sudo systemctl status panvibes nginx
 sudo journalctl -u panvibes -n 30 --no-pager
 sudo nginx -t
 cd /var/www/panvibes
-BASE_URL=https://16.176.182.103 node scripts/check-video-delivery.mjs
-BASE_URL=https://16.176.182.103 node scripts/check-startup.mjs
-SITE_URL=https://16.176.182.103 node scripts/check-site.mjs
+BASE_URL=https://panvibes.com node scripts/check-video-delivery.mjs
+BASE_URL=https://panvibes.com node scripts/check-startup.mjs
+SITE_URL=https://panvibes.com node scripts/check-site.mjs
 ```
 
 The exact deployed commit and release directory are recorded in
 `/home/ubuntu/panvibes-deployed.txt`. Updating source alone does not rebuild or
 restart the running release. Preserve `/etc/panvibes.env` and the SQLite database
 when changing release paths.
+
+## Domain HTTPS rollout on 24 October 2026
+
+The application remains at release `fa158151d0629001649b7b88c1a85f49220fdd6c`;
+this rollout changed Nginx domain/TLS routing without rebuilding the application.
+Both the apex HTTPS server and the IP HTTPS server retain direct static media
+delivery, immutable versioned assets, video range support and the application
+proxy. When updating a release, update both server blocks' artifact paths.
+
+The domain certificate is `/etc/letsencrypt/live/panvibes.com/`, covers both
+`panvibes.com` and `www.panvibes.com`, and initially expires 21 January 2027.
+Renewal uses the enabled `snap.certbot.renew.timer`, the HTTP ACME webroot at
+`/var/www/panvibes-acme`, and the Nginx validation/reload deploy hook. Port 80
+keeps the ACME challenge location available ahead of the HTTPS redirect.
+
+The Nginx and deployment-record rollback snapshot is
+`/var/backups/panvibes-domain-20261023T190028Z/`. Runtime credentials and enquiry
+data were preserved. Public TLS certificate validation, HTTP/`www` redirects,
+home/admin access and all three video variants were verified. Some recursive
+DNS resolvers initially retained the old `16.176.7.6` record; public resolvers
+and the instance already returned the current address during deployment.
 
 ## Loading and animation rollout on 22 October 2026
 
@@ -70,7 +97,7 @@ settings were preserved; rollback files are under
 The current certificate is `/etc/letsencrypt/live/16.176.182.103/`; automatic
 renewal uses the existing Certbot timer and Nginx reload hook. The old IP
 certificate was deleted because that address is no longer assigned to this
-instance. Domain DNS and any domain certificate remain separate.
+instance. The domain certificate was subsequently added as documented above.
 
 ## Verification on 21 October 2026
 

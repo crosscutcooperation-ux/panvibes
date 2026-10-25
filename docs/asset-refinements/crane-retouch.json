@@ -1,0 +1,1395 @@
+{
+  "method": "Original AVIF frames, lettering-shaped mask. Imagegen retouch supplies fine texture only; no AI geometry or alpha. Desktop lossless WebP 1920x1080; mobile WebP 960x540. Original container panels remain opaque.",
+  "frames": [
+    {
+      "frame": "/images/journey/crane-lift/000.webp",
+      "original": "/images/crane/000.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/000.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/000.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 5022,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/004.webp",
+      "original": "/images/crane/004.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/004.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/004.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4769,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/008.webp",
+      "original": "/images/crane/008.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/008.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/008.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4655,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/012.webp",
+      "original": "/images/crane/012.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/012.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/012.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4649,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/016.webp",
+      "original": "/images/crane/016.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/016.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/016.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4263,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/020.webp",
+      "original": "/images/crane/020.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/020.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/020.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4613,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/024.webp",
+      "original": "/images/crane/024.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/024.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/024.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4353,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/028.webp",
+      "original": "/images/crane/028.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/028.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/028.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4394,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/032.webp",
+      "original": "/images/crane/032.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/032.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/032.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4361,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/036.webp",
+      "original": "/images/crane/036.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/036.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/036.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4508,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/040.webp",
+      "original": "/images/crane/040.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/040.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/040.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4408,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/044.webp",
+      "original": "/images/crane/044.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/044.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/044.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4369,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/048.webp",
+      "original": "/images/crane/048.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/048.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/048.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4569,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/052.webp",
+      "original": "/images/crane/052.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/052.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/052.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4465,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/056.webp",
+      "original": "/images/crane/056.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/056.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/056.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4289,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/060.webp",
+      "original": "/images/crane/060.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/060.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/060.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4289,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/064.webp",
+      "original": "/images/crane/064.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/064.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/064.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4315,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/068.webp",
+      "original": "/images/crane/068.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/068.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/068.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4522,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/072.webp",
+      "original": "/images/crane/072.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/072.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/072.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4272,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/076.webp",
+      "original": "/images/crane/076.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/076.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/076.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4402,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/080.webp",
+      "original": "/images/crane/080.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/080.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/080.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4606,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/084.webp",
+      "original": "/images/crane/084.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/084.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/084.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4253,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/088.webp",
+      "original": "/images/crane/088.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/088.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/088.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4324,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/092.webp",
+      "original": "/images/crane/092.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/092.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/092.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4332,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/096.webp",
+      "original": "/images/crane/096.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/096.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/096.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4399,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/100.webp",
+      "original": "/images/crane/100.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/100.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/100.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4394,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/104.webp",
+      "original": "/images/crane/104.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/104.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/104.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4573,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/108.webp",
+      "original": "/images/crane/108.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/108.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/108.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4569,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/112.webp",
+      "original": "/images/crane/112.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/112.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/112.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4217,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/116.webp",
+      "original": "/images/crane/116.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/116.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/116.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4359,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/120.webp",
+      "original": "/images/crane/120.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/120.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/120.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4636,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/124.webp",
+      "original": "/images/crane/124.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/124.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/124.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4534,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/128.webp",
+      "original": "/images/crane/128.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/128.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/128.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4304,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/132.webp",
+      "original": "/images/crane/132.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/132.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/132.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4610,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/136.webp",
+      "original": "/images/crane/136.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/136.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/136.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4504,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/140.webp",
+      "original": "/images/crane/140.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/140.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/140.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4476,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/144.webp",
+      "original": "/images/crane/144.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/144.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/144.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4454,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/148.webp",
+      "original": "/images/crane/148.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/148.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/148.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4676,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/152.webp",
+      "original": "/images/crane/152.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/152.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/152.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4598,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/156.webp",
+      "original": "/images/crane/156.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/156.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/156.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4686,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-lift/158.webp",
+      "original": "/images/crane/158.avif",
+      "desktop": "/images/refined-hd/journey/crane-lift/158.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-lift/158.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4778,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/000.webp",
+      "original": "/images/crane-turn/000.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/000.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/000.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4878,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/002.webp",
+      "original": "/images/crane-turn/002.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/002.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/002.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4979,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/004.webp",
+      "original": "/images/crane-turn/004.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/004.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/004.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 5217,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/006.webp",
+      "original": "/images/crane-turn/006.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/006.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/006.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 5845,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/008.webp",
+      "original": "/images/crane-turn/008.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/008.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/008.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 6610,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/010.webp",
+      "original": "/images/crane-turn/010.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/010.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/010.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 6581,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/012.webp",
+      "original": "/images/crane-turn/012.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/012.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/012.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 6845,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/014.webp",
+      "original": "/images/crane-turn/014.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/014.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/014.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 6513,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/016.webp",
+      "original": "/images/crane-turn/016.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/016.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/016.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 6015,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/018.webp",
+      "original": "/images/crane-turn/018.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/018.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/018.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 5376,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/020.webp",
+      "original": "/images/crane-turn/020.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/020.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/020.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 5950,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/022.webp",
+      "original": "/images/crane-turn/022.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/022.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/022.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 5640,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/024.webp",
+      "original": "/images/crane-turn/024.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/024.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/024.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 3738,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/026.webp",
+      "original": "/images/crane-turn/026.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/026.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/026.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4111,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/028.webp",
+      "original": "/images/crane-turn/028.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/028.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/028.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 4410,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/030.webp",
+      "original": "/images/crane-turn/030.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/030.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/030.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 826,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/032.webp",
+      "original": "/images/crane-turn/032.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/032.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/032.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 1987,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/034.webp",
+      "original": "/images/crane-turn/034.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/034.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/034.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 2185,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/036.webp",
+      "original": "/images/crane-turn/036.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/036.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/036.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 636,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/038.webp",
+      "original": "/images/crane-turn/038.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/038.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/038.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 604,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/040.webp",
+      "original": "/images/crane-turn/040.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/040.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/040.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 244,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/042.webp",
+      "original": "/images/crane-turn/042.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/042.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/042.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 164,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/044.webp",
+      "original": "/images/crane-turn/044.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/044.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/044.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 189,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/046.webp",
+      "original": "/images/crane-turn/046.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/046.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/046.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 127,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/048.webp",
+      "original": "/images/crane-turn/048.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/048.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/048.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 129,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/050.webp",
+      "original": "/images/crane-turn/050.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/050.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/050.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 153,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/052.webp",
+      "original": "/images/crane-turn/052.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/052.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/052.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 100,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/054.webp",
+      "original": "/images/crane-turn/054.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/054.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/054.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 80,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/056.webp",
+      "original": "/images/crane-turn/056.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/056.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/056.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 74,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/058.webp",
+      "original": "/images/crane-turn/058.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/058.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/058.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 156,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/060.webp",
+      "original": "/images/crane-turn/060.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/060.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/060.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 92,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/062.webp",
+      "original": "/images/crane-turn/062.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/062.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/062.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 82,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/064.webp",
+      "original": "/images/crane-turn/064.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/064.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/064.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 86,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/066.webp",
+      "original": "/images/crane-turn/066.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/066.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/066.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/068.webp",
+      "original": "/images/crane-turn/068.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/068.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/068.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/070.webp",
+      "original": "/images/crane-turn/070.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/070.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/070.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/072.webp",
+      "original": "/images/crane-turn/072.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/072.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/072.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/074.webp",
+      "original": "/images/crane-turn/074.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/074.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/074.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/076.webp",
+      "original": "/images/crane-turn/076.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/076.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/076.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/078.webp",
+      "original": "/images/crane-turn/078.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/078.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/078.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/080.webp",
+      "original": "/images/crane-turn/080.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/080.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/080.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/082.webp",
+      "original": "/images/crane-turn/082.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/082.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/082.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/084.webp",
+      "original": "/images/crane-turn/084.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/084.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/084.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/086.webp",
+      "original": "/images/crane-turn/086.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/086.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/086.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/088.webp",
+      "original": "/images/crane-turn/088.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/088.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/088.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/090.webp",
+      "original": "/images/crane-turn/090.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/090.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/090.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/092.webp",
+      "original": "/images/crane-turn/092.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/092.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/092.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/094.webp",
+      "original": "/images/crane-turn/094.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/094.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/094.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-turn/096.webp",
+      "original": "/images/crane-turn/096.avif",
+      "desktop": "/images/refined-hd/journey/crane-turn/096.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-turn/096.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/000.webp",
+      "original": "/images/crane-place/000.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/000.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/000.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/002.webp",
+      "original": "/images/crane-place/002.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/002.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/002.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/004.webp",
+      "original": "/images/crane-place/004.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/004.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/004.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/006.webp",
+      "original": "/images/crane-place/006.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/006.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/006.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/008.webp",
+      "original": "/images/crane-place/008.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/008.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/008.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/010.webp",
+      "original": "/images/crane-place/010.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/010.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/010.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/012.webp",
+      "original": "/images/crane-place/012.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/012.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/012.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/014.webp",
+      "original": "/images/crane-place/014.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/014.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/014.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/016.webp",
+      "original": "/images/crane-place/016.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/016.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/016.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/018.webp",
+      "original": "/images/crane-place/018.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/018.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/018.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/020.webp",
+      "original": "/images/crane-place/020.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/020.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/020.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/022.webp",
+      "original": "/images/crane-place/022.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/022.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/022.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/024.webp",
+      "original": "/images/crane-place/024.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/024.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/024.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/026.webp",
+      "original": "/images/crane-place/026.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/026.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/026.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/028.webp",
+      "original": "/images/crane-place/028.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/028.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/028.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/030.webp",
+      "original": "/images/crane-place/030.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/030.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/030.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/032.webp",
+      "original": "/images/crane-place/032.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/032.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/032.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/034.webp",
+      "original": "/images/crane-place/034.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/034.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/034.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/036.webp",
+      "original": "/images/crane-place/036.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/036.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/036.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/038.webp",
+      "original": "/images/crane-place/038.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/038.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/038.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/040.webp",
+      "original": "/images/crane-place/040.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/040.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/040.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/042.webp",
+      "original": "/images/crane-place/042.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/042.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/042.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/044.webp",
+      "original": "/images/crane-place/044.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/044.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/044.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/046.webp",
+      "original": "/images/crane-place/046.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/046.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/046.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/048.webp",
+      "original": "/images/crane-place/048.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/048.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/048.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/050.webp",
+      "original": "/images/crane-place/050.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/050.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/050.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/052.webp",
+      "original": "/images/crane-place/052.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/052.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/052.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/054.webp",
+      "original": "/images/crane-place/054.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/054.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/054.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/056.webp",
+      "original": "/images/crane-place/056.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/056.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/056.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/058.webp",
+      "original": "/images/crane-place/058.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/058.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/058.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/060.webp",
+      "original": "/images/crane-place/060.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/060.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/060.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/062.webp",
+      "original": "/images/crane-place/062.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/062.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/062.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/064.webp",
+      "original": "/images/crane-place/064.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/064.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/064.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/066.webp",
+      "original": "/images/crane-place/066.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/066.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/066.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/068.webp",
+      "original": "/images/crane-place/068.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/068.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/068.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/070.webp",
+      "original": "/images/crane-place/070.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/070.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/070.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/072.webp",
+      "original": "/images/crane-place/072.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/072.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/072.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/074.webp",
+      "original": "/images/crane-place/074.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/074.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/074.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/076.webp",
+      "original": "/images/crane-place/076.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/076.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/076.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/078.webp",
+      "original": "/images/crane-place/078.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/078.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/078.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/080.webp",
+      "original": "/images/crane-place/080.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/080.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/080.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/082.webp",
+      "original": "/images/crane-place/082.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/082.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/082.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/084.webp",
+      "original": "/images/crane-place/084.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/084.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/084.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/086.webp",
+      "original": "/images/crane-place/086.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/086.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/086.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/088.webp",
+      "original": "/images/crane-place/088.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/088.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/088.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/090.webp",
+      "original": "/images/crane-place/090.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/090.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/090.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/092.webp",
+      "original": "/images/crane-place/092.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/092.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/092.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/094.webp",
+      "original": "/images/crane-place/094.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/094.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/094.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    },
+    {
+      "frame": "/images/journey/crane-place/096.webp",
+      "original": "/images/crane-place/096.avif",
+      "desktop": "/images/refined-hd/journey/crane-place/096.webp",
+      "mobile": "/images/refined-hd/journey-mobile/crane-place/096.webp",
+      "width": 1920,
+      "height": 1080,
+      "editedPixels": 0,
+      "alphaPreserved": true
+    }
+  ]
+}

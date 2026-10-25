@@ -5,14 +5,12 @@
 .pan-footer-grid { display:grid;grid-template-columns:1fr 2.2fr 1.1fr;gap:5rem;padding:5rem 0; }
 .pan-footer .eyebrow { font-size:clamp(10px,1.1rem,12px);color:#5d7b96;margin-bottom:2rem; }
 .pan-footer-socials > div { display:flex;flex-wrap:wrap;gap:1rem; }
-.pan-footer-socials button { display:grid;place-items:center;width:3.8rem;height:3.8rem;min-width:30px;min-height:30px;border:1px solid var(--line);border-radius:50%;font-size:clamp(11px,1.3rem,15px);transition:background .3s,color .3s,border-color .3s; }
-.pan-footer-socials button:hover { background:var(--red);border-color:var(--red);color:white; }
+.pan-footer-socials :is(button,a) { display:grid;place-items:center;width:3.8rem;height:3.8rem;min-width:30px;min-height:30px;border:1px solid var(--line);border-radius:50%;font-size:clamp(11px,1.3rem,15px);transition:background .3s,color .3s,border-color .3s; }
+.pan-footer-socials :is(button,a):hover { background:var(--red);border-color:var(--red);color:white; }
 .pan-footer-tagline { font-size:clamp(12px,1.45rem,17px);margin-top:2.4rem; }
 .pan-footer-company > div { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2rem; }
 .pan-footer-company button { display:flex;gap:.8rem;align-items:center;text-align:left;font-size:clamp(13px,1.6rem,18px);transition:color .3s; }
-.pan-footer-company svg { width:1.6rem;opacity:0;transition:opacity .3s,transform .3s; }
 .pan-footer-company button:hover { color:var(--red); }
-.pan-footer-company button:hover svg { opacity:1;transform:translate(2px,-2px); }
 .pan-footer-resources { display:flex;flex-direction:column;align-items:start; }
 .pan-footer-resources .pill { margin-bottom:1rem;font-size:clamp(10px,1rem,12px);padding:1.4rem 1.6rem;border-color:var(--line); }
 .pan-footer-location { grid-column:2; }

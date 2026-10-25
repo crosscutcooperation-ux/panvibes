@@ -147,7 +147,7 @@ export default function AboutPage() {
                           </div>
                           <div className="team-content">
                               <h5>Nitesh Kanse</h5>
-                              <p>Chief Procurement Director (CPD)</p>
+                              <p>Director</p>
                           </div>
                       </div>
                   </div>
@@ -168,7 +168,7 @@ export default function AboutPage() {
                           </div>
                           <div className="team-content">
                               <h5>Omkar Marakwar</h5>
-                              <p>Chief Operations Director (COD)</p>
+                              <p>Director</p>
                           </div>
                       </div>
                   </div>
@@ -189,7 +189,7 @@ export default function AboutPage() {
                           </div>
                           <div className="team-content">
                               <h5>Bhavesh Patil</h5>
-                              <p>Chief Logistics Director (CLD)</p>
+                              <p>Director</p>
                           </div>
                       </div>
                   </div>

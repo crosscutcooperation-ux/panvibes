@@ -12,9 +12,7 @@
 .persistent-header[data-compact='true'] .brand {width:135px;}
 .persistent-header[data-compact='true'] .header-main {padding-top:12px;padding-bottom:12px;}
 .pan-footer-company a {display:flex;gap:.8rem;align-items:center;color:inherit;font-size:clamp(13px,1.6rem,18px);}
-.pan-footer-company a svg {width:18px;height:18px;}
 .pan-footer-company a:hover {color:var(--red);}
-.pan-footer-company a:hover svg {opacity:1;transform:translate(2px,-2px);}
 .service-title-button {padding:0;border:0;background:none;text-align:left;color:inherit;font:inherit;text-transform:inherit;cursor:pointer;}
 .service-title-button:hover {color:#ffd6c9;}
 .service-dialog {position:fixed;inset:0;width:min(740px,calc(100vw - 36px));max-height:calc(100svh - 36px);padding:0;border:1px solid #ffffff6b;border-radius:20px;background:linear-gradient(130deg,#6f99b74f,#092d50b8);backdrop-filter:blur(32px) saturate(140%);color:white;box-shadow:0 30px 100px #041f4b66,inset 0 1px 0 #ffffff55;overflow:auto;}

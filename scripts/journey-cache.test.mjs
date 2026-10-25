@@ -19,7 +19,8 @@ class TestImage {
   }
   get src() { return this.url; }
 }
-const context = new Proxy({}, { get: (_, key) => key === 'createLinearGradient' ? () => ({ addColorStop() {} }) : () => {} });
+const drawCalls=[];
+const context = new Proxy({}, { get: (_, key) => key === 'createLinearGradient' ? () => ({ addColorStop() {} }) : key==='clearRect'?()=>{drawCalls.length=0;}:key==='drawImage'?(...args)=>drawCalls.push(args):() => {} });
 const canvas = { dataset:{},getContext: () => context, remove() {} };
 const modules = new Map();
 function load(relative) {
@@ -53,9 +54,13 @@ async function settle() {
 scene.draw(20, 390, 844); await settle();
 assert.ok(requests.length <= 12, `Stationary side view fetched ${requests.length} assets`);
 const idleCount = requests.length;
+assert.equal(drawCalls.filter(args=>args.length===9).length,6,'The side view must render all six tyres, including the added trailer axle');
 for (let index = 0; index < 30; index++) { scene.draw(20, 390, 844); await settle(); }
 assert.equal(requests.length, idleCount, 'Holding the scroll position must not reload cached frames');
 for (const time of [24, 24.5, 25, 25.5, 26, 25, 24, 20]) { scene.draw(time, 390, 844); await settle(); }
+scene.draw(25,390,844);await settle();
+assert.equal(drawCalls.filter(args=>args.length===9).length,0,'Turning uses the complete corrected frame, with no floating wheel overlay');
+scene.draw(20,390,844);await settle();
 const reverseCount = requests.length;
 for (let index = 0; index < 30; index++) { scene.draw(20, 390, 844); await settle(); }
 assert.equal(requests.length, reverseCount, 'The cache must also settle after reverse scrolling');

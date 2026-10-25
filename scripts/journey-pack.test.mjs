@@ -15,6 +15,10 @@ for(const [variant,entry] of Object.entries(manifests)){
     assert.ok(actual.width>0&&actual.height>0,path);
     assert.ok(Math.abs(actual.width/actual.height-original.width/original.height)<.01,path);
     assert.equal(actual.hasAlpha,original.hasAlpha,path);
+    if(path.includes('/refined-hd/')){
+      assert.equal(actual.width,original.width,`${path}: do not downsample the restored artwork again`);
+      assert.equal(actual.height,original.height);
+    }
     assert.ok(type.startsWith('image/'));
   }
   assert.equal(start+end,bytes.length);

@@ -28,7 +28,7 @@ export default function ProductEnquiry({selection,onClose}:{selection:ProductSel
         <div className="service-person"><span>OM</span><div><strong>{contact.name}</strong><p>{contact.role}</p></div></div>
         <a href={`tel:+${contact.phone}`}>{contact.displayPhone}<Arrow diagonal/></a>
         <a className="service-contact-cta" href={`https://wa.me/${contact.phone}?text=${encodeURIComponent(`Hello Omkar, I am interested in ${enquiry}. Please share specifications, availability and a quotation.`)}`} target="_blank" rel="noreferrer">Enquire on WhatsApp<Arrow/></a>
-        <button className="service-website-enquiry" type="button" onClick={()=>openEnquiry({product,purpose:'Bulk quotation'})}>Fill enquiry form<Arrow diagonal/></button>
+        <button className="service-inline-enquiry" type="button" onClick={()=>openEnquiry({product,purpose:'Bulk quotation'})}>Fill enquiry form ↗</button>
       </div>
     </div>}
   </dialog>;

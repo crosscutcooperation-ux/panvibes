@@ -114,8 +114,8 @@ export function createJourneyScene(host: HTMLElement) {
     const spinningWheels = (asset: HTMLImageElement | undefined, x: number, y: number, length: number, angle: number) => {
       if (!asset) return;
       const frameHeight = length * 809 / 2880, radius = length * .0305, sourceRadius = asset.naturalWidth * .0305;
-      [.2025, .276875, .3496875, .674375, .894375].forEach((position, index) => {
-        const vertical = index === 4 ? .809 : .814;
+      [.2025, .276875, .3496875, .6, .674375, .894375].forEach((position, index) => {
+        const vertical = index === 5 ? .809 : .814;
         ctx.save();
         ctx.translate(x + (position - .5) * length, y + (vertical - .5) * frameHeight);
         ctx.beginPath(); ctx.arc(0, 0, radius, 0, Math.PI * 2); ctx.clip(); ctx.rotate(angle);
@@ -139,7 +139,10 @@ export function createJourneyScene(host: HTMLElement) {
     if (t < 6) {
       photo(image(handoffTruck.src),smallX,smallY,smallLength*videoTruckBounds.width/videoTruckBounds.height,smallLength,0,handoffCrop);
     }
-    if (t >= 6 && t < 8) photo(frame('truck-turn', 1 - cameraTurn), smallX, smallY, smallLength, smallLength * 809 / 2880, (1 - cameraTurn) * Math.PI / 2);
+    if (t >= 6 && t < 8) {
+      const asset=frame('truck-turn',1-cameraTurn),rotation=(1-cameraTurn)*Math.PI/2;
+      photo(asset,smallX,smallY,smallLength,smallLength*809/2880,rotation);
+    }
     if (t >= 8 && t < 13) {
       // The same photographic truck tips its own bed. It does not become a
       // different SVG or a block model when the camera settles.
@@ -220,16 +223,9 @@ export function createJourneyScene(host: HTMLElement) {
           if (base) ctx.drawImage(base, 0, 0, craneWidth, craneHeight);
           if (beam) ctx.drawImage(beam, 0, -lift, craneWidth, craneHeight);
         } else {
-          // Preserve the complete photographed boom and spreader. Thin lifting
-          // links bridge the initial roof gap without erasing any machinery.
+          // The load follows the photographed lift directly, without extra
+          // threads drawn between the spreader and the container.
           ctx.drawImage(source, 0, 0, craneWidth, craneHeight);
-          if(t>=11.3&&t<12.2){
-            const gap=craneHeight*35/720*(1-smooth(segment(t,11.3,12.2)));
-            if(gap>.5){
-              ctx.strokeStyle='#424f59';ctx.lineWidth=Math.max(1,craneWidth*2/1280);
-              for(const x of [1106,1238]){ctx.beginPath();ctx.moveTo(craneWidth*x/1280,craneHeight*214/720);ctx.lineTo(craneWidth*x/1280,craneHeight*214/720+gap);ctx.stroke();}
-            }
-          }
         }
         if (t >= 14) {
           const lift = craneHeight * .10 * smooth(segment(t, 15.5, 15.8));
@@ -252,7 +248,8 @@ export function createJourneyScene(host: HTMLElement) {
       photo(side, pose.x, pose.y, length, frameHeight);
       spinningWheels(side, pose.x, pose.y, length, truckWheelAngle(t));
     } else if (t >= 24 && t < 32.5) {
-      photo(frame('truck-turn', smooth(segment(t, 24, 26))), pose.x, pose.y, length, frameHeight, -pose.heading);
+      const asset=frame('truck-turn',smooth(segment(t,24,26)));
+      photo(asset,pose.x,pose.y,length,frameHeight,-pose.heading);
     }
     if (t >= 32.5 && t < 33.95) {
       const handoff = shipHandoff(t, w, h);

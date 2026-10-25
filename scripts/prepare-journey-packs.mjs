@@ -12,8 +12,8 @@ const branded=await read('lib/container-branding-assets.json'),mobile=await read
 const shippingSource=ts.transpileModule(await fs.readFile('lib/shipping.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText;
 const shipping={exports:{}};vm.runInNewContext(shippingSource,{exports:shipping.exports,module:shipping});
 const source=ts.transpileModule(await fs.readFile('lib/site-content.ts','utf8'),{compilerOptions:{module:ts.ModuleKind.CommonJS}}).outputText;
-const module={exports:{}};vm.runInNewContext(source,{exports:module.exports,module,require:name=>{if(name==='./shipping')return shipping.exports;throw new Error(`Unexpected content dependency ${name}`);}});
-const {services,industries}=module.exports;
+const contentModule={exports:{}};vm.runInNewContext(source,{exports:contentModule.exports,module:contentModule,require:name=>{if(name==='./shipping')return shipping.exports;throw new Error(`Unexpected content dependency ${name}`);}});
+const {services,industries}=contentModule.exports;
 const stills=['truck-container','truck-top','container-top','container-blue','container-orange','crane-base','crane-beam'].map(name=>`/images/${name}.avif`);
 const paths=[...Object.values(sequences).flat(),...stills,'/images/branded/ship.webp','/images/cloud-left.avif','/images/cloud-right.avif',...services.map(service=>`/images/${service.image}`),...industries.map(industry=>`/images/${industry.image}`)];
 await fs.mkdir('public/media/journey',{recursive:true});const manifest={};
@@ -23,7 +23,11 @@ for(const compact of [false,true]){
   await Promise.all(Array.from({length:4},async()=>{while(index<resolved.length){
     const i=index++,asset=resolved[i];let bytes=await fs.readFile(`public${asset}`);
     const frame=asset.includes('/journey/')||asset.includes('/journey-mobile/');
-    if(asset.endsWith('.webp')){
+    if(asset.includes('/refined-hd/')&&(!compact||asset.includes('/truck-turn/'))){
+      // Keep restored crane/truck resolution. Encode the lossless master once
+      // for delivery; never repeat the old quality-78 reduction.
+      const smaller=await sharp(bytes).webp({quality:92,alphaQuality:100,effort:4}).toBuffer();if(smaller.length<bytes.length)bytes=smaller;
+    }else if(asset.endsWith('.webp')&&!asset.includes('/refined-hd/')){
       const width=compact?640:frame?(asset.includes('/truck-turn/')?1200:960):1440;
       const smaller=await sharp(bytes).resize({width,withoutEnlargement:true}).webp({quality:78,alphaQuality:100,effort:4}).toBuffer();if(smaller.length<bytes.length)bytes=smaller;
     }

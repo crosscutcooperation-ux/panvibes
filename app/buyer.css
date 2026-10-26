@@ -7,6 +7,7 @@
 .buyer-hero { display:grid;grid-template-columns:1.15fr 1fr;gap:6vw;align-items:center;padding-bottom:55px;border-bottom:1px solid #d7e1eb; }
 .buyer-hero h1,.buyer-page-title { font:500 clamp(40px,5.5vw,82px)/1.06 Steinhart,sans-serif;letter-spacing:-.04em;margin-bottom:25px; }
 .buyer-hero h1 span { color:var(--red,#ff684e); }
+.buyer-product-page .buyer-hero h1 { font-size:clamp(34px,4.1vw,62px);line-height:1.1; }
 .buyer-intro { font-size:clamp(16px,1.5vw,20px);line-height:1.7;max-width:760px; }
 .buyer-hero-photo { position:relative;aspect-ratio:1.1;border-radius:14px;overflow:hidden;background:#eef3f7; }
 .buyer-hero-photo img,.buyer-product-image img { object-fit:cover; }

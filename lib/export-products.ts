@@ -26,7 +26,7 @@ export const exportProducts: ExportProduct[] = [
   {
     slug: 'ginger', name: 'Ginger', title: 'Ginger Powder, Flakes & Whole Ginger Exporter India',
     description: 'Enquire about Indian ginger whole, flakes and powder in conventional, IPM and organic grades. Bulk sourcing for food manufacturers and ingredient importers.',
-    image: 'photos/vegetables.webp',
+    image: 'photos/ginger-procurement.webp',
     intro: 'Source Indian ginger in whole, flake or powder form through PanVibes Exim. Conventional, IPM and organic grade enquiries are supported for international B2B buyers, subject to specification and availability confirmation.',
     forms: ['Ginger Whole', 'Ginger Flakes', 'Ginger Powder'], grades: ['Conventional', 'IPM', 'Organic'],
     buyers: 'Spice importers, food manufacturers, ingredient distributors and seasoning companies.',

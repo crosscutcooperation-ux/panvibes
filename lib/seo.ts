@@ -38,10 +38,19 @@ export const organizationSchema = {
   address: { '@type': 'PostalAddress', streetAddress: 'W-2106, Akshar Business Park, Sector 25, Vashi', addressLocality: 'Navi Mumbai', addressRegion: 'Maharashtra', postalCode: '400703', addressCountry: 'IN' },
   contactPoint: { '@type': 'ContactPoint', contactType: 'Export sales', email: company.email, telephone: company.phones[0], availableLanguage: 'English' },
   sameAs: ['https://www.youtube.com/@panvibes6161'],
+  founder: { '@type': 'Person', name: company.founderName },
+  subjectOf: { '@type': 'AboutPage', '@id': `${siteUrl}/about#webpage`, url: `${siteUrl}/about` },
 };
 
 export const websiteSchema = {
   '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${siteUrl}/#website`,
   name: company.name, alternateName: 'PanVibes', url: siteUrl,
   inLanguage: 'en', publisher: { '@id': organizationId },
+  about: { '@id': organizationId },
+};
+
+export const companyAboutSchema = {
+  '@context': 'https://schema.org', '@type': 'AboutPage', '@id': `${siteUrl}/about#webpage`,
+  name: `About ${company.name}`, url: `${siteUrl}/about`,
+  isPartOf: { '@id': `${siteUrl}/#website` }, mainEntity: { '@id': organizationId },
 };

@@ -30,9 +30,16 @@ const home=await get('/'),homeData=schemas(home);
 const website=homeData.find(item=>item['@type']==='WebSite'),organization=homeData.find(item=>item['@type']==='Organization');
 assert.equal(website.name,'PanVibes Exim');assert.equal(website.url,'https://panvibes.com');
 assert.ok(organization.contactPoint.telephone);
+assert.equal(organization.founder.name,'Prakash Mewada');
+assert.equal(website.about['@id'],organization['@id']);
 assert.match(home,/Bulk Food Ingredients &amp; Chemical Supplier India/);
 assert.match(home,/id="supplier-overview-title"/);
 const sitemap=await get('/sitemap.xml');
+const about=await get('/about'),aboutPage=schemas(about).find(item=>item['@type']==='AboutPage');
+assert.equal(aboutPage.mainEntity['@id'],organization['@id']);
+assert.match(about,/id="company-information-title"/);
+assert.match(about,/panvibes.com, is the official PanVibes Exim website/);
+assert.ok(schemas(home).find(item=>item['@type']==='FAQPage').mainEntity.some(item=>item.name==='What is the official PanVibes Exim website?'));
 for(const guide of buyerGuides){
   const path='/guides/'+guide.slug,html=await get(path),data=schemas(html);
   assert.ok(sitemap.includes('<loc>https://panvibes.com'+path+'</loc>'));

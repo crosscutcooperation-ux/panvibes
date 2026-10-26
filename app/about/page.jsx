@@ -1,6 +1,8 @@
 import ClientEffects from './client-effects';
 import './about.css';
-import { pageMetadata } from '@/lib/seo';
+import { companyAboutSchema, pageMetadata } from '@/lib/seo';
+import StructuredData from '@/components/StructuredData';
+import CompanyIdentity from '@/components/CompanyIdentity';
 
 export const metadata = pageMetadata('About Us', 'Meet PanVibes Exim, an India-based B2B ingredient supplier and export partner in Navi Mumbai. Learn about our business and leadership team.', '/about');
 
@@ -252,6 +254,8 @@ export default function AboutPage() {
             <p className="apart-hint">MOVE YOUR MOUSE OR SCROLL TO EXPLORE</p>
           </div>
         </section>
+        <CompanyIdentity />
+        <StructuredData data={companyAboutSchema}/>
         </main>
       <ClientEffects />
     </div>

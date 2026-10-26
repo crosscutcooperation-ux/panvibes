@@ -146,6 +146,7 @@ export const exportProducts: ExportProduct[] = [
 ];
 
 export const procurementFaqs = [
+  { question: 'What is the official PanVibes Exim website?', answer: 'The official PanVibes Exim website is https://panvibes.com. PanVibes Exim is a B2B ingredient supplier and export partner based in Navi Mumbai, India. Use this website’s catalogue and contact page for the current business enquiry details and confirmed shipping coverage.' },
   { question: 'What does PanVibes Exim supply?', answer: 'PanVibes Exim is an India-based B2B supplier and exporter of dehydrated vegetables, ginger, turmeric powder, moringa powder, ashwagandha, makhana / fox nuts and banana powder. A separate industrial portfolio lists chemicals, aggregates and construction admixtures.' },
   { question: 'Where does PanVibes Exim ship?', answer: 'We ship only to India, the UK, the USA, Europe and the UAE. For European deliveries, specify the country and city. Product eligibility, documentation, logistics and delivery terms are confirmed for each order.' },
   { question: 'What is the minimum order quantity?', answer: 'MOQ is confirmed per product, grade, packaging and sourcing arrangement. Send your required quantity and destination to receive a suitable quotation.' },

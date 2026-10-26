@@ -4,6 +4,7 @@ import { shippingMarkets } from './shipping';
 export const company = {
   name: "PanVibes Exim",
   legalName: "PanVibes Exim Pvt Ltd",
+  founderName: "Prakash Mewada",
   copyrightYear: 2025,
   email: "info@panvibesexim.com",
   location: "Navi Mumbai, Maharashtra, India",

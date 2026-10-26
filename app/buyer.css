@@ -48,6 +48,13 @@
 .buyer-spec-table th,.buyer-spec-table td { padding:16px;text-align:left;border-bottom:1px solid #d7e1eb;line-height:1.7;vertical-align:top; }
 .buyer-spec-table th { width:32%;font-weight:500; }
 .buyer-spec-table caption { text-align:left;font-size:14px;line-height:1.7;margin-bottom:22px; }
+.buyer-table-scroll { overflow-x:auto;overscroll-behavior-inline:contain; }
+.buyer-table-scroll table { min-width:570px; }
+.buyer-section>p a { text-decoration:underline;text-underline-offset:4px; }
+.buyer-guide-body { max-width:1050px; }
+.buyer-guide-body .buyer-section { padding:38px 0;border-bottom:1px solid #d7e1eb; }
+.buyer-guide-body .buyer-section p+p { margin-top:18px; }
+.buyer-guide-byline { font:12px/1.7 Helvetica,sans-serif;color:#526d84;margin:24px 0; }
 .buyer-notice { font-size:14px;line-height:1.8;background:#f1f6fa;border-radius:10px;padding:20px 24px;margin:24px 0; }
 .chemical-tools { display:flex;gap:18px;align-items:end;flex-wrap:wrap;margin-bottom:30px; }
 .chemical-tools label { flex:1;min-width:220px;display:grid;gap:10px;font-size:14px; }

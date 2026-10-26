@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 const origin = process.env.SITE_URL || 'http://127.0.0.1:3000';
 const productSource = await fs.readFile(new URL('../lib/export-products.ts', import.meta.url), 'utf8');
 const productRoutes = [...productSource.matchAll(/slug: '([^']+)'/g)].map(match => `/products/${match[1]}`);
-const routes = ['/', '/about', '/services', '/products', '/blog', '/contact', '/products/chemicals', '/quality', '/export-from-india', ...productRoutes];
+const routes = ['/', '/about', '/services', '/products', '/blog', '/contact', '/products/chemicals', '/quality', '/export-from-india', '/guides', '/guides/ginger-powder-flakes-whole-buying-guide', '/guides/bulk-ingredient-quotation-checklist', ...productRoutes];
 const chemicals = JSON.parse(await fs.readFile(new URL('../lib/chemicals.json', import.meta.url), 'utf8'));
 const canonicalOrigin = 'https://panvibes.com';
 const posts = JSON.parse(await fs.readFile(new URL('../app/blog/posts.json', import.meta.url), 'utf8'));

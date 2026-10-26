@@ -36,5 +36,12 @@ export const organizationSchema = {
   telephone: company.phones[0],
   areaServed: shippingAreaSchema,
   address: { '@type': 'PostalAddress', streetAddress: 'W-2106, Akshar Business Park, Sector 25, Vashi', addressLocality: 'Navi Mumbai', addressRegion: 'Maharashtra', postalCode: '400703', addressCountry: 'IN' },
-  contactPoint: { '@type': 'ContactPoint', contactType: 'Export sales', email: company.email, telephone: company.phones[3], availableLanguage: 'English' },
+  contactPoint: { '@type': 'ContactPoint', contactType: 'Export sales', email: company.email, telephone: company.phones[0], availableLanguage: 'English' },
+  sameAs: ['https://www.youtube.com/@panvibes6161'],
+};
+
+export const websiteSchema = {
+  '@context': 'https://schema.org', '@type': 'WebSite', '@id': `${siteUrl}/#website`,
+  name: company.name, alternateName: 'PanVibes', url: siteUrl,
+  inLanguage: 'en', publisher: { '@id': organizationId },
 };

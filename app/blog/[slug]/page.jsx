@@ -38,6 +38,7 @@ export default async function ArticlePage({ params }) {
         <div className={styles.byline}><span className={styles.bylineIcon}>p↗</span><div>PanVibes Exim<span>THE PANVIBES JOURNAL</span></div></div>
         <img className={styles.articleImage} src={image.src} alt={image.alt} width="1200" height="800" />
         <div id="article-content" className={styles.articleBody} dangerouslySetInnerHTML={{ __html: post.content }} />
+        <aside className="buyer-notice" aria-label="Related sourcing resources"><strong>Preparing a bulk purchase?</strong><p>{post.slug.includes('ginger')?<Link href="/products/ginger">Review ginger powder, flakes and whole ginger sourcing from India.</Link>:<Link href="/products">Explore the confirmed PanVibes ingredient catalogue.</Link>}</p><p><Link href="/guides/bulk-ingredient-quotation-checklist">Use the bulk ingredient quotation checklist</Link> to define your specification, quantity, packing and delivery requirement.</p></aside>
         <Link href="/blog#stories" className={styles.articleEnd}>Explore more stories <Arrow /></Link>
       </article>
       <section className={styles.related} aria-labelledby="related-title"><div className={styles.sectionLabel}><h2 id="related-title">Keep exploring</h2><span>MORE FROM {post.category.toUpperCase()}</span></div><div className={styles.grid}>{related.map(item => <BlogCard post={item} index={posts.indexOf(item)} key={item.slug} />)}</div></section>

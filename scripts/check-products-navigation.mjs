@@ -15,7 +15,7 @@ try{
     page.on('request',request=>{if(request.url().includes('/images/products/'))downloads.push(request.url());});
     await page.goto(base+'/products',{waitUntil:'networkidle'});
     await page.waitForFunction(()=>document.querySelector('.product-stage')?.dataset.assetsReady==='true'&&document.querySelector('.product-table')?.complete);
-    assert.equal(await page.title(),'PanVibes Exim | Products & Ingredients');
+    assert.equal(await page.title(),'PanVibes Exim | Bulk Food Ingredients & Industrial Chemicals');
     const variant=mobile?'mobile':'desktop';
     for(const entry of Object.values(assets))assert.equal(downloads.filter(url=>url.endsWith(entry[variant].src)).length,1,'Download each selected image once');
     assert.equal(downloads.length,3,'Do not download oversized originals or both viewport variants');

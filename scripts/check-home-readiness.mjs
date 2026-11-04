@@ -11,23 +11,30 @@ try{
   const context=await browser.newContext({viewport:{width:1440,height:900}});
   const page=await context.newPage(),errors=[],networkFrames=[];
   page.on('pageerror',error=>errors.push(error.message));
-  page.on('request',request=>{if(/\/images\/(?:branded\/)?journey(?:-mobile)?\//.test(request.url()))networkFrames.push(request.url());});
+  page.on('request',request=>{if(/\/images\/.*journey(?:-mobile)?\//.test(request.url()))networkFrames.push(request.url());});
   let held,releaseHeld;
   const heldReady=new Promise(resolve=>{releaseHeld=resolve;});
   await page.route(journeyPattern,route=>{held=route;releaseHeld();});
   await page.goto(base,{waitUntil:'domcontentloaded'});
-  await page.locator('.home-loader').waitFor({state:'visible'});
-  await page.screenshot({path:'tmp/readiness/loader.png'});
-  // Even with the hero ready, the unfinished transport pack keeps the loader up.
+  // The opening must not wait for a deliberately held later-scene download.
   await page.waitForFunction(()=>document.querySelector('.home-video-stage')?.dataset.videoState==='ready',null,{timeout:45000});
   await heldReady;
+  await page.locator('.home-loader').waitFor({state:'hidden',timeout:45000});
+  assert.equal(await page.locator('.home-experience').getAttribute('data-opening-ready'),'true');
+  assert.equal(await page.locator('.home-experience').getAttribute('data-journey-ready'),'false');
+  assert.equal(await page.locator('video').getAttribute('data-download-complete'),'true');
+  console.log('PASS: the complete opening film and decoded handoff unlock while the later HD pack is still downloading');
+  // An instant jump must hold a valid arrival frame under the readiness screen,
+  // rather than showing empty/cracked truck, crane or ship frames.
+  await page.evaluate(()=>{const root=document.querySelector('.trade-journey-v2');window.scrollTo({top:Number(root.dataset.scrollStart)+(Number(root.dataset.scrollEnd)-Number(root.dataset.scrollStart))*.4,behavior:'instant'});});
+  await page.locator('.home-loader').waitFor({state:'visible'});
   assert.equal(await page.locator('.home-loader').isVisible(),true);
   assert.equal(await page.evaluate(()=>document.documentElement.style.overflow),'hidden');
-  await page.mouse.wheel(0,3000);
-  assert.equal(await page.evaluate(()=>window.scrollY),0);
+  assert.ok(Number(await page.locator('.trade-journey-v2').getAttribute('data-phase'))<=5);
   assert.ok(held,'The complete journey, including its ship, must be prepared');
   await held.continue();await page.unroute(journeyPattern);
   await page.locator('.home-loader').waitFor({state:'hidden',timeout:45000});
+  await page.waitForFunction(()=>!!document.querySelector('.motion-globe .globe-ready'),null,{timeout:45000});
   const ready=await page.evaluate(()=>({
     blob:document.querySelector('video').currentSrc.startsWith('blob:'),
     decoded:document.querySelector('.motion-vehicles canvas')?.dataset.ready,
@@ -36,15 +43,15 @@ try{
     globe:!!document.querySelector('.motion-globe .globe-ready'),
   }));
   assert.deepEqual(ready,{blob:true,decoded:'true',scene:'true',images:true,globe:true});
-  console.log('PASS: loader holds scroll until the complete film, transport assets, decoded scene and globe are ready');
+  console.log('PASS: a fast jump waits for the complete later scene; all HD assets and the globe prepare correctly');
   // Traverse the full vehicle scene, then reverse across the same boundaries.
   for(const t of [0,5,8.5,11.7,13.2,15,16,20,25,29.5,33.1,35.5,38,33,25,15,8,0]){
     await page.evaluate(t=>{const root=document.querySelector('.trade-journey-v2');window.scrollTo({top:Number(root.dataset.scrollStart)+(Number(root.dataset.scrollEnd)-Number(root.dataset.scrollStart))*t/40,behavior:'instant'});},t);
-    await page.waitForFunction(t=>Math.abs(Number(document.querySelector('.trade-journey-v2').dataset.phase)-t)<.05,t,{timeout:5000});
+    try{await page.waitForFunction(t=>Math.abs(Number(document.querySelector('.trade-journey-v2').dataset.phase)-t)<.05,t,{timeout:5000});}
+    catch(error){console.error('Scene position mismatch',t,await page.evaluate(()=>({scroll:scrollY,start:document.querySelector('.trade-journey-v2').dataset.scrollStart,end:document.querySelector('.trade-journey-v2').dataset.scrollEnd,phase:document.querySelector('.trade-journey-v2').dataset.phase,loader:!!document.querySelector('.home-loader'),height:innerHeight})));throw error;}
     if(t<34){
       await page.waitForFunction(()=>{const canvas=document.querySelector('.motion-vehicles canvas'),ctx=canvas.getContext('2d');const data=ctx.getImageData(0,0,canvas.width,canvas.height).data;for(let i=3;i<data.length;i+=128)if(data[i]>0)return true;return false;},null,{timeout:5000});
     }
-    if([8.5,11.7,25,33.1,38].includes(t))await page.screenshot({path:`tmp/readiness/journey-${t}.png`});
   }
   assert.deepEqual(errors,[]);
   assert.deepEqual(networkFrames,[],'Prepared frames must decode from the pack, not download separately');
@@ -58,6 +65,7 @@ try{
   await failed.getByRole('button',{name:'Retry loading'}).waitFor();
   assert.equal(await failed.locator('.home-loader').isVisible(),true);
   reject=false;await failed.getByRole('button',{name:'Retry loading'}).click();
+  await failed.waitForFunction(()=>document.querySelector('video')?.dataset.downloadComplete==='true',null,{timeout:60000});
   await failed.locator('.home-loader').waitFor({state:'hidden',timeout:60000});
   assert.equal(await failed.locator('video').getAttribute('data-download-complete'),'true');
   console.log('PASS: failed preparation offers retry, and retry prepares the complete animation');

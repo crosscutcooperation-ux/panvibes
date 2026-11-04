@@ -261,7 +261,7 @@ export function createJourneyScene(host: HTMLElement) {
     }
     // Drop queued frames from phases the visitor has already scrolled past.
     for (let index = queue.length - 1; index >= 0; index--) {
-      if (!needed.has(queue[index])) { waiting.delete(queue[index]); queue.splice(index, 1); }
+      if (!needed.has(queue[index])&&!pinned.has(queue[index])&&!waiters.has(queue[index])) { waiting.delete(queue[index]); queue.splice(index, 1); }
     }
     // Keep a bounded decoded-image cache rather than retaining hundreds of
     // full-resolution frames on phones. Nearby frames refill on reverse scroll.
@@ -277,5 +277,10 @@ export function createJourneyScene(host: HTMLElement) {
     }));
     canvas.dataset.ready='true';
   }
-  return { draw, prepare, dispose() { disposed = true; cancelAnimationFrame(raf); queue.length = 0;waiters.forEach(list=>list.forEach(waiter=>waiter.reject()));waiters.clear();displayed.clear(); images.forEach((asset,path) => { if(path===handoffTruck.src)return; asset.onload = null; asset.onerror = null; asset.src = ''; }); images.clear(); canvas.remove(); } };
+  async function prepareOpening(){
+    const truck=await loadHandoffTruck();
+    if(disposed)return;
+    images.set(handoffTruck.src,truck);canvas.dataset.openingReady='true';redraw();
+  }
+  return { draw, prepare, prepareOpening, dispose() { disposed = true; cancelAnimationFrame(raf); queue.length = 0;waiters.forEach(list=>list.forEach(waiter=>waiter.reject()));waiters.clear();displayed.clear(); images.forEach((asset,path) => { if(path===handoffTruck.src)return; asset.onload = null; asset.onerror = null; asset.src = ''; }); images.clear(); canvas.remove(); } };
 }

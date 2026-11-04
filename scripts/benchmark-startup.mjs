@@ -19,9 +19,12 @@ try{
     await page.goto(base,{waitUntil:'domcontentloaded'});
     await page.waitForFunction(()=>document.querySelector('.home-experience')?.dataset.homeReady==='true',null,{timeout:180000});
     const readyMs=Math.round(performance.now()-start);
-    const state=await page.evaluate(()=>({video:document.querySelector('.home-video-stage')?.dataset.videoState,scene:document.querySelector('.trade-journey-v2')?.dataset.sceneReady,paint:performance.getEntriesByType('paint').map(({name,startTime})=>({name,ms:Math.round(startTime)}))}));
-    const result={version:baseline?'before':'after',device:mobile?'mobile':'desktop',run,readyMs,requests,bytes,packs,...state,errors};results.push(result);console.log(JSON.stringify(result));
-    if(errors.length||state.video!=='ready'||state.scene!=='true')throw new Error('Benchmark must measure fully ready animations');
+    const openingBytes=bytes,openingRequests=requests;
+    const state=await page.evaluate(()=>({video:document.querySelector('.home-video-stage')?.dataset.videoState,opening:document.querySelector('.motion-vehicles canvas')?.dataset.openingReady,sceneAtOpening:document.querySelector('.trade-journey-v2')?.dataset.sceneReady,paint:performance.getEntriesByType('paint').map(({name,startTime})=>({name,ms:Math.round(startTime)}))}));
+    if(errors.length||state.video!=='ready')throw new Error('Benchmark must measure a fully downloaded, decoded opening film');
+    await page.waitForFunction(()=>document.querySelector('.trade-journey-v2')?.dataset.sceneReady==='true',null,{timeout:180000});
+    const allScenesReadyMs=Math.round(performance.now()-start);
+    const result={version:baseline?'before':'after',device:mobile?'mobile':'desktop',run,readyMs,allScenesReadyMs,openingRequests,openingBytes,requests,bytes,packs,...state,errors};results.push(result);console.log(JSON.stringify(result));
     await context.close();
   }
 }finally{await browser.close();mkdirSync('tmp/performance',{recursive:true});writeFileSync(process.env.PERF_OUTPUT||'tmp/performance/current.json',JSON.stringify({base,network:{latencyMs:100,downloadBytesPerSecond:Number(process.env.PERF_RATE||1048576),coldCache:true},results},null,2));}

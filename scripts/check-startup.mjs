@@ -13,6 +13,9 @@ for(const route of routes){
     const hints=response.headers.get('link')||'';
     assert.ok(hints.includes('/media/home-hero/hero-desert-branded-poster.jpg'),'First-frame image must be preloaded from the HTTP response');
     assert.ok(hints.includes('fetchpriority="high"'),'First frame has high fetch priority');
+    assert.ok(html.includes('data-opening-ready="false"'),'Readiness must distinguish the opening from later scenes');
+    assert.ok(html.includes('hero-web-desktop-')&&html.includes('hero-web-mobile-'),'The opening film must be discoverable before hydration');
+    assert.doesNotMatch(html,/<link[^>]+rel="preload"[^>]+href="\/media\/journey\//,'Later HD packs must not compete with the opening');
     assert.ok(!html.includes('src="/images/branded/ship.webp"'),'Below-fold ship must wait for the journey');
   }
 }

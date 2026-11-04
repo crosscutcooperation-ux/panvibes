@@ -7,6 +7,8 @@ import { preload } from 'react-dom';
 export default function Hero() {
   // Start the first visible frame from the server HTML, before hydration/video.
   preload('/media/home-hero/hero-desert-branded-poster.jpg', { as: 'image', fetchPriority: 'high' });
+  for(const name of ['BTSteinhart-Bold','BTSteinhart-Medium','BTSteinhart-RegularMono','HelveticaNeueRoman','HelveticaNeueMedium'])
+    preload(`/images/fonts/${name}-subset.woff2`,{as:'font',type:'font/woff2',crossOrigin:'anonymous'});
   return (
     <ScrollVideoHero>
         <div className="hero-copy">

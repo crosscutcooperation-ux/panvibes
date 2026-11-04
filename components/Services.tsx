@@ -24,7 +24,9 @@ export default function Journey() {
   const vehicleHost=useRef<HTMLDivElement>(null);
   const [globeActive,setGlobeActive]=useState(false);
   const [assetsReady,setAssetsReady]=useState(false);
-  const {staticView,report,fail}=useHomeLoading();
+  const {staticView,openingReady,report,requirePart,fail}=useHomeLoading();
+  const opening=useRef(false),startAssets=useRef<(()=>void)|null>(null);
+  useEffect(()=>{opening.current=openingReady;if(openingReady)startAssets.current?.();},[openingReady]);
   const globePrepared=useCallback((ready:boolean)=>report('globe',ready?1:0),[report]);
   const globeFallback=useCallback(()=>report('globe',1),[report]);
   useEffect(()=>{
@@ -32,19 +34,21 @@ export default function Journey() {
     const compact=window.matchMedia('(max-width: 991px), (pointer: coarse)');
     const run=()=>{
     const el=root.current!, host=vehicleHost.current!;
-    let cancelled=false, active=false;report('journey',0);setAssetsReady(false);
+    let cancelled=false, active=false;report('opening',0);report('journey',0);setAssetsReady(false);
     const downloads=new AbortController();
     let dispose=()=>{};
     if(reduced.matches||staticView){
-      report('journey',1);report('globe',1);
+      report('opening',1);report('journey',1);report('globe',1);
       const stopAssets=whenNear(el,()=>setAssetsReady(true),Math.max(1200,window.innerHeight*2));
       const observer=new IntersectionObserver(([entry])=>setGlobeActive(entry.isIntersecting));
       observer.observe(el.querySelector(".motion-orbit")!);
       return()=>{stopAssets();observer.disconnect();};
     }
     function setup(){
-      let scene:ReturnType<typeof import('@/lib/journey-scene').createJourneyScene>|undefined;
       let releaseAssets:(()=>void)|undefined;
+      let sceneReady=false,preparing=false,preparationFrame=0;
+      const scene=createJourneyScene(host);
+      void scene.prepareOpening().then(()=>{if(!cancelled)report('opening',1);}).catch(()=>{if(!cancelled)fail('The opening scene could not be prepared. Retry, or continue with the still view.');});
       el.classList.add("continuous-motion");
       const stage=el.querySelector<HTMLElement>(".motion-stage")!;
       const paper=el.querySelector<HTMLElement>(".motion-paper")!;
@@ -73,7 +77,11 @@ export default function Journey() {
       measure();
       const clock={time:0};
       const draw=()=>{
-        const t=clock.time,{w,h,statHeight,rowSteps,trackWidth,industryHeight}=layout;
+        // The first arrival uses the same small handoff image as the film.
+        // Keep it displayed if a fast scroll outruns the later HD frame pack.
+        if(!sceneReady&&clock.time>=5)requirePart('journey');
+        const t=sceneReady?clock.time:Math.min(clock.time,5),{w,h,statHeight,rowSteps,trackWidth,industryHeight}=layout;
+        if(t>=34)requirePart('globe');
         const compact=w<=991;
         el.dataset.phase=t.toFixed(2);
         lane.style.transform=`translateY(${-h*1.7*smooth(segment(t,6,8))}px)`;
@@ -142,29 +150,35 @@ export default function Journey() {
       draw();ScrollTrigger.refresh();
       let stalled:ReturnType<typeof setTimeout>;
       const heartbeat=()=>{clearTimeout(stalled);stalled=setTimeout(()=>{downloads.abort();if(!cancelled)fail('Loading paused because the connection stopped. Retry, or continue with the still view.');},30000);};
-      heartbeat();
       async function prepare(){
         try{
+          heartbeat();
           releaseAssets=await prepareJourneyDownloads(compact.matches,downloads.signal,value=>{heartbeat();report('journey',value*.9);});
           if(cancelled){releaseAssets();return;}
-          scene=createJourneyScene(host);await scene.prepare();
+          await scene!.prepare();
           if(cancelled)return;
           setAssetsReady(true);
           await new Promise<void>(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>resolve())));
           await Promise.all([...stage.querySelectorAll<HTMLImageElement>('img')].map(image=>image.decode()));
           if(cancelled)return;
           await document.fonts.ready;
-          measure();ScrollTrigger.refresh();draw();el.dataset.sceneReady='true';report('journey',1);
+          sceneReady=true;measure();ScrollTrigger.refresh();draw();el.dataset.sceneReady='true';report('journey',1);
         }catch{if(!cancelled)fail('Some journey assets could not be prepared. Retry, or continue with the still view.');}
         finally{clearTimeout(stalled);}
       }
-      void prepare();
+      const start=()=>{
+        if(preparing||cancelled)return;preparing=true;
+        // Give the opening a paint before the large, unchanged HD pack starts.
+        preparationFrame=requestAnimationFrame(()=>{preparationFrame=requestAnimationFrame(()=>{if(!cancelled)void prepare();});});
+      };
+      startAssets.current=start;
+      if(opening.current)start();
       if(animation.scrollTrigger){el.dataset.scrollStart=String(animation.scrollTrigger.start);el.dataset.scrollEnd=String(animation.scrollTrigger.end);}
       const revealServices=()=>{const trigger=animation.scrollTrigger;if(trigger){ScrollTrigger.refresh();window.scrollTo({top:trigger.start+(trigger.end-trigger.start)*18/JOURNEY_DURATION,behavior:'instant'});}};
       window.addEventListener('panvibes:services',revealServices);
       document.fonts.ready.then(()=>{if(!cancelled&&new URLSearchParams(window.location.search).get('section')==='services')revealServices();});
       dispose=()=>{
-        clearTimeout(stalled);downloads.abort();window.removeEventListener('panvibes:services',revealServices);resize.disconnect();animation.scrollTrigger?.kill();animation.kill();scene?.dispose();releaseAssets?.();el.classList.remove('continuous-motion');delete el.dataset.sceneReady;
+        startAssets.current=null;cancelAnimationFrame(preparationFrame);clearTimeout(stalled);downloads.abort();window.removeEventListener('panvibes:services',revealServices);resize.disconnect();animation.scrollTrigger?.kill();animation.kill();scene?.dispose();releaseAssets?.();el.classList.remove('continuous-motion');delete el.dataset.sceneReady;
         // Leaving the desktop breakpoint must also remove the scene's inline
         // transforms/visibility, otherwise its natural mobile content stays hidden.
         [lane,...statRows,paper,track,serviceFloor,road,industry,industryTrack,ocean,oceanTexture,ship,globe,worldCopy,...clouds,progress,host].forEach(node=>{
@@ -180,13 +194,13 @@ export default function Journey() {
     const configure=()=>{stop();stop=run();ScrollTrigger.refresh();};
     compact.addEventListener('change',configure);reduced.addEventListener('change',configure);
     return()=>{stop();compact.removeEventListener('change',configure);reduced.removeEventListener('change',configure);};
-  },[staticView,report,fail]);
+  },[staticView,report,requirePart,fail]);
   return (
     <section className="trade-journey-v2" ref={root} data-assets-ready={assetsReady||undefined} aria-label="The PanVibes journey">
       <div className="motion-stage">
         <section className="motion-orbit" aria-labelledby="transit-title">
           <div className="motion-stars" />
-          <div className="motion-globe"><Globe active={globeActive} prepare={!staticView} onPrepared={globePrepared} onFailure={globeFallback}/></div>
+          <div className="motion-globe"><Globe active={globeActive} prepare={openingReady&&!staticView} onPrepared={globePrepared} onFailure={globeFallback}/></div>
           <div className="motion-world-copy">
             <p className="eyebrow">PanVibes Exim</p>
             <p className="transit-description">We ship only to India, the UK, the USA, Europe and the UAE.</p>

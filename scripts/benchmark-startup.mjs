@@ -21,7 +21,8 @@ try{
     const readyMs=Math.round(performance.now()-start);
     const openingBytes=bytes,openingRequests=requests;
     const state=await page.evaluate(()=>({video:document.querySelector('.home-video-stage')?.dataset.videoState,opening:document.querySelector('.motion-vehicles canvas')?.dataset.openingReady,sceneAtOpening:document.querySelector('.trade-journey-v2')?.dataset.sceneReady,paint:performance.getEntriesByType('paint').map(({name,startTime})=>({name,ms:Math.round(startTime)}))}));
-    if(errors.length||state.video!=='ready')throw new Error('Benchmark must measure a fully downloaded, decoded opening film');
+    if(errors.length||state.video!=='ready')throw new Error('Benchmark must measure a decoded native first frame');
+    await page.evaluate(()=>{const hero=document.querySelector('.home-video-hero');scrollTo({top:Number(hero.dataset.scrollStart)+(Number(hero.dataset.scrollEnd)-Number(hero.dataset.scrollStart))*.12,behavior:'instant'});});
     await page.waitForFunction(()=>document.querySelector('.trade-journey-v2')?.dataset.sceneReady==='true',null,{timeout:180000});
     const allScenesReadyMs=Math.round(performance.now()-start);
     const result={version:baseline?'before':'after',device:mobile?'mobile':'desktop',run,readyMs,allScenesReadyMs,openingRequests,openingBytes,requests,bytes,packs,...state,errors};results.push(result);console.log(JSON.stringify(result));

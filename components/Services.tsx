@@ -24,9 +24,9 @@ export default function Journey() {
   const vehicleHost=useRef<HTMLDivElement>(null);
   const [globeActive,setGlobeActive]=useState(false);
   const [assetsReady,setAssetsReady]=useState(false);
-  const {staticView,openingReady,report,requirePart,fail}=useHomeLoading();
-  const opening=useRef(false),startAssets=useRef<(()=>void)|null>(null);
-  useEffect(()=>{opening.current=openingReady;if(openingReady)startAssets.current?.();},[openingReady]);
+  const [journeyStarted,setJourneyStarted]=useState(false);
+  const [globeWarm,setGlobeWarm]=useState(false);
+  const {staticView,report,fail}=useHomeLoading();
   const globePrepared=useCallback((ready:boolean)=>report('globe',ready?1:0),[report]);
   const globeFallback=useCallback(()=>report('globe',1),[report]);
   useEffect(()=>{
@@ -47,8 +47,8 @@ export default function Journey() {
     function setup(){
       let releaseAssets:(()=>void)|undefined;
       let sceneReady=false,preparing=false,preparationFrame=0;
-      const scene=createJourneyScene(host);
-      void scene.prepareOpening().then(()=>{if(!cancelled)report('opening',1);}).catch(()=>{if(!cancelled)fail('The opening scene could not be prepared. Retry, or continue with the still view.');});
+      let scene:ReturnType<typeof createJourneyScene>|undefined;
+      let globeRequested=false;
       el.classList.add("continuous-motion");
       const stage=el.querySelector<HTMLElement>(".motion-stage")!;
       const paper=el.querySelector<HTMLElement>(".motion-paper")!;
@@ -77,11 +77,8 @@ export default function Journey() {
       measure();
       const clock={time:0};
       const draw=()=>{
-        // The first arrival uses the same small handoff image as the film.
-        // Keep it displayed if a fast scroll outruns the later HD frame pack.
-        if(!sceneReady&&clock.time>=5)requirePart('journey');
-        const t=sceneReady?clock.time:Math.min(clock.time,5),{w,h,statHeight,rowSteps,trackWidth,industryHeight}=layout;
-        if(t>=34)requirePart('globe');
+        const t=clock.time,{w,h,statHeight,rowSteps,trackWidth,industryHeight}=layout;
+        if(t>=30&&!globeRequested){globeRequested=true;setGlobeWarm(true);}
         const compact=w<=991;
         el.dataset.phase=t.toFixed(2);
         lane.style.transform=`translateY(${-h*1.7*smooth(segment(t,6,8))}px)`;
@@ -141,7 +138,7 @@ export default function Journey() {
         if(active!==nextActive){active=nextActive;setGlobeActive(active);}
         // Avoid a second renderer once the sea has shrunk beyond a pixel.
         host.style.visibility=t<34?"visible":"hidden";
-        if(t<34)scene?.draw(t,w,h);
+        if(t<34)scene?.draw(sceneReady?t:Math.min(t,5),w,h);
         stage.dataset.layout=compact?"compact":"wide";
       };
       const animation=gsap.to(clock,{time:JOURNEY_DURATION,ease:"none",onUpdate:draw,
@@ -153,6 +150,9 @@ export default function Journey() {
       async function prepare(){
         try{
           heartbeat();
+          scene=createJourneyScene(host);await scene.prepareOpening();
+          if(cancelled)return;
+          report('opening',1);draw();
           releaseAssets=await prepareJourneyDownloads(compact.matches,downloads.signal,value=>{heartbeat();report('journey',value*.9);});
           if(cancelled){releaseAssets();return;}
           await scene!.prepare();
@@ -168,17 +168,18 @@ export default function Journey() {
       }
       const start=()=>{
         if(preparing||cancelled)return;preparing=true;
-        // Give the opening a paint before the large, unchanged HD pack starts.
+        setJourneyStarted(true);
+        // Wait for the visitor to start the film or approach the next section.
         preparationFrame=requestAnimationFrame(()=>{preparationFrame=requestAnimationFrame(()=>{if(!cancelled)void prepare();});});
       };
-      startAssets.current=start;
-      if(opening.current)start();
+      window.addEventListener('panvibes:hero-started',start);
+      const stopNear=whenNear(el,start,Math.max(1200,window.innerHeight*2));
       if(animation.scrollTrigger){el.dataset.scrollStart=String(animation.scrollTrigger.start);el.dataset.scrollEnd=String(animation.scrollTrigger.end);}
       const revealServices=()=>{const trigger=animation.scrollTrigger;if(trigger){ScrollTrigger.refresh();window.scrollTo({top:trigger.start+(trigger.end-trigger.start)*18/JOURNEY_DURATION,behavior:'instant'});}};
       window.addEventListener('panvibes:services',revealServices);
       document.fonts.ready.then(()=>{if(!cancelled&&new URLSearchParams(window.location.search).get('section')==='services')revealServices();});
       dispose=()=>{
-        startAssets.current=null;cancelAnimationFrame(preparationFrame);clearTimeout(stalled);downloads.abort();window.removeEventListener('panvibes:services',revealServices);resize.disconnect();animation.scrollTrigger?.kill();animation.kill();scene?.dispose();releaseAssets?.();el.classList.remove('continuous-motion');delete el.dataset.sceneReady;
+        stopNear();window.removeEventListener('panvibes:hero-started',start);cancelAnimationFrame(preparationFrame);clearTimeout(stalled);downloads.abort();window.removeEventListener('panvibes:services',revealServices);resize.disconnect();animation.scrollTrigger?.kill();animation.kill();scene?.dispose();releaseAssets?.();el.classList.remove('continuous-motion');delete el.dataset.sceneReady;
         // Leaving the desktop breakpoint must also remove the scene's inline
         // transforms/visibility, otherwise its natural mobile content stays hidden.
         [lane,...statRows,paper,track,serviceFloor,road,industry,industryTrack,ocean,oceanTexture,ship,globe,worldCopy,...clouds,progress,host].forEach(node=>{
@@ -194,13 +195,13 @@ export default function Journey() {
     const configure=()=>{stop();stop=run();ScrollTrigger.refresh();};
     compact.addEventListener('change',configure);reduced.addEventListener('change',configure);
     return()=>{stop();compact.removeEventListener('change',configure);reduced.removeEventListener('change',configure);};
-  },[staticView,report,requirePart,fail]);
+  },[staticView,report,fail]);
   return (
     <section className="trade-journey-v2" ref={root} data-assets-ready={assetsReady||undefined} aria-label="The PanVibes journey">
       <div className="motion-stage">
         <section className="motion-orbit" aria-labelledby="transit-title">
           <div className="motion-stars" />
-          <div className="motion-globe"><Globe active={globeActive} prepare={openingReady&&!staticView} onPrepared={globePrepared} onFailure={globeFallback}/></div>
+          <div className="motion-globe"><Globe active={globeActive} prepare={globeWarm&&!staticView} onPrepared={globePrepared} onFailure={globeFallback}/></div>
           <div className="motion-world-copy">
             <p className="eyebrow">PanVibes Exim</p>
             <p className="transit-description">We ship only to India, the UK, the USA, Europe and the UAE.</p>
@@ -236,6 +237,7 @@ export default function Journey() {
           <div className="motion-industry-track">{industries.map((industry,i)=><article className="motion-industry-card" key={industry.name}><div className="motion-industry-photo">{assetsReady&&<Image src={preparedAsset("/images/"+industry.image)} alt={industry.name} fill sizes="(max-width: 767px) 43vw, 33vw" loading="eager" unoptimized/>}<span className="mono">0{i+1}</span><h3>{industry.name}</h3></div><p>{industry.description}</p></article>)}</div>
         </section>
         <div className="motion-vehicles" ref={vehicleHost} aria-hidden="true"/>
+        {journeyStarted&&!assetsReady&&!staticView&&<span className="journey-preparing" role="status">Loading animation…</span>}
         <div className="motion-cloud motion-cloud-left" aria-hidden="true">{assetsReady&&<Image src={preparedAsset("/images/cloud-left.avif")} alt="" width={1400} height={1400} loading="eager" unoptimized/>}</div>
         <div className="motion-cloud motion-cloud-right" aria-hidden="true">{assetsReady&&<Image src={preparedAsset("/images/cloud-right.avif")} alt="" width={1400} height={1400} loading="eager" unoptimized/>}</div>
         <div className="motion-progress mono" aria-hidden="true"><span>PanVibes Exim</span><div><i/></div><span>Scroll to explore ↓</span></div>

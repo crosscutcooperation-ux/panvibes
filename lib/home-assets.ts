@@ -27,11 +27,6 @@ export async function prepareJourneyDownloads(compact:boolean,signal:AbortSignal
   return registerPreparedAssets(blob,entries,4+size);
 }
 
-// A complete local Blob makes every scroll seek independent of the network.
-// Abort on inactivity, not an arbitrary total duration on a slow connection.
-export async function downloadHero(source:string,bytes:number,signal:AbortSignal,progress:(value:number)=>void){
-  return downloadBytes(source,bytes,signal,progress,'video/mp4');
-}
 async function downloadBytes(source:string,bytes:number,signal:AbortSignal,progress:(value:number)=>void,type:string){
   const controller=new AbortController();
   const cancel=()=>controller.abort();signal.addEventListener('abort',cancel,{once:true});
@@ -40,7 +35,7 @@ async function downloadBytes(source:string,bytes:number,signal:AbortSignal,progr
   heartbeat();
   try{
     if(signal.aborted)throw new DOMException('Aborted','AbortError');
-    const response=await fetch(source,{signal:controller.signal,cache:'force-cache'});
+    const response=await fetch(source,{signal:controller.signal,cache:'force-cache',priority:'low'});
     if(!response.ok||!response.body)throw new Error('The opening film could not be downloaded');
     const reader=response.body.getReader(),chunks:Uint8Array<ArrayBuffer>[]=[];
     const total=Number(response.headers.get('content-length'))||bytes;let received=0,last=0;

@@ -6,11 +6,9 @@ import { IngredientLinks, BuyerFaqs, SupplierOverview } from '@/components/Procu
 import StructuredData from '@/components/StructuredData';
 import { websiteSchema } from '@/lib/seo';
 import HomeExperience from '@/components/HomeExperience';
-import HomeMediaPreload from '@/components/HomeMediaPreload';
 export default function Home() {
   return (
     <>
-    <HomeMediaPreload/>
     <HomeExperience><SiteMotion>
       <main>
         <Hero />

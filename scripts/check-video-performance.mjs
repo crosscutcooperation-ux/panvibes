@@ -16,7 +16,7 @@ try {
     await page.goto(base, {waitUntil:'domcontentloaded'});
     await page.locator('.home-loader').waitFor({state:'hidden',timeout:120000});
     assert.ok((await page.locator('video').getAttribute('data-source')).includes(mobile ? assets.mobile.src : assets.desktop.src));
-    assert.equal(await page.locator('video').getAttribute('data-download-complete'),'true');
+    assert.equal(await page.locator('video').evaluate(video=>new URL(video.currentSrc).protocol==='blob:'),false);
     await page.screenshot({path:`tmp/video-checks/${mobile?'mobile':'desktop'}-start.png`});
     for (const fraction of [.22, .6, .86, 1, .3, 0]) {
       await page.evaluate(fraction => {
@@ -35,7 +35,7 @@ try {
     console.log(`PASS: ${mobile?'mobile':'desktop'} first frame, loader, forward/reverse frame-accurate seeks and final-frame handoff`);
     await context.close();
   }
-  // Slow mobile connections still wait for the complete scene before release.
+  // A slow connection can show the first native frame without a whole-file fetch.
   const slow = await browser.newContext({ viewport:{width:390,height:844},isMobile:true,hasTouch:true });
   const page = await slow.newPage();
   const cdp = await slow.newCDPSession(page);
@@ -53,11 +53,10 @@ try {
   await blocked.route('**/*.mp4',route=>route.abort('failed'));
   await blocked.goto(base,{waitUntil:'domcontentloaded'});
   await blocked.waitForFunction(()=>document.querySelector('.home-video-stage')?.dataset.videoState==='fallback');
-  await blocked.getByRole('button',{name:'Continue without animation'}).click();
   await blocked.locator('.home-loader').waitFor({state:'hidden'});
   assert.equal(await blocked.locator('.home-video-hero').evaluate(el=>el.parentElement.classList.contains('pin-spacer')),false);
   await blocked.screenshot({path:'tmp/video-checks/fallback.png'});
-  console.log('PASS: missing video retains the loader until the visitor chooses a static view');
+  console.log('PASS: missing video automatically releases the loader and retains the usable poster fallback');
   await failure.close();
 
   const reduced = await browser.newContext({reducedMotion:'reduce'});

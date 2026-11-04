@@ -7,12 +7,11 @@ import { handoffTruck, heroFilm, videoTruckBounds, loadHandoffTruck } from '@/li
 import videoAssets from '@/lib/hero-video-assets.json';
 import mobileTones from '@/lib/hero-mobile-tones.json';
 import { useHomeLoading } from './HomeExperience';
-import { downloadHero } from '@/lib/home-assets';
 gsap.registerPlugin(ScrollTrigger);
 
 export default function ScrollVideoHero({children}:{children:ReactNode}) {
   const rootRef=useRef<HTMLElement>(null),stageRef=useRef<HTMLDivElement>(null),videoRef=useRef<HTMLVideoElement>(null);
-  const {staticView,report,fail}=useHomeLoading();
+  const {staticView,report}=useHomeLoading();
   useEffect(()=>{
     const media=gsap.matchMedia();
     media.add({compact:'(max-width: 991px)',wide:'(min-width: 992px)',reduced:'(prefers-reduced-motion: reduce)'},context=>{
@@ -28,14 +27,14 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
     const notice=stage.querySelector<HTMLElement>('.hero-video-notice')!;
     const message=notice.querySelector<HTMLElement>('span')!;
     const retry=notice.querySelector<HTMLButtonElement>('button')!;
-    let failed=staticView||reduced.matches,warming=true,blobUrl='',presentedTime=-1,presentedCallback=0;
+    let failed=staticView||reduced.matches,warming=true,presentedTime=-1,presentedCallback=0,journeyRequested=false;
     let startupTimer:ReturnType<typeof setTimeout>|undefined,seekTimer:ReturnType<typeof setTimeout>|undefined;
-    const download=new AbortController();report('video',0);
+    report('video',0);
     const sample=document.createElement('canvas');sample.width=48;sample.height=28;
     const ctx=sample.getContext('2d',{willReadFrequently:true})!;
     const layer=document.createElement('canvas');layer.className='home-handoff-truck';layer.setAttribute('aria-hidden','true');document.body.appendChild(layer);
     const truckContext=layer.getContext('2d')!;
-    let truck:HTMLImageElement|undefined,truckRequested=false,videoRequested=false,startupFrame=0;
+    let truck:HTMLImageElement|undefined,truckRequested=false;
     function prepareTruck(){
       if(truckRequested||disposed)return;
       truckRequested=true;
@@ -174,7 +173,7 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
     function update(p:number){
       const w=stage.clientWidth,h=stage.clientHeight,headerHeight=header.offsetHeight;
       progress=p;stage.dataset.heroProgress=p.toFixed(3);
-      if(p>.01)scheduleVideo();
+      if(p>.01&&!warming&&!failed&&!journeyRequested){journeyRequested=true;window.dispatchEvent(new Event('panvibes:hero-started'));}
       if(p>.35)prepareTruck();
       stage.style.setProperty('--hero-header-height',`${headerHeight}px`);
       if(compact){
@@ -194,59 +193,39 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
       queue();handoff();
     }
     function ready(){
-      if(failed||disposed||warming)return;
+      if(failed||disposed)return;
       video.pause();
-      if(video.readyState>=2){clearTimeout(startupTimer);stage.dataset.videoState='ready';notice.hidden=true;}
+      if(video.readyState>=2){warming=false;clearTimeout(startupTimer);stage.dataset.videoState='ready';notice.hidden=true;report('video',1);}
       queue();contrast();handoff();
     }
     function sought(){clearTimeout(seekTimer);ready();}
     function fallback(){
       if(disposed||failed)return;
       failed=true;clearTimeout(startupTimer);clearTimeout(seekTimer);
-      video.pause();video.removeAttribute('src');video.load();
+      video.pause();
       stage.dataset.videoState='fallback';stage.dataset.truckOwner='video';
       plate.style.opacity='0';video.style.opacity='1';layer.style.visibility='hidden';
       stage.style.setProperty('--hero-copy-color','#fff');stage.style.setProperty('--hero-nav-text','#fff');
       stage.style.setProperty('--hero-shadow-opacity','1');
       message.textContent='Preview image';retry.hidden=false;notice.hidden=false;
-      fail('The opening film could not be prepared. Retry, or continue with the still view.');
+      // A failed/slow stream keeps the poster and usable page, rather than
+      // trapping the visitor under the startup screen.
+      report('video',1);
       configure();ScrollTrigger.refresh();window.dispatchEvent(new Event('panvibes:header-tone'));
     }
-    async function startVideo(){
+    function startVideo(force=false){
       if(disposed)return;
       if(reduced.matches||staticView){stage.dataset.videoState='fallback';notice.hidden=true;report('video',1);return;}
-      failed=false;stage.dataset.videoState='loading';notice.hidden=false;retry.hidden=true;
+      failed=false;warming=true;stage.dataset.videoState='loading';notice.hidden=false;retry.hidden=true;
       message.textContent='Loading video';video.preload='auto';video.muted=true;
-      try{
-        const blob=await downloadHero(asset.src,asset.bytes,download.signal,value=>report('video',value));
-        if(disposed)return;
-        blobUrl=URL.createObjectURL(blob);video.dataset.source=asset.src;video.dataset.downloadComplete='true';
-        const wait=(event:'loadeddata'|'seeked',action:()=>void)=>new Promise<void>((resolve,reject)=>{
-          const done=()=>{clean();resolve();},error=()=>{clean();reject(new Error('Video decoding failed'));};
-          const timer=setTimeout(error,15000);
-          const clean=()=>{clearTimeout(timer);video.removeEventListener(event,done);video.removeEventListener('error',error);download.signal.removeEventListener('abort',error);};
-          video.addEventListener(event,done,{once:true});video.addEventListener('error',error,{once:true});download.signal.addEventListener('abort',error,{once:true});action();
-        });
-        await wait('loadeddata',()=>{video.src=blobUrl;video.load();});
-        video.pause();
-        // Validate both ends under the loader. The transfer cannot start with
-        // an unbuffered final frame or a partially downloaded film.
-        await wait('seeked',()=>{video.currentTime=(Math.round(video.duration*heroFilm.frameRate)-.5)/heroFilm.frameRate;});
-        await wait('seeked',()=>{video.currentTime=.5/heroFilm.frameRate;});
-        if(disposed)return;
-        warming=false;stage.dataset.videoState='ready';notice.hidden=true;report('video',1);ready();
-      }catch{if(!disposed&&!download.signal.aborted)fallback();}
+      video.dataset.source=asset.src;
+      clearTimeout(startupTimer);startupTimer=setTimeout(fallback,12000);
+      // Let the browser stream and seek the original MP4 using byte ranges.
+      // Reuse the responsive source already selected from the server HTML.
+      if(force||video.error||!video.currentSrc||new URL(video.currentSrc,location.href).pathname!==asset.src){video.src=asset.src;video.load();}
+      ready();
     }
-    function scheduleVideo(){
-      if(videoRequested||disposed)return;
-      videoRequested=true;
-      // Let the server-rendered poster paint before video setup competes for
-      // bandwidth/decoding. Scrolling can start the film immediately if needed.
-      startupFrame=requestAnimationFrame(()=>{
-        startupFrame=requestAnimationFrame(()=>{startupFrame=0;void startVideo();});
-      });
-    }
-    function tryAgain(){startVideo();configure();ScrollTrigger.refresh();}
+    function tryAgain(){startVideo(true);configure();ScrollTrigger.refresh();}
     function configure(){
       trigger?.kill(true);bridge?.kill();trigger=undefined;video.pause();update(0);
       if(!reduced.matches&&!staticView&&!failed)trigger=ScrollTrigger.create({id:'panvibes-video-hero',trigger:root,pin:stage,start:'top top',
@@ -256,7 +235,7 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
       if(trigger){root.dataset.scrollStart=String(trigger.start);root.dataset.scrollEnd=String(trigger.end);}
     }
     const resize=new ResizeObserver(()=>{update(progress);contrast(true);});resize.observe(stage);
-    video.addEventListener('loadedmetadata',ready);video.addEventListener('loadeddata',ready);video.addEventListener('seeked',sought);
+    video.addEventListener('loadedmetadata',ready);video.addEventListener('loadeddata',ready);video.addEventListener('canplay',ready);video.addEventListener('seeked',sought);
     video.addEventListener('error',fallback);retry.addEventListener('click',tryAgain);
     if('requestVideoFrameCallback' in video){
       const presented=(_now:number,metadata:VideoFrameCallbackMetadata)=>{presentedTime=metadata.mediaTime;if(!warming){contrast();handoff();}if(!disposed)presentedCallback=video.requestVideoFrameCallback(presented);};
@@ -264,24 +243,24 @@ export default function ScrollVideoHero({children}:{children:ReactNode}) {
     }
     window.addEventListener('scroll',handoff,{passive:true});
     configure();
-    const posterImage=new Image();posterImage.decoding='async';
-    posterImage.onload=posterImage.onerror=scheduleVideo;posterImage.src=video.poster;
-    if(posterImage.complete)scheduleVideo();
-    if(!failed)prepareTruck();
+    startVideo();
     document.fonts.ready.then(()=>{if(!disposed)ScrollTrigger.refresh();});
-    return()=>{disposed=true;download.abort();if(presentedCallback)video.cancelVideoFrameCallback(presentedCallback);posterImage.onload=posterImage.onerror=null;cancelAnimationFrame(startupFrame);clearTimeout(startupTimer);clearTimeout(seekTimer);cancelAnimationFrame(frame);cancelAnimationFrame(handoffFrame);resize.disconnect();trigger?.kill(true);bridge?.kill();video.pause();video.removeAttribute('src');video.load();if(blobUrl)URL.revokeObjectURL(blobUrl);layer.remove();
+    return()=>{disposed=true;if(presentedCallback)video.cancelVideoFrameCallback(presentedCallback);clearTimeout(startupTimer);clearTimeout(seekTimer);cancelAnimationFrame(frame);cancelAnimationFrame(handoffFrame);resize.disconnect();trigger?.kill(true);bridge?.kill();video.pause();layer.remove();
       delete document.documentElement.dataset.truckHandoff;
-      video.removeEventListener('loadedmetadata',ready);video.removeEventListener('loadeddata',ready);video.removeEventListener('seeked',sought);
+      video.removeEventListener('loadedmetadata',ready);video.removeEventListener('loadeddata',ready);video.removeEventListener('canplay',ready);video.removeEventListener('seeked',sought);
       video.removeEventListener('error',fallback);retry.removeEventListener('click',tryAgain);
       window.removeEventListener('scroll',handoff);
       copy.style.transform='';
       [video,plate].forEach(node=>['width','height','left','top'].forEach(property=>node.style.removeProperty(property)));};
     });
     return()=>media.revert();
-  },[staticView,report,fail]);
+  },[staticView,report]);
   return <section ref={rootRef} className="hero home-video-hero" id="home" aria-labelledby="hero-title">
     <div ref={stageRef} className="hero-stage home-video-stage" data-video-state="loading">
-      <video ref={videoRef} className="home-hero-video" poster="/media/home-hero/hero-desert-branded-poster.jpg" preload="none" muted playsInline disablePictureInPicture disableRemotePlayback aria-label="Scroll-controlled PanVibes desert truck scene. Scroll to move; stop scrolling to pause."/>
+      <video ref={videoRef} className="home-hero-video" poster="/media/home-hero/hero-desert-branded-poster.jpg" preload="auto" muted playsInline disablePictureInPicture disableRemotePlayback aria-label="Scroll-controlled PanVibes desert truck scene. Scroll to move; stop scrolling to pause.">
+        <source src={videoAssets.mobile.src} type="video/mp4" media="(max-width: 991px) and (prefers-reduced-motion: no-preference)"/>
+        <source src={videoAssets.desktop.src} type="video/mp4" media="(min-width: 992px) and (prefers-reduced-motion: no-preference)"/>
+      </video>
       <div className="home-handoff-plate" aria-hidden="true"/>
       <div className="hero-video-notice" role="status" aria-live="polite"><span>Loading video</span><button type="button" hidden>Retry video</button></div>
       {children}

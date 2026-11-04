@@ -14,7 +14,9 @@ for(const route of routes){
     assert.ok(hints.includes('/media/home-hero/hero-desert-branded-poster.jpg'),'First-frame image must be preloaded from the HTTP response');
     assert.ok(hints.includes('fetchpriority="high"'),'First frame has high fetch priority');
     assert.ok(html.includes('data-opening-ready="false"'),'Readiness must distinguish the opening from later scenes');
-    assert.ok(html.includes('hero-web-desktop-')&&html.includes('hero-web-mobile-'),'The opening film must be discoverable before hydration');
+    assert.match(html,/<video[^>]+preload="auto"/,'The browser must stream the film natively');
+    assert.match(html,/<source[^>]+src="\/media\/home-hero\/hero-web-mobile-[a-f0-9]+\.mp4"/,'Responsive video sources must be present in the server HTML');
+    assert.ok(!html.includes('prepare-film-'),'Do not fetch the MP4 through a JavaScript preload');
     assert.doesNotMatch(html,/<link[^>]+rel="preload"[^>]+href="\/media\/journey\//,'Later HD packs must not compete with the opening');
     assert.ok(!html.includes('src="/images/branded/ship.webp"'),'Below-fold ship must wait for the journey');
   }

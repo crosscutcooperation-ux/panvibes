@@ -7,6 +7,7 @@ import { Brand, Pill } from "./ui";
 import { initialHeaderScroll, nextHeaderScroll } from '@/lib/header-scroll';
 import { enquiryContact } from '@/lib/enquiry-contact';
 import { startHeaderContrast } from '@/lib/header-contrast';
+import TrackedContactLink from './TrackedContactLink';
 export default function Navbar() {
   const [menuOpen,setMenuOpen]=useState(false);
   const menuButton=useRef<HTMLButtonElement>(null);
@@ -69,7 +70,7 @@ export default function Navbar() {
       </div>
       <nav id="site-mobile-menu" className="site-mobile-menu" aria-label="Mobile navigation" hidden={!menuOpen}>
         {navigation.map(item=><Link href={item.href} prefetch={false} key={item.href} aria-current={isActive(item.href)?'page':undefined} onClick={()=>setMenuOpen(false)}>{item.label}<span aria-hidden="true">↗</span></Link>)}
-        <div className="mobile-documents"><a href={company.brochure} target="_blank" rel="noopener noreferrer">Download E-brochure ↗</a><a href={company.profile} target="_blank" rel="noopener noreferrer">Company profile ↗</a><a className="mobile-whatsapp" href={`https://wa.me/${enquiryContact.phone}`} target="_blank" rel="noopener noreferrer">WhatsApp ↗</a></div>
+        <div className="mobile-documents"><a href={company.brochure} target="_blank" rel="noopener noreferrer">Download E-brochure ↗</a><a href={company.profile} target="_blank" rel="noopener noreferrer">Company profile ↗</a><TrackedContactLink className="mobile-whatsapp" href={`https://wa.me/${enquiryContact.phone}`} target="_blank" rel="noopener noreferrer">WhatsApp ↗</TrackedContactLink></div>
       </nav>
     </header>
   );

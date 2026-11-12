@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react';
 import { enquiryContact as contact } from '@/lib/enquiry-contact';
 import { Arrow } from '@/components/ui';
 import { useEnquiry } from '@/components/EnquiryProvider';
+import TrackedContactLink from '@/components/TrackedContactLink';
 
 export type ProductSelection={category:string;name:string};
 
@@ -27,7 +28,7 @@ export default function ProductEnquiry({selection,onClose}:{selection:ProductSel
       <div className="service-contact-card"><p className="mono">Your point of contact</p>
         <div className="service-person"><span>OM</span><div><strong>{contact.name}</strong><p>{contact.role}</p></div></div>
         <a href={`tel:+${contact.phone}`}>{contact.displayPhone}<Arrow diagonal/></a>
-        <a className="service-contact-cta" href={`https://wa.me/${contact.phone}?text=${encodeURIComponent(`Hello Omkar, I am interested in ${enquiry}. Please share specifications, availability and a quotation.`)}`} target="_blank" rel="noreferrer">Enquire on WhatsApp<Arrow/></a>
+        <TrackedContactLink className="service-contact-cta" href={`https://wa.me/${contact.phone}?text=${encodeURIComponent(`Hello Omkar, I am interested in ${enquiry}. Please share specifications, availability and a quotation.`)}`} target="_blank" rel="noreferrer">Enquire on WhatsApp<Arrow/></TrackedContactLink>
         <button className="service-inline-enquiry" type="button" onClick={()=>openEnquiry({product,purpose:'Bulk quotation'})}>Fill enquiry form ↗</button>
       </div>
     </div>}

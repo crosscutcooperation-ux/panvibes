@@ -4,6 +4,7 @@ import { services } from '@/lib/site-content';
 import { Arrow } from './ui';
 import serviceContacts from '@/lib/service-contacts.json';
 import { useEnquiry } from './EnquiryProvider';
+import TrackedContactLink from './TrackedContactLink';
 
 const ServiceContext=createContext<(index:number)=>void>(()=>{});
 export const useServiceDetails=()=>useContext(ServiceContext);
@@ -31,7 +32,7 @@ export default function ServiceDetails({children}:{children:ReactNode}) {
         <ul>{contact.features.map(feature=><li key={feature}><span>↗</span>{feature}</li>)}</ul>
         <div className="service-contact-card"><p className="mono">Your point of contact</p>
           <div className="service-person"><span>{contact.name.split(' ').map(part=>part[0]).join('')}</span><div><strong>{contact.name}</strong><p>{contact.role}</p></div></div><a href={`tel:+${contact.phone}`}>{phone}<Arrow diagonal/></a>
-          <a className="service-contact-cta" href={whatsapp} target="_blank" rel="noreferrer">Enquire with {contact.name.split(' ')[0]} on WhatsApp<Arrow/></a>
+          <TrackedContactLink className="service-contact-cta" href={whatsapp} target="_blank" rel="noreferrer">Enquire with {contact.name.split(' ')[0]} on WhatsApp<Arrow/></TrackedContactLink>
           <button className="service-website-enquiry" type="button" onClick={()=>openEnquiry({service:service.title.join(' ')})}>Fill enquiry form<Arrow diagonal/></button>
         </div>
       </div>

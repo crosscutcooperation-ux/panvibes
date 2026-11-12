@@ -2,6 +2,7 @@
 import { useId, useRef, useState, type FormEvent } from 'react';
 import { company, services } from '@/lib/site-content';
 import { normalizeEnquiryDestination, otherEnquiryDestination, shippingCoverage, shippingMarkets } from '@/lib/shipping';
+import { trackLead } from '@/lib/analytics';
 
 export default function EnquiryForm({ query = "" }: { query?: string }) {
   const purposeId = useId();
@@ -37,6 +38,7 @@ export default function EnquiryForm({ query = "" }: { query?: string }) {
       const saved = await response.json();
       if (!response.ok) throw new Error(saved.error || 'Your enquiry could not be saved. Please try again.');
       setReference(saved.reference); setEmailDelivery(saved.emailDelivery);
+      trackLead({ product: String(data.get('product') || data.get('service') || 'General'), country: String(data.get('country') || ''), reference: saved.reference });
       setDraft(`${body}\n\nEnquiry reference: ${saved.reference}`);
       setSubject(`${saved.reference} — ${String(data.get('product') || data.get('service') || 'General')}`);
       setCopyStatus('');

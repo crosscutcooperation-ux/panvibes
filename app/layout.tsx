@@ -25,6 +25,7 @@ import './navigation-loading.css';
 import ShipCursor from '@/components/ShipCursor';
 import EnquiryProvider from '@/components/EnquiryProvider';
 import EnquiryButton from '@/components/EnquiryButton';
+import Analytics from '@/components/Analytics';
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -38,11 +39,12 @@ export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   applicationName: 'PanVibes Exim',
   robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1, 'max-video-preview': -1 } },
+  verification: { google: 'lQTr3PGNnCMmdUTdaRGump3BZnrwxfdkuWewFtaFo7k' },
 };
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en">
-      <body><ShipCursor/><EnquiryProvider><StructuredData data={organizationSchema}/><Navbar/>{children}<EnquiryButton className="enquiry-global-button">Enquiry ↗</EnquiryButton><SupportWidget/></EnquiryProvider></body>
+      <body><Analytics/><ShipCursor/><EnquiryProvider><StructuredData data={organizationSchema}/><Navbar/>{children}<EnquiryButton className="enquiry-global-button">Enquiry ↗</EnquiryButton><SupportWidget/></EnquiryProvider></body>
     </html>
   );
 }

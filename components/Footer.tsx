@@ -2,13 +2,14 @@ import { company, navigation, destinations } from '@/lib/site-content';
 import { Pill } from './ui';
 import FooterParticleMap from './FooterParticleMap';
 import Link from '@/components/SiteLink';
+import { companySocialLinks } from '@/lib/social';
 
 export default function Footer() {
   return (
     <footer className="pan-footer" aria-label="PanVibes company and contact information">
       <div className="pan-footer-grid">
         <div className="pan-footer-socials"><p className="eyebrow">Socials</p><div>
-          {[['LinkedIn','in'],['Instagram','ig'],['Facebook','f'],['X','X']].map(([name,mark])=><button type="button" disabled aria-label={`PanVibes on ${name}`} key={name}>{mark}</button>)}
+          {companySocialLinks.map(({ name, href, mark })=><a href={href} target="_blank" rel="noopener noreferrer" aria-label={`PanVibes on ${name}`} key={name}>{mark}</a>)}
           <a href="https://youtube.com/@panvibes6161?si=7WJofh8FCeixOA_-" target="_blank" rel="noopener noreferrer" aria-label="PanVibes on YouTube">▶</a>
         </div><p className="pan-footer-tagline">{company.tagline}</p></div>
         <nav className="pan-footer-company" aria-label="Footer company navigation"><p className="eyebrow">Company</p><div>{navigation.map(item=><Link href={item.href} key={item.href}>{item.label}</Link>)}</div></nav>

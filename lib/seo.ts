@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { company } from './site-content';
 import { shippingAreaSchema } from './shipping';
+import { companySocialLinks } from './social';
 
 export const siteUrl = 'https://panvibes.com';
 export const organizationId = `${siteUrl}/#organization`;
@@ -37,7 +38,7 @@ export const organizationSchema = {
   areaServed: shippingAreaSchema,
   address: { '@type': 'PostalAddress', streetAddress: 'W-2106, Akshar Business Park, Sector 25, Vashi', addressLocality: 'Navi Mumbai', addressRegion: 'Maharashtra', postalCode: '400703', addressCountry: 'IN' },
   contactPoint: { '@type': 'ContactPoint', contactType: 'Export sales', email: company.email, telephone: company.phones[0], availableLanguage: 'English' },
-  sameAs: ['https://www.youtube.com/@panvibes6161'],
+  sameAs: [...companySocialLinks.map(({ href }) => href), 'https://www.youtube.com/@panvibes6161'],
   founder: { '@type': 'Person', name: company.founderName },
   subjectOf: { '@type': 'AboutPage', '@id': `${siteUrl}/about#webpage`, url: `${siteUrl}/about` },
 };

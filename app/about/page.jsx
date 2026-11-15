@@ -3,6 +3,17 @@ import './about.css';
 import { companyAboutSchema, pageMetadata } from '@/lib/seo';
 import StructuredData from '@/components/StructuredData';
 import CompanyIdentity from '@/components/CompanyIdentity';
+import { companySocialLinks } from '@/lib/social';
+
+function CompanySocialLinks() {
+  return (
+    <ul className="social-links">
+      {companySocialLinks.map(({ name, href, mark }) => (
+        <li key={name}><a href={href} target="_blank" rel="noopener noreferrer" aria-label={`PanVibes on ${name}`}>{mark}</a></li>
+      ))}
+    </ul>
+  );
+}
 
 export const metadata = pageMetadata('About Us', 'Meet PanVibes Exim, an India-based B2B ingredient supplier and export partner in Navi Mumbai. Learn about our business and leadership team.', '/about');
 
@@ -97,11 +108,7 @@ export default function AboutPage() {
                               <div className="team-img">
                                   <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/gm.webp" alt="Gautam Mewada" />
                                   <div className="social-overlay">
-                                      <ul className="social-links">
-                                          <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i className="bx bxl-facebook"></i></a></li>
-                                          <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i className="bx bxl-linkedin"></i></a></li>
-                                          <li><a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i className="bx bxl-twitter"></i></a></li>
-                                      </ul>
+                                      <CompanySocialLinks />
                                   </div>
                               </div>
                           </div>
@@ -118,11 +125,7 @@ export default function AboutPage() {
                               <div className="team-img">
                                   <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/pp.webp" alt="Prathamesh Patil" />
                                   <div className="social-overlay">
-                                      <ul className="social-links">
-                                          <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i className="bx bxl-facebook"></i></a></li>
-                                          <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i className="bx bxl-linkedin"></i></a></li>
-                                          <li><a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i className="bx bxl-twitter"></i></a></li>
-                                      </ul>
+                                      <CompanySocialLinks />
                                   </div>
                               </div>
                           </div>
@@ -139,11 +142,7 @@ export default function AboutPage() {
                               <div className="team-img">
                                   <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/nk.webp" alt="Nitesh Kanse" />
                                   <div className="social-overlay">
-                                      <ul className="social-links">
-                                          <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i className="bx bxl-facebook"></i></a></li>
-                                          <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i className="bx bxl-linkedin"></i></a></li>
-                                          <li><a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i className="bx bxl-twitter"></i></a></li>
-                                      </ul>
+                                      <CompanySocialLinks />
                                   </div>
                               </div>
                           </div>
@@ -160,11 +159,7 @@ export default function AboutPage() {
                               <div className="team-img">
                                   <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/om.webp" alt="Omkar Marakwar" />
                                   <div className="social-overlay">
-                                      <ul className="social-links">
-                                          <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i className="bx bxl-facebook"></i></a></li>
-                                          <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i className="bx bxl-linkedin"></i></a></li>
-                                          <li><a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i className="bx bxl-twitter"></i></a></li>
-                                      </ul>
+                                      <CompanySocialLinks />
                                   </div>
                               </div>
                           </div>
@@ -181,11 +176,7 @@ export default function AboutPage() {
                               <div className="team-img">
                                   <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/bp.webp" alt="Bhavesh Patil" />
                                   <div className="social-overlay">
-                                      <ul className="social-links">
-                                          <li><a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer" aria-label="Facebook"><i className="bx bxl-facebook"></i></a></li>
-                                          <li><a href="https://www.linkedin.com/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i className="bx bxl-linkedin"></i></a></li>
-                                          <li><a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i className="bx bxl-twitter"></i></a></li>
-                                      </ul>
+                                      <CompanySocialLinks />
                                   </div>
                               </div>
                           </div>

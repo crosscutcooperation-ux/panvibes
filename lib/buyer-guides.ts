@@ -52,7 +52,7 @@ export const buyerGuides: BuyerGuide[] = [
         'Request the applicable specification, COA and supporting reports. If you need a particular certification, identify it and check the actual product scope and validity. A sourcing enquiry does not by itself confirm that a certificate is available for an order.',
       ] },
       { heading: '3. Define quantity, packaging and timing', paragraphs: [
-        'State the quantity and unit, preferred packing size or material, expected purchase frequency and required delivery date. Ask the team to confirm MOQ, pack configuration and lead time for that sourcing arrangement. A form’s quantity example is not a product-wide minimum-order guarantee.',
+        'State the quantity and unit, preferred packing size or material, expected purchase frequency and required delivery date. The published MOQ is 50 kg; ask the team to confirm pack configuration, availability and lead time for that sourcing arrangement.',
         'If requesting a sample, explain the trial quantity and your acceptance process. Confirm availability, any sample charges and how the sample relates to the proposed order before treating it as an approval sample.',
       ] },
       { heading: '4. Make the delivery terms comparable', paragraphs: [

@@ -41,7 +41,7 @@ try {
  const form=page.getByRole('dialog',{name:'Enquiry form',exact:true});
  assert.equal(await form.locator('[name=product]').inputValue(),'Moringa Powder');
  assert.equal(page.url(),url);assert.ok(Math.abs(await page.evaluate(()=>scrollY)-position)<2);
- await form.locator('[name=name]').fill('Preview Buyer');await form.locator('[name=company]').fill('Preview Company');await form.locator('[name=email]').fill('buyer@example.com');await form.locator('[name=buyerCountry]').fill('UK');await form.locator('[name=quantity]').fill('200 kg');await form.locator('[name=country]').selectOption('UK');
+ await form.locator('[name=name]').fill('Preview Buyer');await form.locator('[name=company]').fill('Preview Company');await form.locator('[name=email]').fill('buyer@example.com');await form.locator('[name=buyerCountry]').fill('UK');await form.locator('[name=quantity]').fill('200 kg');await form.locator('[name=destinationDetails]').fill('UK');
  await form.getByRole('button',{name:'Submit enquiry'}).click();
  assert.match(await form.locator('.contact-draft-preview').innerText(),/Moringa Powder/);
  assert.match(await form.locator('.contact-draft-preview').innerText(),/200 kg/);

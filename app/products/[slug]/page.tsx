@@ -12,6 +12,34 @@ import { buyerSearchContent } from '@/lib/buyer-search-content';
 import QualityCoaCards from '@/components/QualityCoaCards';
 import TrackedContactLink from '@/components/TrackedContactLink';
 
+const gingerSpecification = [
+  ['Forms', 'Whole / Flakes / Powder'],
+  ['Grades', 'Conventional / IPM / Organic'],
+  ['Origin', 'India'],
+  ['Moisture', '7.20%'],
+  ['Total Ash', '4.50%'],
+  ['Volatile Oil', '2.03%'],
+  ['Acid-insoluble Ash', '0.65%'],
+  ['Water-soluble Ash', '2.28%'],
+  ['Total Plate Count', '<100000'],
+  ['Yeast & Mould', '<500'],
+  ['E. coli', 'Negative / 25g'],
+  ['Salmonella', 'Absent / 25g'],
+  ['GMO / allergens', 'Free from GMO; no allergens'],
+  ['Shelf life', '24 months'],
+  ['MOQ', '50 kg'],
+  ['Incoterms', 'FOB / CIF / DDP'],
+  ['Packaging', 'Bulk / custom'],
+];
+
+const makhanaSpecification = [
+  ['Sizes', '4 / 4+ / 5 / 5+ / 6 / 6+'],
+  ['Selection', 'Hand-picked / Non-hand-picked'],
+  ['MOQ', '50 kg'],
+  ['Incoterms', 'FOB / CIF / DDP'],
+  ['Packaging', 'Bulk / custom'],
+];
+
 export function generateStaticParams() { return exportProducts.map(product => ({ slug: product.slug })); }
 
 export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
@@ -34,10 +62,11 @@ export default async function ExportProductPage({ params }: { params: Promise<{ 
     <section className="buyer-section"><p className="buyer-eyebrow">Product overview</p><h2>Build your sourcing brief.</h2><dl className="buyer-facts">
       <div><dt>Origin</dt><dd>{product.origin || "India"}</dd></div><div><dt>Forms / options</dt><dd>{product.forms.join(' / ')}</dd></div>
       <div><dt>Grades / selection</dt><dd>{product.grades.join(' / ')}</dd></div><div><dt>Buyer profiles</dt><dd>{product.buyers}</dd></div>
-      <div><dt>Packaging &amp; MOQ</dt><dd>Bulk or custom packaging enquiries. Packing sizes, MOQ and lead time confirmed in the quotation.</dd></div><div><dt>Testing &amp; documentation</dt><dd>Request the relevant specification, COA and laboratory reports. Availability and product or lot coverage are confirmed on enquiry.</dd></div>
+      <div><dt>Packaging &amp; MOQ</dt><dd>MOQ 50 kg. Bulk or custom packaging; packing sizes and lead time confirmed in the quotation.</dd></div><div><dt>Testing &amp; documentation</dt><dd>Request the relevant specification, COA and laboratory reports. Availability and product or lot coverage are confirmed on enquiry.</dd></div>
     </dl></section>
     <section className="buyer-section buyer-columns"><div><p className="buyer-eyebrow">Choosing your product</p><h2>Buy to a specification.</h2><p>{product.buyingGuide}</p><div className="buyer-resource-links"><Link href="/quality">Quality &amp; testing guide ↗</Link></div></div><div className="buyer-panel"><h3>Applications to discuss</h3><ul>{product.applications.map(item => <li key={item}>{item}</li>)}</ul><h3>Include in your enquiry</h3><ul>{product.request.map(item => <li key={item}>{item}</li>)}</ul></div></section>
     {(slug === 'ginger' || slug === 'makhana') && <section className="buyer-section"><p className="buyer-eyebrow">Laboratory summary</p><h2>Review representative test results.</h2><QualityCoaCards only={slug}/></section>}
+    {(slug === 'ginger' || slug === 'makhana') && <section className="buyer-section"><p className="buyer-eyebrow">PanVibes specification</p><h2>{slug === 'ginger' ? 'Ginger specification sheet.' : 'Makhana specification summary.'}</h2><div className="buyer-table-scroll"><table className="buyer-spec-table"><caption>PanVibes specification sheet. This is not a laboratory COA. Full lab COA available on request.</caption><tbody>{(slug === 'ginger' ? gingerSpecification : makhanaSpecification).map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>)}</tbody></table></div></section>}
     <section className="buyer-section"><p className="buyer-eyebrow">Technical review</p><h2>Request the details that matter.</h2><table className="buyer-spec-table"><caption>Acceptance limits are agreed against your requirement. Numeric specifications and certificates are supplied for review, rather than assumed.</caption><tbody>{[
       ['Appearance, colour & aroma', 'Request the product-specific description and sample criteria.'], ['Moisture & particle size', 'Specify required limits and mesh size where applicable.'], ['Microbiology', 'Share the limits and test methods required by your buyer or application.'], ['Heavy metals & pesticide residues', 'Request applicable reports and agree destination-market criteria.'], ['Aflatoxin & other parameters', 'Confirm applicability to the product and your procurement specification.'], ['Shelf life, storage & packaging', 'Request confirmed product-specific information before ordering.'],
     ].map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>)}</tbody></table></section>

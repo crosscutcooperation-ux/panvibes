@@ -18,10 +18,10 @@ try {
   assert.equal((await duplicate.json()).reference, record.reference, 'Retries must reuse one saved enquiry');
   db = new DatabaseSync(resolve(process.env.SQLITE_PATH || './data/panvibes.sqlite'));
   const row = db.prepare('SELECT * FROM enquiries WHERE request_id=?').get(requestId);
-  assert.equal(row.reference, record.reference); assert.equal(row.shipping_market, 'Europe');
+  assert.equal(row.reference, record.reference); assert.equal(row.shipping_market, '');
   assert.equal(row.destination_details, 'France'); assert.equal(row.product, 'Turmeric Powder'); assert.equal(row.grade, '3% Curcumin');
   assert.equal(db.prepare('SELECT count(*) AS count FROM enquiries WHERE request_id=?').get(requestId).count, 1);
-  assert.equal((await post('/api/enquiries', { ...input, country: 'Canada' })).status, 400);
+  assert.equal((await post('/api/enquiries', { ...input, product: '' })).status, 400);
   assert.equal((await post('/api/enquiries', { ...input, email: 'not-an-email' })).status, 400);
   assert.equal((await post('/api/enquiries', input, { Origin: 'https://unrelated.invalid' })).status, 403);
   assert.equal((await post('/api/enquiries', { ...input, message: 'x'.repeat(17000) })).status, 413);

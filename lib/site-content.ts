@@ -6,15 +6,11 @@ export const company = {
   legalName: "PanVibes Exim Pvt Ltd",
   founderName: "Prakash Mewada",
   copyrightYear: 2025,
-  email: "info@panvibesexim.com",
+  email: "omkar.marakwar@panvibesexim.in",
   location: "Navi Mumbai, Maharashtra, India",
   address:
     "Akshar Business Park, W-2106, Janta Market Road, Sector 25, Vashi, Navi Mumbai, Maharashtra 400703",
-  phones: [
-    "+91 2245686161",
-    "+91 9967653143",
-    "+91 8655481884",
-  ],
+  phones: ["+91 86554 81884"],
   heroTitle: "Your Vision, Our Expert Execution",
   heroDescription:
     "Dehydrated vegetables, spices, moringa, makhana and fruit powders for international B2B buyers.",

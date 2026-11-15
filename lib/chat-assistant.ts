@@ -15,7 +15,7 @@ export function answerEnquiry(message: string): AssistantReply {
     text: `${shippingCoverage} We do not offer shipping outside these markets. For Europe, include the delivery country and city. Product eligibility, packaging, documentation and logistics are reviewed for each order.`, links: [{ label: 'Shipping destinations & packaging', href: '/export-from-india' }, contactLink],
   };
   if (/price|cost|moq|minimum|stock|available|availability|lead time|delivery date/.test(query)) return {
-    text: 'Price, MOQ, stock and lead time need confirmation from our export team. Include the product, grade, quantity, packaging and delivery country so they can review your requirement.', links: [contactLink],
+    text: 'The minimum order quantity is 50 kg. Price, stock and lead time need confirmation from our export team. Include the product, grade, quantity, packaging and delivery country so they can review your requirement.', links: [contactLink],
   };
   if (/coa|specification|certificate|certification|testing|laboratory|sds|msds|organic|compliance/.test(query)) return {
     text: 'Request the relevant product specification, COA, laboratory reports or SDS/MSDS where applicable. The team confirms availability and the product or lot covered. For an organic request, ask for the exact certificate and product scope.', links: [{ label: 'Quality & documentation', href: '/quality' }, contactLink],

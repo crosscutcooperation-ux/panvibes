@@ -1,5 +1,3 @@
-import { normalizeEnquiryDestination, otherEnquiryDestination } from './shipping';
-
 export const enquiryFieldLimits = { name: 100, company: 150, email: 180, phone: 40, buyerCountry: 100, country: 100, destinationDetails: 150, product: 200, grade: 150, quantity: 100, application: 200, service: 150, purpose: 150, frequency: 100, certifications: 250, message: 3000, sourcePath: 300 } as const;
 export type EnquiryData = Record<keyof typeof enquiryFieldLimits, string> & { requestId: string };
 
@@ -12,11 +10,11 @@ export function validateEnquiry(input: unknown): { data: EnquiryData; error?: ne
     if (typeof value !== 'string' || value.length > limit) return { error: `Please check the ${field} field.` };
     data[field as keyof typeof enquiryFieldLimits] = value.trim();
   }
-  if (!data.name || !data.company || !data.email || !data.buyerCountry) return { error: 'Name, company, email and buyer country are required.' };
+  if (!data.name || !data.email || !data.buyerCountry || !data.product || !data.quantity) return { error: 'Name, email, your country, product and quantity are required.' };
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(data.email)) return { error: 'Please enter a valid email address.' };
-  data.country = normalizeEnquiryDestination(data.country);
-  if (!data.country) return { error: 'Choose a delivery destination or select Any other.' };
-  if (data.country === otherEnquiryDestination && !data.destinationDetails) return { error: 'Please enter the delivery country and city.' };
+  // Keep the historical shipping_market database column for existing records.
+  // The simplified form submits the optional destination as one field.
+  data.country = '';
   if (typeof record.requestId !== 'string' || !/^[a-zA-Z0-9-]{16,80}$/.test(record.requestId)) return { error: 'Please reload the form and try again.' };
   data.requestId = record.requestId;
   if (data.sourcePath && (!data.sourcePath.startsWith('/') || data.sourcePath.startsWith('//'))) data.sourcePath = '';

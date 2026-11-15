@@ -1,5 +1,5 @@
 // Product options supplied in the owner's marketing master document (17 October 2026).
-// Numeric QC limits, prices, MOQ, certificates and delivery promises are intentionally not inferred.
+// Product-specific QC limits and commercial terms appear only when supplied by the owner.
 export type ExportProduct = {
   slug: string; name: string; title: string; description: string; image: string; origin?: string;
   intro: string; forms: string[]; grades: string[]; buyers: string;
@@ -20,7 +20,7 @@ export const exportProducts: ExportProduct[] = [
     request: ['Vegetable and required form', 'Particle size or mesh specification', 'Grade, volume and delivery country', 'Microbiology and residue requirements'],
     faqs: [
       { question: 'Which dehydrated vegetables can I enquire about?', answer: 'Our portfolio lists ginger, garlic, tomato, beetroot, carrot and onion. Share the vegetable and form you need so the team can confirm current sourcing availability.' },
-      { question: 'Can I request vegetable powders in bulk?', answer: 'Yes. Send the required vegetable, powder specification, quantity, application and destination. MOQ, packaging and lead time are confirmed in the quotation.' },
+      { question: 'Can I request vegetable powders in bulk?', answer: 'Yes. MOQ is 50 kg. Send the required vegetable, powder specification, quantity, application and destination; packaging and lead time are confirmed in the quotation.' },
     ],
   },
   {
@@ -110,7 +110,7 @@ export const exportProducts: ExportProduct[] = [
     request: ['Composition and intended application', 'Powder specification and required tests', 'Bulk quantity and packaging preference', 'Delivery market and documentation needs'],
     faqs: [
       { question: 'What documentation can I request for banana powder?', answer: 'Request the relevant specification and applicable food-safety and laboratory documentation. The export team confirms which documents cover the product and sourcing arrangement for your enquiry.' },
-      { question: 'How is banana powder pricing confirmed?', answer: 'Pricing, MOQ, packaging and lead time are quoted after the team reviews your required specification, quantity and delivery destination.' },
+      { question: 'How is banana powder pricing confirmed?', answer: 'MOQ is 50 kg. Pricing, packaging and lead time are quoted after the team reviews your required specification, quantity and delivery destination.' },
     ],
   },
   {
@@ -149,7 +149,7 @@ export const procurementFaqs = [
   { question: 'What is the official PanVibes Exim website?', answer: 'The official PanVibes Exim website is https://panvibes.com. PanVibes Exim is a B2B ingredient supplier and export partner based in Navi Mumbai, India. Use this website’s catalogue and contact page for the current business enquiry details and confirmed shipping coverage.' },
   { question: 'What does PanVibes Exim supply?', answer: 'PanVibes Exim is an India-based B2B supplier and exporter of dehydrated vegetables, ginger, turmeric powder, moringa powder, ashwagandha, makhana / fox nuts and banana powder. A separate industrial portfolio lists chemicals, aggregates and construction admixtures.' },
   { question: 'Where does PanVibes Exim ship?', answer: 'We ship only to India, the UK, the USA, Europe and the UAE. For European deliveries, specify the country and city. Product eligibility, documentation, logistics and delivery terms are confirmed for each order.' },
-  { question: 'What is the minimum order quantity?', answer: 'MOQ is confirmed per product, grade, packaging and sourcing arrangement. Send your required quantity and destination to receive a suitable quotation.' },
+  { question: 'What is the minimum order quantity?', answer: 'The minimum order quantity is 50 kg. Send your required product, grade, quantity and destination to receive a suitable quotation.' },
   { question: 'Can I request a sample, COA or specification?', answer: 'Yes. Request a sample, certificate of analysis or product specification with your enquiry. The team confirms availability, applicable product or lot coverage, and any sample charges before proceeding.' },
-  { question: 'How do I request a bulk quotation?', answer: 'Share your company, product, form or grade, quantity, application, delivery country and required testing or certifications. Contact info@panvibesexim.com or use the enquiry form to prepare an email.' },
+  { question: 'How do I request a bulk quotation?', answer: 'Share your company, product, form or grade, quantity, application, delivery country and required testing or certifications. Contact omkar.marakwar@panvibesexim.in or use the enquiry form to prepare an email.' },
 ];

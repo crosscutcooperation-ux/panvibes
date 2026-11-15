@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-20",
+  "updated": "2026-11-15",
   "source": "Verified public About, Contact, Services, Products, Quality and Export pages. Shared catalogue data is added at runtime.",
   "founder": {
     "name": "Prakash Mewada",
@@ -38,17 +38,15 @@
   "enquiries": {
     "process": "Use an Enquiry button to open the form on the current page. Successful submissions are stored in a private SQLite database and return a PV reference. A server-side notification is sent to the PanVibes team through Google SMTP. If email delivery fails, the enquiry remains stored for administrator follow-up and retry. The visitor may also open an optional email summary.",
     "requiredInformation": [
-      "Contact name and business email",
-      "Company",
-      "Product and grade/form",
-      "Quantity and packaging",
-      "Delivery market",
-      "Delivery country and city for Europe",
-      "Specifications or message"
+      "Name",
+      "Email",
+      "Your country",
+      "Product required",
+      "Quantity"
     ],
-    "confirmation": "Prices, MOQ, stock, lead time, sample charges and delivery eligibility require the team’s confirmation. The chatbot cannot submit enquiries or access private customer records.",
-    "quantityHint": "The quantity field displays MOQ 50 kgs. Confirm final product-specific commercial terms with the team.",
-    "otherDestination": "The form accepts Any other with a delivery country/city for review; this does not extend the five confirmed shipping markets."
+    "confirmation": "The published minimum order quantity is 50 kg. Prices, stock, lead time, sample charges and delivery eligibility require the team’s confirmation. The chatbot cannot submit enquiries or access private customer records.",
+    "quantityHint": "The published MOQ is 50 kg. Buyers enter their required quantity and unit. Confirm final product-specific commercial terms with the team.",
+    "otherDestination": "The optional delivery destination field accepts a country and city; this does not extend the five confirmed shipping markets."
   },
   "quality": {
     "guidance": "Request product specifications, COA, laboratory reports or SDS/MSDS as applicable. Availability and exact product/lot scope are confirmed by the team. Organic certificates must be verified for the product and lot; listing a grade does not establish certification."

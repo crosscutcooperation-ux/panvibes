@@ -12,7 +12,7 @@ export const metadata = pageMetadata('Industrial Chemical Supplier India', 'Sour
 const faqs = [
   { question: 'Which chemical groups are listed?', answer: 'The catalog lists acids, alkalis and bases, chlorides, sulphates, phosphates, oxides, water treatment chemicals, industrial salts and heavy metal salts.' },
   { question: 'How do I request a chemical quotation?', answer: 'Send the chemical name, required grade and concentration or purity, quantity, application, packaging and destination. Ask for the applicable specification, certificate of analysis and SDS. Availability and shipment requirements are confirmed before quotation.' },
-  { question: 'Are prices, purity and stock levels published?', answer: 'No. Prices, purity, grades, packing sizes, MOQ and current availability are confirmed against your requirement. A catalog listing is an invitation to enquire, rather than a stock or certification guarantee.' },
+  { question: 'Are prices, purity and stock levels published?', answer: 'The published MOQ is 50 kg. Prices, purity, grades, packing sizes and current availability are confirmed against your requirement. A catalog listing is an invitation to enquire, rather than a stock or certification guarantee.' },
 ];
 
 export default function ChemicalsPage() {

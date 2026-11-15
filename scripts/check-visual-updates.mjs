@@ -14,8 +14,8 @@ try {
  const schemas=await page.locator('script[type="application/ld+json"]').allTextContents();
  assert.deepEqual(schemas.map(JSON.parse).find(s=>s['@type']==='Organization').areaServed.map(s=>s.name),['India','United Kingdom','United States','Europe','United Arab Emirates']);
  await page.getByRole('button',{name:'Discuss supply to UAE',exact:false}).click();
- const form=page.locator('.enquiry-dialog');assert.equal(await form.locator('[name=country]').inputValue(),'UAE');
- assert.deepEqual(await form.locator('[name=country] option:not([value=""])').allTextContents(),['India','UK','USA','Europe','UAE','Any other']);
+ const form=page.locator('.enquiry-dialog');assert.equal(await form.locator('[name=destinationDetails]').inputValue(),'UAE');
+ assert.equal(await form.locator('[name=country]').count(),0);
  await page.keyboard.press('Escape');
  await page.goto(base+'/contact',{waitUntil:'networkidle'});
  await page.locator('.contact-atlas').getByRole('button',{name:'Click here for directions'}).click();

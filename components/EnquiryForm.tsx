@@ -1,7 +1,7 @@
 'use client';
 import { useId, useRef, useState, type FormEvent } from 'react';
 import { company, services } from '@/lib/site-content';
-import { normalizeEnquiryDestination, otherEnquiryDestination, shippingCoverage, shippingMarkets } from '@/lib/shipping';
+import { shippingCoverage } from '@/lib/shipping';
 import { trackLead } from '@/lib/analytics';
 
 export default function EnquiryForm({ query = "" }: { query?: string }) {
@@ -18,16 +18,15 @@ export default function EnquiryForm({ query = "" }: { query?: string }) {
   const [emailDelivery, setEmailDelivery] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
-  const [destination, setDestination] = useState(normalizeEnquiryDestination(prefill('country')));
   const requestId = useRef<string | null>(null);
   async function prepare(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (submitting) return;
     const data = new FormData(event.currentTarget);
     const fields = [
-      ['Enquiry', 'service'], ['Request', 'purpose'], ['Name', 'name'], ['Company', 'company'], ['Buyer country', 'buyerCountry'],
+      ['Enquiry', 'service'], ['Request', 'purpose'], ['Name', 'name'], ['Company', 'company'], ['Your country', 'buyerCountry'],
       ['Email', 'email'], ['WhatsApp / phone', 'phone'], ['Product required', 'product'], ['Grade / form', 'grade'],
-      ['Quantity & unit', 'quantity'], ['Application', 'application'], ['Delivery country / region', 'country'], ['Delivery country / city', 'destinationDetails'],
+      ['Quantity & unit', 'quantity'], ['Application', 'application'], ['Delivery destination (country / city)', 'destinationDetails'],
       ['Purchase frequency', 'frequency'], ['Required tests / certifications', 'certifications'],
     ];
     const body = `Hello PanVibes Exim,\n\n${data.get('message') || 'Please review my requirement below and share the relevant details.'}\n\n${fields.map(([label, key]) => `${label}: ${data.get(key) || 'To discuss'}`).join('\n')}`;
@@ -38,7 +37,7 @@ export default function EnquiryForm({ query = "" }: { query?: string }) {
       const saved = await response.json();
       if (!response.ok) throw new Error(saved.error || 'Your enquiry could not be saved. Please try again.');
       setReference(saved.reference); setEmailDelivery(saved.emailDelivery);
-      trackLead({ product: String(data.get('product') || data.get('service') || 'General'), country: String(data.get('country') || ''), reference: saved.reference });
+      trackLead({ product: String(data.get('product') || data.get('service') || 'General'), country: String(data.get('buyerCountry') || ''), reference: saved.reference });
       setDraft(`${body}\n\nEnquiry reference: ${saved.reference}`);
       setSubject(`${saved.reference} — ${String(data.get('product') || data.get('service') || 'General')}`);
       setCopyStatus('');
@@ -51,18 +50,17 @@ export default function EnquiryForm({ query = "" }: { query?: string }) {
     <fieldset className="enquiry-fieldset" disabled={submitting}>
     <p className="contact-form-wide contact-form-note">{shippingCoverage} Submit your requirement to save it for the PanVibes team. You will receive an enquiry reference on this screen.</p>
     <label>Your name <span>*</span><input name="name" autoComplete="name" required maxLength={100} placeholder="Full name" /></label>
-    <label>Company <span>*</span><input name="company" autoComplete="organization" required maxLength={150} placeholder="Your organisation" /></label>
+    <label>Company<input name="company" autoComplete="organization" maxLength={150} placeholder="Your organisation" /></label>
     <label>Email address <span>*</span><input name="email" type="email" autoComplete="email" required maxLength={180} placeholder="you@company.com" /></label>
     <label>WhatsApp / phone<input name="phone" type="tel" autoComplete="tel" maxLength={40} placeholder="Include country code" /></label>
-    <label>Buyer country <span>*</span><input name="buyerCountry" autoComplete="country-name" required maxLength={100} placeholder="Where your company is based" /></label>
-    <label>Delivery country / region <span>*</span><select name="country" value={destination} onChange={event => setDestination(event.target.value)} required><option value="">Select a shipping destination</option>{shippingMarkets.map(market => <option key={market.name}>{market.name}</option>)}<option>{otherEnquiryDestination}</option></select></label>
-    <label>Delivery country / city{destination === otherEnquiryDestination && <span> *</span>}<input name="destinationDetails" required={destination === otherEnquiryDestination} maxLength={150} placeholder="e.g. France, Paris" />{destination === otherEnquiryDestination && <small>Share your destination for review. Delivery outside our listed markets is not confirmed.</small>}</label>
-    <label>Product required<input name="product" defaultValue={prefill('product')} maxLength={200} placeholder="e.g. Ginger powder or Ferric Chloride" /></label>
+    <label>Your country <span>*</span><input name="buyerCountry" autoComplete="country-name" required maxLength={100} placeholder="Where you are based" /></label>
+    <label>Delivery destination (country / city)<input name="destinationDetails" defaultValue={prefill('destination') || prefill('country')} maxLength={150} placeholder="e.g. France, Paris" /></label>
+    <label>Product required <span>*</span><input name="product" defaultValue={prefill('product')} required maxLength={200} placeholder="e.g. Ginger powder or Ferric Chloride" /></label>
     <label>Grade / form<input name="grade" maxLength={150} placeholder="e.g. Organic powder, 5+ or purity" /></label>
-    <label>Quantity &amp; unit<input name="quantity" maxLength={100} placeholder="e.g. 500 kg or 2 metric tons (MOQ 50 kgs)" /></label>
+    <label>Quantity &amp; unit <span>*</span><input name="quantity" required maxLength={100} placeholder="e.g. 500 kg or 2 metric tons" /></label>
     <label>Application<input name="application" maxLength={200} placeholder="e.g. Seasoning manufacture" /></label>
     <label>I’m interested in<select name="service" defaultValue={validService}><option value="">Select an enquiry</option><option>Product sourcing</option>{services.map(item => <option key={item.title.join(' ')}>{item.title.join(' ')}</option>)}<option>General enquiry</option></select></label>
-    <label>Request type<input name="purpose" defaultValue={prefill('purpose').slice(0,150)} maxLength={150} list={purposeId} placeholder="Quote, sample, specifications…" /><datalist id={purposeId}><option value="Bulk quotation" /><option value="COA and specifications" /><option value="Sample request" /><option value="Product catalogue" /></datalist></label>
+    <label>Request type<input name="purpose" defaultValue={prefill('purpose').slice(0,150)} maxLength={150} list={purposeId} placeholder="Quote, sample, specifications…" /><datalist id={purposeId}><option value="Bulk quotation" /><option value="COA & specifications" /><option value="Sample request" /><option value="Product catalogue" /></datalist></label>
     <label>Purchase frequency<select name="frequency" defaultValue=""><option value="">Select if known</option><option>One-time order</option><option>Monthly</option><option>Quarterly</option><option>Recurring — to discuss</option></select></label>
     <label>Required tests / certifications<input name="certifications" maxLength={250} placeholder="e.g. Organic scope, COA, residue report" /></label>
     <label className="contact-form-wide">Additional requirements<textarea name="message" maxLength={3000} rows={3} placeholder="Packaging, delivery date, specifications or any other requirements…" /></label>

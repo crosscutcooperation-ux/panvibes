@@ -1,0 +1,59 @@
+.pvcoa {
+  --pvcoa-navy: #16366a;
+  --pvcoa-orange: #e8601c;
+  --pvcoa-gold: #c9a24b;
+  --pvcoa-ink: #1f2937;
+  --pvcoa-cream: #f7f3ea;
+  --pvcoa-line: #e5e0d5;
+  --pvcoa-good: #2e7d32;
+  --pvcoa-muted: #6b7280;
+  box-sizing: border-box;
+  background: #eef1f5;
+  color: var(--pvcoa-ink);
+  padding: 28px 16px;
+  -webkit-font-smoothing: antialiased;
+}
+
+.pvcoa *, .pvcoa *::before, .pvcoa *::after { box-sizing: border-box; }
+.pvcoa .pvcoa-lead { max-width: 860px; margin: 0 auto 22px; text-align: center; }
+.pvcoa .pvcoa-lead h2 { margin: 0; color: var(--pvcoa-navy); font-family: inherit; font-size: 19px; font-weight: 700; line-height: 1.4; letter-spacing: 0; }
+.pvcoa .pvcoa-lead p { margin: 4px 0 0; color: var(--pvcoa-muted); font-size: 12.5px; line-height: 1.5; }
+.pvcoa .pvcoa-card { max-width: 860px; margin: 0 auto 26px; background: #fff; border: 1px solid var(--pvcoa-line); border-radius: 16px; overflow: hidden; box-shadow: 0 10px 30px rgb(22 54 106 / 7%); }
+.pvcoa .pvcoa-card:last-child { margin-bottom: 0; }
+.pvcoa .pvcoa-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; padding: 18px 24px; background: #fff; border-bottom: 3px solid var(--pvcoa-navy); }
+.pvcoa .pvcoa-logo { display: block; width: auto; height: 46px; max-width: 45%; object-fit: contain; object-position: left; }
+.pvcoa .pvcoa-badge { flex: none; padding: 8px 13px; border-radius: 999px; background: var(--pvcoa-gold); color: #3a2a10; font-size: 11px; font-weight: 700; line-height: 1.3; text-align: center; }
+.pvcoa .pvcoa-badge small { display: block; font-size: 9px; font-weight: 500; opacity: .85; }
+.pvcoa .pvcoa-head { padding: 18px 24px 6px; }
+.pvcoa .pvcoa-prod { margin: 0; color: var(--pvcoa-navy); font-family: inherit; font-size: 20px; font-weight: 700; line-height: 1.4; letter-spacing: 0; text-transform: none; }
+.pvcoa .pvcoa-sub { margin: 2px 0 0; color: var(--pvcoa-orange); font-size: 12.5px; font-weight: 600; line-height: 1.5; }
+.pvcoa .pvcoa-section { margin: 0; padding: 10px 24px 2px; color: var(--pvcoa-gold); font-size: 11px; font-weight: 700; letter-spacing: 1px; line-height: 1.5; text-transform: uppercase; }
+.pvcoa .pvcoa-table { width: 100%; margin: 12px 0 4px; border-collapse: collapse; }
+.pvcoa .pvcoa-table td { padding: 10px 24px; border-top: 1px solid #f0ece2; font-size: 13px; line-height: 1.5; vertical-align: middle; }
+.pvcoa .pvcoa-table td:first-child { width: 52%; color: var(--pvcoa-muted); }
+.pvcoa .pvcoa-table td:last-child { color: var(--pvcoa-ink); font-weight: 600; text-align: right; }
+.pvcoa .pvcoa-table .pvcoa-res td:last-child { color: var(--pvcoa-good); }
+.pvcoa .pvcoa-pill { display: inline-block; padding: 3px 9px; border-radius: 999px; background: #eaf4ea; color: var(--pvcoa-good); font-size: 11px; font-weight: 700; white-space: nowrap; }
+.pvcoa .pvcoa-comply { display: flex; align-items: center; gap: 10px; padding: 14px 24px; border-top: 1px solid var(--pvcoa-line); }
+.pvcoa .pvcoa-ok { display: flex; flex: none; align-items: center; justify-content: center; width: 34px; height: 34px; border-radius: 50%; background: var(--pvcoa-good); color: #fff; font-size: 18px; font-weight: 700; }
+.pvcoa .pvcoa-comply p { margin: 0; font-size: 12.5px; line-height: 1.5; }
+.pvcoa .pvcoa-comply b { color: var(--pvcoa-navy); }
+.pvcoa .pvcoa-meta { display: grid; grid-template-columns: 1fr 1fr; gap: 4px 18px; margin-top: 10px; padding: 14px 24px; background: var(--pvcoa-cream); font-size: 11.5px; line-height: 1.5; }
+.pvcoa .pvcoa-meta b { color: var(--pvcoa-navy); }
+.pvcoa .pvcoa-foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; padding: 12px 24px; border-top: 1px solid var(--pvcoa-line); background: #fafafa; color: var(--pvcoa-muted); font-size: 10.5px; line-height: 1.5; }
+.pvcoa .pvcoa-foot a { color: var(--pvcoa-navy); font-weight: 600; text-decoration: none; }
+.pvcoa .pvcoa-foot a:hover { text-decoration: underline; }
+.pvcoa .pvcoa-foot .pvcoa-cta { align-self: center; padding: 8px 13px; border-radius: 999px; background: var(--pvcoa-navy); color: #fff; font-size: 11.5px; white-space: nowrap; }
+.pvcoa .pvcoa-cta:hover { background: #0e2852; text-decoration: none; }
+
+@media (max-width: 560px) {
+  .pvcoa .pvcoa-logo { height: 38px; max-width: 38%; }
+  .pvcoa .pvcoa-badge { max-width: 58%; font-size: 10px; }
+  .pvcoa .pvcoa-meta { grid-template-columns: 1fr; }
+  .pvcoa .pvcoa-table td:first-child { width: 58%; }
+}
+
+@media print {
+  .pvcoa { background: #fff; padding: 0; }
+  .pvcoa .pvcoa-card { box-shadow: none; break-inside: avoid; margin-bottom: 30px; }
+}

@@ -1,5 +1,7 @@
 # PanVibes SEO, Analytics and Quality Content Handoff
 
+> **15 November update:** The current consent-gated analytics behavior and all recent website changes are documented in [the latest SEO website handoff](SEO-WEBSITE-UPDATE-2026-11-15.md). The original tag-loading description below is historical.
+
 **Website:** [https://panvibes.com](https://panvibes.com)
 
 **Deployment date:** 12 November 2026

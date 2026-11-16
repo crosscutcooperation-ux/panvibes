@@ -6,7 +6,7 @@ export const company = {
   legalName: "PanVibes Exim Pvt Ltd",
   founderName: "Prakash Mewada",
   copyrightYear: 2025,
-  email: "omkar.marakwar@panvibesexim.in",
+  email: "omkar@panvibes.com",
   location: "Navi Mumbai, Maharashtra, India",
   address:
     "Akshar Business Park, W-2106, Janta Market Road, Sector 25, Vashi, Navi Mumbai, Maharashtra 400703",

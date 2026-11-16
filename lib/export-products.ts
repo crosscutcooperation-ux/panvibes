@@ -151,5 +151,5 @@ export const procurementFaqs = [
   { question: 'Where does PanVibes Exim ship?', answer: 'We ship only to India, the UK, the USA, Europe and the UAE. For European deliveries, specify the country and city. Product eligibility, documentation, logistics and delivery terms are confirmed for each order.' },
   { question: 'What is the minimum order quantity?', answer: 'The minimum order quantity is 50 kg. Send your required product, grade, quantity and destination to receive a suitable quotation.' },
   { question: 'Can I request a sample, COA or specification?', answer: 'Yes. Request a sample, certificate of analysis or product specification with your enquiry. The team confirms availability, applicable product or lot coverage, and any sample charges before proceeding.' },
-  { question: 'How do I request a bulk quotation?', answer: 'Share your company, product, form or grade, quantity, application, delivery country and required testing or certifications. Contact omkar.marakwar@panvibesexim.in or use the enquiry form to prepare an email.' },
+  { question: 'How do I request a bulk quotation?', answer: 'Share your company, product, form or grade, quantity, application, delivery country and required testing or certifications. Contact omkar@panvibes.com or use the enquiry form to prepare an email.' },
 ];

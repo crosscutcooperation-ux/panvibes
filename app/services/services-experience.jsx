@@ -156,7 +156,7 @@ export default function ServicesExperience() {
               <span className={styles.label}>YOUR POINT OF CONTACT</span>
               <div className={styles.contactIdentity}><span className={styles.contactInitials} aria-hidden="true">OM</span><div><h4>{contact.name}</h4><p>{contact.role}</p></div></div>
               <a href={`tel:+91${contact.phone}`}>+91 {contact.phone.slice(0, 5)} {contact.phone.slice(5)} <Arrow diagonal /></a>
-              <a className={styles.emailLink} href={`mailto:omkar.marakwar@panvibesexim.in?subject=${encodeURIComponent(`Enquiry: ${service.title}`)}`}>Enquire about this service <Arrow /></a>
+              <a className={styles.emailLink} href={`mailto:omkar@panvibes.com?subject=${encodeURIComponent(`Enquiry: ${service.title}`)}`}>Enquire about this service <Arrow /></a>
               <EnquiryButton className="service-inline-enquiry" service={service.title}>Fill enquiry form ↗</EnquiryButton>
             </div>
           </div>

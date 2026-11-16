@@ -21,7 +21,7 @@ try {
    await page.waitForFunction(p=>Math.abs(Number(document.querySelector('.home-video-stage').dataset.heroProgress)-p)<.015,phase);
    await page.waitForTimeout(250);
    assert.equal(await page.locator('.support-email').count(),1);
-   assert.match(await page.locator('.support-email').getAttribute('href'),/^mailto:omkar.marakwar@panvibesexim.in/);
+   assert.match(await page.locator('.support-email').getAttribute('href'),/^mailto:omkar@panvibes.com/);
    const geometry=await page.evaluate(()=>{
     const video=document.querySelector('.home-hero-video'),box=video.getBoundingClientRect(),mail=document.querySelector('.hero-email').getBoundingClientRect();
     const fit=getComputedStyle(video).objectFit==='cover'?Math.max:Math.min,scale=fit(box.width/16,box.height/9),w=16*scale,h=9*scale;

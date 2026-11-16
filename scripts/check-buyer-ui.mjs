@@ -50,7 +50,7 @@ const { chromium } = loadPackage(process.env.PLAYWRIGHT_MODULE || 'playwright');
  assert.equal(await dialog.isVisible(),false);
  assert.equal(await page.getByRole('button',{name:'Open PanVibes catalog assistant'}).evaluate(e=>e===document.activeElement),true);
  const email = await page.getByRole('link',{name:'Email PanVibes export sales',exact:true}).getAttribute('href');
- assert.ok(email.startsWith('mailto:omkar.marakwar@panvibesexim.in?'));
+ assert.ok(email.startsWith('mailto:omkar@panvibes.com?'));
  console.log('PASS: catalog answers, quotation handoff, Escape/focus restoration and email shortcut.');
  await page.goto(base+'/contact?product=Turmeric%20Powder&purpose=COA%20and%20specifications&country=Europe',{waitUntil:'networkidle'});
  assert.equal(await page.locator('[name=product]').inputValue(),'Turmeric Powder');

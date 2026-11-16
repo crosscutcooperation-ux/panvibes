@@ -35,7 +35,7 @@ References checked during implementation:
 
 The compact side widget uses deterministic responses from website content and curated documentation guidance. It is explicitly labelled an automated catalog guide with no live agent or AI API connection. Conversation stays in component memory, is capped, and is discarded on reload; no chat transcript is stored or sent to a service. Clearing chat removes the visible history.
 
-The side email shortcut uses `mailto:info@panvibesexim.com`. The enquiry form collects name, company, buyer country, email, phone, product, grade/form, quantity, application, delivery country, frequency, certification needs and message. Product, country and request-type links prefill the relevant fields. It displays a reviewable draft and offers mail-app handoff and copying. It does not send or save the enquiry to a server.
+The side email shortcut uses `mailto:omkar@panvibes.com`. The enquiry form collects name, company, buyer country, email, phone, product, grade/form, quantity, application, delivery country, frequency, certification needs and message. Product, country and request-type links prefill the relevant fields. It displays a reviewable draft and offers mail-app handoff and copying. It does not send or save the enquiry to a server.
 
 No Google, Gmail, Gemini, analytics, Search Console or other new API connection or credentials were added. Existing map and WhatsApp links remain as supplied. A future Google integration needs a defined service and server-side implementation; API keys must never be placed in browser code or `NEXT_PUBLIC_` variables. Gmail sending may also require OAuth or an authorized server setup rather than an API key alone.
 

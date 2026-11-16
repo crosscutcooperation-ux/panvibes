@@ -32,4 +32,4 @@
 
 ## Mail routing detail
 
-The website displays only the new public email. The production server still authenticates to Gmail with its existing mailbox and uses that mailbox as the outgoing SMTP sender so enquiry notifications continue to work. The **enquiry recipient and admin password-reset recipient use Omkar's new email**. Changing the visible sender of system notification emails requires the new address to be configured as a verified Gmail send-as alias or provisioned with SMTP credentials; that account-level change has not been made.
+**16 November 2026 update:** Gmail accepted authentication for `enquiry@panvibes.com` using its app password. The production website now uses that address as its SMTP sender and sends enquiry notifications to `omkar@panvibes.com`. Admin password-reset codes also go to `omkar@panvibes.com`. The app password is stored only in the server environment file and is not in GitHub. Authentication and website service health were verified; no test email was sent.

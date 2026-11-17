@@ -140,23 +140,6 @@ export default function AboutPage() {
                       <div className="team-card">
                           <div className="team-img-wrapper">
                               <div className="team-img">
-                                  <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/nk.webp" alt="Nitesh Kanse" />
-                                  <div className="social-overlay">
-                                      <CompanySocialLinks />
-                                  </div>
-                              </div>
-                          </div>
-                          <div className="team-content">
-                              <h5>Nitesh Kanse</h5>
-                              <p>Director</p>
-                          </div>
-                      </div>
-                  </div>
-      
-                  <div className="col-lg-3 col-md-4 col-sm-6 wow animate fadeInUp" data-wow-delay="500ms" data-wow-duration="1500ms">
-                      <div className="team-card">
-                          <div className="team-img-wrapper">
-                              <div className="team-img">
                                   <img loading="lazy" decoding="async" src="/assets/panvibes/images/founder/om.webp" alt="Omkar Marakwar" />
                                   <div className="social-overlay">
                                       <CompanySocialLinks />

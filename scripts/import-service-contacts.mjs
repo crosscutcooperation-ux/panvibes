@@ -7,5 +7,9 @@ const contacts=[...html.matchAll(/data-service="([^"]+)"[\s\S]*?data-contact-pho
   return {service:match[1],name:title(attr('contact-name').replace(/^MR\.\s*/,'')),role:title(attr('contact-role')),phone:`91${match[2]}`,features:attr('features').split('|')};
 });
 if(contacts.length!==5)throw new Error('Expected all five source service cards.');
-await fs.writeFile('lib/service-contacts.json',JSON.stringify({source:'https://www.panvibesexim.com/service.php',sourceCaptured:'2026-10-13',checked:'2026-10-15',note:'Read from the saved original HTML; the live site timed out during this update.',contacts},null,2)+'\n');
-console.log(contacts.map(item=>`${item.service}: ${item.name}`).join('\n'));
+// The archived page is not authoritative for current staff assignments.
+const publicContacts=contacts.map(contact=>contact.service==='import'
+  ? {...contact,name:'PanVibes Import Team',role:'Import enquiries',phone:'918655481884'}
+  : contact);
+await fs.writeFile('lib/service-contacts.json',JSON.stringify({source:'https://www.panvibesexim.com/service.php',sourceCaptured:'2026-10-13',checked:'2026-10-15',note:'Read from the saved original HTML; the live site timed out during this update.',contacts:publicContacts},null,2)+'\n');
+console.log(publicContacts.map(item=>`${item.service}: ${item.name}`).join('\n'));

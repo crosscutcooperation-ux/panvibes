@@ -2,6 +2,7 @@
 
 **Live website:** [panvibes.com](https://panvibes.com)
 **Deployment date:** 15 November 2026
+**Last updated:** 19 November 2026
 **Website release commit:** [`974e50ab89322a05ceac4befdc03d5637003ea28`](https://github.com/crosscutcooperation-ux/panvibes/commit/974e50ab89322a05ceac4befdc03d5637003ea28)
 **Canonical domain:** `https://panvibes.com`
 
@@ -35,3 +36,28 @@
 **16 November public contact update:** Website contact links and both PDFs now show `omkar@panvibes.com`. The phone number remains +91 86554 81884. The update is deployed from [commit `69af425`](https://github.com/crosscutcooperation-ux/panvibes/commit/69af4251787d0d4aca4363e107cca797925b78e2); all checked public pages returned HTTP 200 and both public PDFs matched the committed files.
 
 **16 November 2026 update:** Gmail accepted authentication for `enquiry@panvibes.com` using its app password. The production website now uses that address as its SMTP sender and sends enquiry notifications to `omkar@panvibes.com`. Admin password-reset codes also go to `omkar@panvibes.com`. The app password is stored only in the server environment file and is not in GitHub. Authentication and website service health were verified; no test email was sent.
+
+## Enquiry spam protection: live
+
+**18 November 2026 security update:** The enquiry form now has four layers of spam protection:
+
+- **Google reCAPTCHA v3:** The invisible, score-based check runs when the visitor submits the form. There is no “I’m not a robot” checkbox. The server verifies the token, action, hostname and minimum score before saving the enquiry.
+- **Honeypot field:** Automated submissions that populate the hidden field are rejected.
+- **Server-side rate limit:** One source IP may make up to two valid submission attempts in a rolling 60-second window. The limit is stored in the private SQLite database and survives website restarts.
+- **Server-side validation:** The API validates email format, required fields, quantity and conservative patterns for obvious gibberish before accepting a lead.
+
+The reported junk enquiry `PV-20261118-8CE71A8D` arrived before these controls were deployed. The live API subsequently rejected a populated honeypot, the same junk pattern, a missing reCAPTCHA token and a third request from one IP. This security release is recorded in [commit `42d5367`](https://github.com/crosscutcooperation-ux/panvibes/commit/42d536727016e9f45ea5af847e81078aacf6b30c).
+
+**19 November 2026 loading fix:** A real visitor was initially stopped because the browser checked for reCAPTCHA before Google's script had finished loading. The form now waits for the script and uses Google's documented `www.recaptcha.net` alternate host when the primary host is unavailable. Server-side reCAPTCHA verification, rate limiting, the honeypot and validation remain mandatory. This fix is deployed from [commit `ebac0d1`](https://github.com/crosscutcooperation-ux/panvibes/commit/ebac0d13a37120408bfe2355ae754fd350507d4e).
+
+### Successful production verification
+
+Real enquiry reference **`PV-20261118-0F78CE65`** verified the complete production flow:
+
+- Saved successfully in the production enquiry database at **19 November 2026, 12:30:35 AM IST**.
+- Enquiry status: **New**.
+- Notification status: **Sent on the first attempt** at **12:30:38 AM IST**, with no SMTP error recorded.
+- Production routing was confirmed as sender **`enquiry@panvibes.com`** and recipient **`omkar@panvibes.com`**.
+- PanVibes and Nginx services were active after the submission.
+
+This verifies that a genuine visitor can pass the invisible reCAPTCHA check, save an enquiry and trigger the configured notification. The SMTP status confirms that the mail server accepted the message; it does not independently prove inbox placement.

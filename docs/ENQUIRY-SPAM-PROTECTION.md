@@ -12,3 +12,7 @@ To activate reCAPTCHA v3:
 4. Verify a real form submission, a missing-token rejection and a low-score rejection. Review scores after real traffic before changing the 0.5 threshold.
 
 The live API rejected a populated trap field, the reported junk-lead pattern, a missing reCAPTCHA token, and a third attempt from one IP. The public site route check passed. A real browser submission with a valid token was not completed because browser automation was unavailable in this session; that is the remaining verification step. These controls cannot prove that every accepted enquiry is legitimate.
+
+## Key rotation — 18 November 2026
+
+The owner supplied a replacement key pair. Google accepted the new secret during a server-side check, and the new public site key was compiled into release `2683a98e24c3049256caa49b7774774f973c3f6e-recaptcha-r2`. The prior public key and both secrets were absent from the new release files. The live API rejected a missing token with HTTP 403; the site route check and service health passed. A genuine browser token and successful enquiry remain to be verified because browser automation was unavailable.

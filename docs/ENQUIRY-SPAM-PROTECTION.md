@@ -16,3 +16,7 @@ The live API rejected a populated trap field, the reported junk-lead pattern, a 
 ## Key rotation — 18 November 2026
 
 The owner supplied a replacement key pair. Google accepted the new secret during a server-side check, and the new public site key was compiled into release `2683a98e24c3049256caa49b7774774f973c3f6e-recaptcha-r2`. The prior public key and both secrets were absent from the new release files. The live API rejected a missing token with HTTP 403; the site route check and service health passed. A genuine browser token and successful enquiry remain to be verified because browser automation was unavailable.
+
+## Script loading fix — 18 November 2026
+
+A genuine visitor reported “Spam check is loading” on Submit. The form checked for `grecaptcha` immediately, so a slow or blocked Google script stopped submission before the API request. The form now waits for the fully loaded v3 API, then tries Google's documented `www.recaptcha.net` host if it is still unavailable. If neither host loads, the form gives a specific browser instruction and the direct contact email. Server-side token verification, the honeypot, rate limit, and validation remain required. Regression tests cover slow loading, alternate-host loading, and both hosts unavailable. A fresh Brave browser session confirmed that reCAPTCHA appears on the live page; a completed buyer submission still requires verification after deployment.

@@ -3,6 +3,20 @@ import { useId, useRef, useState, type FormEvent } from 'react';
 import { company, services } from '@/lib/site-content';
 import { shippingCoverage } from '@/lib/shipping';
 import { trackLead } from '@/lib/analytics';
+import Script from 'next/script';
+
+const recaptchaSiteKey = process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY;
+type Recaptcha = { ready(callback: () => void): void; execute(key: string, options: { action: string }): Promise<string> };
+
+async function captchaToken() {
+  if (!recaptchaSiteKey) return '';
+  const captcha = (window as Window & { grecaptcha?: Recaptcha }).grecaptcha;
+  if (!captcha) throw new Error('Spam check is loading. Please try again.');
+  return Promise.race([
+    new Promise<string>((resolve, reject) => captcha.ready(() => captcha.execute(recaptchaSiteKey, { action: 'enquiry_submit' }).then(resolve, reject))),
+    new Promise<never>((_, reject) => setTimeout(() => reject(new Error('Spam check timed out. Please try again.')), 10000)),
+  ]);
+}
 
 export default function EnquiryForm({ query = "" }: { query?: string }) {
   const purposeId = useId();
@@ -33,7 +47,8 @@ export default function EnquiryForm({ query = "" }: { query?: string }) {
     setSubmitting(true); setError('');
     requestId.current ||= crypto.randomUUID();
     try {
-      const response = await fetch('/api/enquiries', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...Object.fromEntries(data), requestId: requestId.current, sourcePath: window.location.pathname }), signal: AbortSignal.timeout(35_000) });
+      const recaptchaToken = await captchaToken();
+      const response = await fetch('/api/enquiries', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...Object.fromEntries(data), recaptchaToken, requestId: requestId.current, sourcePath: window.location.pathname }), signal: AbortSignal.timeout(35_000) });
       const saved = await response.json();
       if (!response.ok) throw new Error(saved.error || 'Your enquiry could not be saved. Please try again.');
       setReference(saved.reference); setEmailDelivery(saved.emailDelivery);
@@ -47,7 +62,9 @@ export default function EnquiryForm({ query = "" }: { query?: string }) {
     } finally { setSubmitting(false); }
   }
   return <form className="contact-form enquiry-form" onSubmit={prepare} onChange={() => { setDraft(''); setReference(''); setError(''); requestId.current = null; }} aria-busy={submitting}>
+    {recaptchaSiteKey && <Script src={`https://www.google.com/recaptcha/api.js?render=${encodeURIComponent(recaptchaSiteKey)}`} strategy="afterInteractive" />}
     <fieldset className="enquiry-fieldset" disabled={submitting}>
+    <input name="website" type="text" tabIndex={-1} autoComplete="off" aria-hidden="true" style={{ position: 'absolute', left: '-9999px', opacity: 0 }} />
     <p className="contact-form-wide contact-form-note">{shippingCoverage} Submit your requirement to save it for the PanVibes team. You will receive an enquiry reference on this screen.</p>
     <label>Your name <span>*</span><input name="name" autoComplete="name" required maxLength={100} placeholder="Full name" /></label>
     <label>Company<input name="company" autoComplete="organization" maxLength={150} placeholder="Your organisation" /></label>

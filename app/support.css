@@ -1,7 +1,7 @@
 .support-dock { position:fixed;right:max(22px,env(safe-area-inset-right));bottom:calc(22px + env(safe-area-inset-bottom));z-index:80;display:flex;flex-direction:column;align-items:end;gap:12px; }
-.support-email,.support-launcher { display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid #ffffff50;box-shadow:0 6px 24px #05244230;cursor:pointer; }
-.support-email { width:48px;height:48px;border-radius:50%;background:#fff;color:#104e87; }
-.support-email svg { width:23px;height:23px; }
+.support-whatsapp,.support-launcher { display:flex;align-items:center;justify-content:center;gap:10px;border:1px solid #ffffff50;box-shadow:0 6px 24px #05244230;cursor:pointer; }
+.support-whatsapp { width:48px;height:48px;border-radius:50%;background:#fff;color:#168b55; }
+.support-whatsapp svg { width:26px;height:26px; }
 .support-launcher { min-height:56px;padding:12px 19px;border-radius:30px;background:#104e87;color:white;font:14px Helvetica,sans-serif; }
 .support-launcher svg,.support-avatar svg { width:28px;height:28px; }
 .support-dock :focus-visible,.support-panel :focus-visible { outline:3px solid #ff684e;outline-offset:3px; }
@@ -33,6 +33,6 @@
 .support-bottom button { border:0;background:transparent;color:#52677b;text-decoration:underline;cursor:pointer; }
 @media(max-width:650px) { .support-dock { right:14px;bottom:calc(14px + env(safe-area-inset-bottom)); }.support-panel { right:16px;bottom:calc(16px + env(safe-area-inset-bottom));max-height:calc(100dvh - 32px - env(safe-area-inset-bottom)); }.support-history { max-height:34dvh; }.support-launcher { min-height:52px;padding:11px 15px; }.support-prompts button { min-height:40px; }.support-links a { min-height:40px; } }
 .support-pending { padding:8px 18px;color:#52677b;font:13px/1.5 Helvetica,sans-serif; }
-html[data-hero-email='active'] .support-email { display:none; }
+html[data-hero-email='active'] .support-whatsapp { display:none; }
 html[data-hero-email='active'] .support-launcher { margin-bottom:var(--hero-support-lift,0px); }
 html[data-hero-email='active'] .enquiry-global-button { transform:translateY(calc(-1 * var(--hero-enquiry-lift,0px))); }

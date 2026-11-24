@@ -90,8 +90,8 @@
 .range-type-name { display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;text-align:left;font:inherit; }
 .range-type-name>span { color:var(--red); }
 .range-types li:has(.range-type-name:hover) { border-color:var(--red); }
-.range-grades button { background:#edf4fa;color:var(--blue);border-radius:30px;padding:5px 10px;font:inherit; }
-.range-grades button:hover { background:var(--red);color:white; }
+.range-grades a { display:inline-flex;align-items:center;background:#edf4fa;color:var(--blue);border-radius:30px;padding:5px 10px;font:inherit; }
+.range-grades a:hover { background:var(--red);color:white; }
 .range-overview,.range-types { padding-bottom:90px; }
 .range-content { min-height:400px; }
 .product-enquiry-dialog .service-contact-card { margin-top:28px; }
@@ -156,7 +156,7 @@
  .range-types li { padding:0 14px;font-size:14px; }
  .range-type-name { min-height:48px;line-height:1.4; }
  .range-grades { margin:0 0 12px;gap:8px;font-size:12px; }
- .range-grades button { min-height:44px;padding:10px 14px; }
+ .range-grades a { min-height:44px;padding:10px 14px; }
  .range-kicker { font-size:10px; }
  .range-hint { font-size:10px;line-height:1.6; }
  .range-overview h3 { font-size:clamp(26px,8vw,34px); }

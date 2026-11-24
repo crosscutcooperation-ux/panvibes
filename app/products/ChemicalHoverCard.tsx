@@ -5,16 +5,14 @@ import Image from 'next/image';
 import Link from '@/components/SiteLink';
 import chemicals from '@/lib/chemicals.json';
 import { chemicalFormula } from '@/lib/chemical-formulas';
-import type { ProductSelection } from './ProductEnquiry';
 import EnquiryButton from '@/components/EnquiryButton';
 
-export default function ChemicalHoverCard({ onEnquire }: { onEnquire: (selection: ProductSelection) => void }) {
+export default function ChemicalHoverCard() {
   const [hovered, setHovered] = useState(false);
   const [expanded, setExpanded] = useState(false);
   const [activeGroup, setActiveGroup] = useState<string | null>(null);
   const trigger = useRef<HTMLButtonElement>(null);
   const open = hovered || expanded;
-  const enquire = (name: string) => onEnquire({ category: 'Chemicals', name });
   function close() { setHovered(false); setExpanded(false); setActiveGroup(null); }
 
   return <article className="range-row range-chemical" data-sector="industrial" data-open={open}
@@ -22,7 +20,7 @@ export default function ChemicalHoverCard({ onEnquire }: { onEnquire: (selection
     onPointerLeave={() => { setHovered(false); if (!expanded) setActiveGroup(null); }}
     onBlurCapture={event => { if (!event.currentTarget.contains(event.relatedTarget as Node | null) && !expanded) { setHovered(false); setActiveGroup(null); } }}
     onKeyDown={event => { if (event.key === 'Escape') { event.preventDefault(); event.stopPropagation(); close(); trigger.current?.focus(); } }}>
-    <div className="range-photo chemical-hover-photo"><Image src="/images/photos/chemicals.webp" alt="Industrial chemical portfolio" fill sizes="(max-width:767px) 100vw, 32vw" /></div>
+    <div className="range-photo chemical-hover-photo"><Link className="range-image-enquiry" href="/products/chemicals" aria-label="View chemical directory"><Image src="/images/photos/chemicals.webp" alt="Industrial chemical portfolio" fill sizes="(max-width:767px) 100vw, 32vw" /></Link></div>
     <div className="chemical-hover-header">
       <p className="mono range-kicker">9 chemical groups</p>
       <h3><button ref={trigger} className="chemical-card-trigger" type="button" aria-expanded={open} aria-controls="chemical-hover-groups" onClick={() => { if (open) close(); else setExpanded(true); }}><span>Chemicals</span><span className="range-compact-icon" aria-hidden="true">{open ? '−' : '+'}</span></button></h3>
@@ -44,13 +42,13 @@ export default function ChemicalHoverCard({ onEnquire }: { onEnquire: (selection
             }}><span>{group.name}</span><span aria-hidden="true">↗</span></button>
             <section className="chemical-flyout" id={panelId} aria-label={`${group.name} names and formulas`} aria-hidden={!active} inert={!active}>
               <p className="mono range-kicker">{group.products.length} listed products</p><h4>{group.name}</h4>
-              <table className="chemical-table"><thead><tr><th scope="col">Name</th><th scope="col">Formula</th></tr></thead><tbody>{group.products.map(name => <tr className="chemical-row" key={name}><td><button type="button" onClick={() => enquire(name)} aria-label={`Enquire about ${name}`}>{name}<span aria-hidden="true">↗</span></button></td><td>{chemicalFormula(name)}</td></tr>)}</tbody></table>
+              <table className="chemical-table"><thead><tr><th scope="col">Name</th><th scope="col">Formula</th></tr></thead><tbody>{group.products.map(name => <tr className="chemical-row" key={name}><td><Link href="/products/chemicals">{name}<span aria-hidden="true">↗</span></Link></td><td>{chemicalFormula(name)}</td></tr>)}</tbody></table>
               <p className="chemical-flyout-note">Base formulas shown. Confirm the grade, hydration and specification with our team.</p>
             </section>
           </div>;
         })}
       </nav></div>
     </div>
-    <div className="chemical-hover-footer"><Link className="range-directory-link" href="/products/chemicals">Full chemical directory ↗</Link><button className="range-enquiry" type="button" onClick={() => enquire('Chemicals')}>Enquire about this product <span aria-hidden="true">↗</span></button><EnquiryButton className="range-quick-enquiry" product="Chemicals">Enquiry form ↗</EnquiryButton></div>
+    <div className="chemical-hover-footer"><Link className="range-directory-link" href="/products/chemicals">Full chemical directory ↗</Link><Link className="range-enquiry" href="/products/chemicals">View product details <span aria-hidden="true">↗</span></Link><EnquiryButton className="range-quick-enquiry" product="Chemicals">Enquiry form ↗</EnquiryButton></div>
   </article>;
 }

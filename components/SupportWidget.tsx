@@ -2,7 +2,6 @@
 import { useEffect, useRef, useState, type FormEvent } from 'react';
 import Link from '@/components/SiteLink';
 import { company } from '@/lib/site-content';
-import { enquiryContact } from '@/lib/enquiry-contact';
 import type { AssistantReply } from '@/lib/chat-assistant';
 import { useEnquiry } from './EnquiryProvider';
 import TrackedContactLink from './TrackedContactLink';
@@ -52,7 +51,7 @@ export default function SupportWidget() {
   function submit(event: FormEvent<HTMLFormElement>) { event.preventDefault(); ask(input); }
   return <>
     <div className="support-dock" aria-label="Quick contact">
-      <TrackedContactLink className="support-whatsapp" href={`https://wa.me/${enquiryContact.phone}`} target="_blank" rel="noopener noreferrer" aria-label={`WhatsApp PanVibes at ${enquiryContact.displayPhone}`} title={`WhatsApp ${enquiryContact.displayPhone}`}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.7 7.1L4 20l1.4-4.3A8 8 0 1 1 20 11.5Z"/><path d="M9 8.5c-.4.2-.8.7-.8 1.2 0 1.8 3.2 5 5 5 .6 0 1.1-.4 1.3-.8l-1.5-1-1 1c-.9-.4-1.8-1.3-2.2-2.2l1-1-1-1.5Z"/></svg></TrackedContactLink>
+      <TrackedContactLink className="support-whatsapp" href="https://wa.me/919082162235" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp PanVibes at +91 90821 62235" title="WhatsApp +91 90821 62235"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><path d="M20 11.5a8 8 0 0 1-11.7 7.1L4 20l1.4-4.3A8 8 0 1 1 20 11.5Z"/><path d="M9 8.5c-.4.2-.8.7-.8 1.2 0 1.8 3.2 5 5 5 .6 0 1.1-.4 1.3-.8l-1.5-1-1 1c-.9-.4-1.8-1.3-2.2-2.2l1-1-1-1.5Z"/></svg></TrackedContactLink>
       <button ref={trigger} className="support-launcher" type="button" onClick={() => setOpen(true)} aria-label="Open PanVibes catalog assistant" aria-haspopup="dialog" aria-expanded={open} aria-controls="catalog-assistant"><BotIcon /><span>Ask us</span></button>
     </div>
     <dialog ref={dialog} id="catalog-assistant" className="support-panel" aria-labelledby="support-title" aria-describedby="support-description" onCancel={() => setOpen(false)} onClose={() => setOpen(false)} onClick={event => { if (event.target === event.currentTarget) { const r = event.currentTarget.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) setOpen(false); } }}>

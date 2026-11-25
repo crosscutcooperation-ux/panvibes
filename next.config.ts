@@ -3,6 +3,9 @@ import { networkInterfaces } from "node:os";
 
 const nextConfig: NextConfig = {
   devIndicators: false,
+  async redirects() {
+    return [{ source: '/products/moringa-powder', destination: '/products/moringa', permanent: true }];
+  },
   allowedDevOrigins: ['127.0.0.1', ...Object.values(networkInterfaces()).flatMap(addresses =>
     addresses?.filter(address => address.family === 'IPv4' && !address.internal).map(address => address.address) ?? []
   )],

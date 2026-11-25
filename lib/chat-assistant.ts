@@ -8,7 +8,7 @@ import { shippingCoverage } from './shipping';
 export type AssistantReply = { text: string; links?: { label: string; href: string }[] };
 export function answerEnquiry(message: string): AssistantReply {
   const query = message.normalize('NFKC').toLowerCase();
-  const product = exportProducts.find(item => query.includes(item.name.toLowerCase().split(' / ')[0]) || query.includes(item.slug.replaceAll('-', ' ')) || (['ginger', 'turmeric-powder', 'moringa-powder', 'banana-powder', 'makhana'].includes(item.slug) && new RegExp(`\\b${item.slug.split('-')[0]}\\b`).test(query)))
+  const product = exportProducts.find(item => query.includes(item.name.toLowerCase().split(' / ')[0]) || query.includes(item.slug.replaceAll('-', ' ')) || (['ginger', 'turmeric-powder', 'moringa', 'banana-powder', 'makhana'].includes(item.slug) && new RegExp(`\\b${item.slug.split('-')[0]}\\b`).test(query)))
     ?? (query.includes('fox nut') ? exportProducts.find(item => item.slug === 'makhana') : undefined);
   const contactLink = { label: 'Prepare an enquiry', href: `/contact${product ? `?product=${encodeURIComponent(product.name)}` : ''}` };
   if (/\b(ship|ships|shipping|deliver|destinations?|countries|markets?)\b|\b(canada|australia|new zealand|singapore|africa|asia)\b/.test(query)) return {

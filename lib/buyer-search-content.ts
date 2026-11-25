@@ -39,7 +39,7 @@ export const buyerSearchContent: Record<string, BuyerContent> = {
     ],
     faqs: [{ question: 'How do I request a wholesale turmeric powder price?', answer: 'Specify the curcumin target, conventional/IPM/organic grade, powder requirements, quantity, packaging and delivery country. Ask for the applicable specification and COA so the price can be compared against the same sourcing brief.' }],
   },
-  'moringa-powder': {
+  'moringa': {
     title: 'Moringa Powder Bulk Supplier India', heading: 'Moringa powder bulk sourcing', subheading: 'Conventional & organic enquiries.',
     options: [
       { name: 'Conventional grade', use: 'Food and nutraceutical businesses sourcing to their ingredient specification.', confirm: 'Composition, particle size, colour and applicable laboratory requirements.' },

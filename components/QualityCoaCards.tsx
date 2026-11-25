@@ -1,9 +1,11 @@
+import EnquiryButton from './EnquiryButton';
+import { moringaSpecification } from '@/lib/moringa';
 import Image from 'next/image';
 import Link from 'next/link';
 import { Poppins } from 'next/font/google';
 import './QualityCoaCards.css';
 
-type Only = 'ginger' | 'makhana';
+type Only = 'ginger' | 'makhana' | 'moringa';
 
 const poppins = Poppins({ weight: ['400', '500', '600', '700', '800'], subsets: ['latin'], display: 'swap' });
 const coaHref = '/contact?purpose=COA%20%26%20specifications';
@@ -43,9 +45,25 @@ function Makhana() {
   </article>;
 }
 
+function Moringa() {
+  return <article className="pvcoa-card">
+    <header className="pvcoa-top"><Logo/><span className="pvcoa-badge">LAB TESTED<small>Leaf powder / tested lot</small></span></header>
+    <div className="pvcoa-head"><h3 className="pvcoa-prod">Moringa Leaf Powder</h3><p className="pvcoa-sub">Microbial, Heavy Metals &amp; Nutritional Profile</p></div>
+    <p className="pvcoa-section">Microbiological results</p>
+    <table className="pvcoa-table"><tbody>{['Salmonella', 'E. coli', 'S. aureus'].map(name => <tr className="pvcoa-res" key={name}><td>{name}</td><td>Absent; within spec</td></tr>)}</tbody></table>
+    <p className="pvcoa-section">Heavy metals</p>
+    <table className="pvcoa-table"><tbody><tr className="pvcoa-res"><td>Lead / Cadmium / Mercury</td><td>Within limits</td></tr></tbody></table>
+    <p className="pvcoa-section">Nutritional profile</p>
+    <table className="pvcoa-table"><tbody>{moringaSpecification.filter(([label]) => ['Protein (N×6.25)', 'Calcium', 'Iron', 'Magnesium', 'Potassium', 'Crude fibre', 'Energy'].includes(label)).map(([label, value]) => <tr key={label}><td>{label}</td><td>{value}</td></tr>)}</tbody></table>
+    <div className="pvcoa-comply"><span className="pvcoa-ok" aria-hidden="true">✓</span><p><b>Microbial tested; heavy metals within limits.</b> Review the full COA for test methods, applicable limits and lot identification.</p></div>
+    <div className="pvcoa-meta"><div><b>Product:</b> Moringa oleifera leaf powder</div><div><b>Documentation:</b> Full laboratory COA on request</div></div>
+    <footer className="pvcoa-foot"><span>Results apply to the tested lot · approximate nutritional values as reported</span><EnquiryButton className="pvcoa-cta" product="Moringa Leaf Powder" purpose="COA & specifications">Request full COA ↗</EnquiryButton></footer>
+  </article>;
+}
+
 export default function QualityCoaCards({ only }: { only?: Only }) {
   return <section className={`pvcoa ${poppins.className}`} aria-label="Laboratory test summary">
-    {!only && <div className="pvcoa-lead"><h2>Quality Test Summary</h2><p>Third-party, NABL-accredited laboratory testing &middot; full lab reports (COA) available on request</p></div>}
-    {only !== 'makhana' && <Ginger/>}{only !== 'ginger' && <Makhana/>}
+    {!only && <div className="pvcoa-lead"><h2>Quality Test Summary</h2><p>Product laboratory summaries &middot; full lab reports (COA) available on request</p></div>}
+    {(!only || only === 'ginger') && <Ginger/>}{(!only || only === 'makhana') && <Makhana/>}{(!only || only === 'moringa') && <Moringa/>}
   </section>;
 }

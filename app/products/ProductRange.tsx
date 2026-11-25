@@ -19,7 +19,7 @@ function productPage(index:number,name=products[index].name) {
   const category=catalogue.categories[index].key;
   const specific: Record<string,string> = {
     Ginger: '/products/ginger', 'Turmeric Powder': '/products/turmeric-powder',
-    'Banana Powder': '/products/banana-powder', 'Moringa Powder': '/products/nutraceuticals#moringa-powder',
+    'Banana Powder': '/products/banana-powder', 'Moringa Powder': '/products/moringa',
     Ashwagandha: '/products/nutraceuticals#ashwagandha',
   };
   return specific[name] || categoryPages[category] || `/contact?product=${encodeURIComponent(name)}`;

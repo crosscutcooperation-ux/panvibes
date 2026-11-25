@@ -43,7 +43,7 @@
 .pvcoa .pvcoa-foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 6px; padding: 12px 24px; border-top: 1px solid var(--pvcoa-line); background: #fafafa; color: var(--pvcoa-muted); font-size: 10.5px; line-height: 1.5; }
 .pvcoa .pvcoa-foot a { color: var(--pvcoa-navy); font-weight: 600; text-decoration: none; }
 .pvcoa .pvcoa-foot a:hover { text-decoration: underline; }
-.pvcoa .pvcoa-foot .pvcoa-cta { align-self: center; padding: 8px 13px; border-radius: 999px; background: var(--pvcoa-navy); color: #fff; font-size: 11.5px; white-space: nowrap; }
+.pvcoa .pvcoa-foot .pvcoa-cta { border:0;font-family:inherit;cursor:pointer; align-self: center; padding: 8px 13px; border-radius: 999px; background: var(--pvcoa-navy); color: #fff; font-size: 11.5px; white-space: nowrap; }
 .pvcoa .pvcoa-cta:hover { background: #0e2852; text-decoration: none; }
 
 @media (max-width: 560px) {

@@ -54,13 +54,13 @@ export const exportProducts: ExportProduct[] = [
     ],
   },
   {
-    slug: 'moringa-powder', name: 'Moringa Powder', title: 'Moringa Powder Bulk Supplier & Exporter India',
-    description: 'Enquire about conventional and organic moringa powder from India for food, nutraceutical and supplement businesses. Request specifications and bulk supply details.',
+    slug: 'moringa', name: 'Moringa Leaf Powder', title: 'Moringa Leaf Powder Exporter & Bulk Supplier India',
+    description: 'FSSAI-licensed Indian exporter of bulk moringa oleifera leaf powder. Lab-tested lots, COA & specs on request. MOQ 25 kg. Request a bulk quote.',
     image: 'photos/nutraceuticals.webp',
-    intro: 'PanVibes Exim lists conventional and organic moringa powder for international B2B sourcing. Discuss your ingredient specification, intended application and destination with our export team.',
+    intro: 'PanVibes Exim supplies bulk Moringa oleifera leaf powder from India in conventional and organic options. Lab-tested lots, COA and specifications are available on request. MOQ is 25 kg, packed in 25 kg bags; organic documentation is confirmed on enquiry.',
     forms: ['Moringa Powder'], grades: ['Conventional', 'Organic'],
     buyers: 'Food manufacturers, nutraceutical businesses, supplement companies, herbal product manufacturers and ingredient distributors.',
-    applications: ['Functional-food ingredient sourcing', 'Nutraceutical ingredient procurement', 'Herbal product and supplement manufacturing'],
+    applications: ['Nutraceutical and supplement manufacturers', 'Food and beverage brands', 'Cosmetic and skincare companies', 'Herbal tea blenders'],
     buyingGuide: 'Select conventional or organic sourcing according to your product brief. Share your powder requirements and destination-specific limits so the team can discuss the applicable specification, testing and documentation. Product suitability and any certification need confirmation before purchase.',
     request: ['Conventional or organic grade', 'Particle-size, appearance and moisture requirements', 'Microbiology, heavy metals and pesticide criteria', 'Application, volume and delivery destination'],
     faqs: [

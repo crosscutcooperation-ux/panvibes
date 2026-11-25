@@ -1,3 +1,4 @@
+import { moringaSpecification } from '@/lib/moringa';
 import Image from 'next/image';
 import Link from '@/components/SiteLink';
 import PageShell from '@/components/PageShell';
@@ -13,7 +14,7 @@ export const metadata = pageMetadata(
   '/products/nutraceuticals',
 );
 
-const products = exportProducts.filter(product => ['moringa-powder', 'ashwagandha'].includes(product.slug));
+const products = exportProducts.filter(product => ['moringa', 'ashwagandha'].includes(product.slug));
 
 export default function NutraceuticalsPage() {
   return <PageShell><main className="buyer-main buyer-page buyer-product-page">
@@ -23,7 +24,7 @@ export default function NutraceuticalsPage() {
         <p className="buyer-eyebrow">PanVibes Exim / B2B ingredients</p>
         <h1>Nutraceuticals<br /><span>Moringa &amp; Ashwagandha.</span></h1>
         <p className="buyer-intro">Explore moringa powder and ashwagandha in one place. Compare the listed sourcing options, review your specification needs and request a bulk quotation for your business.</p>
-        <div className="buyer-actions"><Link className="buyer-button buyer-button-primary" href="#moringa-powder">Explore Moringa ↗</Link><Link className="buyer-button" href="#ashwagandha">Explore Ashwagandha ↗</Link></div>
+        <div className="buyer-actions"><Link className="buyer-button buyer-button-primary" href="#moringa">Explore Moringa ↗</Link><Link className="buyer-button" href="#ashwagandha">Explore Ashwagandha ↗</Link></div>
       </div>
       <div className="buyer-hero-photo"><Image src="/images/photos/nutraceuticals.webp" alt="Nutraceutical ingredients" fill sizes="(max-width:991px) 100vw, 45vw" priority /></div>
     </section>
@@ -41,6 +42,7 @@ export default function NutraceuticalsPage() {
         <div><h3>Buy to a specification</h3><p>{product.buyingGuide}</p><h3>Applications to discuss</h3><ul>{product.applications.map(application => <li key={application}>{application}</li>)}</ul></div>
         <div className="buyer-panel"><h3>Include in your enquiry</h3><ul>{product.request.map(requirement => <li key={requirement}>{requirement}</li>)}</ul></div>
       </div>
+      {product.slug === 'moringa' && <div className="buyer-table-scroll"><table className="buyer-spec-table"><caption>Moringa Leaf Powder — PanVibes specification sheet. Full lab COA on request.</caption><tbody>{moringaSpecification.map(([label, value]) => <tr key={label}><th scope="row">{label}</th><td>{value}</td></tr>)}</tbody></table></div>}
       <div className="buyer-actions">
         <EnquiryButton className="buyer-button buyer-button-primary" product={product.name} purpose="Bulk quotation">Request a {product.name} Quote ↗</EnquiryButton>
         <EnquiryButton className="buyer-button" product={product.name} purpose="COA and specifications">Get {product.name} COA &amp; Specifications ↗</EnquiryButton>

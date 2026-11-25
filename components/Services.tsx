@@ -1,5 +1,6 @@
 "use client";
 import Image from "next/image";
+import Link from "./SiteLink";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -234,7 +235,10 @@ export default function Journey() {
         </div>
         <section className="motion-industries" aria-labelledby="industries-title">
           <div className="motion-industry-title"><p className="eyebrow">PanVibes Exim</p><h2 id="industries-title">Industries<br/>we serve.</h2><p className="motion-industry-introduction">{company.industryIntroduction}</p><p className="motion-industry-note">{company.overview[2]}</p></div>
-          <div className="motion-industry-track">{industries.map((industry,i)=><article className="motion-industry-card" key={industry.name}><div className="motion-industry-photo">{assetsReady&&<Image src={preparedAsset("/images/"+industry.image)} alt={industry.name} fill sizes="(max-width: 767px) 43vw, 33vw" loading="eager" unoptimized/>}<span className="mono">0{i+1}</span><h3>{industry.name}</h3></div><p>{industry.description}</p></article>)}</div>
+          <div className="motion-industry-track">{industries.map((industry,i)=>{
+            const content=<><div className="motion-industry-photo">{assetsReady&&<Image src={preparedAsset("/images/"+industry.image)} alt={industry.name} fill sizes="(max-width: 767px) 43vw, 33vw" loading="eager" unoptimized/>}<span className="mono">0{i+1}</span><h3>{industry.name}</h3></div><p>{industry.description}</p></>;
+            return industry.name==='Nutraceutical'?<Link href="/products/nutraceuticals" className="motion-industry-card" key={industry.name}>{content}</Link>:<article className="motion-industry-card" key={industry.name}>{content}</article>;
+          })}</div>
         </section>
         <div className="motion-vehicles" ref={vehicleHost} aria-hidden="true"/>
         {journeyStarted&&!assetsReady&&!staticView&&<span className="journey-preparing" role="status">Loading animation…</span>}

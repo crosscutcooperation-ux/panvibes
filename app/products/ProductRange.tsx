@@ -12,14 +12,15 @@ const categoryPages: Record<string,string> = {
   makhana: '/products/makhana', agricultural: '/products/dehydrated-vegetables',
   textiles: '/products/fruit-powders', machinery: '/products/spices',
   'industrial-chemicals': '/products/chemicals',
+  steel: '/products/nutraceuticals',
 };
 
 function productPage(index:number,name=products[index].name) {
   const category=catalogue.categories[index].key;
   const specific: Record<string,string> = {
     Ginger: '/products/ginger', 'Turmeric Powder': '/products/turmeric-powder',
-    'Banana Powder': '/products/banana-powder', 'Moringa Powder': '/products/moringa-powder',
-    Ashwagandha: '/products/ashwagandha',
+    'Banana Powder': '/products/banana-powder', 'Moringa Powder': '/products/nutraceuticals#moringa-powder',
+    Ashwagandha: '/products/nutraceuticals#ashwagandha',
   };
   return specific[name] || categoryPages[category] || `/contact?product=${encodeURIComponent(name)}`;
 }

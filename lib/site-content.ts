@@ -29,7 +29,6 @@ export const navigation = [
   { label: "About", href: "/about" },
   { label: "Services", href: "/services" },
   { label: "Products", href: "/products" },
-  { label: "Moringa", href: "/products/moringa" },
   { label: "Blog", href: "/blog" },
   { label: "Contact", href: "/contact" },
 ];

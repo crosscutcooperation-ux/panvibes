@@ -13,8 +13,6 @@ export const moringaSpecification = [
   ['Potassium', '~17,500 mg/kg'],
   ['Crude fibre', '~8 mg/g'],
   ['Energy', '~325 kcal'],
-  ['Microbial', 'Salmonella / E. coli / S. aureus — Absent; within spec'],
-  ['Heavy metals', 'Lead, Cadmium, Mercury — within limits'],
   ['Shelf life', '1 year'],
   ['MOQ', '25 kg'],
   ['Packing', '25 kg bags'],

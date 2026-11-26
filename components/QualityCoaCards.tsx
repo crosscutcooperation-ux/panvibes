@@ -48,14 +48,10 @@ function Makhana() {
 function Moringa() {
   return <article className="pvcoa-card">
     <header className="pvcoa-top"><Logo/><span className="pvcoa-badge">LAB TESTED<small>Leaf powder / tested lot</small></span></header>
-    <div className="pvcoa-head"><h3 className="pvcoa-prod">Moringa Leaf Powder</h3><p className="pvcoa-sub">Microbial, Heavy Metals &amp; Nutritional Profile</p></div>
-    <p className="pvcoa-section">Microbiological results</p>
-    <table className="pvcoa-table"><tbody>{['Salmonella', 'E. coli', 'S. aureus'].map(name => <tr className="pvcoa-res" key={name}><td>{name}</td><td>Absent; within spec</td></tr>)}</tbody></table>
-    <p className="pvcoa-section">Heavy metals</p>
-    <table className="pvcoa-table"><tbody><tr className="pvcoa-res"><td>Lead / Cadmium / Mercury</td><td>Within limits</td></tr></tbody></table>
+    <div className="pvcoa-head"><h3 className="pvcoa-prod">Moringa Leaf Powder</h3><p className="pvcoa-sub">Nutritional Profile</p></div>
     <p className="pvcoa-section">Nutritional profile</p>
     <table className="pvcoa-table"><tbody>{moringaSpecification.filter(([label]) => ['Protein (N×6.25)', 'Calcium', 'Iron', 'Magnesium', 'Potassium', 'Crude fibre', 'Energy'].includes(label)).map(([label, value]) => <tr key={label}><td>{label}</td><td>{value}</td></tr>)}</tbody></table>
-    <div className="pvcoa-comply"><span className="pvcoa-ok" aria-hidden="true">✓</span><p><b>Microbial tested; heavy metals within limits.</b> Review the full COA for test methods, applicable limits and lot identification.</p></div>
+    <div className="pvcoa-comply"><span className="pvcoa-ok" aria-hidden="true">✓</span><p><b>Full COA available on request.</b> Review the report for test methods and lot identification.</p></div>
     <div className="pvcoa-meta"><div><b>Product:</b> Moringa oleifera leaf powder</div><div><b>Documentation:</b> Full laboratory COA on request</div></div>
     <footer className="pvcoa-foot"><span>Results apply to the tested lot · approximate nutritional values as reported</span><EnquiryButton className="pvcoa-cta" product="Moringa Leaf Powder" purpose="COA & specifications">Request full COA ↗</EnquiryButton></footer>
   </article>;

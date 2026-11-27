@@ -41,6 +41,7 @@ export default function EnquiryForm({ query = "" }: { query?: string }) {
       const response = await fetch('/api/enquiries', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...Object.fromEntries(data), recaptchaToken, requestId: requestId.current, sourcePath: window.location.pathname }), signal: AbortSignal.timeout(35_000) });
       const saved = await response.json();
       if (!response.ok) throw new Error(saved.error || 'Your enquiry could not be saved. Please try again.');
+      if (typeof saved.reference !== 'string' || !saved.reference.trim()) throw new Error('Your enquiry reference could not be confirmed. Please try again.');
       setReference(saved.reference); setEmailDelivery(saved.emailDelivery);
       trackLead({ product: String(data.get('product') || data.get('service') || 'General'), country: String(data.get('buyerCountry') || ''), reference: saved.reference });
       setDraft(`${body}\n\nEnquiry reference: ${saved.reference}`);
